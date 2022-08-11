@@ -27,6 +27,7 @@
         <li> <a href="https://disease.sh/">Disease.sh </a></li>
         <li> <a href="https://exchangerate.host/#/">Exchangerate </a></li>
         <li> <a href="https://www.coingecko.com/es">Coingecko </a></li>
+        <li> <a href="https://criptoya.com/api">CriptoYa </a></li>
     </ul>
     
 <h2>Divisas disponibles</h2>

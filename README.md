@@ -1,36 +1,35 @@
-    <h1> Argenkit Bot </h1>
+<h1> Argenkitbot </h1>
 
-    <img
-        src="https://preview.redd.it/qq8psbos8uk61.png?width=1299&format=png&auto=webp&s=8ffd4a1ad7e2fe87de789805852483fcd59c5f7f">
-    <h2>Descripción</h2>
-    <p> Argenkit bot es un bot de Discord que cuenta con muchas funciones relacionadas a la República Argentina, como
+<img src="https://preview.redd.it/qq8psbos8uk61.png?width=1299&format=png&auto=webp&s=8ffd4a1ad7e2fe87de789805852483fcd59c5f7f">
+
+<p> Argenkit bot es un bot de Discord que cuenta con muchas funciones relacionadas a la República Argentina, como
         calcliar el impuesto a las compras online, conslitar y convertir el precio de un gran número de divisas y
         criptomonedas, ver el precio de distintos servicios como Netflix, Disney+, Crunchyroll, conocer la cantidad de
         casos de covid-19 en y ver recomendaciones, conslitar datos del país y ver cuánto falta para las elecciones y
         para que juegue Argentina. </p>
-    <p> Así como funciones divertidas como tirar dados, preguntarle cosas a la bola mágica, ver tus posibilidades de
+<p> Así como funciones divertidas como tirar dados, preguntarle cosas a la bola mágica, ver tus posibilidades de
         escapar de Latinoamérica. </p>
-    <p> El bot fue creado por Gonzalo Ebel (GonzaAhre) el 6 de enero de 2021 y lanzado al público en marzo del mismo
+<p> El bot fue creado por Gonzalo Ebel (GonzaAhre) el 6 de enero de 2021 y lanzado al público en marzo del mismo
         año. A lo largo del tiempo ha atravesado por distintas actualizaciones que añadieron neuvas funciones y
         mejoraron el diseño. </p>
-    <h2>Servidor de Discord</h2>
+<h2>Servidor de Discord</h2>
     <p> Podés acceder al servidor de Discord del bot <a href="https://discord.gg/68jsHeTRYa">aquí</a> </p>
     <h2>Donaciones</h2>
     <p>Toda donación mediante el comando <code>/donaciones</code> se agradece un montón
-        <script>document.write("<3")</script>
-    </p>
-    <h2>Slash commands</h2>
+    
+<h2>Slash commands</h2>
     <p> Se recomienda utilizar los nuevos Slash Commands del bot y no los comandos clásicos con prefijo, ya que esto
         será desactivado por Discord en Septiembre 2022. </p>
-
-    <h2>APIs Utilizadas</h2>
+        
+ <h2>APIs Utilizadas</h2>
     <ul>
         <li> <a href="https://github.com/Castrogiovanni20/api-dolar-argentina">Api Dolar Argentina</a> </li>
         <li> <a href="https://disease.sh/">Disease.sh </a></li>
         <li> <a href="https://exchangerate.host/#/">Exchangerate </a></li>
         <li> <a href="https://www.coingecko.com/es">Coingecko </a></li>
     </ul>
-    <h2>Divisas disponibles</h2>
+    
+<h2>Divisas disponibles</h2>
     <ul>
         <li>Dólar</li>
         <li>Dólar blue</li>
@@ -56,8 +55,8 @@
         <li>Franco Suizo</li>
         <li>Lira turca</li>
     </ul>
-    <h2>Criptomonedas disponibles</h2>
-    <ul>
+<h2>Criptomonedas disponibles</h2>
+<ul>
         <li>Bitcoin</li>
         <li>Ethereum</li>
         <li>Tether</li>
@@ -69,18 +68,17 @@
         <li>Solana</li>
         <li>Dai</li>
         <li>Dogecoin</li>
-    </ul>
-    <h2>Metales</h2>
-    <ul>
+</ul>
+<h2>Metales</h2>
+<ul>
         <li>Oro</li>
         <li>Plata</li>
         <li>Paladio</li>
         <li>Platino</li>
-    </ul>
-    <h2>Comandos disponibles</h2>
-
-    <h3>Información</h3>
-    <ul>
+</ul>
+<h2>Comandos disponibles</h2>
+<h3>Información</h3>
+<ul>
         <li><code>/help</code>:Muestra todos los comandos disponibles.
         </li>
         <li><code>/creador</code> : Muestra información del creador del bot.
@@ -98,8 +96,7 @@
         <li><code>/update</code> : Muestra las actualizaciones más recientes.
         </li>
     </ul>
-    <h3>Utilidad y conversión de divisas</h3>
-
+<h3>Utilidad y conversión de divisas</h3>
     <ul>
         <li> <code>/impuesto</code> <code>  [monto] </code>:Muestra el precio ingresado con el impuesto del 64% o 65%.
         </li>
@@ -126,8 +123,7 @@
         <li> <code>/pesoametal</code> <code>  [divisa] </code> <code>  [monto] </code> : Convierte de pesos a metal.
         </li>
     </ul>
-    <h3>Cotizaciones</h3>
-
+<h3>Cotizaciones</h3>
     <ul>
         <li> <code>/divisa</code> <code>  [divisa] </code>:Muestra el precio e información de la divisa ingresada.
         </li>
@@ -136,20 +132,17 @@
         </li>
         <li> <code>/metal</code> <code>  [metal] </code>:Muestra el precio e información del metal ingresado.
         </li>
-
     </ul>
-    <h3>Covid 19</h3>
+<h3>Covid 19</h3>
     <ul>
         <li> <code>/covid</code> <code>  casos </code>: Muestra la cantidad de casos en Argentina.
         </li>
         <li> <code>/covid</code> <code>  global </code>: Muestra la cantidad de casos globalmente.
         </li>
-
         <li> <code>/covid</code> <code>  covidpais </code>: Muestra la cantidad de casos en un país específico.
         </li>
         <li> <code>/covid</code> <code>  sintomas </code>: Brinda información sobre los síntomas del covid-19.
         </li>
-
         <li> <code>/covid</code> <code>  recomendaciones </code>: Muestra recomendaciones sobre el covid-19.
         </li>
     </ul>
@@ -168,8 +161,7 @@
         <li> <code>/provinciainfo</code> : Muestra información sobre una provincia.
         </li>
     </ul>
-
-    <h3>Servicios de streaming</h3>
+<h3>Servicios de streaming</h3>
     <ul>
         <li> <code>/servicio</code> <code> netflix </code>: Muestra el precio de Netflix.
         </li>

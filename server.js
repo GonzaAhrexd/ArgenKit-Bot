@@ -18048,4 +18048,4 @@ client.on("message", (message) => {
 
 });
 
-client.login("ODEwMjcyMDk1Mjc5MjUxNTU2.GfGKrl.vkj5hVR_p_rz01RrASZRMNVxeYh2ge3vPB0zkU");
+//client.login("token");

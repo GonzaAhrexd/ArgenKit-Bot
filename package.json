@@ -17,6 +17,7 @@
     "discord.js": "^13.2.0",
     "discord.js-pagination": "^1.0.3",
     "discordjs-button-pagination": "^1.0.7",
+    "dotenv": "^16.0.1",
     "node-fetch": "^2.6.1",
     "reconlx": "^1.2.41",
     "simply-djs": "^2.5.2",

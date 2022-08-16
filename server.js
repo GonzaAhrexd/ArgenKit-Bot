@@ -27,7 +27,7 @@ const { Interaction } = require("discord.js");
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const simplydjs = require("simply-djs");
 const { DiscordTogether } = require('discord-together');
-
+require('dotenv').config() //Variables de entorno
 
 client.discordTogether = new DiscordTogether(client);
 
@@ -18048,4 +18048,8 @@ client.on("message", (message) => {
 
 });
 
-//client.login("token");
+
+
+const mySecret = process.env['token']
+
+client.login(process.env.token);

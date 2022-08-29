@@ -11,46 +11,32 @@ const client = new Client({
 });
 
 //client.setMaxListeners(50);
-
-
 //Nueva cosa para que el bot funcione
 
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
 
-const prefix = "*ar " //Prefijo del bot
-var currencyFormatter = require('currency-formatter') //Plugin
-const axios = require('axios'); //Plugin
-const recon = require('reconlx'); //Plugin
-const ReactionPages = recon.ReactionPages; //Plugin 
-const paginationEmbed = require('discordjs-button-pagination'); //Plugin
-const { Interaction } = require("discord.js");
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const simplydjs = require("simply-djs");
-const { DiscordTogether } = require('discord-together');
+var currencyFormatter = require('currency-formatter') //Currency formatter
+const axios = require('axios'); //Axios (Apis)
+const paginationEmbed = require('discordjs-button-pagination'); //Botones
+const { Interaction } = require("discord.js"); //Discord.js
+const { SlashCommandBuilder } = require('@discordjs/builders'); //Slash Commands
+const simplydjs = require("simply-djs"); //Simplydjs 
 require('dotenv').config() //Variables de entorno
 
-client.discordTogether = new DiscordTogether(client);
 
 //Estado del bot
-function presence() {
 
+function presence() {
   client.user.setPresence({
     status: "online",
-
     activities: [{
       name: 'Bot creado por GonzaAhre | Prueba /help o /update',
       type: "PLAYING"
     }]
-
   });
-
 }
 
-
-
 //Prender bot
-
-
 
 client.on("ready", async () => {
   console.log("TODO LISTO");
@@ -66,17 +52,11 @@ client.on("ready", async () => {
      console.log(list)
 */
 
-
-
-
-
   if (guild) {
     commands = guild.commands
   } else {
     commands = client.application?.commands
   }
-
-
 
   //Información
   //Creador
@@ -137,7 +117,6 @@ client.on("ready", async () => {
   })
 
   //Calculadora
-
   commands?.create({
     name: 'calculadora',
     description: 'Calculadora interactiva por simply.djs',
@@ -164,117 +143,140 @@ client.on("ready", async () => {
     description: 'Mostrar los datos de una divisa',
     options: [
       {
+        //Dólar
         type: "SUB_COMMAND",
         name: "dolar",
         description: "Muestra los datos del dólar oficial + impuestos"
       },
       {
+        //Dólar blue
         type: "SUB_COMMAND",
         name: "dolarblue",
         description: "Muestra los datos del dólar blue"
 
       },
       {
+        //Euro
         type: "SUB_COMMAND",
         name: "euro",
         description: "Muestra los datos del Euro + impuestos"
       },
       {
+        //Real
         type: "SUB_COMMAND",
         name: "real",
         description: "Muestra los datos del Real brasileño + impuestos"
       },
       {
+        //Yen
         type: "SUB_COMMAND",
         name: "yen",
         description: "Muestra los datos del Yen japonés + impuestos"
       },
       {
+        //Libra
         type: "SUB_COMMAND",
         name: "libra",
         description: "Muestra los datos de la Libra Esterlina + impuestos"
       },
       {
+        //Rublo
         type: "SUB_COMMAND",
         name: "rublo",
         description: "Muestra los datos del rublo ruso + impuestos"
       },
       {
+        //Dólar canadiense
         type: "SUB_COMMAND",
         name: "dolarcanadiense",
         description: "Muestra los datos del Dólar canadiense + impuestos"
       },
       {
+        //Dólar australiano
         type: "SUB_COMMAND",
         name: "dolaraustraliano",
         description: "Muestra los datos del Dólar australiano + impuestos"
       },
       {
+        //Dólar neozelandes
         type: "SUB_COMMAND",
         name: "dolarneozelandes",
         description: "Muestra los datos del Dólar neozelandés + impuestos"
       },
       {
+        //Peso méxicano
         type: "SUB_COMMAND",
         name: "pesomexicano",
         description: "Muestra los datos del Peso mexicano + impuestos"
       },
       {
+        //Peso chileno
         type: "SUB_COMMAND",
         name: "pesochileno",
         description: "Muestra los datos del Peso chileno + impuestos"
       },
       {
+        //Peso uruguayo
         type: "SUB_COMMAND",
         name: "pesouruguayo",
         description: "Muestra los datos del Peso uruguayo + impuestos"
       },
       {
+        //Peso colombiano
         type: "SUB_COMMAND",
         name: "pesocolombiano",
         description: "Muestra los datos del Peso colombiano + impuestos"
       },
       {
+        //Boliviano
         type: "SUB_COMMAND",
         name: "boliviano",
         description: "Muestra los datos del Boliviano + impuestos"
       },
       {
+        //Sol
         type: "SUB_COMMAND",
         name: "sol",
         description: "Muestra los datos del Sol peruano + impuestos"
       },
       {
+        //Guarani
         type: "SUB_COMMAND",
         name: "guarani",
         description: "Muestra los datos del Guaraní paraguayo + impuestos"
       },
       {
+        //Bolivar
         type: "SUB_COMMAND",
         name: "bolivar",
         description: "Muestra los datos del Bolivar digital venezolano + impuestos"
       },
       {
+        //Yuan
         type: "SUB_COMMAND",
         name: "yuan",
         description: "Muestra los datos del yuan chino + impuestos"
       },
       {
+        //Rupia
         type: "SUB_COMMAND",
         name: "rupia",
         description: "Muestra los datos del rupia chino + impuestos"
       },
       {
+        //Won
         type: "SUB_COMMAND",
         name: "won",
         description: "Muestra los datos del won surcoreano + impuestos"
       },
       {
+        //Franco
         type: "SUB_COMMAND",
         name: "franco",
         description: "Muestra los datos del franco suizo + impuestos"
       },
       {
+        //Lira
         type: "SUB_COMMAND",
         name: "lira",
         description: "Muestra los datos de la lira turca + impuestos"
@@ -289,61 +291,72 @@ client.on("ready", async () => {
     description: 'Mostrar los datos de una criptomoneda',
     options: [
       {
+        //Bitcoin
         type: "SUB_COMMAND",
         name: "bitcoin",
         description: "Muestra los datos del Bitcoin + impuestos"
       },
       {
+        //Ethereum
         type: "SUB_COMMAND",
         name: "ethereum",
         description: "Muestra los datos del Ethereum + impuestos"
 
       },
       {
+        //Tether
         type: "SUB_COMMAND",
         name: "tether",
         description: "Muestra los datos del Tether + impuestos"
 
       },
       {
+        //Axie Infinity
         type: "SUB_COMMAND",
         name: "axieinfinity",
         description: "Muestra los datos del Axie Infinity + impuestos"
 
       },
       {
+        //Terra Luna Classic
         type: "SUB_COMMAND",
         name: "terralunaclassic",
         description: "Muestra los datos del Terra Luna  Classic + impuestos"
 
       },
       {
+        //Decentraland
         type: "SUB_COMMAND",
         name: "decentraland",
         description: "Muestra los datos del Decentraland + impuestos"
 
       },
       {
+        //Solana
         type: "SUB_COMMAND",
         name: "solana",
         description: "Muestra los datos del Solana + impuestos"
       },
       {
+        //Dai
         type: "SUB_COMMAND",
         name: "dai",
         description: "Muestra los datos del Dai + impuestos"
       },
       {
+        //Dogecoin
         type: "SUB_COMMAND",
         name: "dogecoin",
         description: "Muestra los datos del Doge + impuestos"
       },
       {
+        //Terra usd classic
         type: "SUB_COMMAND",
         name: "terrausdclassic",
         description: "Muestra los datos del UST Classic + impuestos"
       },
       {
+        //Terra Luna 2.0
         type: "SUB_COMMAND",
         name: "terraluna",
         description: "Muestra los datos del Terra Luna  2.0 + impuestos"
@@ -358,22 +371,25 @@ client.on("ready", async () => {
     description: 'Mostrar los datos de un metal',
     options: [
       {
+        //Oro
         type: "SUB_COMMAND",
         name: "oro",
         description: "Muestra los datos del oro"
       },
       {
+        //Plata
         type: "SUB_COMMAND",
         name: "plata",
         description: "Muestra los datos de la Plata"
-
       },
       {
+        //Paladio
         type: "SUB_COMMAND",
         name: "paladio",
         description: "Muestra los datos del Paladio"
       },
       {
+        //Platino
         type: "SUB_COMMAND",
         name: "platino",
         description: "Muestra los datos del Platino"
@@ -713,14 +729,8 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       }
-
-
-
-
     ]
-
   })
 
 
@@ -1038,8 +1048,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
-
       },
       {
         type: "SUB_COMMAND",
@@ -1053,10 +1061,7 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
-
       },
-
       {
         type: "SUB_COMMAND",
         name: "dolaraustraliano",
@@ -1069,7 +1074,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1083,8 +1087,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
-
       },
       {
         type: "SUB_COMMAND",
@@ -1098,7 +1100,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1112,7 +1113,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1126,7 +1126,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1140,7 +1139,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1154,7 +1152,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1168,9 +1165,7 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
-
       {
         type: "SUB_COMMAND",
         name: "guarani",
@@ -1183,7 +1178,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1197,7 +1191,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1211,7 +1204,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1225,7 +1217,6 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
       {
         type: "SUB_COMMAND",
@@ -1239,9 +1230,7 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
-
       {
         type: "SUB_COMMAND",
         name: "franco",
@@ -1254,9 +1243,7 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       },
-
       {
         type: "SUB_COMMAND",
         name: "lira",
@@ -1269,14 +1256,8 @@ client.on("ready", async () => {
             required: true
           }
         ]
-
       }
-
-
-
-
     ]
-
   })
 
 
@@ -1577,8 +1558,6 @@ client.on("ready", async () => {
   })
 
   //Datos
-
-
   commands?.create({
     name: 'datos',
     description: 'Muestra distintos datos de Argentina',
@@ -1765,8 +1744,8 @@ client.on("ready", async () => {
 
 })
 
-//Este cierra
-//Comandos slash
+
+//Comandos
 
 //Creador
 
@@ -1815,6 +1794,7 @@ client.on('interactionCreate', async (interaction) => {
       .addField("Valores de coronavirus en Argentina y el mundo: ", "https://disease.sh/")
       .addField("Cotizaciones de otras divisas", "  https://exchangerate.host/#/")
       .addField("Cotizaciones de criptomonedas", "https://www.coingecko.com/es")
+      .addField("Cotizaciones de criptomonedas", "https://criptoya.com/api")
     interaction.reply({
 
       embeds: [embed]
@@ -9780,7 +9760,6 @@ client.on('interactionCreate', async (interaction) => {
 
 //HELP
 
-
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) {
     return
@@ -9789,165 +9768,245 @@ client.on('interactionCreate', async (interaction) => {
   const { commandName, options } = interaction
   if (commandName === 'help') {
    
-   interaction.reply({
-      content: "*ar  help"
-    })
+      const row = new MessageActionRow()
+        .addComponents(
+          new MessageSelectMenu()
+            .setCustomId('select')
+            .setPlaceholder('¡Selecciona una categoría!')
+            .addOptions([
+              {
+                label: 'Utilidad y conversión de divisas',
+                description: 'Estos comandos contienen utilidades y conversión de divisas ',
+                value: 'first',
+                emoji: "<:Utilidadyconversin:903096312919126107>",
+              },
+              {
+                label: 'Divisas',
+                description: 'Fiat y Criptomonedas disponibles',
+                value: 'second',
+                emoji: "<:Divisas:903096313061724190>"
+              },
+              {
+                label: 'Información  del Covid19',
+                description: 'Información con respecto a la pandemia del covid19',
+                value: 'third',
+                emoji: "<:Covid:903096313439219762>"
+              },
+              {
+                label: 'Datos',
+                description: 'Datos variados acerca del país',
+                value: 'fourth',
+                emoji: "<:Datos2:903096311102988378>"
+              },
+              {
+                label: 'Servicios',
+                description: 'Precio de servicios de streaming y variados',
+                value: 'fifth',
+                emoji: "<:Servicios2:903097132683239474>"
+              },
+              {
+                label: 'Diversión',
+                description: 'Comandos de diversión',
+                value: 'sixth',
+                emoji: "<:Diversin:903096312289955860>"
+              },
+              {
+                label: 'Información',
+                description: 'Información del bot y su creador',
+                value: 'seventh',
+                emoji: "<:Informacindelbot:903096312713609246>"
+              }
+            ]
+            )
+  
+        )
+  
+      let embed = new Discord.MessageEmbed()
+        .setTitle(":desktop: COMANDOS DE ARGENKIT BOT :desktop: ")
+        .setColor('#fdcb68')
+        .addField("» Comandos disponibles", "¡Tenemos `7` categorías distintas llenas de comandos y subcomandos! \nRecuerda que ahora el bot solo puede ser utilizado con los slash commands \n Para ver las novedades más recientes del bot utiliza `/update`")
+        .addField("» Comandos populares", "`impuesto`  `convertir dolar`  `convertir blue`  `divisa dolar`  `divisa blue`  `covid casos`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `moneda`  `invite`")
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903001307554652160/buscando.png")
+  
+      let embed2 = new Discord.MessageEmbed()
+        .setTitle(":arrows_counterclockwise:  Utilidad y conversión de divisas :arrows_counterclockwise:  ")
+        .setColor('#fdcb68')
+        .setDescription("Estos comandos contienen utilidades y conversión de divisa")
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903010091756814356/money-exchange.png")
+        .addField("» Utilidad ", "`impuesto`  `calculadora`  `anualizarinflacion`")
+        .addField("» `convertirdivisa`", "Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
+        .addField("» `pesoa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
+        .addField("» `convertircripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
+        .addField("» `pesoacripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
+        .addField("» `convertirmetal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
+        .addField("» `pesoametal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
+
+      let embed3 = new Discord.MessageEmbed()
+        .setTitle(":dollar:  Cotizaciones :dollar: ")
+        .setColor('#fdcb68')
+        .setDescription("Estos comandos contienen las distintas cotizaciones disponibles con su precio a pesos argentinos e informacion adicional")
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/90301281.759495484/dollars.png")
+        .addField("» `divisa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
+        .addField("» `criptomoneda` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
+        .addField("» `metal`", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
+  
+      let embed4 = new Discord.MessageEmbed()
+        .setTitle(":mask:  Covid19 :mask: ")
+        .setColor('#fdcb68')
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903019853202468884/nueva-normalidad.png")
+        .setDescription("Estos comandos contienen información sobre la pandemia del covid19")
+        .addField("» `covid`", "» Subcomandos `casos`  `global`  `covidpais`  `sintomas`  `recomendaciones`")
+  
+      let embed5 = new Discord.MessageEmbed()
+        .setTitle(":bar_chart: Datos :bar_chart:")
+        .setColor('#fdcb68')
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094616071483392/unknown.png")
+        .setDescription("Estos comandos tienen distintos datos sobre Argentina")
+        .addField("» Comando `datos`", "subcomandos `riesgopais`  `reservas`  `circulante`")
+        .addField("» Otros Comandos ", "`elecciones`  `futbol`  `provinciainfo`")
+  
+      let embed6 = new Discord.MessageEmbed()
+        .setTitle(":tv: Servicios Digitales :tv:")
+        .setColor('#fdcb68')
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903093667911315557/Servicios.png")
+        .setDescription("Estos subcomandos te dan el precio de distintos servicios digitales en Argentina con impuestos")
+        .addField("» `servicio`", "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
+  
+      let embed7 = new Discord.MessageEmbed()
+        .setTitle(":rofl: Diversión :rofl:")
+        .setColor('#fdcb68')
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094465747648552/Diversion.png")
+        .setDescription("Estos son comandos con cosas divertidas mayormente basadas en aleatoridad")
+        .addField("» Comandos", "`odio argentina`  `odio latinoamerica`  `covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`  `piedrapapelotijera`  `tateti`")
+  
+      let embed8 = new Discord.MessageEmbed()
+        .setTitle(":open_file_folder: Información del bot :open_file_folder:")
+        .setColor('#fdcb68')
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903095489719828541/Informacion_del_bot.png")
+        .setDescription("Estos comandos te permiten consultar más información acerca del bot")
+        .addField("» Comandos", "`creador`  `api`  `invitar`  `servidor`  `votar`  `donaciones`  `update`")
+  
+      const collector = interaction.channel.createMessageComponentCollector({
+        componentType: "SELECT_MENU", time: 20000
+  
+      })
+  
+      interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
+  
+  
+  
+      collector.on("collect", async (collected) => {
+  
+        const value = collected.values[0]
+  
+        if (value === "first") {
+          return interaction.editReply({ embeds: [embed2], ephemeral: false });
+        }
+        if (value === "second") {
+          await interaction.editReply({ embeds: [embed3], ephemeral: false })
+        }
+        if (value === "third") {
+          await interaction.editReply({ embeds: [embed4], ephemeral: false })
+        }
+        if (value === "fourth") {
+          await interaction.editReply({ embeds: [embed5], ephemeral: false })
+        }
+        if (value === "fifth") {
+          await interaction.editReply({ embeds: [embed6], ephemeral: false })
+        }
+        if (value === "sixth") {
+          await interaction.editReply({ embeds: [embed7], ephemeral: false })
+        }
+        if (value === "seventh") {
+          await interaction.editReply({ embeds: [embed8], ephemeral: false })
+        }
+    
+      })
   }
 })
-
 
 //Update
-
 client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
+    if (!interaction.isCommand()) {
+      return
+    }
+    const { commandName, options } = interaction
+    if (commandName === "update"){
+      
+const embed14 = new Discord.MessageEmbed()
+.setTitle("ARGENKIT BOT VERSIÓN 1.4 ¡SLASH COMMANDS UPDATE!")
+.setColor('#0a9ee1')
+.setDescription("  Fecha de lanzamiento: 16/4/2022 \n Debido al anuncio de Discord de volver los Message Content algo privilegiado para bots verificados, esta actualización es obligatoria para poder seguir usando el bot.")
+.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+.addField("<:slash:964681731519164457> Slash commands ", "Se han actualizado todos los comandos al formato slash. Esto debido a que Discord ya no permitirá a los bots verificados usar comandos por mensaje  (Como venía siendo con el bot con todos sus comandos como `*ar impuesto`, `*ar dolar`, `*ar help`, etc), debido a esto, he tenido que actualizar todos los comandos regulares a slash commands. Prueba /help para descubrir cómo funcionan. Quizás  sea  necesario  expulsar y volver a invitar al bot si es que lo añadiste hace mucho tiempo.")
+.addField("<:ethereum:963619533271232532> ¡Más Criptomonedas!", "Se han añadido el Ethereum, Tether, Axie Infinity, Terraluna, Decentraland, Solana, Dai y Dogecoin ")
+.addField("<:goldingots:964717629484965938> ¡Metales!", "Se han añadido la onza de oro, plata, paladio y platino  ")
+.addField(":chart_with_downwards_trend:  Anualizar Inflación", "Nuevo comando para calcular la inflación anualizada a partir de la mensual")
+
+const embed13 = new Discord.MessageEmbed()
+.setTitle("ARGENKIT BOT VERSIÓN 1.3 ¡LA ACTUALIZACIÓN DE ANIVERSARIO!")
+.setColor('#0a9ee1')
+.setDescription("  Fecha de lanzamiento: 1/2/2022 \n ¡Ha pasado un año desde la primera versión estable del bot (1.0), la cual fue en un principio cerrada solo a un grupo de amigos!  \n Hoy, estoy feliz de anunciar la actualización de aniversario, la versión 1.3! Que trae sobre todo un gran cambio en el diseño. Estas son las novedades: ")
+.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+.addField("<:djs:928800848996352041> Discord.js 13 ", "Se ha actualizado el bot a Discord.js 13 y node.js 16")
+.addField(":sparkles: Cambio de  diseño ", "¡Se ha renovado por completo el diseño del bot para darle un estilo más moderno!")
+.addField(":mouse_three_button:  Nuevos botones ", "¡Se han remplazado las reacciones por los  nuevos botones interactivos de discord!")
+.addField(":handshake: Help mejorado ", "¡Se ha mejorado por completo el comando help, ahora incluye un menú desplegable para cada categoría!")
+.addField("<:bitcoin:929073179262074960> Bitcoin ", "¡Ahora se puede consultar el precio del bitcoin,  así como convertirlo!")
+.addField(":dollar: Nuevas divisas ", "Se ha agregado el Franco Suizo y la Lira Turca")
+.addField(":microbe: Covid ", "Se han agregado nuevos países y la posibilidad de consultar los disponibles con `*ar covidpais`  sin argumentos")
+.addField(":computer: Slash commands ", "Se han agregado algunos slash commands,  quizás tengas que expulsar y volver a invitar al bot al servidor para utilizarlos")
+.addField(":abacus: Calculadora ", "Se ha agregado una calculadora interactiva con botones, usa `*ar calculadora` ")
+.addField(":soccer:  Fulvo ", "Se ha agregado un contador de cuánto falta para los  siguientes partidos de la selección, pruebalo con `*ar fútbol` ")
+.addField(":video_game:   Juegos ", "Se ha agregado un piedra papel o tijera y un tateti con botones de discord, pruebalo con `*ar tateti @usuario` o `*ar piedrapapelotijera @usuario`")
+.addField(":alarm_clock: Husos horarios", "Se ha agregado un comando para consultar distintos husos horarios, prueba `*ar husos` (Eliminado en la versión  1.4 para una futura mejora)")
+
+const embed12 = new Discord.MessageEmbed()
+.setTitle("ARGENKIT BOT VERSIÓN 1.2 ¡LA ACTUALIZACIÓN DE LAS DIVISAS!")
+.setColor('#0a9ee1')
+.setDescription("  Fecha de lanzamiento: 26/6/2021 \n ¡Ya pasaron  más de 3 meses desde que el bot fue lanzado al público y alcanzó más de 150 servidores de Discord! Hoy, estoy feliz de anunciar la primera actualización grande del bot, la versión 1.2, la actualización de las divisas!  Estos son los cambios introducidos en la versión: ")
+.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+.addField(":dollar: ¡Nuevas divisas! ", "Como la misma actualización lo indica, se han agregado un total de 17 nuevas divisas, formando un total de 21 divisas actualmente disponibles! Estas nuevas son: yen japonés, libra esterlina,  rublo ruso, dólar canadiense, dólar australiano, dólar neozelandes, peso mexicano, peso chileno, peso uruguayo, peso boliviano, peso colombiano, sol  peruano, guarani paraguayo, bolivar venezolano,  rupia india, yuan chino y won surcoreano!")
+.addField(":flag_ar: ¡Provincias! ", "Se agregó una función para  consultar información  de  las 23 provincias argentinas y la Ciudad Autónoma de buenos Aires!  Pruebalo con *ar provincia [provincia] ")
+.addField(":grey_exclamation: Más información", "Nueva información  de cada divisa en una  segunda página")
+.addField(":calendar: Elecciones ", "Nuevo contador de días hasta  las siguientes  elecciones!")
+.addField(":tv: ¡Nuevos servicios! ", "Se agregó el precio de  HBO Max, Paramount+, Discord  Nitro, Google One, EA Play, Wallet de Steam y Twitch!")
+.addField(":moneybag: Impuesto ", "Se agregó  una segunda página al comando de impuesto para ver el impuesto sin IVA (75%)")
+.addField(":question: Help", " El comando de help recibió un gran cambio")
+.addField(":microbe: Actualización a las funciones de covid19 ", "Se agregaron nuevos países para ver sus casos de covid19, además de una segunda pestaña para ver los casos en el día de hoy")
+.addField(":incoming_envelope: Bienvenido al servidor del bot! ", "¡Ya disponible el servidor de discord! Usa el comando *ar discord para unirte!")
+.addField(":white_check_mark: Apoya al bot votando en top.gg! ", "Se  agregó el comando *ar vote ")
+.addField(":eyes: Entre otras cosas ", "Se mejoró el código y se hicieron otros cambios menores")
+
+const button1 = new MessageButton()
+.setCustomId("previousbtn")
+.setLabel("Más reciente")
+.setStyle("SUCCESS");
+
+const button2 = new MessageButton()
+.setCustomId("nextbtn")
+.setLabel("Anterior")
+.setStyle("DANGER");
+
+const pages = [
+embed14,
+embed13,
+embed12,
 
 
-  const { commandName, options } = interaction
-  if (commandName === 'update') {
+];
 
+const buttonList = [button1, button2];
+const timeout = 120000;
+paginationEmbed(interaction, pages, buttonList, timeout);
 
+    }
+  
+  })
 
-    const embed14 = new Discord.MessageEmbed()
-      .setTitle("ARGENKIT BOT VERSIÓN 1.4 ¡SLASH COMMANDS UPDATE!")
-      .setColor('#0a9ee1')
-      .setDescription("  Fecha de lanzamiento: 16/4/2022 \n Debido al anuncio de Discord de volver los Message Content algo privilegiado para bots verificados, esta actualización es obligatoria para poder seguir usando el bot.")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-      .addField("<:slash:964681731519164457> Slash commands ", "Se han actualizado todos los comandos al formato slash. Esto debido a que Discord ya no permitirá a los bots verificados usar comandos por mensaje  (Como venía siendo con el bot con todos sus comandos como `*ar impuesto`, `*ar dolar`, `*ar help`, etc), debido a esto, he tenido que actualizar todos los comandos regulares a slash commands. Prueba /help para descubrir cómo funcionan. Quizás  sea  necesario  expulsar y volver a invitar al bot si es que lo añadiste hace mucho tiempo.")
-      .addField("<:ethereum:963619533271232532> ¡Más Criptomonedas!", "Se han añadido el Ethereum, Tether, Axie Infinity, Terraluna, Decentraland, Solana, Dai y Dogecoin ")
-      .addField("<:goldingots:964717629484965938> ¡Metales!", "Se han añadido la onza de oro, plata, paladio y platino  ")
-      .addField(":chart_with_downwards_trend:  Anualizar Inflación", "Nuevo comando para calcular la inflación anualizada a partir de la mensual")
+  
 
-
-    const embed13 = new Discord.MessageEmbed()
-      .setTitle("ARGENKIT BOT VERSIÓN 1.3 ¡LA ACTUALIZACIÓN DE ANIVERSARIO!")
-      .setColor('#0a9ee1')
-      .setDescription("  Fecha de lanzamiento: 1/2/2022 \n ¡Ha pasado un año desde la primera versión estable del bot (1.0), la cual fue en un principio cerrada solo a un grupo de amigos!  \n Hoy, estoy feliz de anunciar la actualización de aniversario, la versión 1.3! Que trae sobre todo un gran cambio en el diseño. Estas son las novedades: ")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-      .addField("<:djs:928800848996352041> Discord.js 13 ", "Se ha actualizado el bot a Discord.js 13 y node.js 16")
-      .addField(":sparkles: Cambio de  diseño ", "¡Se ha renovado por completo el diseño del bot para darle un estilo más moderno!")
-      .addField(":mouse_three_button:  Nuevos botones ", "¡Se han remplazado las reacciones por los  nuevos botones interactivos de discord!")
-      .addField(":handshake: Help mejorado ", "¡Se ha mejorado por completo el comando help, ahora incluye un menú desplegable para cada categoría!")
-      .addField("<:bitcoin:929073179262074960> Bitcoin ", "¡Ahora se puede consultar el precio del bitcoin,  así como convertirlo!")
-      .addField(":dollar: Nuevas divisas ", "Se ha agregado el Franco Suizo y la Lira Turca")
-      .addField(":microbe: Covid ", "Se han agregado nuevos países y la posibilidad de consultar los disponibles con `*ar covidpais`  sin argumentos")
-      .addField(":computer: Slash commands ", "Se han agregado algunos slash commands,  quizás tengas que expulsar y volver a invitar al bot al servidor para utilizarlos")
-      .addField(":abacus: Calculadora ", "Se ha agregado una calculadora interactiva con botones, usa `*ar calculadora` ")
-      .addField(":soccer:  Fulvo ", "Se ha agregado un contador de cuánto falta para los  siguientes partidos de la selección, pruebalo con `*ar fútbol` ")
-      .addField(":video_game:   Juegos ", "Se ha agregado un piedra papel o tijera y un tateti con botones de discord, pruebalo con `*ar tateti @usuario` o `*ar piedrapapelotijera @usuario`")
-      .addField(":alarm_clock: Husos horarios", "Se ha agregado un comando para consultar distintos husos horarios, prueba `*ar husos` (Eliminado en la versión  1.4 para una futura mejora)")
-
-
-    const embed12 = new Discord.MessageEmbed()
-      .setTitle("ARGENKIT BOT VERSIÓN 1.2 ¡LA ACTUALIZACIÓN DE LAS DIVISAS!")
-      .setColor('#0a9ee1')
-      .setDescription("  Fecha de lanzamiento: 26/6/2021 \n ¡Ya pasaron  más de 3 meses desde que el bot fue lanzado al público y alcanzó más de 150 servidores de Discord! Hoy, estoy feliz de anunciar la primera actualización grande del bot, la versión 1.2, la actualización de las divisas!  Estos son los cambios introducidos en la versión: ")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-      .addField(":dollar: ¡Nuevas divisas! ", "Como la misma actualización lo indica, se han agregado un total de 17 nuevas divisas, formando un total de 21 divisas actualmente disponibles! Estas nuevas son: yen japonés, libra esterlina,  rublo ruso, dólar canadiense, dólar australiano, dólar neozelandes, peso mexicano, peso chileno, peso uruguayo, peso boliviano, peso colombiano, sol  peruano, guarani paraguayo, bolivar venezolano,  rupia india, yuan chino y won surcoreano!")
-      .addField(":flag_ar: ¡Provincias! ", "Se agregó una función para  consultar información  de  las 23 provincias argentinas y la Ciudad Autónoma de buenos Aires!  Pruebalo con *ar provincia [provincia] ")
-      .addField(":grey_exclamation: Más información", "Nueva información  de cada divisa en una  segunda página")
-      .addField(":calendar: Elecciones ", "Nuevo contador de días hasta  las siguientes  elecciones!")
-      .addField(":tv: ¡Nuevos servicios! ", "Se agregó el precio de  HBO Max, Paramount+, Discord  Nitro, Google One, EA Play, Wallet de Steam y Twitch!")
-      .addField(":moneybag: Impuesto ", "Se agregó  una segunda página al comando de impuesto para ver el impuesto sin IVA (75%)")
-      .addField(":question: Help", " El comando de help recibió un gran cambio")
-      .addField(":microbe: Actualización a las funciones de covid19 ", "Se agregaron nuevos países para ver sus casos de covid19, además de una segunda pestaña para ver los casos en el día de hoy")
-      .addField(":incoming_envelope: Bienvenido al servidor del bot! ", "¡Ya disponible el servidor de discord! Usa el comando *ar discord para unirte!")
-      .addField(":white_check_mark: Apoya al bot votando en top.gg! ", "Se  agregó el comando *ar vote ")
-      .addField(":eyes: Entre otras cosas ", "Se mejoró el código y se hicieron otros cambios menores")
-
-
-
-    const button1 = new MessageButton()
-      .setCustomId("previousbtn")
-      .setLabel("Más reciente")
-      .setStyle("SUCCESS");
-
-    const button2 = new MessageButton()
-      .setCustomId("nextbtn")
-      .setLabel("Anterior")
-      .setStyle("DANGER");
-
-    const pages = [
-      embed14,
-      embed13,
-      embed12,
-
-
-    ];
-
-    const buttonList = [button1, button2];
-    const timeout = 120000;
-    paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-  }
-
-})
-
-//  client.on('interactionCreate', async(interaction) => {
-//   if(!interaction.isCommand()){
-//     return
-//   }
-
-
-//   const {commandName , options} = interaction
-//   if(commandName === 'husoshorarios') {
-//     let hora; //Día actual
-//     hora = new Date();
-
-//    const embed1 = new Discord.MessageEmbed()
-//    .setTitle("Hora y fechas actuales en distintos husos horarios")
-//    .setURL("https://es.wikipedia.org/wiki/Huso_horario")
-//    .setColor("#7eb2fa")
-//    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929137815256698962/time-zone.png")
 //     .addField("  GMT-3 :flag_ar: :flag_uy: :flag_br:  ",  hora.toLocaleString("es-ES", {timeZone: "America/Argentina/Buenos_Aires"}))
-//     .addField("  GMT-4 :flag_cl: :flag_py: :flag_bo: :flag_br: :flag_ve: ", hora.toLocaleString("es-ES", {timeZone: "America/Santiago"}))
-//     .addField("  GMT-5 :flag_pe: :flag_ec: :flag_co: :flag_us: ", hora.toLocaleString("es-ES", {timeZone: "America/Lima"}))
-//     .addField("  GMT-6 :flag_mx: :flag_us: :flag_ca: ", hora.toLocaleString("es-ES", {timeZone: "America/Mexico_City"}))
-//     .addField("  GMT-7 :flag_mx: :flag_us: :flag_ca: ", hora.toLocaleString("es-ES", {timeZone: "America/Phoenix"}))
-//     .addField("  GMT-8 :flag_mx: :flag_us: :flag_ca: ", hora.toLocaleString("es-ES", {timeZone: "America/Tijuana"}))
-//     .addField("  GMT-9 :flag_us: (Alaska) ", hora.toLocaleString("es-ES", {timeZone: "America/Juneau"}))
-
-
-//     const embed2 = new Discord.MessageEmbed()
-//     .setTitle("Hora Actual en distintos husos horarios")
-//     .setURL("https://es.wikipedia.org/wiki/Huso_horario")
-//     .setColor("#7eb2fa")
-//     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929137815256698962/time-zone.png")
-//     .addField("  GMT+1 :flag_gb: :flag_ie: :flag_pt: ", hora.toLocaleString("es-ES", {timeZone: "Europe/London"}) )
-//     .addField(" GMT+2 :flag_za: :flag_eg: :flag_es: :flag_fr: :flag_it: :flag_ch: :flag_de: :flag_nl: :flag_no: :flag_se:   ", hora.toLocaleString("es-ES", {timeZone: "Europe/Madrid"}))
-//     .addField(" GMT+3 :flag_ua: :flag_fi: :flag_il: :flag_ru: :flag_tr: :flag_sa:   ", hora.toLocaleString("es-ES", {timeZone: "Europe/Moscow"}))
-//     .addField(" GMT+8 :flag_cn: :flag_mn: :flag_tw: :flag_au:   ", hora.toLocaleString("es-ES", {timeZone: "Asia/Taipei"}))
-//     .addField(" GMT+9 :flag_jp: :flag_kr: :flag_au: ", hora.toLocaleString("es-ES", {timeZone: "Asia/Tokyo"}))
-
-
-
-//     const button1 = new MessageButton()
-//     .setCustomId("previousbtn")
-//     .setLabel("GMT-")
-//    .setStyle("SUCCESS");
-
-//    const button2 = new MessageButton()
-//    .setCustomId("nextbtn")
-//    .setLabel("GMT+")
-//    .setStyle("PRIMARY");
-
-//    const pages = [
-//    embed1,
-//    embed2,
-
-
-//   ];
-
-//   const buttonList = [button1, button2];
-//   const timeout = 30000;
-//   paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-//   }
-
-// })
 
 //Calculadora
 
@@ -13380,4676 +13439,18 @@ client.on('interactionCreate', async (interaction) => {
             const pages = [
               embed1,
               embed2,
-
-
             ];
-
             const buttonList = [button1, button2];
             const timeout = 30000;
             paginationEmbed(message, pages, buttonList, timeout);
-
-
-
-
           })
           .catch((err) => {
             console.error('ERR', err)
-
-
           })
-
-
       }
-
-
     }
-
   }
 })
 
-
-//Comandos clásicos
-//Solucionar errores de prefijo
-
-
-client.on("message", (message) => {
-
-  if (!message.content.startsWith(prefix)) {
-    return;
-  }
-  const args = message.content.slice(prefix.length).trim().split(/ +/g);
-  const command = args.shift();
-  console.log(args)
-
-  const comandosslash = "`criptomoneda` `metal` `convertircripto` `convertirmetal` `pesoacripto` `pesoametal` `provinciainfo` `covidpais` `casos` `recomendaciones` `sintomas` `servicio` `datos` `elecciones` `futbol` `provinciainfo` `creador` `api` `invitar` `servidor` `votar` `donaciones` `update` `odio` `covidtest` `escaparlatam` `8ball` `moneda` `dados` `piedrapapelotijera` `tateti`"
-
-  //Creador
-
-  if (command.toLowerCase() == "creador" || command.toLowerCase() == "developer") {
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/creador` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //API
-
-  if (command.toLowerCase() == "api" || command.toLowerCase() == "apis") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/api` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-  }
-
-  //Donaciones
-
-  if (command.toLowerCase() == "donaciones" || command.toLowerCase() == "donar") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/api` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-  //Votar
-
-  if (command.toLowerCase() == "votar" || command.toLowerCase() == "vote") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/votar` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-
-  //Servidor
-
-
-  if (command.toLowerCase() == "servidor" || command.toLowerCase() == "discord" || command.toLowerCase() == "server" || command.toLowerCase() == "reportar" || command.toLowerCase() == "idea" || command.toLowerCase() == "aportar") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servidor` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-
-  //Invitar
-  if (command.toLowerCase() == "invite" || command.toLowerCase() == "invitar") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/invitar` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-
-  //Notas de Actualización
-
-
-  if (command.toLowerCase() == "update" || command.toLowerCase() == "actualización") {
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/update` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-
-  }
-
-
-  //Help  mejorado
-
-
-  if (command.toLowerCase() === 'help' || command.toLowerCase() === 'ayuda' || command.toLowerCase() === 'comandos') {
-
-    const row = new MessageActionRow()
-      .addComponents(
-        new MessageSelectMenu()
-          .setCustomId('select')
-          .setPlaceholder('¡Selecciona una categoría!')
-
-          .addOptions([
-
-            {
-
-              label: 'Utilidad y conversión de divisas',
-              description: 'Estos comandos contienen utilidades y conversión de divisas ',
-              value: 'first',
-              emoji: "<:Utilidadyconversin:903096312919126107>",
-            },
-            {
-              label: 'Divisas',
-              description: 'Fiat y Criptomonedas disponibles',
-              value: 'second',
-              emoji: "<:Divisas:903096313061724190>"
-            },
-            {
-              label: 'Información  del Covid19',
-              description: 'Información con respecto a la pandemia del covid19',
-              value: 'third',
-              emoji: "<:Covid:903096313439219762>"
-            },
-            {
-              label: 'Datos',
-              description: 'Datos variados acerca del país',
-              value: 'fourth',
-              emoji: "<:Datos2:903096311102988378>"
-            },
-            {
-              label: 'Servicios',
-              description: 'Precio de servicios de streaming y variados',
-              value: 'fifth',
-              emoji: "<:Servicios2:903097132683239474>"
-            },
-            {
-              label: 'Diversión',
-              description: 'Comandos de diversión',
-              value: 'sixth',
-              emoji: "<:Diversin:903096312289955860>"
-            },
-            {
-              label: 'Información',
-              description: 'Información del bot y su creador',
-              value: 'seventh',
-              emoji: "<:Informacindelbot:903096312713609246>"
-            }
-          ]
-          )
-
-      )
-
-
-    let embed = new Discord.MessageEmbed()
-      .setTitle(":desktop: COMANDOS DE ARGENKIT BOT :desktop: ")
-      .setColor('#fdcb68')
-      .addField("» Comandos disponibles", "¡Tenemos `7` categorías distintas llenas de comandos y subcomandos! \nRecuerda que ahora el bot necesita ser utilizado con los slash commands \n Para ver las novedades más recientes del bot utiliza `/update`")
-      .addField("» Comandos populares", "`impuesto`  `convertir dolar`  `convertir blue`  `divisa dolar`  `divisa blue`  `covid casos`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `moneda`  `invite`")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903001307554652160/buscando.png")
-
-
-    let embed2 = new Discord.MessageEmbed()
-      .setTitle(":arrows_counterclockwise:  Utilidad y conversión de divisas :arrows_counterclockwise:  ")
-      .setColor('#fdcb68')
-      .setDescription("Estos comandos contienen utilidades y conversión de divisa")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903010091756814356/money-exchange.png")
-      .addField("» Utilidad ", "`impuesto`  `calculadora`  `anualizarinflacion`")
-      .addField("» `convertirdivisa`", "Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-      .addField("» `pesoa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-      .addField("» `convertircripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-      .addField("» `pesoacripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-      .addField("» `convertirmetal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
-      .addField("» `pesoametal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
-    let embed3 = new Discord.MessageEmbed()
-      .setTitle(":dollar:  Cotizaciones :dollar: ")
-      .setColor('#fdcb68')
-      .setDescription("Estos comandos contienen las distintas cotizaciones disponibles con su precio a pesos argentinos e informacion adicional")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/90301281.759495484/dollars.png")
-      .addField("» `divisa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-      .addField("» `criptomoneda` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-      .addField("» `metal`", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
-
-
-    let embed4 = new Discord.MessageEmbed()
-      .setTitle(":mask:  Covid19 :mask: ")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903019853202468884/nueva-normalidad.png")
-      .setDescription("Estos comandos contienen información sobre la pandemia del covid19")
-      .addField("» `covid`", "» Subcomandos `casos`  `global`  `covidpais`  `sintomas`  `recomendaciones`")
-
-    let embed5 = new Discord.MessageEmbed()
-      .setTitle(":bar_chart: Datos :bar_chart:")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094616071483392/unknown.png")
-      .setDescription("Estos comandos tienen distintos datos sobre Argentina")
-      .addField("» Comando `datos`", "subcomandos `riesgopais`  `reservas`  `circulante`")
-      .addField("» Otros Comandos ", "`elecciones`  `futbol`  `provinciainfo`")
-
-    let embed6 = new Discord.MessageEmbed()
-      .setTitle(":tv: Servicios Digitales :tv:")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903093667911315557/Servicios.png")
-      .setDescription("Estos subcomandos te dan el precio de distintos servicios digitales en Argentina con impuestos")
-      .addField("» `servicio`", "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
-
-
-    let embed7 = new Discord.MessageEmbed()
-      .setTitle(":rofl: Diversión :rofl:")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094465747648552/Diversion.png")
-      .setDescription("Estos son comandos con cosas divertidas mayormente basadas en aleatoridad")
-      .addField("» Comandos", "`odio argentina`  `odio latinoamerica`  `covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`  `piedrapapelotijera`  `tateti`")
-
-    let embed8 = new Discord.MessageEmbed()
-      .setTitle(":open_file_folder: Información del bot :open_file_folder:")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903095489719828541/Informacion_del_bot.png")
-      .setDescription("Estos comandos te permiten consultar más información acerca del bot")
-      .addField("» Comandos", "`creador`  `api`  `invitar`  `servidor`  `votar`  `donaciones`  `update`")
-
-
-
-    const collector = message.channel.createMessageComponentCollector({
-      componentType: "SELECT_MENU", time: 20000
-
-    })
-
-    message.reply({ content: " ", ephemeral: true, embeds: [embed], components: [row] })
-
-
-
-    collector.on("collect", async (collected) => {
-
-      const value = collected.values[0]
-
-      if (value === "first") {
-        return message.reply({ embeds: [embed2], ephemeral: false });
-      }
-      if (value === "second") {
-        return message.reply({ embeds: [embed3], ephemeral: false })
-      }
-      if (value === "third") {
-        return message.reply({ embeds: [embed4], ephemeral: false })
-      }
-      if (value === "fourth") {
-        return message.reply({ embeds: [embed5], ephemeral: false })
-      }
-      if (value === "fifth") {
-        return message.reply({ embeds: [embed6], ephemeral: false })
-      }
-      if (value === "sixth") {
-        return message.reply({ embeds: [embed7], ephemeral: false })
-      }
-      if (value === "seventh") {
-        return message.reply({ embeds: [embed8], ephemeral: false })
-      }
-      if (value === "eighth") {
-        return message.reply({ embeds: [embed2, embed3, embed4, embed5, embed6, embed7, embed8], ephemeral: false })
-      }
-
-
-    })
-
-
-  }
-
-  //UTILIDAD
-  //IMPUESTO
-  if (command.toLowerCase() === 'impuesto') {
-    let number = args[0];
-    if (!args.length) {
-
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    number = number.replace(',', '.')
-    var imp = parseFloat(number)
-
-    const embed1 = new Discord.MessageEmbed()
-      .setTitle("Impuestos a la compra Online (74%)")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-      .addField("Monto original", "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }))
-      .addField("I.V.A (21%) ", "$" + currencyFormatter.format(imp * 0.21, { locale: 'es-ES', code: ' ' }), true)
-      .addField("P.A.I.S (8%) ", "$" + currencyFormatter.format(imp * 0.08, { locale: 'es-ES', code: ' ' }), true)
-      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(imp * 0.35, { locale: 'es-ES', code: ' ' }), true)
-      .addField("Total (74%)", "$" + currencyFormatter.format(imp * 1.74, { locale: 'es-ES', code: ' ' }))
-      .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-    const embed2 = new Discord.MessageEmbed()
-      .setTitle("Impuesto a la compra Online (75%)")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-      .setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
-      .addField("Monto original", "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }))
-      .addField("P.A.I.S (30%) ", "$" + currencyFormatter.format(imp * 0.30, { locale: 'es-ES', code: ' ' }), true)
-      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(imp * 0.35, { locale: 'es-ES', code: ' ' }), true)
-      .addField("TOTAL (75%)", "$" + currencyFormatter.format(imp * 1.75, { locale: 'es-ES', code: ' ' }))
-      .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-
-    const button1 = new MessageButton()
-      .setCustomId("previousbtn")
-      .setLabel("📄74%")
-      .setStyle("SUCCESS");
-
-    const button2 = new MessageButton()
-      .setCustomId("nextbtn")
-      .setLabel("📄75%")
-      .setStyle("DANGER");
-
-    const pages = [
-      embed1,
-      embed2,
-
-
-    ];
-
-    const buttonList = [button1, button2];
-    const timeout = 120000;
-    paginationEmbed(message, pages, buttonList, timeout);
-
-
-  }
-
-
-  //Calculadora
-
-  if (command.toLowerCase() === 'calculadora') {
-
-    simplydjs.calculator(message, {
-      embedColor: "#0ce8dd",
-      credit: false
-
-    });
-
-
-  }
-
-
-
-
-  //Dolar precio
-  //oficial
-
-  if (command.toLowerCase() === "dolaroficial" || command.toLowerCase() === "dolar" || command.toLowerCase() === "dólar" || command.toLowerCase() === ("do") || command.toLowerCase() === ("usd")) {
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
-      .then((oficial) => {
-        const embed1 = new Discord.MessageEmbed()
-          .setTitle("Dólar estadounidese :flag_us:")
-          .setColor("#a9ea98")
-          .setDescription("El dólar oficial es el valor del dólar que se liquida por parte del gobierno nacional y está sujeto a un 75% de impuestos, además, sólo se puede retirar USD$200 al mes.")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903145945980604447/dolar3.png")
-          .addField("Compra <:dollars:903148705094447114>  ", "ARS$ " + currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta <:dollars:903148705094447114> ", "ARS$ " + currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos <:dollars:903148705094447114> ", "ARS$ " + currencyFormatter.format(oficial.data['venta'] * 1.75, { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-        const embed2 = new Discord.MessageEmbed()
-          .setTitle("Dólar estadounidense")
-          .setColor("#a9ea98")
-          .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903145945980604447/dolar3.png")
-          .addField("Acuñación", "2 de abril de 1792")
-          .addField("Países donde se utiliza:", ":flag_us: :flag_sv: :flag_ec: :flag_pa: :flag_pr: :flag_zw: :flag_tl: :flag_pw: :flag_fm: :flag_mh: ")
-          .addField("Código ISO", "USD ", true)
-          .addField("Símbolo", "$ ", true)
-          .addField("Billetes :dollar: ", "$1, $2, $5, $10, $20, $50 y $100")
-          .addField("Monedas :coin: ", "	$0,01, $0,05, $0,10, $0,25, $0,50 y $1")
-          .addField("Inflación anual  :chart_with_downwards_trend: ", "7,1% (2021)", true)
-          .addField("Emisor :bank: ", "Sistema de Reserva Federal ", true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-        const button1 = new MessageButton()
-          .setCustomId("previousbtn")
-          .setLabel("💸 Conversión ")
-          .setStyle("SUCCESS");
-
-        const button2 = new MessageButton()
-          .setCustomId("nextbtn")
-          .setLabel("📋 Información")
-          .setStyle("PRIMARY");
-
-        const pages = [
-          embed1,
-          embed2,
-        ];
-        const buttonList = [button1, button2];
-        const timeout = 60000;
-        paginationEmbed(message, pages, buttonList, timeout);
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-  }
-
-  //blue
-  if (command.toLowerCase() == "dolarblue" || command.toLowerCase() == "db" || command.toLowerCase() == "blue") {
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/dolarblue')
-      .then((blue) => {
-        const embed1 = new Discord.MessageEmbed()
-          .setTitle("Dólar blue :flag_us:")
-          .setColor("#8cb6fd")
-          .setDescription("Dólar informal establecido por el precio del mercado (Oferta y demanda). Es el dólar que se compra en el mercado paralelo o informal.")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903147750496018432/dolarblue.png")
-          .addField("Compra <:dollarblue:903149186436980767> ", "ARS$ " + currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta <:dollarblue:903149186436980767>  ", "ARS$ " + currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-        const embed2 = new Discord.MessageEmbed()
-          .setTitle("Dólar estadounidense")
-          .setColor("#a9ea98")
-          .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903145945980604447/dolar3.png")
-          .addField("Acuñación", "2 de abril de 1792")
-          .addField("Países donde se utiliza:", ":flag_us: :flag_sv: :flag_ec: :flag_pa: :flag_pr: :flag_zw: :flag_tl: :flag_pw: :flag_fm: :flag_mh: ")
-          .addField("Código ISO", "USD ", true)
-          .addField("Símbolo", "$ ", true)
-          .addField("Billetes :dollar: ", "$1, $2, $5, $10, $20, $50 y $100")
-          .addField("Monedas :coin: ", "	$0,01, $0,05, $0,10, $0,25, $0,50 y $1")
-          .addField("Inflación anual :chart_with_downwards_trend:", "7,1% (2021)", true)
-          .addField("Emisor :bank: ", "Sistema de Reserva Federal ", true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-        const button1 = new MessageButton()
-          .setCustomId("previousbtn")
-          .setLabel("💸 Conversión ")
-          .setStyle("SUCCESS");
-
-        const button2 = new MessageButton()
-          .setCustomId("nextbtn")
-          .setLabel("📋 Información")
-          .setStyle("PRIMARY");
-
-        const pages = [
-          embed1,
-          embed2,
-
-
-        ];
-
-        const buttonList = [button1, button2];
-        const timeout = 60000;
-        paginationEmbed(message, pages, buttonList, timeout);
-
-
-
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-  }
-
-  //Mostrar euro
-  if (command.toLowerCase() == "euro" || command.toLowerCase() == "eur") {
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-      .then((euro) => {
-        var euroImpuesto = (euro.data['venta'] * 1.75).toFixed(2)
-        const embed1 = new Discord.MessageEmbed()
-          .setTitle("Euro :flag_eu:")
-          .setColor("#0153b4")
-          .setDescription("Euro al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%) ")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png")
-          .addField("Compra <:euro:903349498930135160>  ", "ARS$ " + currencyFormatter.format(euro.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta <:euro:903349498930135160>  ", "ARS$ " + currencyFormatter.format(euro.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos <:euro:903349498930135160>  ", "ARS$ " + currencyFormatter.format(euroImpuesto, { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-        const embed2 = new Discord.MessageEmbed()
-          .setTitle("Euro")
-          .setColor("#0153b4")
-          .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png")
-          .addField("Acuñación", "1  de enero de 2002 ")
-          .addField("Países donde se utiliza:", ":flag_de: :flag_at: :flag_be: :flag_cy: :flag_sk: :flag_si: :flag_es: :flag_ee: :flag_fi: :flag_fr: :flag_gr: :flag_ie: :flag_it: :flag_lv: :flag_lt: :flag_lu: :flag_mt: :flag_nl: :flag_pt: :flag_ad: :flag_va: :flag_mc: :flag_sm: :flag_xk: :flag_me:  ")
-          .addField("Código ISO", "EUR ", true)
-          .addField("Símbolo", "€ ", true)
-          .addField("Billetes <:euro:903349498930135160> ", "€5, €10, €20, €50, €100, €200, €500")
-          .addField("Monedas :coin: ", "	€0,01 , €0,02 , €0,05, €0,10 , €0,20, €0,50 , €1 , €2")
-          .addField("Inflación anual :chart_with_downwards_trend:", "-3.0% (2021)", true)
-          .addField("Emisor :bank: ", "Banco Central Europeo", true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-        const button1 = new MessageButton()
-          .setCustomId("previousbtn")
-          .setLabel("💸 Conversión ")
-          .setStyle("SUCCESS");
-
-        const button2 = new MessageButton()
-          .setCustomId("nextbtn")
-          .setLabel("📋 Información")
-          .setStyle("PRIMARY");
-
-        const pages = [
-          embed1,
-          embed2,
-
-
-        ];
-
-        const buttonList = [button1, button2];
-        const timeout = 30000;
-        paginationEmbed(message, pages, buttonList, timeout);
-
-
-
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-  }
-
-  //Real
-
-  if (command.toLowerCase() == "real" || command.toLowerCase() == "br" || command.toLowerCase() == "brl") {
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/real/nacion')
-      .then((real) => {
-        var realImpuesto = ((real.data['venta'] * 1.75)).toFixed(2)
-        const embed1 = new Discord.MessageEmbed()
-          .setTitle("Real Brasileño  :flag_br:")
-          .setColor("#e8ce6c")
-          .setDescription("Real oficial al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%) ")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/9138661.7546616381/BrazilMoney.png")
-          .addField("Compra <:brazilianreal1:913867351210995722>  ", "ARS$ " + currencyFormatter.format(real.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta <:brazilianreal1:913867351210995722>  ", "ARS$ " + currencyFormatter.format(real.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos <:brazilianreal1:913867351210995722>  ", "ARS$ " + currencyFormatter.format(realImpuesto, { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-        const embed2 = new Discord.MessageEmbed()
-          .setTitle("Real Brasileño")
-          .setColor("#e8ce6c")
-          .setDescription("El real es la moneda de curso legal en Brasil y fuera de sus fronteras se le conoce como real brasileño. A partir de 2020, es la vigésima moneda más negociada en el mundo, la segunda en América Latina detrás de peso mexicano y la cuarta en el continente americano detrás del dólar estadounidense, el dólar canadiense y el peso mexicano")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/9138661.7546616381/BrazilMoney.png")
-          .addField("Acuñación", " 1994 ")
-          .addField("Países donde se utiliza:", ":flag_br:")
-          .addField("Código ISO", "BRL ", true)
-          .addField("Símbolo", "R$ ", true)
-          .addField("Billetes <:brazilianreal1:913867351210995722> ", "R$2, R$5, R$10, R$20, R$50, R$100 y R$200")
-          .addField("Monedas :coin: ", "	R$0,01 , R$0,05, R$0,10, R$0,25, R$0,50 y R$ 1")
-          .addField("Inflación anual :chart_with_downwards_trend:", "10.74% (2021)", true)
-          .addField("Emisor :bank: ", "Banco Central do Brasil", true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-        const button1 = new MessageButton()
-          .setCustomId("previousbtn")
-          .setLabel("💸 Conversión ")
-          .setStyle("SUCCESS");
-
-        const button2 = new MessageButton()
-          .setCustomId("nextbtn")
-          .setLabel("📋 Información")
-          .setStyle("PRIMARY");
-
-        const pages = [
-          embed1,
-          embed2,
-
-
-        ];
-
-        const buttonList = [button1, button2];
-        const timeout = 30000;
-        paginationEmbed(message, pages, buttonList, timeout);
-
-
-
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-  }
-
-
-  //YEN
-  if (command.toLowerCase() == "yen" || command.toLowerCase() == "jpy") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((YEN) => {
-        yen1 = YEN.data['rates']['JPY']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Yen Japonés :flag_jp:")
-              .setColor("#FDFD0D")
-              .setDescription("Yen japonés oficial al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913893648876331048/yenjapones3.png")
-              .addField("Compra <:yen1:913890431392157807> ", 'ARS$ ' + currencyFormatter.format(((1 / yen1)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta <:yen1:913890431392157807> ", 'ARS$ ' + currencyFormatter.format(((1 / yen1)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos <:yen1:913890431392157807> ", 'ARS$ ' + currencyFormatter.format((((1 / yen1)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Yen Japonés")
-              .setColor("#FDFD0D")
-              .setDescription("El yen es la unidad monetaria utilizada en Japón​ y la tercera moneda más valorada en el mercado de divisas después del dólar estadounidense y el euro. También es usada como moneda de reserva junto al dólar, el euro y la libra esterlina. Como es común en la numeración japonesa, las cantidades grandes del yen se cuentan en múltiplos de 10 000 (man, 万).")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913893648876331048/yenjapones3.png")
-              .addField("Acuñación", "10 de mayo de 1871 ")
-              .addField("Países donde se utiliza:", ":flag_jp:")
-              .addField("Código ISO", "JPY ", true)
-              .addField("Símbolo ", "¥ ", true)
-              .addField("Billetes <:yen1:913890431392157807> ", "¥1000, ¥2000, ¥5000 y ¥10000")
-              .addField("Monedas :coin:  ", "¥1, ¥5, ¥10, ¥50, ¥100 y ¥500")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "0.5% (2019)", true)
-              .addField("Emisor :bank: ", "Banco de Japón", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //LIBRA
-  if (command.toLowerCase() == "libra" || command.toLowerCase() == "gbp" || command.toLowerCase() == "esterlina" || command.toLowerCase() == "pound") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((GBP) => {
-        libra1 = GBP.data['rates']['GBP']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Libra Esterlina :flag_gb:")
-              .setColor("#D605F6")
-              .setDescription("Libra Esterlina oficial al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913895989889359902/ReinaIsabeltest.png")
-              .addField("Compra <:pound:913895490150600715> ", 'ARS$ ' + currencyFormatter.format(((1 / libra1)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta <:pound:913895490150600715>", 'ARS$ ' + currencyFormatter.format(((1 / libra1)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos <:pound:913895490150600715>", 'ARS$ ' + currencyFormatter.format((((1 / libra1)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Libra Esterlina")
-              .setColor("#D605F6")
-              .setDescription("La Libra Esterlina es la moneda del Reino Unido así como de las Dependencias de la Corona y de algunos territorios británicos de ultramar. En sus demás territorios coloniales se usan diferentes divisas pero fijadas a la esterlina. Su símbolo monetario es £ y proviene del latín libra, que se refería a la unidad de masa. Una libra se divide en cien peniques.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913895989889359902/ReinaIsabeltest.png")
-              .addField("Acuñación", " 1158")
-              .addField("Países y territorios donde se utiliza:", ":flag_gb: :flag_im::flag_gg: :flag_je: :flag_fk: :flag_gi: :flag_sh: :flag_gs: :flag_io: ")
-              .addField("Código ISO", "GBP ", true)
-              .addField("Símbolo ", "£ ", true)
-              .addField("Billetes <:pound:913895490150600715> ", "£5, £10, £20, £50")
-              .addField("Monedas :coin:  ", "	1p, 2p, 5p, 10p, 20p, 50p, £1, £2")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "5.1% (2021)", true)
-              .addField("Emisor :bank: ", "Bank of England", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Rublo ruso
-
-  if (command.toLowerCase() == "rublo" || command.toLowerCase() == "rub") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((RUB) => {
-        rublo = RUB.data['rates']['RUB']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Rublo Ruso :flag_ru:")
-              .setColor("#FDFD0D")
-              .setDescription("Rublo Ruso oficial al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/920139509344108594/bancario_1.png")
-              .addField("Compra <:rublo:913901788531417229>  ", 'ARS$ ' + currencyFormatter.format(((1 / rublo)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta <:rublo:913901788531417229>", 'ARS$ ' + currencyFormatter.format(((1 / rublo)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos <:rublo:913901788531417229>", 'ARS$ ' + currencyFormatter.format((((1 / rublo)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Rublo Ruso")
-              .setColor("#FDFD0D")
-              .setDescription("El Rublo es la moneda oficial de la Federación de Rusia y medio de pago de las repúblicas parcialmente reconocidas de Abjasia y Osetia del Sur.​ Rublo también fue el nombre de la moneda oficial de la Unión Soviética, el Imperio ruso y otros estados. Un rublo se divide en cien kopeks.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/920139509344108594/bancario_1.png")
-              .addField("Acuñación", " 1991")
-              .addField("Países donde se utiliza:", ":flag_ru: ")
-              .addField("Código ISO", "RUB ", true)
-              .addField("Símbolo ", "₽ ", true)
-              .addField("Billetes <:rublo:913901788531417229> ", "5 ₽, 10 ₽, 50 ₽, 100 ₽, 500 ₽, 1000 ₽, 2000 ₽, 5000 ₽")
-              .addField("Monedas :coin:  ", "	1 коп, 5коп, 10коп, 50 коп, 1 ₽, 2 ₽, 5 ₽, 10 ₽, 25 ₽")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "4,9% (2020)", true)
-              .addField("Emisor :bank: ", "Banco de Rusia ", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //PESO  MEXICANO
-
-  if (command.toLowerCase() == "pesomexicano" || command.toLowerCase() == "mxn") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((MEX) => {
-        mexicano = MEX.data['rates']['MXN']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Peso Méxicano :flag_mx:")
-              .setColor("#24944c")
-              .setDescription("Peso Méxicano oficial al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/838470413066436658/MXNPeso.png")
-              .addField("Compra :flag_mx:  ", 'ARS$ ' + currencyFormatter.format(((1 / mexicano)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_mx:  ", 'ARS$ ' + currencyFormatter.format(((1 / mexicano)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_mx:  ", 'ARS$ ' + currencyFormatter.format((((1 / mexicano)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Peso Méxicano")
-              .setColor("#24944c")
-              .setDescription("El peso méxicano es la moneda de curso legal de México. El peso mexicano fue la primera moneda en el mundo en utilizar el signo $, incluso antes que el dólar de Estados Unidos, el cual más tarde lo adoptó para su propio uso. El peso mexicano es la decimoquinta moneda más negociada en el mundo, la más negociada de América Latina y la tercera más negociada en toda América.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/838470413066436658/MXNPeso.png")
-              .addField("Acuñación", "1 de enero de 1993")
-              .addField("Países donde se utiliza:", ":flag_mx: ")
-              .addField("Código ISO", "MXN ", true)
-              .addField("Símbolo ", "$ ", true)
-              .addField("Billetes :dollar: ", "$20, $50, $100, $200, $500 y $1000")
-              .addField("Monedas :coin:  ", "	¢10, ¢20, ¢50, $1, $2, $5, $10 y $20 (conmemorativas)")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "3,15% (2020)", true)
-              .addField("Emisor :bank: ", "Banco de México ", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Bolivar
-
-  if (command.toLowerCase() == "bolivar" || command.toLowerCase() == "ved" || command.toLowerCase() == "bolivardigital") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((VEZ) => {
-        bolivar = VEZ.data['rates']['VES']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Bolivar Digital Venezolano :flag_ve: ")
-              .setColor("RED")
-              .setDescription("Bolivar Digital Venezolano oficial al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/894982507563483216/bolivardigital.png")
-              .addField("Compra :flag_ve:  ", 'ARS$ ' + currencyFormatter.format(((1 / bolivar)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ve:  ", 'ARS$ ' + currencyFormatter.format(((1 / bolivar)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_ve:  ", 'ARS$ ' + currencyFormatter.format((((1 / bolivar)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Bolivar Digital Venezolano")
-              .setColor("RED")
-              .setDescription("El Bolivar Digital es la moneda de curso legal de la República Bolivariana de Venezuela. Esta moneda reemplazó al Bolívar Soberano (Bs. S) que circuló desde  agosto de 2018 y octubre de 2021. El valor de la nueva moneda se obtendrá quitando seis ceros a la antigua.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/894982507563483216/bolivardigital.png")
-              .addField("Acuñación", "1 de octubre del 2021")
-              .addField("Países donde se utiliza:", ":flag_ve: ")
-              .addField("Código ISO", "VED ", true)
-              .addField("Símbolo ", "Bs. o Bs. D ", true)
-              .addField("Billetes :dollar: ", "Bs. 5, Bs. 10, Bs. 20, Bs. 50, Bs. 100")
-              .addField("Monedas :coin:  ", "	Bs. 1 ")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "Bolivar Soberano: 3.713% (2020)", true)
-              .addField("Emisor :bank: ", "Banco Central de Venezuela ", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Dólar Canadiense
-
-  if (command.toLowerCase() == "dolarcanadiense" || command.toLowerCase() == "cad" || command.toLowerCase() == "canadiense") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CAD) => {
-        canadiense = CAD.data['rates']['CAD']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Dólar Canadiense :flag_ca: ")
-              .setColor("#fc0201")
-              .setDescription("Dólar Canadiense oficial al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928332562793922611/canadian-dollar.png")
-              .addField("Compra :flag_ca:  ", 'ARS$ ' + currencyFormatter.format(((1 / canadiense)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ca:  ", 'ARS$ ' + currencyFormatter.format(((1 / canadiense)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_ca:  ", 'ARS$ ' + currencyFormatter.format((((1 / canadiense)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Dólar Canadiense")
-              .setColor("#fc0201")
-              .setDescription("El dólar canadiense es la unidad monetaria oficial de Canadá. Se subdivide en 100 cents (centavos). Su código ISO 4217 es CAD. El dólar ha estado en vigor durante gran parte de la historia de Canadá. \nCanadá decidió usar el dólar en lugar de la libra esterlina británica a causa de la difusión del llamado dólar español o peso en Norteamérica durante el siglo XVIII y principios del XIX, y a causa de la generalización del dólar estadounidense. La región que corresponde al actual Quebec, en particular, favoreció el uso del dólar (el Banco de Montreal emitió billetes de dólares en 1817), mientras que las colonias atlánticas, que tenían unos vínculos más fuertes con el Reino Unido, no eran tan partidarias. ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928332562793922611/canadian-dollar.png")
-              .addField("Acuñación", "1 de enero de 1858")
-              .addField("Países donde se utiliza:", ":flag_ca: ")
-              .addField("Código ISO", "CAD ", true)
-              .addField("Símbolo ", "C$ ", true)
-              .addField("Billetes :dollar: ", "C$5, C$10, C$20, C$50, C$100")
-              .addField("Monedas :coin:  ", "	¢5, ¢10, ¢25, C$1, C$2")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "2,2% (2019)", true)
-              .addField("Emisor :bank: ", "Banco de Canadá", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-
-  //Peso Chileno
-
-  if (command.toLowerCase() == "pesochileno" || command.toLowerCase() == "cl" || command.toLowerCase() == "clp" || command.toLowerCase() == "chileno") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CLP) => {
-        chileno = CLP.data['rates']['CLP']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Peso Chileno :flag_cl: ")
-              .setColor("#fc0201")
-              .setDescription("Peso chileno oficial al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/856753411793354773/pesochileno.png")
-              .addField("Compra :flag_cl:  ", 'ARS$ ' + currencyFormatter.format(((1 / chileno)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_cl:  ", 'ARS$ ' + currencyFormatter.format(((1 / chileno)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_cl:  ", 'ARS$ ' + currencyFormatter.format((((1 / chileno)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Peso Chileno")
-              .setColor("#fc0201")
-              .setDescription("El peso es la moneda de curso legal de Chile desde el año 1975. \nPor medio del decreto ley 1123 de 1975, el peso fue retomado como unidad monetaria a partir del 29 de septiembre de dicho año,5 con una tasa de conversión de un peso por cada mil escudos. La subdivisión en centavos se mantuvo hasta el 1 de enero de 1984, cuando éstos fueron eliminados, por lo que la contabilidad se empezó a llevar en pesos enteros. ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/856753411793354773/pesochileno.png")
-              .addField("Acuñación", "29 de septiembre de 1975")
-              .addField("Países donde se utiliza:", ":flag_cl: ")
-              .addField("Código ISO", "CLP ", true)
-              .addField("Símbolo ", "$ ", true)
-              .addField("Billetes :dollar: ", "$1.000, $2.000, $5.000, $10.000 y $20.000 pesos")
-              .addField("Monedas :coin:  ", "	$10, $50, $100 y $500 pesos")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "7,2% (2021)", true)
-              .addField("Emisor :bank: ", "Banco Central de Chile", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Peso Uruguayo
-  if (command.toLowerCase() == "pesouruguayo" || command.toLowerCase() == "uy" || command.toLowerCase() == "uyu") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((UYU) => {
-        peso = UYU.data['rates']['UYU']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Peso Uruguayo :flag_uy:")
-              .setColor("BLUE")
-              .setDescription("Peso uruguayo oficial al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/856766027831574528/pesouruguayo.png")
-              .addField("Compar :flag_uy:  ", 'ARS$ ' + currencyFormatter.format(((1 / peso)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_uy:  ", 'ARS$ ' + currencyFormatter.format(((1 / peso)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_uy:  ", 'ARS$ ' + currencyFormatter.format((((1 / peso)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Peso Uruguayo")
-              .setColor("BLUE")
-              .setDescription("El peso es la moneda oficial de la República Oriental del Uruguay desde 1993, remplazando al nuevo peso por un valor de 1000 nuevos pesos = 1 peso uruguayo y 1 000 000 de viejos pesos. En 2011 se cambió completamente el diseño de las monedas con nuevas decoraciones y materiales, se añadieron distintos animales y figuras patrias al reverso de las monedas. Se representa con un $.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/856766027831574528/pesouruguayo.png")
-              .addField("Acuñación", "1 de marzo de 1993")
-              .addField("Países donde se utiliza:", ":flag_uy: ")
-              .addField("Código ISO", "UYU ", true)
-              .addField("Símbolo ", "$ ", true)
-              .addField("Billetes :dollar: ", "$20, $50, $100, $200, $500, $1000 y $2000 pesos")
-              .addField("Monedas :coin:  ", "	$1, $2, $5, $10 y $50 pesos")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "8,8% (2019)", true)
-              .addField("Emisor :bank: ", "Banco Central del Uruguay", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Guaraní
-  if (command.toLowerCase() == "guarani" || command.toLowerCase() == "pyg" || command.toLowerCase() == "guaraniparaguayo" || command.toLowerCase() == "paraguayo") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((PYG) => {
-        guarani = PYG.data['rates']['PYG']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Guaraní Paraguayo :flag_py: (1000 unidades)")
-              .setColor("#d80027")
-              .setDescription("1000 Guaranies al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/856970634726735902/guaraniparaguayo.png")
-              .addField("Compra :flag_py:  ", 'ARS$ ' + currencyFormatter.format(((1000 / guarani)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_py:  ", 'ARS$ ' + currencyFormatter.format(((1000 / guarani)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_py:  ", 'ARS$ ' + currencyFormatter.format((((1000 / guarani)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Guaraní Paraguayo")
-              .setColor("#d80027")
-              .setDescription("El guaraní (₲) es la moneda de curso legal actual de la República del Paraguay desde el año 1943. Ostenta el récord de ser una de las monedas más antiguas de América Latina.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/856970634726735902/guaraniparaguayo.png")
-              .addField("Acuñación", "1943")
-              .addField("Países donde se utiliza:", ":flag_py: ")
-              .addField("Código ISO", "PYG", true)
-              .addField("Símbolo ", "₲ ", true)
-              .addField("Billetes :dollar: ", "₲2.000, ₲5.000, ₲10.000, ₲20.000, ₲50.000 y ₲100.000 guaraníes")
-              .addField("Monedas :coin:  ", "		₲50, ₲100, ₲500 y ₲1.000 guaraníes")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "2,2 % (2020)", true)
-              .addField("Emisor :bank: ", "Banco Central del Paraguay", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Peso colombiano
-  if (command.toLowerCase() == "pesocolombiano" || command.toLowerCase() == "cop" || command.toLowerCase() == "colombiano") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((COL) => {
-        pesos = COL.data['rates']['COP']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Peso Colombiano :flag_co: (1000 unidades)")
-              .setColor("#fecb04")
-              .setDescription("1000 Pesos colombiano al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/857487546455294022/PesoColombiano.png")
-              .addField("Compra :flag_co:  ", 'ARS$ ' + currencyFormatter.format(((1000 / pesos)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_co:  ", 'ARS$ ' + currencyFormatter.format(((1000 / pesos)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_co:  ", 'ARS$ ' + currencyFormatter.format((((1000 / pesos)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Peso Colombiano")
-              .setColor("#fecb04")
-              .setDescription("El peso es la unidad monetaria de curso legal en la República de Colombia. Su abreviación formal es COP (ISO 4217), e informalmente es abreviada COL$.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/857487546455294022/PesoColombiano.png")
-              .addField("Acuñación", "1903")
-              .addField("Países donde se utiliza:", ":flag_co: ")
-              .addField("Código ISO", "COP", true)
-              .addField("Símbolo ", "$ ", true)
-              .addField("Billetes :dollar: ", "$1.000, $2.000, $5.000, $10.000, $20.000, $50.000 y $100.000 pesos")
-              .addField("Monedas :coin:  ", "		$50, $100, $200, $500 y $1000 pesos")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "1.61% (2020)", true)
-              .addField("Emisor :bank: ", "Banco de la República de Colombia.", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //boliviano
-
-  if (command.toLowerCase() == "boliviano" || command.toLowerCase() == "pesoboliviano" || command.toLowerCase() == "bob") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((BOB) => {
-        pesos = BOB.data['rates']['BOB']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Boliviano :flag_bo:")
-              .setColor("#6da544")
-              .setDescription("Boliviano al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858355537228595201/Boliviano.png")
-              .addField("Compra :flag_bo:  ", 'ARS$ ' + currencyFormatter.format(((1 / pesos)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_bo:  ", 'ARS$ ' + currencyFormatter.format(((1 / pesos)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_bo:  ", 'ARS$ ' + currencyFormatter.format((((1 / pesos)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Boliviano")
-              .setColor("#6da544")
-              .setDescription("El Boliviano (símbolo: Bs, código ISO 4217: BOB) es la moneda de curso legal del Estado Plurinacional de Bolivia desde el año 1987. Se divide en 100 centavos y entró en circulación nacional, reemplazando al antiguo peso boliviano. El Banco Central de Bolivia (fundado en 1928), es el organismo económico responsable de la emisión de la moneda.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858355537228595201/Boliviano.png")
-              .addField("Acuñación", "1987")
-              .addField("Países donde se utiliza:", ":flag_bo: ")
-              .addField("Código ISO", "BOB", true)
-              .addField("Símbolo ", "Bs ", true)
-              .addField("Billetes :dollar: ", "Bs10, Bs20, Bs50, Bs100 y Bs200")
-              .addField("Monedas :coin:  ", "	Bs0,10, Bs0,20¢, Bs0,50, Bs1 , Bs2 y Bs5 ")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "0,67% (2020)", true)
-              .addField("Emisor :bank: ", "Banco Central de Bolivia.", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-
-  //Sol peruano
-  if (command.toLowerCase() == "solperuano" || command.toLowerCase() == "pen" || command.toLowerCase() == "sol") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((PEN) => {
-        sol = PEN.data['rates']['PEN']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Sol Peruano :flag_pe: ")
-              .setColor("#cd0400")
-              .setDescription("Sol peruano al  precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/85806781.755300658/SolPeruano.png")
-              .addField("Compra :flag_pe:  ", 'ARS$ ' + currencyFormatter.format(((1 / sol)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_pe:  ", 'ARS$ ' + currencyFormatter.format(((1 / sol)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_pe:  ", 'ARS$ ' + currencyFormatter.format((((1 / sol)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Sol Peruano")
-              .setColor("#cd0400")
-              .setDescription("El sol es la moneda de curso legal del Perú desde 1991. Esta moneda reemplazó al inti que circuló entre 1985 y 1991. Inicialmente fue denominada nuevo sol para diferenciarla del antiguo sol que circuló entre 1931 y 1985. Sin embargo, desde 2015 el gobierno dispuso que el «nuevo sol» pase a denominarse simplemente «sol», suprimiéndose además el uso del punto (S/.) en el signo monetario (S/).")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/85806781.755300658/SolPeruano.png")
-              .addField("Acuñación", "1991")
-              .addField("Países donde se utiliza:", ":flag_pe: ")
-              .addField("Código ISO", "PEN", true)
-              .addField("Símbolo ", "S/ ", true)
-              .addField("Billetes :dollar: ", "S/10, S/20, S/50, S/100 y S/200 soles")
-              .addField("Monedas :coin:  ", "S/0,10 , S/0,20 y S/0,50 , S/1, S/2 y S/5")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "6,4% (2021)", true)
-              .addField("Emisor :bank: ", "Banco Central de Reserva del Perú", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-
-  //Renminbi
-  if (command.toLowerCase() == "renminbi" || command.toLowerCase() == "yuan" || command.toLowerCase() == "cny") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CNY) => {
-        yuan = CNY.data['rates']['CNY']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Renminbi Chino (Yuan) :flag_cn: ")
-              .setColor("#cd0400")
-              .setDescription("Renminbi (Yuan) chino al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858074668015157258/yuanchino.png")
-              .addField("Compra :flag_cn: ", 'ARS$ ' + currencyFormatter.format(((1 / yuan)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_cn: ", 'ARS$ ' + currencyFormatter.format(((1 / yuan)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_cn: ", 'ARS$ ' + currencyFormatter.format((((1 / yuan)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Renminbi Chino")
-              .setColor("#cd0400")
-              .setDescription("El renminbi «moneda del pueblo» es la moneda de curso legal de la República Popular China y es emitida por el Banco Popular de China. El yuan (código: CNY) es la unidad básica del renminbi, nombre por el que también se conoce a la moneda. Cada yuan se fracciona en diez jiao o mao y cada jiao se divide en diez fen. Para que el valor del renminbi no fluctúe dependiendo del mercado financiero, el yuan está fijado a una canasta de varias monedas internacionales. Se suele utilizar el simbolo  del yen japonés (¥) o también el sinograma del yuan (元)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858074668015157258/yuanchino.png")
-              .addField("Acuñación", "1955")
-              .addField("Países donde se utiliza:", "Oficial: :flag_cn:  \nNo oficial:  :flag_mo: :flag_hk: :flag_la: :flag_kh: :flag_vn: :flag_mm: :flag_kp: :flag_np::flag_zw:")
-              .addField("Código ISO", "CNY", true)
-              .addField("Símbolo ", "	元 / ¥ ", true)
-              .addField("Billetes :dollar: ", "角	1, 角2 y 角5 jiao  / 元1, 元2, 元5, 元10, 元20, 元50 y 元100 yuanes")
-              .addField("Monedas :coin:  ", "分1, 分2 y 分5 fen / 角1 y 角5 jiao / 元1 yuan")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "1,9% (2018)", true)
-              .addField("Emisor :bank: ", "Banco Popular de China", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-
-  if (command.toLowerCase() == "dolaraustraliano" || command.toLowerCase() == "aud" || command.toLowerCase() == "australiano") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CAD) => {
-        dolar = CAD.data['rates']['AUD']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Dólar Australiano :flag_au:")
-              .setColor("#000346")
-              .setDescription("Dólar Australiano oficial al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858087525518934076/dolaraustraliano.png")
-              .addField("Compra :flag_au:  ", 'ARS$ ' + currencyFormatter.format(((1 / dolar)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_au:  ", 'ARS$ ' + currencyFormatter.format(((1 / dolar)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_au:  ", 'ARS$ ' + currencyFormatter.format((((1 / dolar)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Dólar Australiano")
-              .setColor("#000346")
-              .setDescription("El dólar australiano (código AUD) es la moneda oficial de la Mancomunidad de Australia, incluidos los Territorios Antárticos Australianos, la Isla de Navidad, las Islas Cocos, Islas Heard y McDonald e Isla Norfolk, así como de los estados independientes del Pacífico de Kiribati, Nauru y Tuvalu. ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858087525518934076/dolaraustraliano.png")
-              .addField("Acuñación", "1966")
-              .addField("Países donde se utiliza:", ":flag_au: :flag_ki: :flag_nr: :flag_tv: :flag_cx: :flag_cc: :flag_nf:")
-              .addField("Código ISO", "AUD ", true)
-              .addField("Símbolo ", "A$ ", true)
-              .addField("Billetes :dollar: ", "A$5, A$10, A$20, A$50, A$100")
-              .addField("Monedas :coin:  ", "	A$0,5 , A$0,10, A$0,20 , A$0,50 , A$1, A$2")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "1,8% (2020)", true)
-              .addField("Emisor :bank: ", "Banco de la Reserva de Australia", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-
-  if (command.toLowerCase() == "dolarneozelandés" || command.toLowerCase() == "dolarneozelandes" || command.toLowerCase() == "nzd" || command.toLowerCase() == "dolarnuevazelanda") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((NZD) => {
-        dolar = NZD.data['rates']['NZD']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Dólar Neozelandés :flag_nz: ")
-              .setColor("#000346")
-              .setDescription("Dólar Neozelandés oficial al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858094221654753300/Dolar_nueva_zelanda.png")
-              .addField("Compra :flag_nz:  ", 'ARS$ ' + currencyFormatter.format(((1 / dolar)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_nz:  ", 'ARS$ ' + currencyFormatter.format(((1 / dolar)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_nz:  ", 'ARS$ ' + currencyFormatter.format((((1 / dolar)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Dólar Neozelandés")
-              .setColor("#000346")
-              .setDescription("El dólar neozelandés o dólar de Nueva Zelanda (abreviado NZD o NZ$) es la moneda oficial de Nueva Zelanda, las Islas Cook, Niue, Tokelau y las Islas Pitcairn. Se introdujo en 1967 para sustituir a la libra neozelandesa cuando se introdujo el sistema decimal para las monedas. ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858094221654753300/Dolar_nueva_zelanda.png")
-              .addField("Acuñación", "1967")
-              .addField("Países donde se utiliza:", ":flag_nz: :flag_ck: :flag_nu: :flag_tk: :flag_pn: ")
-              .addField("Código ISO", "NZD ", true)
-              .addField("Símbolo ", "NZ$ ", true)
-              .addField("Billetes :dollar: ", "NZ$5, NZ$10, NZ$20, NZ$50, NZ$100")
-              .addField("Monedas :coin:  ", "	NZ$0,10 , NZ$0,20, NZ$0,50 , NZ$1, NZ$2")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "1,9% (2018)", true)
-              .addField("Emisor :bank: ", "Banco de la Reserva de Nueva Zelanda", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Rupia
-  if (command.toLowerCase() == "rupia" || command.toLowerCase() == "rupiaindia" || command.toLowerCase() == "INR") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((INR) => {
-        rupia = INR.data['rates']['INR']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Rupia India :flag_in: ")
-              .setColor("#fc9836")
-              .setDescription("Rupia india oficial al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858105999408103424/IndiaRupia.png")
-              .addField("Compra :flag_in:  ", 'ARS$ ' + currencyFormatter.format(((1 / rupia)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_in:  ", 'ARS$ ' + currencyFormatter.format(((1 / rupia)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_in:  ", 'ARS$ ' + currencyFormatter.format((((1 / rupia)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Rupia India")
-              .setColor("#fc9836")
-              .setDescription("La rupia es la moneda oficial de la República de la India. Su emisión está controlada por el Banco de la Reserva de la India. Está dividida en 100 paise y su código ISO 4217 es INR. \n En muchas partes de la India, la rupia es conocida como rupaya (hindi), roopayi (రూపాయి) en télugu y kannada (ರೂಪಾಯಿ), rubai (ரூபாய்) en tamil, roopa (രൂപ) en malayalam, rupaye (रुपये) en maratí, o en muchas otras formas derivadas del sánscrito, en el cual, significa plata. Sin embargo, en zonas como Bengala Occidental, Tripura, Orissa y Assam el término ha derivado de la palabra sánscrita tanka. Así, a la rupia se la llama taka (টাকা) en bengalí, tôka (টকা) en asamés, y tôngka en oriya.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858105999408103424/IndiaRupia.png")
-              .addField("Acuñación", "1 de abril de 1957")
-              .addField("Países donde se utiliza:", "Oficial: :flag_in: \n No oficial: :flag_bt: :flag_np: :flag_zw: ")
-              .addField("Código ISO", "INR ", true)
-              .addField("Símbolo ", "₹ ", true)
-              .addField("Billetes :dollar: ", "₹1, ₹5, ₹10, ₹20, ₹50, ₹100, ₹200, ₹500 y ₹2000")
-              .addField("Monedas :coin:  ", "	50 paise, ₹1, ₹2, ₹5, ₹10")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "2,11%(2018)", true)
-              .addField("Emisor :bank: ", "Banco de la Reserva de la India", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Won Surcoreano
-
-  if (command.toLowerCase() == "won" || command.toLowerCase() == "wonsurcoreano" || command.toLowerCase() == "woncoreano" || command.toLowerCase() == "krw") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((KRW) => {
-        won = KRW.data['rates']['KRW']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Won Surcoreano :flag_kr: ")
-              .setColor("#FFFFFF")
-              .setDescription("Won surcoreano oficial al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858122163164807168/CoreaDelSurMoneda.png")
-              .addField("Compra :flag_kr:   ", 'ARS$ ' + currencyFormatter.format(((1 / won)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_kr:   ", 'ARS$ ' + currencyFormatter.format(((1 / won)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_kr:  ", 'ARS$ ' + currencyFormatter.format((((1 / won)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Won Surcoreano")
-              .setColor("#FFFFFF")
-              .setDescription("El won surcoreano es la moneda de curso legal de Corea del Sur. Durante la época colonial, el won se sustituyó a la par por el yen, formando el yen coreano, pero después de la Segunda Guerra Mundial, Corea se dividió, resultando en dos monedas diferentes, ambas llamadas won, para el Sur y para el Norte.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858122163164807168/CoreaDelSurMoneda.png")
-              .addField("Acuñación", "9 de junio de 1962")
-              .addField("Países donde se utiliza:", ":flag_kr: ")
-              .addField("Código ISO", "KRW ", true)
-              .addField("Símbolo ", "₩ ", true)
-              .addField("Billetes :dollar: ", "₩1000, ₩2000, ₩5000, ₩10000 y ₩50000")
-              .addField("Monedas :coin:  ", "₩1, ₩5, ₩10, ₩50, ₩100 y ₩500")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "1,3% (2018)", true)
-              .addField("Emisor :bank: ", "Banco de Corea", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Lira Turca
-
-  if (command.toLowerCase() == "turca" || command.toLowerCase() == "lira" || command.toLowerCase() == "liraturca" || command.toLowerCase() == "try") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((LIRA) => {
-        Turca = LIRA.data['rates']['TRY']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Lira Turca :flag_tr: ")
-              .setColor("#d70224")
-              .setDescription("Lira Turca oficial al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/930958503399546910/liraturca.png")
-              .addField("Compra :flag_tr:  ", 'ARS$ ' + currencyFormatter.format(((1 / Turca)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_tr:  ", 'ARS$ ' + currencyFormatter.format(((1 / Turca)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_tr:  ", 'ARS$ ' + currencyFormatter.format((((1 / Turca)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Lira Turca")
-              .setColor("#d70224")
-              .setDescription("La lira es la moneda de curso legal de Turquía y de la República Turca del Norte de Chipre. Su código ISO 4217 es TRY y se divide en 100 kuruş. El emisor es el Banco Central de la República de Turquía. ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/930958503399546910/liraturca.png")
-              .addField("Acuñación", "2005")
-              .addField("Países donde se utiliza:", ":flag_tr: :flag_cy: (Norte) ")
-              .addField("Código ISO", "TRY ", true)
-              .addField("Símbolo ", "₺ ", true)
-              .addField("Billetes :dollar: ", "	₺5, ₺10, ₺20, ₺50, ₺100 y ₺200")
-              .addField("Monedas :coin:  ", " ₺0,01 ,	₺0,05 , ₺0,10 , ₺0,25, ₺0,50 , ₺1")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "14,6% (2020)", true)
-              .addField("Emisor :bank: ", "Banco Central de la República de Turquía", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Franco Suizo
-
-  if (command.toLowerCase() == "franco" || command.toLowerCase() == "suizo" || command.toLowerCase() == "francosuizo" || command.toLowerCase() == "chf") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((suiza) => {
-        franco = suiza.data['rates']['CHF']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Franco Suizo :flag_ch: ")
-              .setColor("#d80027")
-              .setDescription("Franco suizo oficial al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/930958502980100116/FrancoSuizo.png")
-              .addField("Compra :flag_ch: ", 'ARS$ ' + currencyFormatter.format(((1 / franco)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ch:  ", 'ARS$ ' + currencyFormatter.format(((1 / franco)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos :flag_ch:  ", 'ARS$ ' + currencyFormatter.format((((1 / franco)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Franco Suizo")
-              .setColor("#d80027")
-              .setDescription("El franco es la moneda oficial de Suiza y Liechtenstein. También es de curso legal en los enclaves italiano y alemán de Campione d'Italia y Büsingen am Hochrhein, donde circula junto al euro. El Banco Nacional Suizo es el encargado de emitir los billetes, y la Swissmint federal acuña las monedas. ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/930958502980100116/FrancoSuizo.png")
-              .addField("Acuñación", "2005")
-              .addField("Países donde se utiliza:", ":flag_ch: :flag_li: :flag_it: (Campione d'Italia) :flag_de: (Büsingen am Hochrhein) ")
-              .addField("Código ISO", "CHF ", true)
-              .addField("Símbolo ", "Fr. ", true)
-              .addField("Billetes :dollar: ", "	Fr.10, Fr.20, Fr.50, Fr.100, Fr.200, Fr.1000 ")
-              .addField("Monedas :coin:  ", " 5 , 10, 20  rappen  /  Fr.½, Fr.1, Fr.2, Fr.5 ")
-              .addField("Inflación anual :chart_with_downwards_trend: ", "0,9% (2018)", true)
-              .addField("Emisor :bank: ", "Banco Nacional de Suiza", true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //Cripto
-  //Bitcoin
-
-  if (command.toLowerCase() == "bitcoin" || command.toLowerCase() == "btc" || command.toLowerCase() == "cripto") {
-    axios.get('https://api.exchangerate.host/latest')
-      .then((BTC) => {
-        bitcoin = BTC.data['rates']['BTC']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-
-          .then((EUR) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle("Bitcoin <:bitcoin:929073179262074960> ")
-              .setColor("#fddc4d")
-              .setDescription("Bitcoin al precio del banco central + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929073343682990150/bitcoin.png")
-              .addField("Compra <:bitcoin:929073179262074960>   ", 'ARS$ ' + currencyFormatter.format(((1 / bitcoin)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta <:bitcoin:929073179262074960>  ", 'ARS$ ' + currencyFormatter.format(((1 / bitcoin)) * EUR.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos <:bitcoin:929073179262074960>  ", 'ARS$ ' + currencyFormatter.format((((1 / bitcoin)) * EUR.data['venta'] * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle("Bitcoin")
-              .setColor("#fddc4d")
-              .setDescription("Bitcoin es una criptomoneda  y un sistema de pago sin banco central o administrador único. En principio, los usuarios de bitcoin pueden transferir dinero entre sí a través de una red entre iguales usando software libre y de código abierto. Las transacciones son verificadas y custodiadas criptográficamente por una red descentralizada de nodos")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929073343682990150/bitcoin.png")
-              .addField("Lanzamiento inicial", "3  de enero de 2009")
-              .addField("Países donde es de curso legal:", ":flag_sv: ")
-              .addField("Código ISO", "BTC ", true)
-              .addField("Símbolo ", "₿ ", true)
-              .addField("Desarrollador ", "Satoshi Nakamoto (seudónimo), Gavin Andresen y otros")
-              .addField("Límite de Emisión  ", "₿21,000,000")
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("💸 Conversión ")
-              .setStyle("SUCCESS");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📋 Información")
-              .setStyle("PRIMARY");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      })
-
-
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-
-  }
-
-  //
-  //RIESGO PAIS
-  if (command.toLowerCase() == "riesgopais" || command.toLowerCase() == "rp") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/riesgopais` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-  }
-
-  //Reservas
-
-  if (command.toLowerCase() == "reservas") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/reservas` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-
-  //Circulante
-
-
-
-  if (command.toLowerCase() == "circulante" || command.toLowerCase() == "circulación" || command.toLowerCase() == "pesosencirculación") {
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/circulante` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-
-  //Elecciones
-  if (command.toLowerCase() == "elecciones") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/elecciones` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-
-
-  if (command.toLowerCase() == "fútbol" || command.toLowerCase() == "selección" || command.toLowerCase() == "futbol" || command.toLowerCase() == "seleccion") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/futbol` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-  }
-
-
-
-
-
-  //Covid
-  //SINTOMAS
-  if (command.toLowerCase() == "covidsintomas" || command.toLowerCase() == "covidsíntomas" || command.toLowerCase() == "sintomas" || command.toLowerCase() == "síntomas") {
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/covid sintomas` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", "`criptomoneda` `metal` `convertircripto` `convertirmetal` `pesoacripto` `pesoametal` `provinciainfo` `covidpais` `casos` `recomendaciones` `sintomas` `netflix` `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //Recomendaciones
-  if (command.toLowerCase() == "covidrecomendaciones" || command.toLowerCase() == "covidtips" || command.toLowerCase() == "recomendaciones") {
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/covid recomendaciones` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", "`criptomoneda` `metal` `convertircripto` `convertirmetal` `pesoacripto` `pesoametal` `provinciainfo` `covidpais` `casos` `recomendaciones` `sintomas` `netflix` `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //Global
-  if (command.toLowerCase() == "casosglobal" || command.toLowerCase() == "covidglobal") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/covid global` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", "`criptomoneda` `metal` `convertircripto` `convertirmetal` `pesoacripto` `pesoametal` `provinciainfo` `covidpais` `casos` `recomendaciones` `sintomas` `netflix` `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //Argentina
-  if (command.toLowerCase() == "covidarg" || command.toLowerCase() == "casos" || command.toLowerCase() == "covidcasos" || command.toLowerCase() == "covidargcasos") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/covid casos` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", "`criptomoneda` `metal` `convertircripto` `convertirmetal` `pesoacripto` `pesoametal` `provinciainfo` `covidpais` `casos` `recomendaciones` `sintomas` `netflix` `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //País
-  //lista
-
-  if (command.toLowerCase() === 'covidpais') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/covid covidpais` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", "`criptomoneda` `metal` `convertircripto` `convertirmetal` `pesoacripto` `pesoametal` `provinciainfo` `covidpais` `casos` `recomendaciones` `sintomas` `netflix` `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //DIVERSIÓN
-  //ODIO
-
-  if (command.toLowerCase() === "odio") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/odio argentina` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-
-  //Odio latam
-  if (command.toLowerCase() === "odiolatam") {
-    const slash = new Discord.MessageEmbed()
-    .setTitle("Prueba con `/odio latinoamerica` en su lugar")
-    .setColor("#d6f2fc")
-    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-    .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-    .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-    .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-    .addField(" Comandos solo disponible con slash", comandosslash)
-  return message.reply({ embeds: [slash] });
-  }
-
-  //Escapar latam
-  if (command.toLowerCase() === "escaparlatam") {
-
-    const slash = new Discord.MessageEmbed()
-    .setTitle("Prueba con `/escaparlatam` en su lugar")
-    .setColor("#d6f2fc")
-    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-    .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-    .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-    .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-    .addField(" Comandos solo disponible con slash", comandosslash)
-  return message.reply({ embeds: [slash] });
-  }
-
-  //8Ball
-
-  if (command.toLowerCase() === "8ball" || command.toLowerCase() === "bola8" || command.toLowerCase() === "bolamagica" || command.toLowerCase() === "bolamágica") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/8ball [consulta]` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-  }
-
-  //DADOS
-
-  if (command.toLowerCase() === "dados" || command.toLowerCase() === "dado") {
-    const slash = new Discord.MessageEmbed()
-    .setTitle("Prueba con `/dados` en su lugar")
-    .setColor("#d6f2fc")
-    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-    .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-    .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-    .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-    .addField(" Comandos solo disponible con slash", comandosslash)
-  return message.reply({ embeds: [slash] });
-
-  }
-
-  //COVIDTEST
-  if (command.toLowerCase() === "covidtest") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/covidtest ` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-
-  if (command.toLowerCase() === "moneda" || command.toLowerCase() === "soloescudo" || command.toLowerCase() === "caraocruz" || command.toLowerCase() === "escudosol" || command.toLowerCase() === "solescudo") {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/moneda` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-  }
-
-  //Piedra Papel o Tijera
-
-  if (command.toLowerCase() === "piedrapapelotijera" || command.toLowerCase() === "ppt" || command.toLowerCase() === "rps") {
-    const slash = new Discord.MessageEmbed()
-    .setTitle("Prueba con `/piedrapapelotijera [usuario]` en su lugar")
-    .setColor("#d6f2fc")
-    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-    .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-    .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-    .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-    .addField(" Comandos solo disponible con slash", comandosslash)
-  return message.reply({ embeds: [slash] });
-
-  }
-
-  if (command.toLowerCase() === "tateti" || command.toLowerCase() === "ttt" || command.toLowerCase() === "tictactoe") {
-    const slash = new Discord.MessageEmbed()
-    .setTitle("Prueba con `/tateti [usuario]` en su lugar")
-    .setColor("#d6f2fc")
-    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-    .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-    .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-    .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-    .addField(" Comandos solo disponible con slash", comandosslash)
-  return message.reply({ embeds: [slash] });
-  }
-
-
-
-  //CONVERTIR
-
-  if (command.toLowerCase() == "convertir" || command.toLowerCase() == "convertirtarjeta" || command.toLowerCase() == "convertirstreaming" || command.toLowerCase() == "convertirgamer" || command.toLowerCase() == "convertirsolidario" || command.toLowerCase() == "convertir65") {
-
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv2 = parseFloat(conv)
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
-      .then((oficial) => {
-
-
-        const embed1 = new Discord.MessageEmbed()
-
-          .setTitle("Dólar estadounidense <:rightarrow:921907270747570247> Peso Argentino")
-          .setColor("GREEN")
-          .setDescription("Dólares estadounidenses expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%))")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
-          .addField("Monto original :dollar: ", 'USD$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-          .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv2 * oficial.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-        const embed2 = new Discord.MessageEmbed()
-          .setTitle("Dólar estadounidense <:rightarrow:921907270747570247> Peso Argentino")
-          .setColor("GREEN")
-          .setDescription("Dólares estadounidenses expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (IVA (21%), PAIS (8%) y adelanto de ganancias (45%)) \n Usualmente conocido como dólar streaming")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
-          .addField("Monto original :dollar: ", 'USD$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-          .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos (74%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv2 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-
-
-        const button1 = new MessageButton()
-          .setCustomId("previousbtn")
-          .setLabel("🏦 Dólar solidario (75%)")
-          .setStyle("DANGER");
-
-        const button2 = new MessageButton()
-          .setCustomId("nextbtn")
-          .setLabel("💳 Dólar streaming (74%)")
-          .setStyle("SUCCESS");
-
-        const pages = [
-          embed1,
-          embed2,
-
-
-        ];
-
-        const buttonList = [button1, button2];
-        const timeout = 30000;
-        paginationEmbed(message, pages, buttonList, timeout);
-
-
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-  }
-
-  //Convertir Blue
-
-
-
-  if (command.toLowerCase() == "convertirblue") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv2 = parseFloat(conv)
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/dolarblue')
-      .then((blue) => {
-        const embed = new Discord.MessageEmbed()
-          .setTitle("Dólar Blue  <:rightarrow:921907270747570247> Peso Argentino")
-          .setColor("BLUE")
-          .setDescription("Dólar estadounidense expresado en pesos argentinos a precio del mercado paralelo (Dólar blue)")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553537978855524/blueapeso.png")
-          .addField("Monto Original :dollar: ", 'USD$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-          .addField("Compra:flag_ar: ", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-        return message.reply({ embeds: [embed] });
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-  }
-
-  //Convertir euro
-
-  if (command.toLowerCase() == "convertireuro") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv3 = parseFloat(conv)
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-      .then((euro) => {
-        const embed = new Discord.MessageEmbed()
-          .setTitle("Euro <:rightarrow:921907270747570247> Peso Argentino")
-          .setColor("#083499")
-          .setDescription("Euro expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%))")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922548848826654801/euroapeso.png")
-          .addField("Monto Original :euro: ", 'EUR€ ' + currencyFormatter.format(conv3, { locale: 'es-ES', code: ' ' }))
-          .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format((conv3 * euro.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format((conv3 * euro.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv3 * euro.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-        return message.reply({ embeds: [embed] });
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-  }
-
-  //convertir real
-
-  if (command.toLowerCase() == "convertirreal" || command.toLowerCase() == "convertirbr") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv4 = parseFloat(conv)
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/real/nacion')
-      .then((real) => {
-        const embed = new Discord.MessageEmbed()
-          .setTitle("Real Brasileño <:rightarrow:921907270747570247> Peso Argentino")
-          .setColor("#6da545")
-          .setDescription("Real brasileño expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553925243117698/realapeso.png")
-          .addField("Monto Original :flag_br: ", 'BRL R$ ' + currencyFormatter.format(conv4, { locale: 'es-ES', code: ' ' }))
-          .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format((conv4 * real.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format((conv4 * real.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv4 * real.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-        return message.reply({ embeds: [embed] });
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-  }
-
-  //convertir yen
-
-  if (command.toLowerCase() == "convertiryen" || command.toLowerCase() == "convertirjpy") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((YEN) => {
-
-        yen1 = YEN.data['rates']['JPY']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Yen Japonés <:rightarrow:921907270747570247> Peso Argentino ")
-              .setColor("#FDFD0D")
-              .setDescription("Yen japonés expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922556125809872936/yenapeso_1.png")
-              .addField("Precio Original :yen: ", 'JPY¥ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / yen1)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / yen1) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / yen1) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Convertir libra
-
-  if (command.toLowerCase() == "convertirlibra" || command.toLowerCase() == "convertirgbp" || command.toLowerCase() == "convertiresterlina") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var libra = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((LIBRA) => {
-
-        libra = LIBRA.data['rates']['GBP']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Libra Esterlina <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#D605F6")
-              .setDescription("Libra Esterlina expresada en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922561706838868049/libraapeso.png")
-              .addField("Monto Original :pound: ", 'GBP£ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / libra)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / libra) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / libra) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Convertir rublo
-
-  if (command.toLowerCase() == "convertirrublo" || command.toLowerCase() == "convertirrub" || command.toLowerCase() == "convertirruso") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var rublo = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((RUBLO) => {
-
-        rublo = RUBLO.data['rates']['RUB']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Rublo Ruso <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("RED")
-              .setDescription("Rublo ruso expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928344880995008602/rubloapeso.png")
-              .addField("Monto original <:rublo:913901788531417229> ", 'RUB₽ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / rublo)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / rublo) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / rublo) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Convertir mexicano
-
-  if (command.toLowerCase() == "convertirpesomexicano" || command.toLowerCase() == "convertirmxn" || command.toLowerCase() == "convertirmexicano") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var mxn = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((MXN) => {
-
-        mxn = MXN.data['rates']['MXN']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Méxicano <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#24944c")
-              .setDescription("Peso méxicano expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928349418023968918/mxnapeso.png")
-              .addField("Monto original :flag_mx: ", 'MXN$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / mxn)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / mxn) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuesto (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / mxn) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Convertir bolivar
-
-  if (command.toLowerCase() == "convertirbolivar" || command.toLowerCase() == "convertirved" || command.toLowerCase() == "convertirves" || command.toLowerCase() == "convertirvenezolano") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var mxn = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((VES) => {
-
-        bolivar = VES.data['rates']['VES']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Bolivar Digital Venezolano <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("RED")
-              .setDescription("Bolivar digital venezolano expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%))")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928354779887960105/bolivarapeso.png")
-              .addField("Monto Original :flag_ve: ", 'VED B$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / bolivar)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / bolivar) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / bolivar) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Dólar Canadiense
-  if (command.toLowerCase() == "convertirdolarcanadiense" || command.toLowerCase() == "convertircad" || command.toLowerCase() == "convertircanadiense") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var cad = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CAD) => {
-
-        cad = CAD.data['rates']['CAD']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Dólar Canadiense <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#fc0201")
-              .setDescription("Dólar canadiense expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928345276857606194/cadapeso.png")
-              .addField("Monto original :flag_ca: ", 'CAD$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / cad)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / cad) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / cad) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso chileno
-  if (command.toLowerCase() == "convertirpesochileno" || command.toLowerCase() == "convertirclp" || command.toLowerCase() == "convertirchileno") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var clp = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CLP) => {
-
-        clp = CLP.data['rates']['CLP']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Chileno <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#fc0201")
-              .setDescription("Peso chileno expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928350035324842035/chileapeso.png")
-              .addField("Monto original :flag_cl: ", 'CLP$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / clp)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / clp) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / clp) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso Uruguayo
-  if (command.toLowerCase() == "convertiruruguayo" || command.toLowerCase() == "convertirpesouruguayo" || command.toLowerCase() == "convertiruyu") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var clp = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((UYU) => {
-
-        peso = UYU.data['rates']['UYU']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Uruguayo <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("BLUE")
-              .setDescription("Peso uruguayo expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928350035744288878/uyuapeso.png")
-              .addField("Monto original :flag_uy: ", 'UYU$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / peso)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / peso) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / peso) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Boliviano 
-
-
-  if (command.toLowerCase() == "convertirboliviano" || command.toLowerCase() == "convertirpesoboliviano" || command.toLowerCase() == "convertirbob") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var clp = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((BOB) => {
-
-        peso = BOB.data['rates']['BOB']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Boliviano <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#6da544")
-              .setDescription("Boliviano expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928352180296122388/bolivianoapeso.png")
-              .addField("Monto original :flag_bo: ", 'BOB Bs. ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / peso)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / peso) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / peso) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-
-  //Guaraní Paraguayo
-  if (command.toLowerCase() == "convertirguarani" || command.toLowerCase() == "convertirparaguayo" || command.toLowerCase() == "convertirpyg") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var clp = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((PYG) => {
-
-        guarani = PYG.data['rates']['PYG']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Guaraní paraguayo <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#d80027")
-              .setDescription("Guarani paraguayo expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928353654342299709/guaraniapeso.png")
-              .addField("Monto original :flag_py: ", 'PYG₲ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / guarani)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / guarani) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / guarani) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso colombiano
-  if (command.toLowerCase() == "convertirpesocolombiano" || command.toLowerCase() == "convertircolombiano" || command.toLowerCase() == "convertircop") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var clp = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((COL) => {
-
-        pesos = COL.data['rates']['COP']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Colombiano <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#fecb04")
-              .setDescription("Peso colombiano expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928349550970822716/copapeso.png")
-              .addField("Monto original :flag_co: ", 'COP$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / pesos)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / pesos) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / pesos) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-
-  //Sol peruano
-  if (command.toLowerCase() == "convertirsolperuano" || command.toLowerCase() == "convertirsol" || command.toLowerCase() == "convertirperuano" || command.toLowerCase() == "convertirpen") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var clp = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((PEN) => {
-
-        sol = PEN.data['rates']['PEN']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Sol Peruano <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#cd0400")
-              .setDescription("Sol peruano expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928352555736633374/solapeso.png")
-              .addField("Monto Original :flag_pe: ", 'PEN S/ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / sol)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / sol) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / sol) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-
-  //YUAN
-  if (command.toLowerCase() == "convertiryuan" || command.toLowerCase() == "convertirrenminbi" || command.toLowerCase() == "convertircny") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CNY) => {
-
-        yuan = CNY.data['rates']['CNY']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Renminbi chino <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#cd0400")
-              .setDescription("Renminbi (yuan) chino expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928356456087048234/yuanapeso.png")
-              .addField("PRECIO ORIGINAL :flag_cn: ", 'CNY¥ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("COMPRA :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / yuan)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("VENTA :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / yuan) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("IMPUESTOS (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / yuan) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  if (command.toLowerCase() == "convertirdolaraustraliano" || command.toLowerCase() == "convertiraud" || command.toLowerCase() == "convertiraustraliano") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((AUD) => {
-
-        dolar = AUD.data['rates']['AUD']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Dólar Australiano <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#000346")
-              .setDescription("Dólar australiano expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928345614805246013/audapeso.png")
-              .addField("Monto original :flag_au: ", 'AUD$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / dolar)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / dolar) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / dolar) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-
-  if (command.toLowerCase() == "convertirdolarneozelandés" || command.toLowerCase() == "convertirnzd" || command.toLowerCase() == "convertirnuevazelanda") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((NZD) => {
-
-        dolar = NZD.data['rates']['NZD']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Dólar Neozelandés <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#000346")
-              .setDescription("Dólar neozelandés expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928348263235604560/nzapeso.png")
-              .addField("Monto original :flag_nz: ", 'NZD$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / dolar)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / dolar) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuetos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / dolar) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Convertir rupia
-  if (command.toLowerCase() == "convertirrupia" || command.toLowerCase() == "convertirrupiaindia" || command.toLowerCase() == "convertirinr") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((INR) => {
-
-        rupia = INR.data['rates']['INR']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Rupia India <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#fc9836")
-              .setDescription("Rupia india expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928356536307314718/indiaapeso.png")
-              .addField("Precio original :flag_in: ", 'INR₹ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / rupia)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / rupia) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / rupia) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Convertir won
-  if (command.toLowerCase() == "convertirwon" || command.toLowerCase() == "convertirwonsurcoreano" || command.toLowerCase() == "convertirsurcoreano") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((KRW) => {
-
-        won = KRW.data['rates']['KRW']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Won Surcoreano <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#FFFFFF")
-              .setDescription("Won surcoreano expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928356536735117312/wonapeso.png")
-              .addField("Monto original :flag_kr: ", 'KRW ₩ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / won)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / won) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / won) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-  }
-
-  //Convertir lira
-  if (command.toLowerCase() == "convertirlira" || command.toLowerCase() == "convertirliraturca" || command.toLowerCase() == "convertirtry") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((KRW) => {
-
-        won = KRW.data['rates']['TRY']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Lira turca <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#d70224")
-              .setDescription("Lira turca expresada en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/930966650122014740/liraapeso.png")
-              .addField("Monto original :flag_tr: ", 'TRY₺ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / won)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / won) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / won) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-  }
-
-  //Convertir lira
-  if (command.toLowerCase() == "convertirfranco" || command.toLowerCase() == "convertirfrancosuizo" || command.toLowerCase() == "convertirsuizo" || command.toLowerCase() == "convertirchf") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((suizo) => {
-
-        franco = suizo.data['rates']['CHF']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Franco Suizo <:rightarrow:921907270747570247> Peso Argentino")
-              .setColor("#d80027")
-              .setDescription("Franco suizo expresado en pesos argentinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/930966649710985286/francoapeso.png")
-              .addField("Monto original :flag_ch: ", 'CHF Fr. ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / franco)) * EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((conv5 / franco) * EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ar: ", 'ARS$ ' + currencyFormatter.format((((conv5 / franco) * EUR.data['venta']) * 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-      })
-  }
-
-  //Convertir bitcoin
-  //Peso a...
-
-  //Peso a dólar
-
-  if (command.toLowerCase() == "pesoadolar" || command.toLowerCase() == "pesoadólar") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv2 = parseFloat(conv)
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
-      .then((oficial) => {
-        const embed = new Discord.MessageEmbed()
-          .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Dólar estadounidense")
-          .setColor("GREEN")
-          .setDescription("Pesos argentinos expresados en dolares estadounideneses a tasa oficial + impuestos (PAIS (30%) y adelanto de ganancias (45%))")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
-          .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-          .addField("Compra :dollar:", 'USD$ ' + currencyFormatter.format((conv2 / oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta :dollar:", 'USD$ ' + currencyFormatter.format((conv2 / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos :dollar: ", 'USD$ ' + currencyFormatter.format(((conv2 / oficial.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-        return message.reply({ embeds: [embed] });
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-  }
-
-  //Peso a dólar blue
-
-  if (command.toLowerCase() == "pesoadolarblue" || command.toLowerCase() == "pesoadólarblue" || command.toLowerCase() == "pesoablue") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv2 = parseFloat(conv)
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/dolarblue')
-      .then((blue) => {
-        const embed = new Discord.MessageEmbed()
-          .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Dólar Blue")
-          .setColor("BLUE")
-          .setDescription("Pesos argentinos expresados en dólares estadounidenses a precio del mercado paralelo (Dólar blue)")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553537978855524/blueapeso.png")
-          .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-          .addField("Compra :dollar:", 'USD$ ' + currencyFormatter.format((conv2 / blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta :dollar:", 'USD$ ' + currencyFormatter.format((conv2 / blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-        return message.reply({ embeds: [embed] });
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-  }
-
-  //peso a euro
-  if (command.toLowerCase() == "pesoaeuro") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv2 = parseFloat(conv)
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-      .then((euro) => {
-        const embed = new Discord.MessageEmbed()
-          .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Euro ")
-          .setColor("#083499")
-          .setDescription("Pesos argentinos expresados en euros a tasa oficial + impuestos (PAIS (30%) y adelanto de ganancias (45%)).")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922548848826654801/euroapeso.png")
-          .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-          .addField("Compra :euro:", 'EUR€  ' + currencyFormatter.format((conv2 / euro.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta :euro:", 'EUR€ ' + currencyFormatter.format((conv2 / euro.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos :euro: ", 'EUR€  ' + currencyFormatter.format(((conv2 / euro.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-        return message.reply({ embeds: [embed] });
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-  }
-
-
-  //Peso a real
-
-
-  if (command.toLowerCase() == "pesoareal") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv2 = parseFloat(conv)
-    axios.get('https://api-dolar-argentina.herokuapp.com/api/real/nacion')
-      .then((real) => {
-        const embed = new Discord.MessageEmbed()
-          .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Real Brasileño")
-          .setColor("#6da545")
-          .setDescription("Pesos argentinos expresados en reales brasileños a tasa oficial + impuestos (PAIS (30%) y adelanto de ganancias (45%)).")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553925243117698/realapeso.png")
-          .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-          .addField("Compra :flag_br:", 'BRL R$ ' + currencyFormatter.format((conv2 / real.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Venta :flag_br:", 'BRL R$ ' + currencyFormatter.format((conv2 / real.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-          .addField("Impuestos :flag_br: ", 'BRL R$ ' + currencyFormatter.format(((conv2 / real.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-          .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-        return message.reply({ embeds: [embed] });
-
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-  }
-
-  //Peso a yen
-
-  if (command.toLowerCase() == "pesoayen") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((YEN) => {
-
-        yen1 = YEN.data['rates']['JPY']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Yen Japonés")
-              .setColor("#FDFD0D")
-              .setDescription("Pesos argentinos expresados en Yen japonés al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922556125809872936/yenapeso_1.png")
-              .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :yen: ", 'JPY¥ ' + currencyFormatter.format(((conv5 * yen1)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :yen: ", 'JPY¥ ' + currencyFormatter.format(((conv5 * yen1) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :yen: ", 'JPY¥ ' + currencyFormatter.format((((conv5 * yen1) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso a libra
-  if (command.toLowerCase() == "pesoalibra") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((LIBRA) => {
-
-        libra1 = LIBRA.data['rates']['GBP']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Libra Esterlina")
-              .setColor("#D605F6")
-              .setDescription("Pesos argentinos expresado en Libras esterlinas al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922561706838868049/libraapeso.png")
-              .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :pound: ", 'GBP£ ' + currencyFormatter.format(((conv5 * libra1)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :pound: ", 'GBP£ ' + currencyFormatter.format(((conv5 * libra1) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :pound: ", 'GBP£ ' + currencyFormatter.format((((conv5 * libra1) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso a rublo
-
-  if (command.toLowerCase() == "pesoarublo") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((LIBRA) => {
-
-        libra1 = LIBRA.data['rates']['RUB']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Rublo Ruso")
-              .setColor("RED")
-              .setDescription("Pesos argentinos expresado en Rublos rusos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928344880995008602/rubloapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ru: ", 'RUB₽ ' + currencyFormatter.format(((conv5 * libra1)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ru: ", 'RUB₽ ' + currencyFormatter.format(((conv5 * libra1) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ru: ", 'RUB₽ ' + currencyFormatter.format((((conv5 * libra1) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso a mxn
-  if (command.toLowerCase() == "pesoamxn" || command.toLowerCase() == "pesoapesomexicano" || command.toLowerCase() == "pesoapesoméxicano") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((mxn) => {
-
-        peso = mxn.data['rates']['MXN']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Peso Méxicano")
-              .setColor("#24944c")
-              .setDescription("Pesos argentinos expresado en Pesos méxicanos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928349418023968918/mxnapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_mx: ", 'MXN$ ' + currencyFormatter.format(((conv5 * peso)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_mx: ", 'MXN$ ' + currencyFormatter.format(((conv5 * peso) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_mx: ", 'MXN$ ' + currencyFormatter.format((((conv5 * peso) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso a vez
-
-  if (command.toLowerCase() == "pesoaved" || command.toLowerCase() == "pesoabolivar") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    axios.get('https://api.exchangerate.host/latest')
-      .then((VES) => {
-
-        bolivar = VES.data['rates']['VES']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((USD) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Bolivar Digital Venezolano")
-              .setColor("RED")
-              .setDescription("Pesos argentinos expresado en bolivares digitales venezolanos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928354779887960105/bolivarapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compar :flag_ve: ", 'VED B$ ' + currencyFormatter.format(((conv5 * bolivar)) / USD.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ve: ", 'VED B$ ' + currencyFormatter.format(((conv5 * bolivar) / USD.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ve: ", 'VED B$ ' + currencyFormatter.format((((conv5 * bolivar) / USD.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //PESO a Canadiense
-
-  if (command.toLowerCase() == "pesoacad" || command.toLowerCase() == "pesoadolarcanadiense" || command.toLowerCase() == "pesoacanadiense") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var yen1 = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CAD) => {
-
-        canadiense = CAD.data['rates']['CAD']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Dólar Canadiense")
-              .setColor("#fc0201")
-              .setDescription("Pesos argentinos expresado en dólares canadienses al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928345276857606194/cadapeso.png")
-              .addField("PRECIO ORIGINAL :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("COMPRA :flag_ca: ", 'CAD$ ' + currencyFormatter.format(((conv5 * canadiense)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("VENTA :flag_ca: ", 'CAD$ ' + currencyFormatter.format(((conv5 * canadiense) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("IMPUESTOS (75%) :flag_ca: ", 'CAD$ ' + currencyFormatter.format((((conv5 * canadiense) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso a chileno
-
-  if (command.toLowerCase() == "pesoaclp" || command.toLowerCase() == "pesoachileno" || command.toLowerCase() == "pesoapesochileno") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CLP) => {
-
-        peso = CLP.data['rates']['CLP']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Peso Chileno")
-              .setColor("#fa0100")
-              .setDescription("Pesos argentinos expresado en pesos chilenos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928350035324842035/chileapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_cl: ", 'CLP$ ' + currencyFormatter.format(((conv5 * peso)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_cl: ", 'CLP$ ' + currencyFormatter.format(((conv5 * peso) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_cl: ", 'CLP$ ' + currencyFormatter.format((((conv5 * peso) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso a uyu
-
-  if (command.toLowerCase() == "pesoauyu" || command.toLowerCase() == "pesoauruguayo" || command.toLowerCase() == "pesoapesouruguayo") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-
-    axios.get('https://api.exchangerate.host/latest')
-      .then((UYU) => {
-
-        peso = UYU.data['rates']['UYU']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Peso Uruguayo")
-              .setColor("BLUE")
-              .setDescription("Pesos argentinos expresado en pesos uruguayos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928350035744288878/uyuapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_uy: ", 'UYU$ ' + currencyFormatter.format(((conv5 * peso)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_uy: ", 'UYU$ ' + currencyFormatter.format(((conv5 * peso) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_uy: ", 'UYU$ ' + currencyFormatter.format((((conv5 * peso) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Boliviano
-
-  if (command.toLowerCase() == "pesoabob" || command.toLowerCase() == "pesoaboliviano" || command.toLowerCase() == "pesoapesoboliviano") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-
-    axios.get('https://api.exchangerate.host/latest')
-      .then((BOB) => {
-
-        peso = BOB.data['rates']['BOB']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Boliviano")
-              .setColor("#6da544")
-              .setDescription("Pesos argentinos expresado en bolivianos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928352180296122388/bolivianoapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_bo: ", 'BOB Bs. ' + currencyFormatter.format(((conv5 * peso)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_bo: ", 'BOB Bs.' + currencyFormatter.format(((conv5 * peso) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_bo: ", 'BOB Bs. ' + currencyFormatter.format((((conv5 * peso) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Guaranies paraguayos
-
-
-  if (command.toLowerCase() == "pesoapyg" || command.toLowerCase() == "pesoaguarani" || command.toLowerCase() == "pesoaguaranies" || command.toLowerCase() == "pesoaparaguayos") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-
-    axios.get('https://api.exchangerate.host/latest')
-      .then((PYG) => {
-
-        guarani = PYG.data['rates']['PYG']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Guaraní Paraguayo")
-              .setColor("#d80027")
-              .setDescription("Pesos argentinos expresado en guaranies paraguayos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928353654342299709/guaraniapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_py: ", 'PYG₲ ' + currencyFormatter.format(((conv5 * guarani)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_py: ", 'PYG₲ ' + currencyFormatter.format(((conv5 * guarani) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_py: ", 'PYG₲ ' + currencyFormatter.format((((conv5 * guarani) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso Colombiano
-
-
-  if (command.toLowerCase() == "pesoacop" || command.toLowerCase() == "pesoacolombiano" || command.toLowerCase() == "pesoapesoscolombianos") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-
-    axios.get('https://api.exchangerate.host/latest')
-      .then((COP) => {
-
-        pesos = COP.data['rates']['COP']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Peso Colombiano")
-              .setColor("#fecb04")
-              .setDescription("Pesos argentinos expresado en pesos colombianos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928349550970822716/copapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_co: ", 'COP$ ' + currencyFormatter.format(((conv5 * pesos)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_co: ", 'COP$ ' + currencyFormatter.format(((conv5 * pesos) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_co: ", 'COP$ ' + currencyFormatter.format((((conv5 * pesos) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Peso a soles
-
-  if (command.toLowerCase() == "pesoapen" || command.toLowerCase() == "pesoaperuano" || command.toLowerCase() == "pesoasolperuano" || command.toLowerCase() == "pesoasol" || command.toLowerCase() == "pesoasoles") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-
-    axios.get('https://api.exchangerate.host/latest')
-      .then((PEN) => {
-
-        sol = PEN.data['rates']['PEN']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Sol")
-              .setColor("#cd0400")
-              .setDescription("Pesos argentinos expresado en soles peruanos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928352555736633374/solapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_pe: ", 'PEN S/ ' + currencyFormatter.format(((conv5 * sol)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_pe: ", 'PEN S/ ' + currencyFormatter.format(((conv5 * sol) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_pe: ", 'PEN S/ ' + currencyFormatter.format((((conv5 * sol) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-
-  if (command.toLowerCase() == "pesoayuan" || command.toLowerCase() == "pesoarenminbi" || command.toLowerCase() == "pesoacny" || command.toLowerCase() == "pesoayuanchino" || command.toLowerCase() == "pesoachino") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-
-    axios.get('https://api.exchangerate.host/latest')
-      .then((CNY) => {
-
-        yuan = CNY.data['rates']['CNY']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("PESOS ARGENTINOS A RENMINBI CHINOS")
-              .setColor("#cd0400")
-              .setDescription("Pesos argentinos expresado en renminbi (yuanes) chinos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858081927252148274/Pesoacny.png")
-              .addField("PRECIO ORIGINAL :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("COMPRA :flag_cn: ", 'CNY¥ ' + currencyFormatter.format(((conv5 * yuan)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("VENTA :flag_cn: ", 'CNY¥ ' + currencyFormatter.format(((conv5 * yuan) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("IMPUESTOS (75%) :flag_cn: ", 'CNY¥ ' + currencyFormatter.format((((conv5 * yuan) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  if (command.toLowerCase() == "pesoaaud" || command.toLowerCase() == "pesoadolaraustraliano" || command.toLowerCase() == "pesoaaustraliano") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var yen1 = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((AUD) => {
-
-        dolar = AUD.data['rates']['AUD']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Dólar Australiano")
-              .setColor("#000346")
-              .setDescription("Pesos argentinos expresado en dólares australianos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928345614805246013/audapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_au: ", 'AUD$ ' + currencyFormatter.format(((conv5 * dolar)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_au: ", 'AUD$ ' + currencyFormatter.format(((conv5 * dolar) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_au: ", 'AUD$ ' + currencyFormatter.format((((conv5 * dolar) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-
-  if (command.toLowerCase() == "pesoanzd" || command.toLowerCase() == "pesoadolarneozelandes" || command.toLowerCase() == "pesoadolarnuevazelanda") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var yen1 = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((NZD) => {
-
-        dolar = NZD.data['rates']['NZD']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Dólar Neozelandes")
-              .setColor("#000346")
-              .setDescription("Pesos argentinos expresado en dólares neozelandeses al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928348263235604560/nzapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compar :flag_nz: ", 'NZD$ ' + currencyFormatter.format(((conv5 * dolar)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_nz: ", 'NZD$ ' + currencyFormatter.format(((conv5 * dolar) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_nz: ", 'NZD$ ' + currencyFormatter.format((((conv5 * dolar) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-
-  if (command.toLowerCase() == "pesoainr" || command.toLowerCase() == "pesoarupia" || command.toLowerCase() == "pesoarupiaindia") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var yen1 = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((INR) => {
-
-        rupia = INR.data['rates']['INR']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Rupia India")
-              .setColor("#fc9836")
-              .setDescription("Pesos argentinos expresado en rupias indias al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928356536307314718/indiaapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_in: ", 'INR₹ ' + currencyFormatter.format(((conv5 * rupia)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_in: ", 'INR₹ ' + currencyFormatter.format(((conv5 * rupia) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_in: ", 'INR₹ ' + currencyFormatter.format((((conv5 * rupia) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Won surcoreano
-
-
-  if (command.toLowerCase() == "pesoawon" || command.toLowerCase() == "pesoawonsurcoreano" || command.toLowerCase() == "pesoakrw") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var yen1 = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((KRW) => {
-
-        won = KRW.data['rates']['KRW']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Won Surcoreano")
-              .setColor("#FFFFFF")
-              .setDescription("Pesos argentinos expresado en won surcoreano al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928356536735117312/wonapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_kr: ", 'KRW ₩ ' + currencyFormatter.format(((conv5 * won)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_kr: ", 'KRW ₩ ' + currencyFormatter.format(((conv5 * won) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_kr: ", 'KRW ₩ ' + currencyFormatter.format((((conv5 * won) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-
-  if (command.toLowerCase() == "pesoafranco" || command.toLowerCase() == "pesoafrancosuizo" || command.toLowerCase() == "pesoafrancosuizo" || command.toLowerCase() == "pesoachf") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var yen1 = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((suizo) => {
-
-        franco = suizo.data['rates']['CHF']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Franco Suizo")
-              .setColor("#d80027")
-              .setDescription("Pesos argentinos expresado en francos suizos al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/930966649710985286/francoapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_ch: ", 'CHF Fr. ' + currencyFormatter.format(((conv5 * franco)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_ch: ", 'CHF Fr. ' + currencyFormatter.format(((conv5 * franco) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_ch: ", 'CHF Fr. ' + currencyFormatter.format((((conv5 * franco) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-  //Lira turca
-
-  if (command.toLowerCase() == "pesoalira" || command.toLowerCase() == "pesoaliraturca" || command.toLowerCase() == "pesoaturca" || command.toLowerCase() == "pesoa") {
-    let conv = args[0];
-    if (!args.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("¡FALTA INGRESAR UN VALOR NÚMERICO!")
-        .setColor("#ff563e")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929070602768244786/cancel_1.png")
-      return message.reply({ embeds: [embed] });
-    }
-    conv = conv.replace(',', '.')
-    var conv5 = parseFloat(conv)
-    var yen1 = 0
-    axios.get('https://api.exchangerate.host/latest')
-      .then((turca) => {
-
-        lira = turca.data['rates']['TRY']
-        axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
-          .then((EUR) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle("Peso Argentino <:rightarrow:921907270747570247> Lira Turca")
-              .setColor("#d70224")
-              .setDescription("Pesos argentinos expresado en liras turcas al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/930966650122014740/liraapeso.png")
-              .addField("Monto original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv5, { locale: 'es-ES', code: ' ' }))
-              .addField("Compra :flag_tr: ", 'TRY₺ ' + currencyFormatter.format(((conv5 * lira)) / EUR.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-              .addField("Venta :flag_tr: ", 'TRY₺ ' + currencyFormatter.format(((conv5 * lira) / EUR.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-              .addField("Impuestos (75%) :flag_tr: ", 'TRY₺ ' + currencyFormatter.format((((conv5 * lira) / EUR.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-            return message.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      })
-      .catch((err) => {
-        console.error('ERR', err)
-
-
-      })
-
-
-  }
-
-
-  //Servicios
-  //NETFLIX
-  if (command.toLowerCase() === 'netflix') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio netflix` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //YOUTUBE PREMIUM
-  if (command.toLowerCase() === 'youtube' || command.toLowerCase() === 'yt') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio youtubepremium` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-  //SPOTIFY
-  if (command.toLowerCase() === 'spotify') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio spotify` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-
-  //CRUNCHYROLL 
-
-  if (command.toLowerCase() === 'crunchyroll') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio crunchyroll` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-  //DISNEY 
-  if (command.toLowerCase() === 'disney+' || command.toLowerCase() === 'disney') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio disney+` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //Gamepass
-  if (command.toLowerCase() === 'gamepass' || command.toLowerCase() === 'xboxgamepass' || command.toLowerCase() === 'xbox') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio gamepass` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //EA Play
-  if (command.toLowerCase() === 'ea' || command.toLowerCase() === 'eaplay') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio ea` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //Prime video
-
-  if (command.toLowerCase() === 'prime' || command.toLowerCase() === 'primevideo' || command.toLowerCase() === 'amazonprimevideo') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio primevideo` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-  //HBO
-  if (command.toLowerCase() === 'hbo' || command.toLowerCase() === 'hbomax') {
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio hbomax` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //Apple TV
-  if (command.toLowerCase() === 'appletv' || command.toLowerCase() === 'apple') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio appletv` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //Discord Nitro
-
-  if (command.toLowerCase() === 'nitro' || command.toLowerCase() === 'discordnitro' || command.toLowerCase() === 'nitro') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio discordnitro` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-
-  //Google One
-
-  if (command.toLowerCase() === 'google' || command.toLowerCase() === 'googleone') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio googleone` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-  //Steam
-
-  if (command.toLowerCase() === 'steam' || command.toLowerCase() === 'steamwallet' || command.toLowerCase() === 'steamfondos') {
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio steam` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-
-  }
-
-
-  //Paramount+
-
-  if (command.toLowerCase() === 'paramount+' || command.toLowerCase() === 'paramount') {
-
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio paramount` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-  //Twitch
-
-
-  if (command.toLowerCase() === 'twitch' || command.toLowerCase() === 'twitchsubs' || command.toLowerCase() === 'twitchbits') {
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/servicio twitch` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-
-  //Provincias
-  //ERROR
-  if (command.toLowerCase() === 'provincia') {
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("Prueba con `/provinciainfo [provincia]` en su lugar")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-
-  }
-
-
-  if (message.content[0] === "*" && message.content[1] === "a" && message.content[2] === "r" && command.toLowerCase() != 'help') {
-
-    const slash = new Discord.MessageEmbed()
-      .setTitle("¡Utiliza los nuevos Slash Commands en su lugar!")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964400952452980736/slash.png")
-      .addField("Slash  commands", "Debido a la  decisión de Discord de volver los Message Intents algo privilegiado, los comandos regulares serán remplazados por los Slash Commands desde el  1ro de septiembre, echale un vistazo con / y revisa los comandos")
-      .addField(" Advertencia ", " Argenkit Bot irá eliminando los comandos clásicos progresivamente con el pasar de los meses para que sus usuarios vayan acostumbrandose al uso de los slash ")
-      .addField(" Importante ", "Quizás sea necesario echar y volver a invitar al bot para que funcione si  es que invitaste al bot hace mucho tiempo ")
-      .addField(" Comandos solo disponible con slash", comandosslash)
-    return message.reply({ embeds: [slash] });
-
-  }
-
-
-});
-
-
-
 const mySecret = process.env['token']
-
 client.login(process.env.token);

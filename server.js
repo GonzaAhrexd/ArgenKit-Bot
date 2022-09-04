@@ -1,3 +1,13 @@
+const express = require('express')
+const app = express()
+
+app.get('/', function (req, res){
+res.send('<h1> Argenkit Bot Versión 1.4 Slash Commands Update </h1>')
+})
+
+let port = process.env.PORT || 3500;
+app.listen(port)
+
 
 //Requerir Discord.js
 const Discord = require("discord.js");

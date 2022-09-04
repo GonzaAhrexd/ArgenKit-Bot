@@ -30,7 +30,7 @@ function presence() {
   client.user.setPresence({
     status: "online",
     activities: [{
-      name: 'Bot creado por GonzaAhre | Prueba /help o /update',
+      name: 'Bot crado por GonzaAhre | Prueba /help o /update',
       type: "PLAYING"
     }]
   });

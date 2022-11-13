@@ -1,24 +1,27 @@
+
 const express = require('express')
 const app = express()
 
-app.get('/', function (req, res){
-res.send('<h1> Argenkit Bot Versión 1.4 Slash Commands Update </h1>')
+app.get('/', function (req, res) {
+  res.send('<h1> Argenkit Bot Versión 1.4 Slash Commands Update </h1>')
 })
 
 let port = process.env.PORT || 3500;
 app.listen(port)
 
-
 //Requerir Discord.js
 const Discord = require("discord.js");
 
 //Intents requeridos
-const { Client, Intents, MessageEmbed, reactions } = require('discord.js');
+const { Client, Intents, MessageEmbed, reactions, Collection } = require('discord.js');
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS,
   Intents.FLAGS.GUILD_MESSAGES,
   ],
 });
+
+const fs = require ('fs')
+const path = require('path')
 
 //client.setMaxListeners(50);
 //Nueva cosa para que el bot funcione
@@ -32,1728 +35,1775 @@ const { Interaction } = require("discord.js"); //Discord.js
 const { SlashCommandBuilder } = require('@discordjs/builders'); //Slash Commands
 const simplydjs = require("simply-djs"); //Simplydjs 
 require('dotenv').config() //Variables de entorno
+const translate = require("translate");//Translate
 
-
+//Funciones
+const impuestos = require("./functions/impuestos.js")
 //Estado del bot
 
-function presence() {
-  client.user.setPresence({
-    status: "online",
-    activities: [{
-      name: 'Bot crado por GonzaAhre | Prueba /help o /update',
-      type: "PLAYING"
-    }]
-  });
-}
-
-//Prender bot
-
-client.on("ready", async () => {
-  console.log("TODO LISTO");
-  presence();
-
-  // const guildId = '740761148160213082'
-  const guild = client.guilds.cache.get()
-  let commands
-
-  //   client.application.commands.set([]);
-
-  /*  const list = await client.application.commands.fetch()
-     console.log(list)
-*/
-
-  if (guild) {
-    commands = guild.commands
-  } else {
-    commands = client.application?.commands
-  }
 
   //Información
   //Creador
+  
+  function presence() {
+      client.user.setPresence({
+        status: "online",
+        activities: [{
+          name: 'Bot crado por GonzaAhre | Prueba /help o /update',
+          type: "PLAYING"
+        }]
+      });
+    }
+    
+    //Prender bot
+    
+    client.on("ready", async () => {
+      console.log("TODO LISTO");
+     
+      presence();
+     
+  // const guildId = '740761148160213082'
+  const guild = client.guilds.cache.get()
+  let commands
+  
+  //   client.application.commands.set([]);
+  
+  /*  const list = await client.application.commands.fetch()
+     console.log(list)
+  */
+  
+  if (guild) {
+      commands = guild.commands
+  } else {
+      commands = client.application?.commands
+  }
+  
   commands?.create({
-    name: 'creador',
-    description: 'Muestra información del creador del bot.',
+      name: 'creador',
+      description: 'Muestra información del creador del bot.',
   })
   //Api
   commands?.create({
-    name: 'api',
-    description: 'Muestra las apis utilizadas en el bot',
+      name: 'api',
+      description: 'Muestra las apis utilizadas en el bot',
   })
   //Donaciones
   commands?.create({
-    name: 'donaciones',
-    description: 'Muestra formas de apoyar al creador mediante donaciones',
+      name: 'donaciones',
+      description: 'Muestra formas de apoyar al creador mediante donaciones',
   })
   //Votar
   commands?.create({
-    name: 'votar',
-    description: 'Vota al bot en top.gg',
+      name: 'votar',
+      description: 'Vota al bot en top.gg',
   })
   //Servidor
   commands?.create({
-    name: 'servidor',
-    description: '¡Unete al servidor oficial del bot!',
+      name: 'servidor',
+      description: '¡Unete al servidor oficial del bot!',
   })
   //Invitar
   commands?.create({
-    name: 'invitar',
-    description: 'Invita al bot a unirte a tu servidor',
+      name: 'invitar',
+      description: 'Invita al bot a unirte a tu servidor',
   })
   //Help
   commands?.create({
-    name: 'help',
-    description: 'Muestra los comandos disponibles',
+      name: 'help',
+      description: 'Muestra los comandos disponibles',
   })
   //Update
   commands?.create({
-    name: 'update',
-    description: 'Muestra las novedades de la actualización',
+      name: 'update',
+      description: 'Muestra las novedades de la actualización',
   })
-
-
+  
+  
   //Utilidad
   //Impuesto
   commands?.create({
-    name: 'impuesto',
-    description: 'Calcula el impuesto a compras online del 74% o 75%',
-    options: [
-      {
-        name: 'monto',
-        description: 'Valor a calcular.',
-        required: true,
-        type: "NUMBER"
-      }
-    ]
+      name: 'impuesto',
+      description: 'Calcula el impuesto a compras online del 74% o 75%',
+      options: [
+          {
+              name: 'monto',
+              description: 'Valor a calcular.',
+              required: true,
+              type: "NUMBER"
+          }
+      ]
   })
-
+  
   //Calculadora
   commands?.create({
-    name: 'calculadora',
-    description: 'Calculadora interactiva por simply.djs',
+      name: 'calculadora',
+      description: 'Calculadora interactiva por simply.djs',
   })
-
+  
   //Anualizar
   commands?.create({
-    name: 'anualizarinflacion',
-    description: 'Calcula la inflación anual a partir de la mensual',
-    options: [
-      {
-        name: 'mensual',
-        description: 'Inflación mensual a anualizar  sin el símbolo de %.',
-        required: true,
-        type: "NUMBER"
-      }
-    ]
+      name: 'anualizarinflacion',
+      description: 'Calcula la inflación anual a partir de la mensual',
+      options: [
+          {
+              name: 'mensual',
+              description: 'Inflación mensual a anualizar  sin el símbolo de %.',
+              required: true,
+              type: "NUMBER"
+          }
+      ]
   })
-
-
+  //Traductor
+  commands?.create({
+      name: 'traducir',
+      description: 'Traduce rápidamente de un idioma a otro',
+      options: [
+          {
+              name: 'origen',
+              description: 'Idioma del texto',
+              required: true,
+              type: "STRING",
+              choices: [
+                  { name: 'Español', value: 'es' },
+                  { name: 'Inglés', value: 'en' },
+                  { name: 'Portugués', value: 'pt' },
+                  { name: 'Francés', value: 'fr' },
+                  { name: 'Italiano', value: 'it' },
+                  { name: 'Alemán', value: 'de' },
+                  { name: 'Japonés', value: 'ja' }
+              ]
+          },
+          {
+              name: 'destino',
+              description: 'Idioma que se quiere obtener',
+              required: true,
+              type: "STRING",
+              choices: [
+                  { name: 'Español', value: 'es' },
+                  { name: 'Inglés', value: 'en' },
+                  { name: 'Portugués', value: 'pt' },
+                  { name: 'Francés', value: 'fr' },
+                  { name: 'Italiano', value: 'it' },
+                  { name: 'Alemán', value: 'de' },
+                  { name: 'Japonés', value: 'ja' }
+              ]
+          },
+          {
+              name: 'texto',
+              description: 'Texto a traducir',
+              required: true,
+              type: "STRING"
+          }
+  
+      ]
+  })
+  
   //Divisas
   commands?.create({
-    name: 'divisa',
-    description: 'Mostrar los datos de una divisa',
-    options: [
-      {
-        //Dólar
-        type: "SUB_COMMAND",
-        name: "dolar",
-        description: "Muestra los datos del dólar oficial + impuestos"
-      },
-      {
-        //Dólar blue
-        type: "SUB_COMMAND",
-        name: "dolarblue",
-        description: "Muestra los datos del dólar blue"
-
-      },
-      {
-        //Euro
-        type: "SUB_COMMAND",
-        name: "euro",
-        description: "Muestra los datos del Euro + impuestos"
-      },
-      {
-        //Real
-        type: "SUB_COMMAND",
-        name: "real",
-        description: "Muestra los datos del Real brasileño + impuestos"
-      },
-      {
-        //Yen
-        type: "SUB_COMMAND",
-        name: "yen",
-        description: "Muestra los datos del Yen japonés + impuestos"
-      },
-      {
-        //Libra
-        type: "SUB_COMMAND",
-        name: "libra",
-        description: "Muestra los datos de la Libra Esterlina + impuestos"
-      },
-      {
-        //Rublo
-        type: "SUB_COMMAND",
-        name: "rublo",
-        description: "Muestra los datos del rublo ruso + impuestos"
-      },
-      {
-        //Dólar canadiense
-        type: "SUB_COMMAND",
-        name: "dolarcanadiense",
-        description: "Muestra los datos del Dólar canadiense + impuestos"
-      },
-      {
-        //Dólar australiano
-        type: "SUB_COMMAND",
-        name: "dolaraustraliano",
-        description: "Muestra los datos del Dólar australiano + impuestos"
-      },
-      {
-        //Dólar neozelandes
-        type: "SUB_COMMAND",
-        name: "dolarneozelandes",
-        description: "Muestra los datos del Dólar neozelandés + impuestos"
-      },
-      {
-        //Peso méxicano
-        type: "SUB_COMMAND",
-        name: "pesomexicano",
-        description: "Muestra los datos del Peso mexicano + impuestos"
-      },
-      {
-        //Peso chileno
-        type: "SUB_COMMAND",
-        name: "pesochileno",
-        description: "Muestra los datos del Peso chileno + impuestos"
-      },
-      {
-        //Peso uruguayo
-        type: "SUB_COMMAND",
-        name: "pesouruguayo",
-        description: "Muestra los datos del Peso uruguayo + impuestos"
-      },
-      {
-        //Peso colombiano
-        type: "SUB_COMMAND",
-        name: "pesocolombiano",
-        description: "Muestra los datos del Peso colombiano + impuestos"
-      },
-      {
-        //Boliviano
-        type: "SUB_COMMAND",
-        name: "boliviano",
-        description: "Muestra los datos del Boliviano + impuestos"
-      },
-      {
-        //Sol
-        type: "SUB_COMMAND",
-        name: "sol",
-        description: "Muestra los datos del Sol peruano + impuestos"
-      },
-      {
-        //Guarani
-        type: "SUB_COMMAND",
-        name: "guarani",
-        description: "Muestra los datos del Guaraní paraguayo + impuestos"
-      },
-      {
-        //Bolivar
-        type: "SUB_COMMAND",
-        name: "bolivar",
-        description: "Muestra los datos del Bolivar digital venezolano + impuestos"
-      },
-      {
-        //Yuan
-        type: "SUB_COMMAND",
-        name: "yuan",
-        description: "Muestra los datos del yuan chino + impuestos"
-      },
-      {
-        //Rupia
-        type: "SUB_COMMAND",
-        name: "rupia",
-        description: "Muestra los datos del rupia chino + impuestos"
-      },
-      {
-        //Won
-        type: "SUB_COMMAND",
-        name: "won",
-        description: "Muestra los datos del won surcoreano + impuestos"
-      },
-      {
-        //Franco
-        type: "SUB_COMMAND",
-        name: "franco",
-        description: "Muestra los datos del franco suizo + impuestos"
-      },
-      {
-        //Lira
-        type: "SUB_COMMAND",
-        name: "lira",
-        description: "Muestra los datos de la lira turca + impuestos"
-      }
-
-    ]
+      name: 'divisa',
+      description: 'Mostrar los datos de una divisa',
+      options: [
+          {
+              //Dólar
+              type: "SUB_COMMAND",
+              name: "dolar",
+              description: "Muestra los datos del dólar oficial + impuestos"
+          },
+          {
+              //Dólar blue
+              type: "SUB_COMMAND",
+              name: "dolarblue",
+              description: "Muestra los datos del dólar blue"
+  
+          },
+          {
+              //Euro
+              type: "SUB_COMMAND",
+              name: "euro",
+              description: "Muestra los datos del Euro + impuestos"
+          },
+          {
+              //Real
+              type: "SUB_COMMAND",
+              name: "real",
+              description: "Muestra los datos del Real brasileño + impuestos"
+          },
+          {
+              //Yen
+              type: "SUB_COMMAND",
+              name: "yen",
+              description: "Muestra los datos del Yen japonés + impuestos"
+          },
+          {
+              //Libra
+              type: "SUB_COMMAND",
+              name: "libra",
+              description: "Muestra los datos de la Libra Esterlina + impuestos"
+          },
+          {
+              //Rublo
+              type: "SUB_COMMAND",
+              name: "rublo",
+              description: "Muestra los datos del rublo ruso + impuestos"
+          },
+          {
+              //Dólar canadiense
+              type: "SUB_COMMAND",
+              name: "dolarcanadiense",
+              description: "Muestra los datos del Dólar canadiense + impuestos"
+          },
+          {
+              //Dólar australiano
+              type: "SUB_COMMAND",
+              name: "dolaraustraliano",
+              description: "Muestra los datos del Dólar australiano + impuestos"
+          },
+          {
+              //Dólar neozelandes
+              type: "SUB_COMMAND",
+              name: "dolarneozelandes",
+              description: "Muestra los datos del Dólar neozelandés + impuestos"
+          },
+          {
+              //Peso méxicano
+              type: "SUB_COMMAND",
+              name: "pesomexicano",
+              description: "Muestra los datos del Peso mexicano + impuestos"
+          },
+          {
+              //Peso chileno
+              type: "SUB_COMMAND",
+              name: "pesochileno",
+              description: "Muestra los datos del Peso chileno + impuestos"
+          },
+          {
+              //Peso uruguayo
+              type: "SUB_COMMAND",
+              name: "pesouruguayo",
+              description: "Muestra los datos del Peso uruguayo + impuestos"
+          },
+          {
+              //Peso colombiano
+              type: "SUB_COMMAND",
+              name: "pesocolombiano",
+              description: "Muestra los datos del Peso colombiano + impuestos"
+          },
+          {
+              //Boliviano
+              type: "SUB_COMMAND",
+              name: "boliviano",
+              description: "Muestra los datos del Boliviano + impuestos"
+          },
+          {
+              //Sol
+              type: "SUB_COMMAND",
+              name: "sol",
+              description: "Muestra los datos del Sol peruano + impuestos"
+          },
+          {
+              //Guarani
+              type: "SUB_COMMAND",
+              name: "guarani",
+              description: "Muestra los datos del Guaraní paraguayo + impuestos"
+          },
+          {
+              //Bolivar
+              type: "SUB_COMMAND",
+              name: "bolivar",
+              description: "Muestra los datos del Bolivar digital venezolano + impuestos"
+          },
+          {
+              //Yuan
+              type: "SUB_COMMAND",
+              name: "yuan",
+              description: "Muestra los datos del yuan chino + impuestos"
+          },
+          {
+              //Rupia
+              type: "SUB_COMMAND",
+              name: "rupia",
+              description: "Muestra los datos del rupia chino + impuestos"
+          },
+          {
+              //Won
+              type: "SUB_COMMAND",
+              name: "won",
+              description: "Muestra los datos del won surcoreano + impuestos"
+          },
+          {
+              //Franco
+              type: "SUB_COMMAND",
+              name: "franco",
+              description: "Muestra los datos del franco suizo + impuestos"
+          },
+          {
+              //Lira
+              type: "SUB_COMMAND",
+              name: "lira",
+              description: "Muestra los datos de la lira turca + impuestos"
+          }
+  
+      ]
   })
-
+  
   //Criptomoneda
   commands?.create({
-    name: 'criptomoneda',
-    description: 'Mostrar los datos de una criptomoneda',
-    options: [
-      {
-        //Bitcoin
-        type: "SUB_COMMAND",
-        name: "bitcoin",
-        description: "Muestra los datos del Bitcoin + impuestos"
-      },
-      {
-        //Ethereum
-        type: "SUB_COMMAND",
-        name: "ethereum",
-        description: "Muestra los datos del Ethereum + impuestos"
-
-      },
-      {
-        //Tether
-        type: "SUB_COMMAND",
-        name: "tether",
-        description: "Muestra los datos del Tether + impuestos"
-
-      },
-      {
-        //Axie Infinity
-        type: "SUB_COMMAND",
-        name: "axieinfinity",
-        description: "Muestra los datos del Axie Infinity + impuestos"
-
-      },
-      {
-        //Terra Luna Classic
-        type: "SUB_COMMAND",
-        name: "terralunaclassic",
-        description: "Muestra los datos del Terra Luna  Classic + impuestos"
-
-      },
-      {
-        //Decentraland
-        type: "SUB_COMMAND",
-        name: "decentraland",
-        description: "Muestra los datos del Decentraland + impuestos"
-
-      },
-      {
-        //Solana
-        type: "SUB_COMMAND",
-        name: "solana",
-        description: "Muestra los datos del Solana + impuestos"
-      },
-      {
-        //Dai
-        type: "SUB_COMMAND",
-        name: "dai",
-        description: "Muestra los datos del Dai + impuestos"
-      },
-      {
-        //Dogecoin
-        type: "SUB_COMMAND",
-        name: "dogecoin",
-        description: "Muestra los datos del Doge + impuestos"
-      },
-      {
-        //Terra usd classic
-        type: "SUB_COMMAND",
-        name: "terrausdclassic",
-        description: "Muestra los datos del UST Classic + impuestos"
-      },
-      {
-        //Terra Luna 2.0
-        type: "SUB_COMMAND",
-        name: "terraluna",
-        description: "Muestra los datos del Terra Luna  2.0 + impuestos"
-      },
-
-    ]
+      name: 'criptomoneda',
+      description: 'Mostrar los datos de una criptomoneda',
+      options: [
+          {
+              //Bitcoin
+              type: "SUB_COMMAND",
+              name: "bitcoin",
+              description: "Muestra los datos del Bitcoin + impuestos"
+          },
+          {
+              //Ethereum
+              type: "SUB_COMMAND",
+              name: "ethereum",
+              description: "Muestra los datos del Ethereum + impuestos"
+  
+          },
+          {
+              //Tether
+              type: "SUB_COMMAND",
+              name: "tether",
+              description: "Muestra los datos del Tether + impuestos"
+  
+          },
+          {
+              //Axie Infinity
+              type: "SUB_COMMAND",
+              name: "axieinfinity",
+              description: "Muestra los datos del Axie Infinity + impuestos"
+  
+          },
+          {
+              //Terra Luna Classic
+              type: "SUB_COMMAND",
+              name: "terralunaclassic",
+              description: "Muestra los datos del Terra Luna  Classic + impuestos"
+  
+          },
+          {
+              //Decentraland
+              type: "SUB_COMMAND",
+              name: "decentraland",
+              description: "Muestra los datos del Decentraland + impuestos"
+  
+          },
+          {
+              //Solana
+              type: "SUB_COMMAND",
+              name: "solana",
+              description: "Muestra los datos del Solana + impuestos"
+          },
+          {
+              //Dai
+              type: "SUB_COMMAND",
+              name: "dai",
+              description: "Muestra los datos del Dai + impuestos"
+          },
+          {
+              //Dogecoin
+              type: "SUB_COMMAND",
+              name: "dogecoin",
+              description: "Muestra los datos del Doge + impuestos"
+          },
+          {
+              //Terra usd classic
+              type: "SUB_COMMAND",
+              name: "terrausdclassic",
+              description: "Muestra los datos del UST Classic + impuestos"
+          },
+          {
+              //Terra Luna 2.0
+              type: "SUB_COMMAND",
+              name: "terraluna",
+              description: "Muestra los datos del Terra Luna  2.0 + impuestos"
+          },
+  
+      ]
   })
-
+  
   //Metales
   commands?.create({
-    name: 'metal',
-    description: 'Mostrar los datos de un metal',
-    options: [
-      {
-        //Oro
-        type: "SUB_COMMAND",
-        name: "oro",
-        description: "Muestra los datos del oro"
-      },
-      {
-        //Plata
-        type: "SUB_COMMAND",
-        name: "plata",
-        description: "Muestra los datos de la Plata"
-      },
-      {
-        //Paladio
-        type: "SUB_COMMAND",
-        name: "paladio",
-        description: "Muestra los datos del Paladio"
-      },
-      {
-        //Platino
-        type: "SUB_COMMAND",
-        name: "platino",
-        description: "Muestra los datos del Platino"
-      },
-    ]
+      name: 'metal',
+      description: 'Mostrar los datos de un metal',
+      options: [
+          {
+              //Oro
+              type: "SUB_COMMAND",
+              name: "oro",
+              description: "Muestra los datos del oro"
+          },
+          {
+              //Plata
+              type: "SUB_COMMAND",
+              name: "plata",
+              description: "Muestra los datos de la Plata"
+          },
+          {
+              //Paladio
+              type: "SUB_COMMAND",
+              name: "paladio",
+              description: "Muestra los datos del Paladio"
+          },
+          {
+              //Platino
+              type: "SUB_COMMAND",
+              name: "platino",
+              description: "Muestra los datos del Platino"
+          },
+      ]
   })
-
-
+  
+  
   //Convertir
-
+  
   commands?.create({
-    name: 'convertirdivisa',
-    description: 'Convierte los datos de una divisa a pesos',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "dolar",
-        description: "Convierte de Dolar Estadounidense a Pesos Argentinos",
-        options: [
+      name: 'convertirdivisa',
+      description: 'Convierte los datos de una divisa a pesos',
+      options: [
           {
-            name: 'usd',
-            description: 'Monto en dólares.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dolarblue",
-        description: "Convierte de Dólar Estadounidense a Pesos Argentinos al precio del mercado paralelo",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolar",
+              description: "Convierte de Dolar Estadounidense a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'usd',
+                      description: 'Monto en dólares.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'usd',
-            description: 'Monto en dólares.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "euro",
-        description: "Convierte de Euro a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolarblue",
+              description: "Convierte de Dólar Estadounidense a Pesos Argentinos al precio del mercado paralelo",
+              options: [
+                  {
+                      name: 'usd',
+                      description: 'Monto en dólares.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'eur',
-            description: 'Monto en euros.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "real",
-        description: "Convierte de Real Brasileño a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "euro",
+              description: "Convierte de Euro a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'eur',
+                      description: 'Monto en euros.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'brl',
-            description: 'Monto en reales.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "yen",
-        description: "Convierte de Yen Japonés a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "real",
+              description: "Convierte de Real Brasileño a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'brl',
+                      description: 'Monto en reales.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'jpy',
-            description: 'Monto en yenes.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "libra",
-        description: "Convierte de Libra Esterlina a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "yen",
+              description: "Convierte de Yen Japonés a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'jpy',
+                      description: 'Monto en yenes.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'gbp',
-            description: 'Monto en libras.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "rublo",
-        description: "Convierte de Rublo Ruso a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "libra",
+              description: "Convierte de Libra Esterlina a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'gbp',
+                      description: 'Monto en libras.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'rub',
-            description: 'Monto en rublos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dolarcanadiense",
-        description: "Convierte de Dólar Canadiense a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "rublo",
+              description: "Convierte de Rublo Ruso a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'rub',
+                      description: 'Monto en rublos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+  
+          },
           {
-            name: 'cad',
-            description: 'Monto en dólares canadienses.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-
-      },
-
-      {
-        type: "SUB_COMMAND",
-        name: "dolaraustraliano",
-        description: "Convierte de Dólar Australiano a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolarcanadiense",
+              description: "Convierte de Dólar Canadiense a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'cad',
+                      description: 'Monto en dólares canadienses.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+  
+          },
+  
           {
-            name: 'aud',
-            description: 'Monto en dólares australianos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dolarneozelandes",
-        description: "Convierte de Dólar Neozelandés a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolaraustraliano",
+              description: "Convierte de Dólar Australiano a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'aud',
+                      description: 'Monto en dólares australianos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'nzd',
-            description: 'Monto en dólares neozelandeses.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "pesomexicano",
-        description: "Convierte de Pesos Mexicanos a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolarneozelandes",
+              description: "Convierte de Dólar Neozelandés a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'nzd',
+                      description: 'Monto en dólares neozelandeses.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+  
+          },
           {
-            name: 'mxn',
-            description: 'Monto en pesos mexicanos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "pesochileno",
-        description: "Convierte de Pesos Chilenos a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "pesomexicano",
+              description: "Convierte de Pesos Mexicanos a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'mxn',
+                      description: 'Monto en pesos mexicanos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'clp',
-            description: 'Monto en pesos chilenos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "pesouruguayo",
-        description: "Convierte de Pesos Uruguayo a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "pesochileno",
+              description: "Convierte de Pesos Chilenos a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'clp',
+                      description: 'Monto en pesos chilenos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'uyu',
-            description: 'Monto en pesos uruguayos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "pesocolombiano",
-        description: "Convierte de Pesos Colombianos a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "pesouruguayo",
+              description: "Convierte de Pesos Uruguayo a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'uyu',
+                      description: 'Monto en pesos uruguayos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'cop',
-            description: 'Monto en pesos colombianos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "boliviano",
-        description: "Convierte de Bolivianos a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "pesocolombiano",
+              description: "Convierte de Pesos Colombianos a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'cop',
+                      description: 'Monto en pesos colombianos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'bob',
-            description: 'Monto en boliviano.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "sol",
-        description: "Convierte de Soles Peruanos a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "boliviano",
+              description: "Convierte de Bolivianos a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'bob',
+                      description: 'Monto en boliviano.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'pen',
-            description: 'Monto en sol peruano.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-
-      {
-        type: "SUB_COMMAND",
-        name: "guarani",
-        description: "Convierte de Guaranies Paragauyos a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "sol",
+              description: "Convierte de Soles Peruanos a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'pen',
+                      description: 'Monto en sol peruano.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
+  
           {
-            name: 'pyg',
-            description: 'Monto en guarani.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "bolivar",
-        description: "Convierte de Bolivar Digital Venezolano a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "guarani",
+              description: "Convierte de Guaranies Paragauyos a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'pyg',
+                      description: 'Monto en guarani.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'ved',
-            description: 'Monto en bolivares.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "yuan",
-        description: "Convierte de Renminbi Chinos a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "bolivar",
+              description: "Convierte de Bolivar Digital Venezolano a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'ved',
+                      description: 'Monto en bolivares.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'cny',
-            description: 'Monto en renminbi.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "rupia",
-        description: "Convierte de Rupias Indias a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "yuan",
+              description: "Convierte de Renminbi Chinos a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'cny',
+                      description: 'Monto en renminbi.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'inr',
-            description: 'Monto en rupia.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "won",
-        description: "Convierte de Won Surcoreano a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "rupia",
+              description: "Convierte de Rupias Indias a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'inr',
+                      description: 'Monto en rupia.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'krw',
-            description: 'Monto en won surcoreano.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-
-      {
-        type: "SUB_COMMAND",
-        name: "franco",
-        description: "Convierte de Francos suizos a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "won",
+              description: "Convierte de Won Surcoreano a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'krw',
+                      description: 'Monto en won surcoreano.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
+  
           {
-            name: 'chf',
-            description: 'Monto en franco.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-
-      {
-        type: "SUB_COMMAND",
-        name: "lira",
-        description: "Convierte de Lira Turca a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "franco",
+              description: "Convierte de Francos suizos a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'chf',
+                      description: 'Monto en franco.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
+  
           {
-            name: 'try',
-            description: 'Monto en lira.',
-            type: "NUMBER",
-            required: true
+              type: "SUB_COMMAND",
+              name: "lira",
+              description: "Convierte de Lira Turca a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'try',
+                      description: 'Monto en lira.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
           }
-        ]
-      }
-    ]
+      ]
   })
-
-
+  
+  
   //Convertir cripto
   commands?.create({
-    name: 'convertircripto',
-    description: 'Convierte de criptomonedas a pesos',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "bitcoin",
-        description: "Convierte de Bitcoin a Pesos Argentinos",
-        options: [
+      name: 'convertircripto',
+      description: 'Convierte de criptomonedas a pesos',
+      options: [
           {
-            name: 'btc',
-            description: 'Monto en bitcoin.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "ethereum",
-        description: "Convierte de Ethereum a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "bitcoin",
+              description: "Convierte de Bitcoin a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'btc',
+                      description: 'Monto en bitcoin.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'eth',
-            description: 'Monto en ethereum.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "tether",
-        description: "Convierte de Tether a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "ethereum",
+              description: "Convierte de Ethereum a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'eth',
+                      description: 'Monto en ethereum.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'usdt',
-            description: 'Monto en tether.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "axieinfinity",
-        description: "Convierte de Axie Infinity a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "tether",
+              description: "Convierte de Tether a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'usdt',
+                      description: 'Monto en tether.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'axs',
-            description: 'Monto en Axie Infinity.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "terralunaclassic",
-        description: "Convierte de Terra Luna Classic a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "axieinfinity",
+              description: "Convierte de Axie Infinity a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'axs',
+                      description: 'Monto en Axie Infinity.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'lunc',
-            description: 'Monto en Terra Luna Classic.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "decentraland",
-        description: "Convierte de Decentraland a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "terralunaclassic",
+              description: "Convierte de Terra Luna Classic a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'lunc',
+                      description: 'Monto en Terra Luna Classic.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'mana',
-            description: 'Monto en Decentraland.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "solana",
-        description: "Convierte de Solana a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "decentraland",
+              description: "Convierte de Decentraland a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'mana',
+                      description: 'Monto en Decentraland.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'sol',
-            description: 'Monto en Solana.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dai",
-        description: "Convierte de Dai a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "solana",
+              description: "Convierte de Solana a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'sol',
+                      description: 'Monto en Solana.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'dai',
-            description: 'Monto en Dai.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dogecoin",
-        description: "Convierte de Dogecoin a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dai",
+              description: "Convierte de Dai a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'dai',
+                      description: 'Monto en Dai.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'doge',
-            description: 'Monto en Dogecoin.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "terrausdclassic",
-        description: "Convierte de Terra USD Classic a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dogecoin",
+              description: "Convierte de Dogecoin a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'doge',
+                      description: 'Monto en Dogecoin.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ustc',
-            description: 'Monto en USTC.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "terraluna",
-        description: "Convierte de Terra Luna a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "terrausdclassic",
+              description: "Convierte de Terra USD Classic a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'ustc',
+                      description: 'Monto en USTC.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'luna',
-            description: 'Monto en Terra Luna 2.0 .',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-    ]
+              type: "SUB_COMMAND",
+              name: "terraluna",
+              description: "Convierte de Terra Luna a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'luna',
+                      description: 'Monto en Terra Luna 2.0 .',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
+      ]
   })
-
+  
   //Convertir metal a pesos
-
+  
   commands?.create({
-    name: 'convertirmetal',
-    description: 'Convierte de metales a pesos argentinos',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "oro",
-        description: "Convierte de Oro a pesos argentinos",
-        options: [
+      name: 'convertirmetal',
+      description: 'Convierte de metales a pesos argentinos',
+      options: [
           {
-            name: 'xau',
-            description: 'Monto en onza de oro.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "plata",
-        description: "Convierte de Plata a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "oro",
+              description: "Convierte de Oro a pesos argentinos",
+              options: [
+                  {
+                      name: 'xau',
+                      description: 'Monto en onza de oro.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'xag',
-            description: 'Monto en onza de plata.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "paladio",
-        description: "Convierte de Paladio a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "plata",
+              description: "Convierte de Plata a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'xag',
+                      description: 'Monto en onza de plata.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'xpd',
-            description: 'Monto en onza de paladio.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "platino",
-        description: "Convierte de Platino a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "paladio",
+              description: "Convierte de Paladio a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'xpd',
+                      description: 'Monto en onza de paladio.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'xpt',
-            description: 'Monto en onza  de platino.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-    ]
+              type: "SUB_COMMAND",
+              name: "platino",
+              description: "Convierte de Platino a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'xpt',
+                      description: 'Monto en onza  de platino.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
+      ]
   })
-
-
-
+  
+  
+  
   //Peso a
-
+  
   commands?.create({
-    name: 'pesoa',
-    description: 'Convierte de pesos a otras divisas',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "dolar",
-        description: "Convierte de Pesos Argentinos a Dolar Estadounidense",
-        options: [
+      name: 'pesoa',
+      description: 'Convierte de pesos a otras divisas',
+      options: [
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dolarblue",
-        description: "Convierte de Pesos Argentinos a Dólar Estadounidense al precio del mercado paralelo",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolar",
+              description: "Convierte de Pesos Argentinos a Dolar Estadounidense",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "euro",
-        description: "Convierte de Euro a Pesos Argentinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolarblue",
+              description: "Convierte de Pesos Argentinos a Dólar Estadounidense al precio del mercado paralelo",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "real",
-        description: "Convierte de Pesos Argentinos a Real Brasileño",
-        options: [
+              type: "SUB_COMMAND",
+              name: "euro",
+              description: "Convierte de Euro a Pesos Argentinos",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "yen",
-        description: "Convierte de Pesos Argentinos a Yen Japonés ",
-        options: [
+              type: "SUB_COMMAND",
+              name: "real",
+              description: "Convierte de Pesos Argentinos a Real Brasileño",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "libra",
-        description: "Convierte de Pesos Argentinos a Libra Esterlina",
-        options: [
+              type: "SUB_COMMAND",
+              name: "yen",
+              description: "Convierte de Pesos Argentinos a Yen Japonés ",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "rublo",
-        description: "Convierte de Pesos Argentinos a Rublo Ruso",
-        options: [
+              type: "SUB_COMMAND",
+              name: "libra",
+              description: "Convierte de Pesos Argentinos a Libra Esterlina",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+  
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dolarcanadiense",
-        description: "Convierte de Pesos Argentinos a Dólar Canadiense",
-        options: [
+              type: "SUB_COMMAND",
+              name: "rublo",
+              description: "Convierte de Pesos Argentinos a Rublo Ruso",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dolaraustraliano",
-        description: "Convierte de Pesos Argentinos a Dólar Australiano",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolarcanadiense",
+              description: "Convierte de Pesos Argentinos a Dólar Canadiense",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dolarneozelandes",
-        description: "Convierte de Pesos Argentinos a Dólar Neozelandés",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolaraustraliano",
+              description: "Convierte de Pesos Argentinos a Dólar Australiano",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "pesomexicano",
-        description: "Convierte de Pesos Argentinos a Pesos Mexicanos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dolarneozelandes",
+              description: "Convierte de Pesos Argentinos a Dólar Neozelandés",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "pesochileno",
-        description: "Convierte de Pesos Argentinos a Pesos Chilenos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "pesomexicano",
+              description: "Convierte de Pesos Argentinos a Pesos Mexicanos",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "pesouruguayo",
-        description: "Convierte de Pesos Argentinos a Pesos Uruguayo",
-        options: [
+              type: "SUB_COMMAND",
+              name: "pesochileno",
+              description: "Convierte de Pesos Argentinos a Pesos Chilenos",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en  pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "pesocolombiano",
-        description: "Convierte de Pesos Argentinos a Pesos Colombianos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "pesouruguayo",
+              description: "Convierte de Pesos Argentinos a Pesos Uruguayo",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en  pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "boliviano",
-        description: "Convierte de Pesos Argentinos a Bolivianos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "pesocolombiano",
+              description: "Convierte de Pesos Argentinos a Pesos Colombianos",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "sol",
-        description: "Convierte de Pesos Argentinos a Soles Peruanos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "boliviano",
+              description: "Convierte de Pesos Argentinos a Bolivianos",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "guarani",
-        description: "Convierte de Pesos Argentinos a Guaranies Paragauyos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "sol",
+              description: "Convierte de Pesos Argentinos a Soles Peruanos",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "bolivar",
-        description: "Convierte de Pesos Argentinos a Bolivar Digital Venezolano",
-        options: [
+              type: "SUB_COMMAND",
+              name: "guarani",
+              description: "Convierte de Pesos Argentinos a Guaranies Paragauyos",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "yuan",
-        description: "Convierte de Pesos Argentinos a Renminbi Chinos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "bolivar",
+              description: "Convierte de Pesos Argentinos a Bolivar Digital Venezolano",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "rupia",
-        description: "Convierte de Pesos Argentinos a Rupias Indias",
-        options: [
+              type: "SUB_COMMAND",
+              name: "yuan",
+              description: "Convierte de Pesos Argentinos a Renminbi Chinos",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "won",
-        description: "Convierte de Pesos Argentinos a Won Surcoreano",
-        options: [
+              type: "SUB_COMMAND",
+              name: "rupia",
+              description: "Convierte de Pesos Argentinos a Rupias Indias",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "franco",
-        description: "Convierte de Pesos Argentinos a Francos suizos",
-        options: [
+              type: "SUB_COMMAND",
+              name: "won",
+              description: "Convierte de Pesos Argentinos a Won Surcoreano",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "lira",
-        description: "Convierte de Pesos Argentinos a Lira Turca",
-        options: [
+              type: "SUB_COMMAND",
+              name: "franco",
+              description: "Convierte de Pesos Argentinos a Francos suizos",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos argentinos.',
-            type: "NUMBER",
-            required: true
+              type: "SUB_COMMAND",
+              name: "lira",
+              description: "Convierte de Pesos Argentinos a Lira Turca",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos argentinos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
           }
-        ]
-      }
-    ]
+      ]
   })
-
-
+  
+  
   //Peso a cripto
-
+  
   commands?.create({
-    name: 'pesoacripto',
-    description: 'Convierte de pesos a criptomoneda',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "bitcoin",
-        description: "Convierte de Pesos Argentinos a Bitcoin",
-        options: [
+      name: 'pesoacripto',
+      description: 'Convierte de pesos a criptomoneda',
+      options: [
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "ethereum",
-        description: "Convierte de Pesos Argentinos a Ethereum",
-        options: [
+              type: "SUB_COMMAND",
+              name: "bitcoin",
+              description: "Convierte de Pesos Argentinos a Bitcoin",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "tether",
-        description: "Convierte de Pesos Argentinos a Tether",
-        options: [
+              type: "SUB_COMMAND",
+              name: "ethereum",
+              description: "Convierte de Pesos Argentinos a Ethereum",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "axieinfinity",
-        description: "Convierte de Pesos Argentinos a Axie Infinity",
-        options: [
+              type: "SUB_COMMAND",
+              name: "tether",
+              description: "Convierte de Pesos Argentinos a Tether",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "terraluna",
-        description: "Convierte de Pesos Argentinos a Terra Luna",
-        options: [
+              type: "SUB_COMMAND",
+              name: "axieinfinity",
+              description: "Convierte de Pesos Argentinos a Axie Infinity",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "terralunaclassic",
-        description: "Convierte de Pesos Argentinos a Terra Luna Classic",
-        options: [
+              type: "SUB_COMMAND",
+              name: "terraluna",
+              description: "Convierte de Pesos Argentinos a Terra Luna",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "decentraland",
-        description: "Convierte de Pesos Argentinos a Decentraland",
-        options: [
+              type: "SUB_COMMAND",
+              name: "terralunaclassic",
+              description: "Convierte de Pesos Argentinos a Terra Luna Classic",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "solana",
-        description: "Convierte de Pesos Argentinos a Solana",
-        options: [
+              type: "SUB_COMMAND",
+              name: "decentraland",
+              description: "Convierte de Pesos Argentinos a Decentraland",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dai",
-        description: "Convierte de Pesos Argentinos a DAI",
-        options: [
+              type: "SUB_COMMAND",
+              name: "solana",
+              description: "Convierte de Pesos Argentinos a Solana",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "dogecoin",
-        description: "Convierte de Pesos Argentinos a Dogecoin",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dai",
+              description: "Convierte de Pesos Argentinos a DAI",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "terrausdclassic",
-        description: "Convierte de Pesos Argentinos a Terra USD Classic",
-        options: [
+              type: "SUB_COMMAND",
+              name: "dogecoin",
+              description: "Convierte de Pesos Argentinos a Dogecoin",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-    ]
+              type: "SUB_COMMAND",
+              name: "terrausdclassic",
+              description: "Convierte de Pesos Argentinos a Terra USD Classic",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
+      ]
   })
-
+  
   //Pesos a metales 
-
+  
   commands?.create({
-    name: 'pesoametal',
-    description: 'Convierte de pesos a metales',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "oro",
-        description: "Convierte de Pesos Argentinos a oro ",
-        options: [
+      name: 'pesoametal',
+      description: 'Convierte de pesos a metales',
+      options: [
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "plata",
-        description: "Convierte de Pesos Argentinos a plata",
-        options: [
+              type: "SUB_COMMAND",
+              name: "oro",
+              description: "Convierte de Pesos Argentinos a oro ",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "paladio",
-        description: "Convierte de Pesos Argentinos a paladio",
-        options: [
+              type: "SUB_COMMAND",
+              name: "plata",
+              description: "Convierte de Pesos Argentinos a plata",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos.',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "platino",
-        description: "Convierte de Pesos Argentinos  a platino",
-        options: [
+              type: "SUB_COMMAND",
+              name: "paladio",
+              description: "Convierte de Pesos Argentinos a paladio",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos.',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
           {
-            name: 'ars',
-            description: 'Monto en pesos',
-            type: "NUMBER",
-            required: true
-          }
-        ]
-      },
-    ]
+              type: "SUB_COMMAND",
+              name: "platino",
+              description: "Convierte de Pesos Argentinos  a platino",
+              options: [
+                  {
+                      name: 'ars',
+                      description: 'Monto en pesos',
+                      type: "NUMBER",
+                      required: true
+                  }
+              ]
+          },
+      ]
   })
-
+  
   //Servicios
   commands?.create({
-    name: 'servicio',
-    description: 'Mostrar el precio de un servicio de Streaming',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "netflix",
-        description: "Muestra el precio de Netflix + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "youtube",
-        description: "Muestra el precio de YouTube + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "spotify",
-        description: "Muestra el precio de Spotify + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "crunchyroll",
-        description: "Muestra el precio de Crunchyroll + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "disney",
-        description: "Muestra el precio de Disney+ + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "xboxgamepass",
-        description: "Muestra el precio de Xbox GamePass + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "primevideo",
-        description: "Muestra el precio de Prime Video + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "appletv",
-        description: "Muestra el precio de AppleTV + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "hbomax",
-        description: "Muestra el precio de HBO Max + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "discordnitro",
-        description: "Muestra el precio de Discord Nitro + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "googleone",
-        description: "Muestra el precio de Google One + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "ea",
-        description: "Muestra el precio de EA + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "steam",
-        description: "Muestra el precio de la cartera de Steam + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "paramount",
-        description: "Muestra el precio de Paramount+ + impuestos"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "twitch",
-        description: "Muestra el precio de las suscripciones y bits de Twitch + impuestos"
-      }
-    ]
+      name: 'servicio',
+      description: 'Mostrar el precio de un servicio de Streaming',
+      options: [
+          {
+              type: "SUB_COMMAND",
+              name: "netflix",
+              description: "Muestra el precio de Netflix + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "youtube",
+              description: "Muestra el precio de YouTube + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "spotify",
+              description: "Muestra el precio de Spotify + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "crunchyroll",
+              description: "Muestra el precio de Crunchyroll + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "disney",
+              description: "Muestra el precio de Disney+ + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "xboxgamepass",
+              description: "Muestra el precio de Xbox GamePass + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "primevideo",
+              description: "Muestra el precio de Prime Video + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "appletv",
+              description: "Muestra el precio de AppleTV + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "hbomax",
+              description: "Muestra el precio de HBO Max + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "discordnitro",
+              description: "Muestra el precio de Discord Nitro + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "googleone",
+              description: "Muestra el precio de Google One + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "ea",
+              description: "Muestra el precio de EA + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "steam",
+              description: "Muestra el precio de la cartera de Steam + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "paramount",
+              description: "Muestra el precio de Paramount+ + impuestos"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "twitch",
+              description: "Muestra el precio de las suscripciones y bits de Twitch + impuestos"
+          }
+      ]
   })
-
+  
   //Datos
   commands?.create({
-    name: 'datos',
-    description: 'Muestra distintos datos de Argentina',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "riesgopais",
-        description: "Muestra el Riesgo País de Argentina "
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "reservas",
-        description: "Muestra las reservas actuales del Banco Central "
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "circulante",
-        description: "Muestra la cantidad de pesos circulantes en la economía"
-      }
-    ]
-
+      name: 'datos',
+      description: 'Muestra distintos datos de Argentina',
+      options: [
+          {
+              type: "SUB_COMMAND",
+              name: "riesgopais",
+              description: "Muestra el Riesgo País de Argentina "
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "reservas",
+              description: "Muestra las reservas actuales del Banco Central "
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "circulante",
+              description: "Muestra la cantidad de pesos circulantes en la economía"
+          }
+      ]
+  
   })
-
+  
   //elecciones
-
+  
   commands?.create({
-    name: 'elecciones',
-    description: 'Muestra cuántos días faltan para las siguientes elecciones en Argentina',
+      name: 'elecciones',
+      description: 'Muestra cuántos días faltan para las siguientes elecciones en Argentina',
   })
-
-
-
+  
+  
+  
   //Futbol
-
+  
   commands?.create({
-    name: 'futbol',
-    description: 'Muestra cuántos días faltan para  los siguientes partidos de la selección',
+      name: 'futbol',
+      description: 'Muestra cuántos días faltan para  los siguientes partidos de la selección',
   })
-
+  
   //Provincia
-
+  
   commands?.create({
-    name: 'provinciainfo',
-    description: 'Muestra información sobre las 23 provincias de Argentina y la Ciudad Autonoma de Buenos Aires',
-    options: [
-      {
-        name: 'provincia',
-        description: 'Ingresa la provincia de la que quieres saber información .',
-        type: "STRING",
-        required: false
-      }
-    ]
+      name: 'provinciainfo',
+      description: 'Muestra información sobre las 23 provincias de Argentina y la Ciudad Autonoma de Buenos Aires',
+      options: [
+          {
+              name: 'provincia',
+              description: 'Ingresa la provincia de la que quieres saber información .',
+              type: "STRING",
+              required: false
+          }
+      ]
   })
-
-
+  
+  
   //FUN
-
+  
   //Odio
   commands?.create({
-    name: 'odio',
-    description: 'Muestra tu nivel de odio o bronca',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "argentina",
-        description: "Muestra tu nivel de odio o bronca a Argentina "
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "latinoamerica",
-        description: "Muestra tu nivel de odio o bronca a Latinoamérica "
-      },
-    ]
-
+      name: 'odio',
+      description: 'Muestra tu nivel de odio o bronca',
+      options: [
+          {
+              type: "SUB_COMMAND",
+              name: "argentina",
+              description: "Muestra tu nivel de odio o bronca a Argentina "
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "latinoamerica",
+              description: "Muestra tu nivel de odio o bronca a Latinoamérica "
+          },
+      ]
+  
   })
   //Covidtest
   commands?.create({
-    name: 'covidtest',
-    description: 'Te hace un test de covid',
+      name: 'covidtest',
+      description: 'Te hace un test de covid',
   })
   //Escaparlatam
   commands?.create({
-    name: 'escaparlatam',
-    description: 'Muestra tus posibilidades de escapar de latinoamérica',
+      name: 'escaparlatam',
+      description: 'Muestra tus posibilidades de escapar de latinoamérica',
   })
   //Moneda
   commands?.create({
-    name: 'moneda',
-    description: 'Tira una moneda',
+      name: 'moneda',
+      description: 'Tira una moneda',
   })
   //Dados
   commands?.create({
-    name: 'dados',
-    description: 'Tira unos dados',
+      name: 'dados',
+      description: 'Tira unos dados',
   })
-
+  
   commands?.create({
-    name: '8ball',
-    description: 'Pregúntale a la bola mágica 8',
-    options: [
-      {
-        name: 'consulta',
-        description: 'Consulta a realizar.',
-        type: "STRING",
-        required: true
-      }
-    ]
+      name: '8ball',
+      description: 'Pregúntale a la bola mágica 8',
+      options: [
+          {
+              name: 'consulta',
+              description: 'Consulta a realizar.',
+              type: "STRING",
+              required: true
+          }
+      ]
   })
-
-
+  
+  
   //Piedra Papel o Tijera
   commands?.create({
-    name: 'piedrapapelotijera',
-    description: 'Juego interactivo de Piedra Papel o Tijera por simply.djs',
-    options: [
-      {
-        name: 'usuario',
-        type: 'USER',
-        description: 'Usuario para competir en Piedra Papel o Tijeras',
-        required: true,
-      }
-    ],
-  })
-
-  commands?.create({
-    name: 'tateti',
-    description: 'Juego de Tateti. Usando simply-djs',
-    options: [{
-      name: 'usuario',
-      type: 'USER',
-      description: 'Usuario para competir en Tateti',
-      required: true,
-    }
-    ],
-  })
-
-
-
-  //Covid
-
-  commands?.create({
-    name: 'covid',
-    description: 'Muestra comandos relacionados a la infección SARS-CoV-2',
-    options: [
-      {
-        type: "SUB_COMMAND",
-        name: "casos",
-        description: "Muestra los casos de covid19 en Argentina "
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "global",
-        description: "Muestra los casos de covid19  actuales en el mundo "
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "recomendaciones",
-        description: "Muestra las recomendaciones con respecto al covid19"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "sintomas",
-        description: "Muestra los síntomas del covid19"
-      },
-      {
-        type: "SUB_COMMAND",
-        name: "covidpais",
-        description: "Muestra los datos de covid de cierto país",
-        options: [
+      name: 'piedrapapelotijera',
+      description: 'Juego interactivo de Piedra Papel o Tijera por simply.djs',
+      options: [
           {
-            name: 'pais',
-            description: 'País a consultar.',
-            type: "STRING",
-            required: false
+              name: 'usuario',
+              type: 'USER',
+              description: 'Usuario para competir en Piedra Papel o Tijeras',
+              required: true,
           }
-
-        ]
-
-      }
-    ]
-
+      ],
   })
+  
+  commands?.create({
+      name: 'tateti',
+      description: 'Juego de Tateti. Usando simply-djs',
+      options: [{
+          name: 'usuario',
+          type: 'USER',
+          description: 'Usuario para competir en Tateti',
+          required: true,
+      }
+      ],
+  })
+  
+  
+  
+  //Covid
+  
+  commands?.create({
+      name: 'covid',
+      description: 'Muestra comandos relacionados a la infección SARS-CoV-2',
+      options: [
+          {
+              type: "SUB_COMMAND",
+              name: "casos",
+              description: "Muestra los casos de covid19 en Argentina "
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "global",
+              description: "Muestra los casos de covid19  actuales en el mundo "
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "recomendaciones",
+              description: "Muestra las recomendaciones con respecto al covid19"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "sintomas",
+              description: "Muestra los síntomas del covid19"
+          },
+          {
+              type: "SUB_COMMAND",
+              name: "covidpais",
+              description: "Muestra los datos de covid de cierto país",
+              options: [
+                  {
+                      name: 'pais',
+                      description: 'País a consultar.',
+                      type: "STRING",
+                      required: false
+                  }
+  
+              ]
+  
+          }
+      ]
+  
+  })
+    })
 
-
-})
-
+// })
 
 //Comandos
 
@@ -1828,7 +1878,7 @@ client.on('interactionCreate', async (interaction) => {
       .setDescription("¡Si decidiste donarme te lo agradezco infinitamente! ¡Cada peso cuenta!")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919022487377961040/piggy-bank.png")
       .addField("PAYPAL ", "http://paypal.me/GonzaAhre")
-      .addField("LEMONCASH ", " LemonTag: $gonzaahre \n  CVU: 0000053600000007356663")
+      .addField("LEMONCASH ", " LemonTag: $gonzaahre \n  CVU: 0000168300000008383352")
       .addField("UALA ", " Usuario: gonzajajaxd \n CVU: 0000007900204494414446 \n Código QR: ")
       .setImage("https://cdn.discordapp.com/attachments/802944543510495292/814641023870697482/codigo_qr.png")
     interaction.reply({
@@ -7401,9 +7451,9 @@ client.on('interactionCreate', async (interaction) => {
         .setDescription("Los precios de Netflix con impuestos en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
         .setColor('#9a0611')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903356797920894996/netflix_2.png")
-        .addField("Básico:", "ARS$ " + currencyFormatter.format((429 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Estándar:", "ARS$" + currencyFormatter.format((799 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Premium:", "ARS$" + currencyFormatter.format((1199 * 1.74) , { locale: 'es-ES', code: ' ' }))
+        .addField("Básico:", "ARS$ " + currencyFormatter.format((429 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Estándar:", "ARS$" + currencyFormatter.format((799 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Premium:", "ARS$" + currencyFormatter.format((1199 * 1.74), { locale: 'es-ES', code: ' ' }))
 
       return interaction.reply({ embeds: [embed] });
     }
@@ -7414,9 +7464,9 @@ client.on('interactionCreate', async (interaction) => {
         .setDescription("Los precios de YouTube Premium en Argentina con impuestos son los siguientes:\n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
         .setColor('#ff0000')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903357207310127185/youtube.png")
-        .addField("YouTube Music:", "ARS$ " + currencyFormatter.format((99 * 1.75) , { locale: 'es-ES', code: ' ' }))
-        .addField("YouTube Premium Individual:", "ARS$ " + currencyFormatter.format((119 * 1.75) , { locale: 'es-ES', code: ' ' }))
-        .addField("YouTube Premium Familiar:", "ARS$ " + currencyFormatter.format((179 * 1.75) , { locale: 'es-ES', code: ' ' }))
+        .addField("YouTube Music:", "ARS$ " + currencyFormatter.format((99 * 1.75), { locale: 'es-ES', code: ' ' }))
+        .addField("YouTube Premium Individual:", "ARS$ " + currencyFormatter.format((119 * 1.75), { locale: 'es-ES', code: ' ' }))
+        .addField("YouTube Premium Familiar:", "ARS$ " + currencyFormatter.format((179 * 1.75), { locale: 'es-ES', code: ' ' }))
 
       return interaction.reply({ embeds: [embed] });
     }
@@ -7427,10 +7477,10 @@ client.on('interactionCreate', async (interaction) => {
         .setDescription("Los precios de Spotify Premium en Argentina con impuestos son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
         .setColor('#7ad684')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903358342733389854/spotify_1.png")
-        .addField("Individual:", "ARS$ " + currencyFormatter.format((279.00 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Dúo:", "ARS$ " +  currencyFormatter.format((389.00 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Familiar:", "ARS$ " + currencyFormatter.format((489.00 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Estudiantes: ", "ARS$ " +  currencyFormatter.format((119.00 * 1.74) , { locale: 'es-ES', code: ' ' }))
+        .addField("Individual:", "ARS$ " + currencyFormatter.format((279.00 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Dúo:", "ARS$ " + currencyFormatter.format((389.00 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Familiar:", "ARS$ " + currencyFormatter.format((489.00 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Estudiantes: ", "ARS$ " + currencyFormatter.format((119.00 * 1.74), { locale: 'es-ES', code: ' ' }))
 
       return interaction.reply({ embeds: [embed] });
     }
@@ -7441,9 +7491,9 @@ client.on('interactionCreate', async (interaction) => {
         .setColor('#fec105')
         .setDescription("Precio  de Crunchyroll  con impuestos en Argentina \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903849721699913778/crunchyroll.png")
-        .addField("Fan (1 MES):", "ARS$ " + currencyFormatter.format((99 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Mega Fan (1 Mes):", "ARS$ " + currencyFormatter.format((125 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Mega Fan (1 Año):", "ARS$ " + currencyFormatter.format((1250 * 1.74) , { locale: 'es-ES', code: ' ' }))
+        .addField("Fan (1 MES):", "ARS$ " + currencyFormatter.format((99 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Mega Fan (1 Mes):", "ARS$ " + currencyFormatter.format((125 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Mega Fan (1 Año):", "ARS$ " + currencyFormatter.format((1250 * 1.74), { locale: 'es-ES', code: ' ' }))
 
       return interaction.reply({ embeds: [embed] });
     }
@@ -7473,11 +7523,11 @@ client.on('interactionCreate', async (interaction) => {
         .setDescription("Los precios de Xbox Game Pass con impuestos en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
         .setColor('#a6ed75')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903853195443445770/xbox.png")
-        .addField("Xbox Game Pass primer mes", "ARS$ " + currencyFormatter.format(( 39 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Xbox Game Pass para PC", "ARS$ " + currencyFormatter.format(( 599 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Xbox Game Pass Ultimate", "ARS$ "  + currencyFormatter.format(( 899 * 1.74) , { locale: 'es-ES', code: ' ' }))
+        .addField("Xbox Game Pass primer mes", "ARS$ " + currencyFormatter.format((39 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Xbox Game Pass para PC", "ARS$ " + currencyFormatter.format((599 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Xbox Game Pass Ultimate", "ARS$ " + currencyFormatter.format((899 * 1.74), { locale: 'es-ES', code: ' ' }))
 
-     
+
 
       return interaction.reply({ embeds: [embed] });
     }
@@ -7490,7 +7540,7 @@ client.on('interactionCreate', async (interaction) => {
         .setDescription("El precio de  Prime Video con impuestos en Argentina es el siguiente: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
         .setColor('#1aa6e0')
         .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
-        .addField("Costo mensual", "ARS$ " + currencyFormatter.format((319 * 1.74) , { locale: 'es-ES', code: ' ' }))
+        .addField("Costo mensual", "ARS$ " + currencyFormatter.format((319 * 1.74), { locale: 'es-ES', code: ' ' }))
       return interaction.reply({ embeds: [embed] });
 
     }
@@ -7530,24 +7580,24 @@ client.on('interactionCreate', async (interaction) => {
         .setDescription("Precio de HBO Max  en  Argentina con impuestos \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
         .setColor('#970899')
         .setThumbnail("https://hbomax-images.warnermediacdn.com/2020-05/square%20social%20logo%20400%20x%20400_0.png")
-        .addField("Suscripción mensual móvil", "ARS$ " + currencyFormatter.format(( 279 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Suscripción mensual estándar", "ARS$ " + currencyFormatter.format(( 399 * 1.74) , { locale: 'es-ES', code: ' ' }))
+        .addField("Suscripción mensual móvil", "ARS$ " + currencyFormatter.format((279 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Suscripción mensual estándar", "ARS$ " + currencyFormatter.format((399 * 1.74), { locale: 'es-ES', code: ' ' }))
 
 
 
 
-        .addField("Suscripción trimestral móvil", "ARS$ " +  currencyFormatter.format(( 739 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("Suscripción trimestral estándar", "ARS$ " + currencyFormatter.format(( 1089 * 1.74) , { locale: 'es-ES', code: ' ' }))
-
-     
-       
-
-        .addField("Suscripción anual móvil", "ARS$ " +   currencyFormatter.format(( 2279 * 1.74) , { locale: 'es-ES', code: ' ' }))
+        .addField("Suscripción trimestral móvil", "ARS$ " + currencyFormatter.format((739 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("Suscripción trimestral estándar", "ARS$ " + currencyFormatter.format((1089 * 1.74), { locale: 'es-ES', code: ' ' }))
 
 
-        .addField("Suscripción anual estándar", "ARS$ " + currencyFormatter.format(( 3499 * 1.74) , { locale: 'es-ES', code: ' ' }))
 
- 
+
+        .addField("Suscripción anual móvil", "ARS$ " + currencyFormatter.format((2279 * 1.74), { locale: 'es-ES', code: ' ' }))
+
+
+        .addField("Suscripción anual estándar", "ARS$ " + currencyFormatter.format((3499 * 1.74), { locale: 'es-ES', code: ' ' }))
+
+
 
 
       return interaction.reply({ embeds: [embed1] });
@@ -7649,8 +7699,8 @@ client.on('interactionCreate', async (interaction) => {
         .setDescription("Los precios de EA Play con impuestos en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
         .setColor('#fe4747')
         .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
-        .addField("EA Play Mensual", "ARS$  " + currencyFormatter.format(( 499 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("EA Play Anual:", "ARS$   " + currencyFormatter.format(( 3099 * 1.74) , { locale: 'es-ES', code: ' ' }))
+        .addField("EA Play Mensual", "ARS$  " + currencyFormatter.format((499 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("EA Play Anual:", "ARS$   " + currencyFormatter.format((3099 * 1.74), { locale: 'es-ES', code: ' ' }))
 
       return interaction.reply({ embeds: [embed] });
 
@@ -7665,12 +7715,12 @@ client.on('interactionCreate', async (interaction) => {
         .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
         .setColor('#306fb5')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
-        .addField("ARS$ 100 ", "ARS$ " + currencyFormatter.format(( 100 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 160 ", "ARS$  " + currencyFormatter.format(( 160 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 400 ", "ARS$   " + currencyFormatter.format(( 400 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 800 ", "ARS$  " + currencyFormatter.format(( 800 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 1600 ", "ARS$   " + currencyFormatter.format(( 1600 * 1.74) , { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 3200 ", "ARS$   " + currencyFormatter.format(( 3200 * 1.74) , { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 100 ", "ARS$ " + currencyFormatter.format((100 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 160 ", "ARS$  " + currencyFormatter.format((160 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 400 ", "ARS$   " + currencyFormatter.format((400 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 800 ", "ARS$  " + currencyFormatter.format((800 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 1600 ", "ARS$   " + currencyFormatter.format((1600 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 3200 ", "ARS$   " + currencyFormatter.format((3200 * 1.74), { locale: 'es-ES', code: ' ' }))
 
       return interaction.reply({ embeds: [embed] });
     }
@@ -9690,10 +9740,10 @@ client.on('interactionCreate', async (interaction) => {
       .setColor("#d6f2fc")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
       .addField("Monto original", "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }))
-      .addField("I.V.A (21%) ", "$" + currencyFormatter.format(imp * 0.21, { locale: 'es-ES', code: ' ' }), true)
-      .addField("P.A.I.S (8%) ", "$" + currencyFormatter.format(imp * 0.08, { locale: 'es-ES', code: ' ' }), true)
-      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(imp * 0.45, { locale: 'es-ES', code: ' ' }), true)
-      .addField("Total (74%)", "$" + currencyFormatter.format(imp * 1.74, { locale: 'es-ES', code: ' ' }))
+      .addField("I.V.A (21%) ", "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), true)
+      .addField("P.A.I.S (8%) ", "$" + currencyFormatter.format(impuestos.pais8(imp), { locale: 'es-ES', code: ' ' }), true)
+      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), true)
+      .addField("Total (74%)", "$" + currencyFormatter.format(impuestos.total74(imp), { locale: 'es-ES', code: ' ' }))
 
     const embed2 = new Discord.MessageEmbed()
       .setTitle("Impuesto a la compra Online (75%)")
@@ -9702,9 +9752,9 @@ client.on('interactionCreate', async (interaction) => {
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
       .setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
       .addField("Monto original", "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }))
-      .addField("P.A.I.S (30%) ", "$" + currencyFormatter.format(imp * 0.30, { locale: 'es-ES', code: ' ' }), true)
-      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(imp * 0.45, { locale: 'es-ES', code: ' ' }), true)
-      .addField("TOTAL (75%)", "$" + currencyFormatter.format(imp * 1.75, { locale: 'es-ES', code: ' ' }))
+      .addField("P.A.I.S (30%) ", "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), true)
+      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), true)
+      .addField("TOTAL (75%)", "$" + currencyFormatter.format(impuestos.total75(imp), { locale: 'es-ES', code: ' ' }))
 
     const embed3 = new Discord.MessageEmbed()
       .setTitle("Impuesto a la compra Online")
@@ -9732,13 +9782,10 @@ client.on('interactionCreate', async (interaction) => {
     const timeout = 120000;
     paginationEmbed(interaction, pages, buttonList, timeout);
 
-    //  await interaction.reply({
-    //    content: " ‏‏‎‎ ‏‏‎‎ ‏‏‎‏‏‎‎ ‏‏‎‎ ",
-    //    components: []
-    // })
   }
 })
 
+//Inflación Mensual
 
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) {
@@ -9767,7 +9814,29 @@ client.on('interactionCreate', async (interaction) => {
   }
 })
 
+//Traductor
 
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isCommand()) {
+    return
+  }
+  const { commandName, options, subcommand } = interaction
+  if (commandName === 'traducir') {
+    let texto = await options.getString('texto')
+    let origen = await options.getString('origen')
+    let destino = await options.getString('destino')
+    let textoTraducido = await translate(texto, {from: origen, to: destino});
+    
+    const embed1 = new Discord.MessageEmbed()
+    .setTitle("Traducción")
+    .setColor("#ff9e53")
+    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1041196755670274058/translate.png")
+    .addField("Texto Original", texto)
+    .addField("Texto traducido", textoTraducido)
+    
+    return interaction.reply({ embeds: [embed1] });
+  }
+})
 //HELP
 
 client.on('interactionCreate', async (interaction) => {
@@ -9777,244 +9846,244 @@ client.on('interactionCreate', async (interaction) => {
 
   const { commandName, options } = interaction
   if (commandName === 'help') {
-   
-      const row = new MessageActionRow()
-        .addComponents(
-          new MessageSelectMenu()
-            .setCustomId('select')
-            .setPlaceholder('¡Selecciona una categoría!')
-            .addOptions([
-              {
-                label: 'Utilidad y conversión de divisas',
-                description: 'Estos comandos contienen utilidades y conversión de divisas ',
-                value: 'first',
-                emoji: "<:Utilidadyconversin:903096312919126107>",
-              },
-              {
-                label: 'Divisas',
-                description: 'Fiat y Criptomonedas disponibles',
-                value: 'second',
-                emoji: "<:Divisas:903096313061724190>"
-              },
-              {
-                label: 'Información  del Covid19',
-                description: 'Información con respecto a la pandemia del covid19',
-                value: 'third',
-                emoji: "<:Covid:903096313439219762>"
-              },
-              {
-                label: 'Datos',
-                description: 'Datos variados acerca del país',
-                value: 'fourth',
-                emoji: "<:Datos2:903096311102988378>"
-              },
-              {
-                label: 'Servicios',
-                description: 'Precio de servicios de streaming y variados',
-                value: 'fifth',
-                emoji: "<:Servicios2:903097132683239474>"
-              },
-              {
-                label: 'Diversión',
-                description: 'Comandos de diversión',
-                value: 'sixth',
-                emoji: "<:Diversin:903096312289955860>"
-              },
-              {
-                label: 'Información',
-                description: 'Información del bot y su creador',
-                value: 'seventh',
-                emoji: "<:Informacindelbot:903096312713609246>"
-              }
-            ]
-            )
-  
-        )
-  
-      let embed = new Discord.MessageEmbed()
-        .setTitle(":desktop: COMANDOS DE ARGENKIT BOT :desktop: ")
-        .setColor('#fdcb68')
-        .addField("» Comandos disponibles", "¡Tenemos `7` categorías distintas llenas de comandos y subcomandos! \nRecuerda que ahora el bot solo puede ser utilizado con los slash commands \n Para ver las novedades más recientes del bot utiliza `/update`")
-        .addField("» Comandos populares", "`impuesto`  `convertir dolar`  `convertir blue`  `divisa dolar`  `divisa blue`  `covid casos`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `moneda`  `invite`")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903001307554652160/buscando.png")
-  
-      let embed2 = new Discord.MessageEmbed()
-        .setTitle(":arrows_counterclockwise:  Utilidad y conversión de divisas :arrows_counterclockwise:  ")
-        .setColor('#fdcb68')
-        .setDescription("Estos comandos contienen utilidades y conversión de divisa")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903010091756814356/money-exchange.png")
-        .addField("» Utilidad ", "`impuesto`  `calculadora`  `anualizarinflacion`")
-        .addField("» `convertirdivisa`", "Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-        .addField("» `pesoa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-        .addField("» `convertircripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-        .addField("» `pesoacripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-        .addField("» `convertirmetal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
-        .addField("» `pesoametal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
 
-      let embed3 = new Discord.MessageEmbed()
-        .setTitle(":dollar:  Cotizaciones :dollar: ")
-        .setColor('#fdcb68')
-        .setDescription("Estos comandos contienen las distintas cotizaciones disponibles con su precio a pesos argentinos e informacion adicional")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/90301281.759495484/dollars.png")
-        .addField("» `divisa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-        .addField("» `criptomoneda` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-        .addField("» `metal`", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
-  
-      let embed4 = new Discord.MessageEmbed()
-        .setTitle(":mask:  Covid19 :mask: ")
-        .setColor('#fdcb68')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903019853202468884/nueva-normalidad.png")
-        .setDescription("Estos comandos contienen información sobre la pandemia del covid19")
-        .addField("» `covid`", "» Subcomandos `casos`  `global`  `covidpais`  `sintomas`  `recomendaciones`")
-  
-      let embed5 = new Discord.MessageEmbed()
-        .setTitle(":bar_chart: Datos :bar_chart:")
-        .setColor('#fdcb68')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094616071483392/unknown.png")
-        .setDescription("Estos comandos tienen distintos datos sobre Argentina")
-        .addField("» Comando `datos`", "subcomandos `riesgopais`  `reservas`  `circulante`")
-        .addField("» Otros Comandos ", "`elecciones`  `futbol`  `provinciainfo`")
-  
-      let embed6 = new Discord.MessageEmbed()
-        .setTitle(":tv: Servicios Digitales :tv:")
-        .setColor('#fdcb68')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903093667911315557/Servicios.png")
-        .setDescription("Estos subcomandos te dan el precio de distintos servicios digitales en Argentina con impuestos")
-        .addField("» `servicio`", "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
-  
-      let embed7 = new Discord.MessageEmbed()
-        .setTitle(":rofl: Diversión :rofl:")
-        .setColor('#fdcb68')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094465747648552/Diversion.png")
-        .setDescription("Estos son comandos con cosas divertidas mayormente basadas en aleatoridad")
-        .addField("» Comandos", "`odio argentina`  `odio latinoamerica`  `covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`  `piedrapapelotijera`  `tateti`")
-  
-      let embed8 = new Discord.MessageEmbed()
-        .setTitle(":open_file_folder: Información del bot :open_file_folder:")
-        .setColor('#fdcb68')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903095489719828541/Informacion_del_bot.png")
-        .setDescription("Estos comandos te permiten consultar más información acerca del bot")
-        .addField("» Comandos", "`creador`  `api`  `invitar`  `servidor`  `votar`  `donaciones`  `update`")
-  
-      const collector = interaction.channel.createMessageComponentCollector({
-        componentType: "SELECT_MENU", time: 20000
-  
-      })
-  
-      interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
-  
-  
-  
-      collector.on("collect", async (collected) => {
-  
-        const value = collected.values[0]
-  
-        if (value === "first") {
-          return interaction.editReply({ embeds: [embed2], ephemeral: false });
-        }
-        if (value === "second") {
-          await interaction.editReply({ embeds: [embed3], ephemeral: false })
-        }
-        if (value === "third") {
-          await interaction.editReply({ embeds: [embed4], ephemeral: false })
-        }
-        if (value === "fourth") {
-          await interaction.editReply({ embeds: [embed5], ephemeral: false })
-        }
-        if (value === "fifth") {
-          await interaction.editReply({ embeds: [embed6], ephemeral: false })
-        }
-        if (value === "sixth") {
-          await interaction.editReply({ embeds: [embed7], ephemeral: false })
-        }
-        if (value === "seventh") {
-          await interaction.editReply({ embeds: [embed8], ephemeral: false })
-        }
-    
-      })
+    const row = new MessageActionRow()
+      .addComponents(
+        new MessageSelectMenu()
+          .setCustomId('select')
+          .setPlaceholder('¡Selecciona una categoría!')
+          .addOptions([
+            {
+              label: 'Utilidad y conversión de divisas',
+              description: 'Estos comandos contienen utilidades y conversión de divisas ',
+              value: 'first',
+              emoji: "<:Utilidadyconversin:903096312919126107>",
+            },
+            {
+              label: 'Divisas',
+              description: 'Fiat y Criptomonedas disponibles',
+              value: 'second',
+              emoji: "<:Divisas:903096313061724190>"
+            },
+            {
+              label: 'Información  del Covid19',
+              description: 'Información con respecto a la pandemia del covid19',
+              value: 'third',
+              emoji: "<:Covid:903096313439219762>"
+            },
+            {
+              label: 'Datos',
+              description: 'Datos variados acerca del país',
+              value: 'fourth',
+              emoji: "<:Datos2:903096311102988378>"
+            },
+            {
+              label: 'Servicios',
+              description: 'Precio de servicios de streaming y variados',
+              value: 'fifth',
+              emoji: "<:Servicios2:903097132683239474>"
+            },
+            {
+              label: 'Diversión',
+              description: 'Comandos de diversión',
+              value: 'sixth',
+              emoji: "<:Diversin:903096312289955860>"
+            },
+            {
+              label: 'Información',
+              description: 'Información del bot y su creador',
+              value: 'seventh',
+              emoji: "<:Informacindelbot:903096312713609246>"
+            }
+          ]
+          )
+
+      )
+
+    let embed = new Discord.MessageEmbed()
+      .setTitle(":desktop: COMANDOS DE ARGENKIT BOT :desktop: ")
+      .setColor('#fdcb68')
+      .addField("» Comandos disponibles", "¡Tenemos `7` categorías distintas llenas de comandos y subcomandos! \nRecuerda que ahora el bot solo puede ser utilizado con los slash commands \n Para ver las novedades más recientes del bot utiliza `/update`")
+      .addField("» Comandos populares", "`impuesto`  `convertir dolar`  `convertir blue`  `divisa dolar`  `divisa blue`  `covid casos`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `moneda`  `invite`")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903001307554652160/buscando.png")
+
+    let embed2 = new Discord.MessageEmbed()
+      .setTitle(":arrows_counterclockwise:  Utilidad y conversión de divisas :arrows_counterclockwise:  ")
+      .setColor('#fdcb68')
+      .setDescription("Estos comandos contienen utilidades y conversión de divisa")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903010091756814356/money-exchange.png")
+      .addField("» Utilidad ", "`impuesto`  `calculadora`  `anualizarinflacion`")
+      .addField("» `convertirdivisa`", "Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
+      .addField("» `pesoa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
+      .addField("» `convertircripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
+      .addField("» `pesoacripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
+      .addField("» `convertirmetal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
+      .addField("» `pesoametal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
+
+    let embed3 = new Discord.MessageEmbed()
+      .setTitle(":dollar:  Cotizaciones :dollar: ")
+      .setColor('#fdcb68')
+      .setDescription("Estos comandos contienen las distintas cotizaciones disponibles con su precio a pesos argentinos e informacion adicional")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/90301281.759495484/dollars.png")
+      .addField("» `divisa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
+      .addField("» `criptomoneda` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
+      .addField("» `metal`", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
+
+    let embed4 = new Discord.MessageEmbed()
+      .setTitle(":mask:  Covid19 :mask: ")
+      .setColor('#fdcb68')
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903019853202468884/nueva-normalidad.png")
+      .setDescription("Estos comandos contienen información sobre la pandemia del covid19")
+      .addField("» `covid`", "» Subcomandos `casos`  `global`  `covidpais`  `sintomas`  `recomendaciones`")
+
+    let embed5 = new Discord.MessageEmbed()
+      .setTitle(":bar_chart: Datos :bar_chart:")
+      .setColor('#fdcb68')
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094616071483392/unknown.png")
+      .setDescription("Estos comandos tienen distintos datos sobre Argentina")
+      .addField("» Comando `datos`", "subcomandos `riesgopais`  `reservas`  `circulante`")
+      .addField("» Otros Comandos ", "`elecciones`  `futbol`  `provinciainfo`")
+
+    let embed6 = new Discord.MessageEmbed()
+      .setTitle(":tv: Servicios Digitales :tv:")
+      .setColor('#fdcb68')
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903093667911315557/Servicios.png")
+      .setDescription("Estos subcomandos te dan el precio de distintos servicios digitales en Argentina con impuestos")
+      .addField("» `servicio`", "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
+
+    let embed7 = new Discord.MessageEmbed()
+      .setTitle(":rofl: Diversión :rofl:")
+      .setColor('#fdcb68')
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094465747648552/Diversion.png")
+      .setDescription("Estos son comandos con cosas divertidas mayormente basadas en aleatoridad")
+      .addField("» Comandos", "`odio argentina`  `odio latinoamerica`  `covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`  `piedrapapelotijera`  `tateti`")
+
+    let embed8 = new Discord.MessageEmbed()
+      .setTitle(":open_file_folder: Información del bot :open_file_folder:")
+      .setColor('#fdcb68')
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903095489719828541/Informacion_del_bot.png")
+      .setDescription("Estos comandos te permiten consultar más información acerca del bot")
+      .addField("» Comandos", "`creador`  `api`  `invitar`  `servidor`  `votar`  `donaciones`  `update`")
+
+    const collector = interaction.channel.createMessageComponentCollector({
+      componentType: "SELECT_MENU", time: 20000
+
+    })
+
+    interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
+
+
+
+    collector.on("collect", async (collected) => {
+
+      const value = collected.values[0]
+
+      if (value === "first") {
+        return interaction.editReply({ embeds: [embed2], ephemeral: false });
+      }
+      if (value === "second") {
+        await interaction.editReply({ embeds: [embed3], ephemeral: false })
+      }
+      if (value === "third") {
+        await interaction.editReply({ embeds: [embed4], ephemeral: false })
+      }
+      if (value === "fourth") {
+        await interaction.editReply({ embeds: [embed5], ephemeral: false })
+      }
+      if (value === "fifth") {
+        await interaction.editReply({ embeds: [embed6], ephemeral: false })
+      }
+      if (value === "sixth") {
+        await interaction.editReply({ embeds: [embed7], ephemeral: false })
+      }
+      if (value === "seventh") {
+        await interaction.editReply({ embeds: [embed8], ephemeral: false })
+      }
+
+    })
   }
 })
 
 //Update
 client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isCommand()) {
-      return
-    }
-    const { commandName, options } = interaction
-    if (commandName === "update"){
-      
-const embed14 = new Discord.MessageEmbed()
-.setTitle("ARGENKIT BOT VERSIÓN 1.4 ¡SLASH COMMANDS UPDATE!")
-.setColor('#0a9ee1')
-.setDescription("  Fecha de lanzamiento: 16/4/2022 \n Debido al anuncio de Discord de volver los Message Content algo privilegiado para bots verificados, esta actualización es obligatoria para poder seguir usando el bot.")
-.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-.addField("<:slash:964681731519164457> Slash commands ", "Se han actualizado todos los comandos al formato slash. Esto debido a que Discord ya no permitirá a los bots verificados usar comandos por mensaje  (Como venía siendo con el bot con todos sus comandos como `*ar impuesto`, `*ar dolar`, `*ar help`, etc), debido a esto, he tenido que actualizar todos los comandos regulares a slash commands. Prueba /help para descubrir cómo funcionan. Quizás  sea  necesario  expulsar y volver a invitar al bot si es que lo añadiste hace mucho tiempo.")
-.addField("<:ethereum:963619533271232532> ¡Más Criptomonedas!", "Se han añadido el Ethereum, Tether, Axie Infinity, Terraluna, Decentraland, Solana, Dai y Dogecoin ")
-.addField("<:goldingots:964717629484965938> ¡Metales!", "Se han añadido la onza de oro, plata, paladio y platino  ")
-.addField(":chart_with_downwards_trend:  Anualizar Inflación", "Nuevo comando para calcular la inflación anualizada a partir de la mensual")
+  if (!interaction.isCommand()) {
+    return
+  }
+  const { commandName, options } = interaction
+  if (commandName === "update") {
 
-const embed13 = new Discord.MessageEmbed()
-.setTitle("ARGENKIT BOT VERSIÓN 1.3 ¡LA ACTUALIZACIÓN DE ANIVERSARIO!")
-.setColor('#0a9ee1')
-.setDescription("  Fecha de lanzamiento: 1/2/2022 \n ¡Ha pasado un año desde la primera versión estable del bot (1.0), la cual fue en un principio cerrada solo a un grupo de amigos!  \n Hoy, estoy feliz de anunciar la actualización de aniversario, la versión 1.3! Que trae sobre todo un gran cambio en el diseño. Estas son las novedades: ")
-.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-.addField("<:djs:928800848996352041> Discord.js 13 ", "Se ha actualizado el bot a Discord.js 13 y node.js 16")
-.addField(":sparkles: Cambio de  diseño ", "¡Se ha renovado por completo el diseño del bot para darle un estilo más moderno!")
-.addField(":mouse_three_button:  Nuevos botones ", "¡Se han remplazado las reacciones por los  nuevos botones interactivos de discord!")
-.addField(":handshake: Help mejorado ", "¡Se ha mejorado por completo el comando help, ahora incluye un menú desplegable para cada categoría!")
-.addField("<:bitcoin:929073179262074960> Bitcoin ", "¡Ahora se puede consultar el precio del bitcoin,  así como convertirlo!")
-.addField(":dollar: Nuevas divisas ", "Se ha agregado el Franco Suizo y la Lira Turca")
-.addField(":microbe: Covid ", "Se han agregado nuevos países y la posibilidad de consultar los disponibles con `*ar covidpais`  sin argumentos")
-.addField(":computer: Slash commands ", "Se han agregado algunos slash commands,  quizás tengas que expulsar y volver a invitar al bot al servidor para utilizarlos")
-.addField(":abacus: Calculadora ", "Se ha agregado una calculadora interactiva con botones, usa `*ar calculadora` ")
-.addField(":soccer:  Fulvo ", "Se ha agregado un contador de cuánto falta para los  siguientes partidos de la selección, pruebalo con `*ar fútbol` ")
-.addField(":video_game:   Juegos ", "Se ha agregado un piedra papel o tijera y un tateti con botones de discord, pruebalo con `*ar tateti @usuario` o `*ar piedrapapelotijera @usuario`")
-.addField(":alarm_clock: Husos horarios", "Se ha agregado un comando para consultar distintos husos horarios, prueba `*ar husos` (Eliminado en la versión  1.4 para una futura mejora)")
+    const embed14 = new Discord.MessageEmbed()
+      .setTitle("ARGENKIT BOT VERSIÓN 1.4 ¡SLASH COMMANDS UPDATE!")
+      .setColor('#0a9ee1')
+      .setDescription("  Fecha de lanzamiento: 16/4/2022 \n Debido al anuncio de Discord de volver los Message Content algo privilegiado para bots verificados, esta actualización es obligatoria para poder seguir usando el bot.")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+      .addField("<:slash:964681731519164457> Slash commands ", "Se han actualizado todos los comandos al formato slash. Esto debido a que Discord ya no permitirá a los bots verificados usar comandos por mensaje  (Como venía siendo con el bot con todos sus comandos como `*ar impuesto`, `*ar dolar`, `*ar help`, etc), debido a esto, he tenido que actualizar todos los comandos regulares a slash commands. Prueba /help para descubrir cómo funcionan. Quizás  sea  necesario  expulsar y volver a invitar al bot si es que lo añadiste hace mucho tiempo.")
+      .addField("<:ethereum:963619533271232532> ¡Más Criptomonedas!", "Se han añadido el Ethereum, Tether, Axie Infinity, Terraluna, Decentraland, Solana, Dai y Dogecoin ")
+      .addField("<:goldingots:964717629484965938> ¡Metales!", "Se han añadido la onza de oro, plata, paladio y platino  ")
+      .addField(":chart_with_downwards_trend:  Anualizar Inflación", "Nuevo comando para calcular la inflación anualizada a partir de la mensual")
 
-const embed12 = new Discord.MessageEmbed()
-.setTitle("ARGENKIT BOT VERSIÓN 1.2 ¡LA ACTUALIZACIÓN DE LAS DIVISAS!")
-.setColor('#0a9ee1')
-.setDescription("  Fecha de lanzamiento: 26/6/2021 \n ¡Ya pasaron  más de 3 meses desde que el bot fue lanzado al público y alcanzó más de 150 servidores de Discord! Hoy, estoy feliz de anunciar la primera actualización grande del bot, la versión 1.2, la actualización de las divisas!  Estos son los cambios introducidos en la versión: ")
-.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-.addField(":dollar: ¡Nuevas divisas! ", "Como la misma actualización lo indica, se han agregado un total de 17 nuevas divisas, formando un total de 21 divisas actualmente disponibles! Estas nuevas son: yen japonés, libra esterlina,  rublo ruso, dólar canadiense, dólar australiano, dólar neozelandes, peso mexicano, peso chileno, peso uruguayo, peso boliviano, peso colombiano, sol  peruano, guarani paraguayo, bolivar venezolano,  rupia india, yuan chino y won surcoreano!")
-.addField(":flag_ar: ¡Provincias! ", "Se agregó una función para  consultar información  de  las 23 provincias argentinas y la Ciudad Autónoma de buenos Aires!  Pruebalo con *ar provincia [provincia] ")
-.addField(":grey_exclamation: Más información", "Nueva información  de cada divisa en una  segunda página")
-.addField(":calendar: Elecciones ", "Nuevo contador de días hasta  las siguientes  elecciones!")
-.addField(":tv: ¡Nuevos servicios! ", "Se agregó el precio de  HBO Max, Paramount+, Discord  Nitro, Google One, EA Play, Wallet de Steam y Twitch!")
-.addField(":moneybag: Impuesto ", "Se agregó  una segunda página al comando de impuesto para ver el impuesto sin IVA (75%)")
-.addField(":question: Help", " El comando de help recibió un gran cambio")
-.addField(":microbe: Actualización a las funciones de covid19 ", "Se agregaron nuevos países para ver sus casos de covid19, además de una segunda pestaña para ver los casos en el día de hoy")
-.addField(":incoming_envelope: Bienvenido al servidor del bot! ", "¡Ya disponible el servidor de discord! Usa el comando *ar discord para unirte!")
-.addField(":white_check_mark: Apoya al bot votando en top.gg! ", "Se  agregó el comando *ar vote ")
-.addField(":eyes: Entre otras cosas ", "Se mejoró el código y se hicieron otros cambios menores")
+    const embed13 = new Discord.MessageEmbed()
+      .setTitle("ARGENKIT BOT VERSIÓN 1.3 ¡LA ACTUALIZACIÓN DE ANIVERSARIO!")
+      .setColor('#0a9ee1')
+      .setDescription("  Fecha de lanzamiento: 1/2/2022 \n ¡Ha pasado un año desde la primera versión estable del bot (1.0), la cual fue en un principio cerrada solo a un grupo de amigos!  \n Hoy, estoy feliz de anunciar la actualización de aniversario, la versión 1.3! Que trae sobre todo un gran cambio en el diseño. Estas son las novedades: ")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+      .addField("<:djs:928800848996352041> Discord.js 13 ", "Se ha actualizado el bot a Discord.js 13 y node.js 16")
+      .addField(":sparkles: Cambio de  diseño ", "¡Se ha renovado por completo el diseño del bot para darle un estilo más moderno!")
+      .addField(":mouse_three_button:  Nuevos botones ", "¡Se han remplazado las reacciones por los  nuevos botones interactivos de discord!")
+      .addField(":handshake: Help mejorado ", "¡Se ha mejorado por completo el comando help, ahora incluye un menú desplegable para cada categoría!")
+      .addField("<:bitcoin:929073179262074960> Bitcoin ", "¡Ahora se puede consultar el precio del bitcoin,  así como convertirlo!")
+      .addField(":dollar: Nuevas divisas ", "Se ha agregado el Franco Suizo y la Lira Turca")
+      .addField(":microbe: Covid ", "Se han agregado nuevos países y la posibilidad de consultar los disponibles con `*ar covidpais`  sin argumentos")
+      .addField(":computer: Slash commands ", "Se han agregado algunos slash commands,  quizás tengas que expulsar y volver a invitar al bot al servidor para utilizarlos")
+      .addField(":abacus: Calculadora ", "Se ha agregado una calculadora interactiva con botones, usa `*ar calculadora` ")
+      .addField(":soccer:  Fulvo ", "Se ha agregado un contador de cuánto falta para los  siguientes partidos de la selección, pruebalo con `*ar fútbol` ")
+      .addField(":video_game:   Juegos ", "Se ha agregado un piedra papel o tijera y un tateti con botones de discord, pruebalo con `*ar tateti @usuario` o `*ar piedrapapelotijera @usuario`")
+      .addField(":alarm_clock: Husos horarios", "Se ha agregado un comando para consultar distintos husos horarios, prueba `*ar husos` (Eliminado en la versión  1.4 para una futura mejora)")
 
-const button1 = new MessageButton()
-.setCustomId("previousbtn")
-.setLabel("Más reciente")
-.setStyle("SUCCESS");
+    const embed12 = new Discord.MessageEmbed()
+      .setTitle("ARGENKIT BOT VERSIÓN 1.2 ¡LA ACTUALIZACIÓN DE LAS DIVISAS!")
+      .setColor('#0a9ee1')
+      .setDescription("  Fecha de lanzamiento: 26/6/2021 \n ¡Ya pasaron  más de 3 meses desde que el bot fue lanzado al público y alcanzó más de 150 servidores de Discord! Hoy, estoy feliz de anunciar la primera actualización grande del bot, la versión 1.2, la actualización de las divisas!  Estos son los cambios introducidos en la versión: ")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+      .addField(":dollar: ¡Nuevas divisas! ", "Como la misma actualización lo indica, se han agregado un total de 17 nuevas divisas, formando un total de 21 divisas actualmente disponibles! Estas nuevas son: yen japonés, libra esterlina,  rublo ruso, dólar canadiense, dólar australiano, dólar neozelandes, peso mexicano, peso chileno, peso uruguayo, peso boliviano, peso colombiano, sol  peruano, guarani paraguayo, bolivar venezolano,  rupia india, yuan chino y won surcoreano!")
+      .addField(":flag_ar: ¡Provincias! ", "Se agregó una función para  consultar información  de  las 23 provincias argentinas y la Ciudad Autónoma de buenos Aires!  Pruebalo con *ar provincia [provincia] ")
+      .addField(":grey_exclamation: Más información", "Nueva información  de cada divisa en una  segunda página")
+      .addField(":calendar: Elecciones ", "Nuevo contador de días hasta  las siguientes  elecciones!")
+      .addField(":tv: ¡Nuevos servicios! ", "Se agregó el precio de  HBO Max, Paramount+, Discord  Nitro, Google One, EA Play, Wallet de Steam y Twitch!")
+      .addField(":moneybag: Impuesto ", "Se agregó  una segunda página al comando de impuesto para ver el impuesto sin IVA (75%)")
+      .addField(":question: Help", " El comando de help recibió un gran cambio")
+      .addField(":microbe: Actualización a las funciones de covid19 ", "Se agregaron nuevos países para ver sus casos de covid19, además de una segunda pestaña para ver los casos en el día de hoy")
+      .addField(":incoming_envelope: Bienvenido al servidor del bot! ", "¡Ya disponible el servidor de discord! Usa el comando *ar discord para unirte!")
+      .addField(":white_check_mark: Apoya al bot votando en top.gg! ", "Se  agregó el comando *ar vote ")
+      .addField(":eyes: Entre otras cosas ", "Se mejoró el código y se hicieron otros cambios menores")
 
-const button2 = new MessageButton()
-.setCustomId("nextbtn")
-.setLabel("Anterior")
-.setStyle("DANGER");
+    const button1 = new MessageButton()
+      .setCustomId("previousbtn")
+      .setLabel("Más reciente")
+      .setStyle("SUCCESS");
 
-const pages = [
-embed14,
-embed13,
-embed12,
+    const button2 = new MessageButton()
+      .setCustomId("nextbtn")
+      .setLabel("Anterior")
+      .setStyle("DANGER");
+
+    const pages = [
+      embed14,
+      embed13,
+      embed12,
 
 
-];
+    ];
 
-const buttonList = [button1, button2];
-const timeout = 120000;
-paginationEmbed(interaction, pages, buttonList, timeout);
+    const buttonList = [button1, button2];
+    const timeout = 120000;
+    paginationEmbed(interaction, pages, buttonList, timeout);
 
-    }
-  
-  })
+  }
 
-  
+})
+
+
 
 //     .addField("  GMT-3 :flag_ar: :flag_uy: :flag_br:  ",  hora.toLocaleString("es-ES", {timeZone: "America/Argentina/Buenos_Aires"}))
 
@@ -10046,158 +10115,16 @@ client.on('interactionCreate', async (interaction) => {
   }
 
   const { commandName, options } = interaction
-  if (commandName == "covid") {
+    
+    if (commandName == "covid") {
+ 
 
-    if (interaction.options.getSubcommand() === 'casos') {
-      axios.get('https://disease.sh/v3/covid-19/countries/argentina')
-
-        .then((covidArg) => {
-
-          const embed1 = new Discord.MessageEmbed()
-            .setTitle(":flag_ar: Casos totales de Covid-19 en Argentina :flag_ar:")
-            .setColor("#dd5460")
-            .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706078806536243/casosarg.png")
-            .addField("Casos :mask: ", currencyFormatter.format(covidArg.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Testeos :test_tube: ", currencyFormatter.format(covidArg.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Muertes :skull: ", currencyFormatter.format(covidArg.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Recuperados :green_square: ", currencyFormatter.format(covidArg.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Activos :red_square: ", currencyFormatter.format(covidArg.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-          const embed2 = new Discord.MessageEmbed()
-            .setTitle(":flag_ar: Casos de Covid-19 del día de hoy en Argentina :flag_ar:")
-            .setColor("#dd5460")
-            .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706078806536243/casosarg.png")
-            .addField("Casos hoy :mask: ", currencyFormatter.format(covidArg.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Muertes hoy :skull: ", currencyFormatter.format(covidArg.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidArg.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-
-
-          const button1 = new MessageButton()
-            .setCustomId("previousbtn")
-            .setLabel("😷 Total")
-            .setStyle("DANGER");
-
-          const button2 = new MessageButton()
-            .setCustomId("nextbtn")
-            .setLabel("📅 Hoy")
-            .setStyle("SUCCESS");
-
-          const pages = [
-            embed1,
-            embed2,
-
-
-          ];
-
-          const buttonList = [button1, button2];
-          const timeout = 30000;
-          paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-
-        })
-
-
-    }
-
-    if (interaction.options.getSubcommand() === 'global') {
-      axios.get('https://disease.sh/v3/covid-19/all')
-        .then((covidGlobal) => {
-          const embed = new Discord.MessageEmbed()
-            .setTitle(":earth_americas: Casos totales de Covid-19 en el mundo :earth_americas:")
-            .setColor("#dd5460")
-            .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903133714362531901/casosglobal.png")
-            .addField("Casos :mask: ", currencyFormatter.format(covidGlobal.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Testeos :test_tube: ", currencyFormatter.format(covidGlobal.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Muertes :skull: ", currencyFormatter.format(covidGlobal.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Recuperados :green_square: ", currencyFormatter.format(covidGlobal.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-            .addField("Activos :red_square: ", currencyFormatter.format(covidGlobal.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-          return interaction.reply({ embeds: [embed] });
-
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-
-        })
-
-    }
-    if (interaction.options.getSubcommand() === 'recomendaciones') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle(":mask: Recomendaciones ante el Covid-19 :mask: ")
-        .setColor("#366ef7")
-        .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2. \n Estas son algunas recomendaciones. ")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903136380580937768/mask.png")
-        .addField(" :open_hands: Lávate las manos con frecuencia ", " Usa agua y jabón o un desinfectante de manos a base de alcohol ")
-        .addField(" :person_walking: Manten la distancia ", " Mantén una distancia de seguridad con personas que tosan o estornuden. ")
-        .addField(" :mask: Usa mascarilla ", " Utiliza mascarilla cuando no sea posible mantener el distanciamiento físico. ")
-        .addField(" :eyes: :no_entry_sign: ", " No te toques los ojos, la nariz ni la boca. ")
-        .addField(" :sneezing_face: Cuidado al estornudar ", " Cuando tosas o estornudes, cúbrete la nariz y la boca con el codo flexionado o con un pañuelo. ")
-        .addField(" :house: Quedate en casa ", " Si no te encuentras bien, quédate en casa. ")
-        .addField(" :ambulance: En caso de síntomas ", " En caso de que tengas fiebre, tos o dificultad para respirar, busca atención médica. ")
-
-      return interaction.reply({ embeds: [embed] });
-
-
-    }
-    if (interaction.options.getSubcommand() === 'sintomas') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle(":sneezing_face: Síntomas del Covid-19 :mask: ")
-        .setColor("#dd5460")
-        .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.\n Estos son algunos de los síntomas de la enfermedad, si padece alguno de ellos y no está seguro si tiene el virus se recomienda hacerse un hisopado. ")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903134963501768754/Sintomas.png")
-        .addField(" :green_circle: Síntomas más habituales", " - Fiebre \n - Tos seca \n - Cansancio ", true)
-        .addField(" :yellow_circle: Síntomas menos comunes", " - Molestias y dolores \n - Dolor de garganta \n - Diarrea \n - Conjuntivitis \n - Dolor de cabeza \n - Pérdida del sentido del olfato o del gusto \n - Erupciones cutáneas o pérdida del color en los dedos de las manos o de los pies", true)
-        .addField(" :red_circle: Síntomas más graves", " - Dificultad para respirar o sensación de falta de aire \n - Dolor o presión en el pecho \n - Incapacidad para hablar o moverse ", true)
-
-      return interaction.reply({ embeds: [embed] });
-    }
-
-
-
-    if (interaction.options.getSubcommand() === 'covidpais') {
-
-      //Lista
-      var pais = options.getString('pais')
-      if (pais != null) {
-        var pais2 = pais.toLowerCase()
-      }
-
-      if (pais == null) {
-
-        const embed = new Discord.MessageEmbed()
-          .setTitle("Países disponibles")
-          .setColor("RED")
-          .setDescription("Utiliza `/covid covidpais [nombre del país]` para ver los datos de covid")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903133714362531901/casosglobal.png")
-          .addField("» América del Sur ", "`Argentina`  `Uruguay`  `Paraguay`  `Brasil`  `Chile`  `Bolivia`  `Perú`  `Ecuador`  `Colombia`  `Venezuela`")
-          .addField("» América del Norte ", "`México`  `Estados Unidos`  `Canadá`")
-          .addField("» América Central", "`Panamá`  `Costa Rica`  `Nicaragua`  `Honduras`  `El Salvador`  `Guatemala`  `Belice`")
-          .addField("» Caribe", "`República Dominicana`  `Cuba`  `Jamaica`  `Bahamas`")
-          .addField("» Europa", "`Reino Unido`  `Irlanda`  `España`  `Portugal`  `Francia`  `Italia`  `Alemania`  `Polonia`  `Paises Bajos`  `Rusia`  `Noruega`  `Suecia`  `Finlanda`  `Dinamarca`  `Islandia`  `Suiza`  `Turquía`  `Grecia`  `Belgica`  `República Checa`  `Eslovaquia`  `Austria`  `Ucrania`")
-          .addField("» Asia", "`Japon`  `Corea del Sur`  `China`  `Taiwan`  `India`")
-          .addField("» Oceanía", "`Australia`  `Nueva Zelanda`")
-        return interaction.reply({ embeds: [embed] });
-      }
-
-
-      //Argentina
-      if (pais2 == "argentina" || pais2 == "ar") {
+      if (interaction.options.getSubcommand() === 'casos') {
+      
         axios.get('https://disease.sh/v3/covid-19/countries/argentina')
+
           .then((covidArg) => {
+
             const embed1 = new Discord.MessageEmbed()
               .setTitle(":flag_ar: Casos totales de Covid-19 en Argentina :flag_ar:")
               .setColor("#dd5460")
@@ -10220,65 +10147,6 @@ client.on('interactionCreate', async (interaction) => {
               .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidArg.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
 
 
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-      //Uruguay
-      if (pais2 == "uruguay" || pais2 == "uy") {
-        axios.get('https://disease.sh/v3/covid-19/countries/uruguay')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_uy: Casos totales de Covid-19 en Uruguay :flag_uy:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706079771222126/casosuruguay.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_uy: Casos de Covid-19 del día de hoy en Uruguay :flag_uy:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706079771222126/casosuruguay.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
 
 
             const button1 = new MessageButton()
@@ -10313,174 +10181,23 @@ client.on('interactionCreate', async (interaction) => {
           })
 
 
-
-      }
-      //Paraguay
-      if (pais2 == "paraguay" || pais2 == "paraguay") {
-        axios.get('https://disease.sh/v3/covid-19/countries/paraguay')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_py: Casos totales de Covid-19 en Paraguay :flag_py:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929829420330549268/casosparaguay.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ar: Casos de Covid-19 del día de hoy en Paraguay :flag_py:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929829420330549268/casosparaguay.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-
       }
 
-
-      //Brazil
-
-      if (pais2 == "brasil" || pais2 == "br" || pais2 == "brazil") {
-        axios.get('https://disease.sh/v3/covid-19/countries/brazil')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_br: Casos totales de Covid-19 en Brasil :flag_br:")
-              .setColor("RED")
+      if (interaction.options.getSubcommand() === 'global') {
+        axios.get('https://disease.sh/v3/covid-19/all')
+          .then((covidGlobal) => {
+            const embed = new Discord.MessageEmbed()
+              .setTitle(":earth_americas: Casos totales de Covid-19 en el mundo :earth_americas:")
+              .setColor("#dd5460")
               .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706079083347988/casosbrasil.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903133714362531901/casosglobal.png")
+              .addField("Casos :mask: ", currencyFormatter.format(covidGlobal.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+              .addField("Testeos :test_tube: ", currencyFormatter.format(covidGlobal.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+              .addField("Muertes :skull: ", currencyFormatter.format(covidGlobal.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+              .addField("Recuperados :green_square: ", currencyFormatter.format(covidGlobal.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+              .addField("Activos :red_square: ", currencyFormatter.format(covidGlobal.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
 
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_br: Casos de Covid-19 del día de hoy en Brasil :flag_br:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706079083347988/casosbrasil.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      }
-
-      //Chile
-
-      if (pais2 == "cl" || pais2 == "chile") {
-        axios.get('https://disease.sh/v3/covid-19/countries/chile')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_cl: Casos totales de Covid-19 en Chile :flag_cl:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706079305637899/casoschile.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_cl: Casos de Covid-19 del día de hoy en Chile :flag_cl:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706079305637899/casoschile.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
+            return interaction.reply({ embeds: [embed] });
 
           })
           .catch((err) => {
@@ -10490,2977 +10207,110 @@ client.on('interactionCreate', async (interaction) => {
           })
 
       }
+      if (interaction.options.getSubcommand() === 'recomendaciones') {
+        const embed = new Discord.MessageEmbed()
+          .setTitle(":mask: Recomendaciones ante el Covid-19 :mask: ")
+          .setColor("#366ef7")
+          .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2. \n Estas son algunas recomendaciones. ")
+          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903136380580937768/mask.png")
+          .addField(" :open_hands: Lávate las manos con frecuencia ", " Usa agua y jabón o un desinfectante de manos a base de alcohol ")
+          .addField(" :person_walking: Manten la distancia ", " Mantén una distancia de seguridad con personas que tosan o estornuden. ")
+          .addField(" :mask: Usa mascarilla ", " Utiliza mascarilla cuando no sea posible mantener el distanciamiento físico. ")
+          .addField(" :eyes: :no_entry_sign: ", " No te toques los ojos, la nariz ni la boca. ")
+          .addField(" :sneezing_face: Cuidado al estornudar ", " Cuando tosas o estornudes, cúbrete la nariz y la boca con el codo flexionado o con un pañuelo. ")
+          .addField(" :house: Quedate en casa ", " Si no te encuentras bien, quédate en casa. ")
+          .addField(" :ambulance: En caso de síntomas ", " En caso de que tengas fiebre, tos o dificultad para respirar, busca atención médica. ")
 
-      //Bolivia
-      if (pais2 == "bolivia" || pais2 == "bo") {
-        axios.get('https://disease.sh/v3/covid-19/countries/bolivia')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_bo: Casos totales de Covid-19 en Bolivia :flag_bo:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928714502113984552/casosbolivia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_bo: Casos de Covid-19 del día de hoy en Bolivia :flag_bo:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928714502113984552/casosbolivia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
+        return interaction.reply({ embeds: [embed] });
 
 
       }
+      if (interaction.options.getSubcommand() === 'sintomas') {
+        const embed = new Discord.MessageEmbed()
+          .setTitle(":sneezing_face: Síntomas del Covid-19 :mask: ")
+          .setColor("#dd5460")
+          .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.\n Estos son algunos de los síntomas de la enfermedad, si padece alguno de ellos y no está seguro si tiene el virus se recomienda hacerse un hisopado. ")
+          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903134963501768754/Sintomas.png")
+          .addField(" :green_circle: Síntomas más habituales", " - Fiebre \n - Tos seca \n - Cansancio ", true)
+          .addField(" :yellow_circle: Síntomas menos comunes", " - Molestias y dolores \n - Dolor de garganta \n - Diarrea \n - Conjuntivitis \n - Dolor de cabeza \n - Pérdida del sentido del olfato o del gusto \n - Erupciones cutáneas o pérdida del color en los dedos de las manos o de los pies", true)
+          .addField(" :red_circle: Síntomas más graves", " - Dificultad para respirar o sensación de falta de aire \n - Dolor o presión en el pecho \n - Incapacidad para hablar o moverse ", true)
 
-      //Peru
-
-      if (pais2 == "peru" || pais2 == "peru" || pais2 == "pe") {
-        axios.get('https://disease.sh/v3/covid-19/countries/peru')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_pe: Casos totales de Covid-19 en Perú :flag_pe:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928792443531452426/casosperu2.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_pe: Casos de Covid-19 del día de hoy en Perú :flag_pe:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928792443531452426/casosperu2.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-      //Ecuador
-
-      if (pais2 == "ecuador" || pais2 == "ec") {
-        axios.get('https://disease.sh/v3/covid-19/countries/ecuador')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ec: Casos totales de Covid-19 en Ecuador :flag_ec:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929829420104040538/casosecuador.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ec: Casos de Covid-19 del día de hoy en Ecuador :flag_ec:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929829420104040538/casosecuador.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy:skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-      //Colombia
-
-      if (pais2 == "colombia" || pais2 == "co") {
-        axios.get('https://disease.sh/v3/covid-19/countries/colombia')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_co: Casos totales de Covid-19 en Colombia :flag_co:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706079527948308/casoscolombia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_co: Casos de Covid-19 del día de hoy en Colombia :flag_co:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706079527948308/casoscolombia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
+        return interaction.reply({ embeds: [embed] });
       }
 
 
-      //Venezuela
 
-      if (pais2 == "venezuela" || pais2 == "ve") {
-        axios.get('https://disease.sh/v3/covid-19/countries/venezuela')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ve: Casos totales de Covid-19 en Venezuela :flag_ve:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706080031248394/casosvenezuela.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+      if (interaction.options.getSubcommand() === 'covidpais') {
+      
+        //Lista
+        var pais = options.getString('pais')
+        if (pais != null) {
+          var pais2 = pais.toLowerCase()
+        }
 
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ve: Casos de Covid-19 del día de hoy en Venezuela :flag_ve:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706080031248394/casosvenezuela.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+        if (pais == null) {
+
+          const embed = new Discord.MessageEmbed()
+            .setTitle("Países disponibles")
+            .setColor("RED")
+            .setDescription("Utiliza `/covid covidpais [nombre del país]` para ver los datos de covid")
+            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903133714362531901/casosglobal.png")
+          return interaction.reply({ embeds: [embed] });
+        }
+       
+
+        //Todos los paises
+        if (pais2.length != 0) {
+          
+          const paisEN = await translate(pais2, {from: "es", to: "en" });
+          let covidArg = await axios.get(`https://disease.sh/v3/covid-19/countries/${paisEN}`)
+
+              const nombrePais = await translate(covidArg.data.country, {from: "en", to: "es"})
+              console.log(nombrePais)
+              const embed1 = new Discord.MessageEmbed()
+                .setTitle(`:flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}: Casos totales de Covid-19 en ${nombrePais} :flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}:`)
+                .setColor("#dd5460")
+                .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
+                .setThumbnail(covidArg.data['countryInfo']['flag'])
+                .addField("Casos :mask: ", currencyFormatter.format(covidArg.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+                .addField("Testeos :test_tube: ", currencyFormatter.format(covidArg.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+                .addField("Muertes :skull: ", currencyFormatter.format(covidArg.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+                .addField("Recuperados :green_square: ", currencyFormatter.format(covidArg.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+                .addField("Activos :red_square: ", currencyFormatter.format(covidArg.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+
+              const embed2 = new Discord.MessageEmbed()
+                .setTitle(`:flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}: Casos totales de Covid-19 en ${nombrePais} :flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}:`)
+                .setThumbnail(covidArg.data['countryInfo']['flag'])
+                .setColor("#dd5460")
+                .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
+                .addField("Casos hoy :mask: ", currencyFormatter.format(covidArg.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+                .addField("Muertes hoy :skull: ", currencyFormatter.format(covidArg.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
+                .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidArg.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
 
 
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
+              const button1 = new MessageButton()
+                .setCustomId("previousbtn")
+                .setLabel("😷 Total")
+                .setStyle("DANGER");
 
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
+              const button2 = new MessageButton()
+                .setCustomId("nextbtn")
+                .setLabel("📅 Hoy")
+                .setStyle("SUCCESS");
 
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-          })
+              const pages = [
+                embed1,
+                embed2,
+              ];
+              const buttonList = [button1, button2];
+              const timeout = 30000;
+              paginationEmbed(interaction, pages, buttonList, timeout);
+        }
       }
-
-      //Norte América
-
-      //México
-      if (pais2 == "mexico" || pais2 == "mx" || pais2 == "méxico") {
-        axios.get('https://disease.sh/v3/covid-19/countries/mexico')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_mx: Casos totales de Covid-19 en México :flag_mx:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928710311433883788/casosmexico.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_mx: Casos de Covid-19 del día de hoy en México :flag_mx:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928710311433883788/casosmexico.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-
-      //USA
-
-      if (pais2 == "usa" || pais2 == "estadosunidos" || pais2 == "america" || pais2 == "eeuu" || pais2 == "us" || pais2 == "estados" || pais2 == "américa" || pais2 == "estados unidos" || pais2 == "estados unidos  de  américa" || pais2 == "estados unidos de america") {
-        axios.get('https://disease.sh/v3/covid-19/countries/usa')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_us: Casos totales de Covid-19 en los Estados Unidos de América :flag_us:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928710311714897970/casosusa.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_us: Casos de Covid-19 del día de hoy en los Estados Unidos de América :flag_us:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928710311714897970/casosusa.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-      if (pais2 == "canada" || pais2 == "ca" || pais2 == "canadá") {
-        axios.get('https://disease.sh/v3/covid-19/countries/canada')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ca: Casos totales de Covid-19 en Canadá :flag_ca:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928710311228342332/casoscanada.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ca: Casos de Covid-19 del día de hoy en Canadá :flag_ca:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928710311228342332/casoscanada.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-      }
-      //
-      //Panamá
-      if (pais2 == "panama" || pais2 == "pa" || pais2 == "pa") {
-        axios.get('https://disease.sh/v3/covid-19/countries/panama')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_pa: Casos totales de Covid-19 en Panamá :flag_pa:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928785653427241000/casospanama.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_pa: Casos de Covid-19 del día de hoy en Panamá :flag_pa:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928785653427241000/casospanama.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      //Costa Rica
-      if (pais2 == "costa rica" || pais2 == "cr" || pais2 == "costarica") {
-        axios.get('https://disease.sh/v3/covid-19/countries/costa%20rica')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_cr: Casos totales de Covid-19 en Costa Rica :flag_cr:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786730130239530/casoscostarica.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_cr: Casos de Covid-19 del día de hoy en Costa Rica :flag_cr:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786730130239530/casoscostarica.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados  :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Nicaragua
-      if (pais2 == "nicaragua" || pais2 == "ni") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/nicaragua')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ni: Casos totales de Covid-19 en Nicaragua :flag_ni:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786729694036048/casosnicaragua.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ni: Casos de Covid-19 del día de hoy en Nicaragua :flag_ni:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786729694036048/casosnicaragua.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-
-      //Honduras
-
-      if (pais2 == "honduras" || pais2 == "hn") {
-        axios.get('https://disease.sh/v3/covid-19/countries/honduras')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_hn: Casos totales de Covid-19 en Honduras :flag_hn:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786729056489482/casoshonduras.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_hn: Casos de Covid-19 del día de hoy en Honduras :flag_hn:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786729056489482/casoshonduras.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("MUertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Salvador
-
-      if (pais2 == "el salvador" || pais2 == "salvador" || pais2 == "sv") {
-        axios.get('https://disease.sh/v3/covid-19/countries/el%20salvador')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_sv: Casos totales de Covid-19 en El Salvador :flag_sv:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786729287172186/casoselsalvador.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_sv: Casos de Covid-19 del día de hoy en El Salvador :flag_sv:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786729287172186/casoselsalvador.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Guatemala
-      if (pais2 == "guatemala" || pais2 == "gt") {
-        axios.get('https://disease.sh/v3/covid-19/countries/guatemala')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_gt: Casos totales de Covid-19 en Guatemala :flag_gt:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786728796446793/casosguatemala.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_gt: Casos de Covid-19 del día de hoy en Guatemala :flag_gt:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786728796446793/casosguatemala.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      //Belice
-
-      if (pais2 == "belice" || pais2 == "blz") {
-        axios.get('https://disease.sh/v3/covid-19/countries/belize')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_bz: Casos totales de Covid-19 en Belice :flag_bz:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786728553160764/casosbelize.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_bz: Casos de Covid-19 del día de hoy en Belice :flag_bz:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786728553160764/casosbelize.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Rep. Dominicana
-      if (pais2 == "belice" || pais2 == "blz") {
-        axios.get('https://disease.sh/v3/covid-19/countries/dominican%20republic')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_do: Casos totales de Covid-19 en República Dominicana :flag_do:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786728326676550/casosrepdom.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_do: Casos de Covid-19 del día de hoy en República Dominicana :flag_do:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928786728326676550/casosrepdom.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Cuba
-
-
-      if (pais2 == "cuba" || pais2 == "cu") {
-        axios.get('https://disease.sh/v3/covid-19/countries/cuba')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_cu: Casos totales de Covid-19 en Cuba :flag_cu:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928796840038662254/casoscuba.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_cu: Casos de Covid-19 del día de hoy en Cuba :flag_cu:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928796840038662254/casoscuba.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      if (pais2 == "jamaica" || pais2 == "jm") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/jamaica')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_jm: Casos totales de Covid-19 en Jamaica :flag_jm:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928796839518539816/casosjamaica.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_jm: Casos de Covid-19 del día de hoy en Jamaica :flag_jm:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928796839518539816/casosjamaica.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-
-
-      //Bahamas
-
-
-      if (pais2 == "bahamas" || pais2 == "bm") {
-        axios.get('https://disease.sh/v3/covid-19/countries/bahamas')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_bs: Casos totales de Covid-19 en Bahamas :flag_bs:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/816453572304437288/bahamasxd.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_bs: Casos de Covid-19 del día de hoy en Bahamas :flag_bs:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/816453572304437288/bahamasxd.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Europa
-
-      //Reino Unido
-
-      if (pais2 == "reino unido" || pais2 == "uk" || pais2 == "gb" || pais2 == "gran bretaña" || pais2 == "inglaterra" || pais2 == "escocia" || pais2 == "irlanda del norte" || pais2 == "gales") {
-        axios.get('https://disease.sh/v3/covid-19/countries/uk')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_gb: Casos totales de Covid-19 en el Reino Unido :flag_gb:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928805925979062272/casosuk.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_gb: Casos de Covid-19 del día de hoy en el Reino Unido :flag_gb:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928805925979062272/casosuk.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      //Irlanda
-
-
-      if (pais2 == "irlanda" || pais2 == "ie" || pais2 == "irl") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/ireland')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ie:  Casos totales de Covid-19 en Irlanda :flag_ie: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929830998143803422/casosirlanda.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ie: Casos de Covid-19 del día de hoy en Irlanda :flag_ie:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929830998143803422/casosirlanda.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-
-
-      if (pais2 == "españa" || pais2 == "es") {
-        axios.get('https://disease.sh/v3/covid-19/countries/spain')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_es: Casos totales de Covid-19 en España :flag_es:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928805925056307250/casospain.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_es: Casos de Covid-19 del día de hoy en España :flag_es:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928805925056307250/casospain.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      if (pais2 == "portugal" || pais2 == "pt") {
-        axios.get('https://disease.sh/v3/covid-19/countries/portugal')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_pt: Casos totales de Covid-19 en Portugal :flag_pt:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928805925677047848/casosportugal.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_pt: Casos de Covid-19 del día de hoy en Portugal :flag_pt:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928805925677047848/casosportugal.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      if (pais2 == "francia" || pais2 == "fr") {
-        axios.get('https://disease.sh/v3/covid-19/countries/france')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_fr: Casos totales de Covid-19 en Francia :flag_fr:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807788359061574/casosfrancia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_fr: Casos de Covid-19 del día de hoy en Francia :flag_fr:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807788359061574/casosfrancia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Italia
-
-      if (pais2 == "italia" || pais2 == "italia") {
-        axios.get('https://disease.sh/v3/covid-19/countries/italy')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_it: Casos totales de Covid-19 en Italia :flag_it:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807788560404510/casositalia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_it: Casos de Covid-19 del día de hoy en Italia :flag_it:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807788560404510/casositalia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-
-      if (pais2 == "alemania" || pais2 == "de") {
-        axios.get('https://disease.sh/v3/covid-19/countries/germany')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_de: Casos totales de Covid-19 en Alemania :flag_de:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928805925328912414/casosalemania.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_de: Casos de Covid-19 del día de hoy en Alemania :flag_de:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928805925328912414/casosalemania.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("MUertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Polonia
-
-      if (pais2 == "polonia" || pais2 == "pl") {
-        axios.get('https://disease.sh/v3/covid-19/countries/poland')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_pl: Casos totales de Covid-19 en Polonia :flag_pl:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807788111609946/casospoland.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_pl: Casos de Covid-19 del día de hoy en Polonia :flag_pl:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807788111609946/casospoland.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-          })
-      }
-
-      //Paises Bajos
-      if (pais2 == "netherlands" || pais2 == "holanda" || pais2 == "paisesbajos" || pais2 == "paises bajos" || pais2 == "nl") {
-        axios.get('https://disease.sh/v3/covid-19/countries/netherlands')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_nl: Casos totales de Covid-19 en los Paises Bajos :flag_nl:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807787851554867/casosnetherlands.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_nl: Casos de Covid-19 del día de hoy en los Paises Bajos :flag_nl:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807787851554867/casosnetherlands.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      //Rusia
-
-      if (pais2 == "rusia" || pais2 == "russia" || pais2 == "ru") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/russia')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ru: Casos totales de Covid-19 en Rusia :flag_ru:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807787608277002/casosrusia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ru: Casos de Covid-19 del día de hoy en Rusia :flag_ru:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928807787608277002/casosrusia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      if (pais2 == "islandia" || pais2 == "ic") {
-        axios.get('https://disease.sh/v3/covid-19/countries/iceland')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_is:  Casos totales de Covid-19 en Islandia :flag_is: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834380376043580/casosislandia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_is:  Casos de Covid-19 del día de hoy en Islandia :flag_is: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834380376043580/casosislandia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      if (pais2 == "noruega" || pais2 == "no") {
-        axios.get('https://disease.sh/v3/covid-19/countries/norway')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_no:  Casos totales de Covid-19 en Noruega :flag_no: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834380153724958/casosnoruega.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_no:  Casos de Covid-19 del día de hoy en Noruega :flag_no: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834380153724958/casosnoruega.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      //Suecia
-
-
-      if (pais2 == "suecia" || pais2 == "se") {
-        axios.get('https://disease.sh/v3/covid-19/countries/sweden')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_se:  Casos totales de Covid-19 en Suecia :flag_se: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834380594135090/casossuecia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_se:  Casos de Covid-19 del día de hoy en Suecia :flag_se: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834380594135090/casossuecia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Finlandia
-
-      if (pais2 == "finlandia" || pais2 == "fi") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/finland')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_fi:  Casos totales de Covid-19 en Finlandia :flag_fi: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834379725930586/casosfinlandia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_fi:  Casos de Covid-19 del día de hoy en Finlandia :flag_fi: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834379725930586/casosfinlandia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-
-      }
-
-      //Dinamarca
-      if (pais2 == "dinamarca" || pais2 == "dk") {
-        axios.get('https://disease.sh/v3/covid-19/countries/finland')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_dk:  Casos totales de Covid-19 en Dinamarca :flag_dk: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834379956605020/casosdinamarca.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_dk:  Casos de Covid-19 del día de hoy en Dinamarca :flag_dk: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929834379956605020/casosdinamarca.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Islandia
-
-      if (pais2 == "suiza" || pais2 == "ch") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/switzerland')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ch:  Casos totales de Covid-19 en Suiza :flag_ch: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935282434260467783/casossuiza.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ch:  Casos de Covid-19 del día de hoy en Suiza :flag_ch: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935282434260467783/casossuiza.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      if (pais2 == "turquía" || pais2 == "tr" || pais2 == "turquia" || pais2 == "turkey") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/turkey')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_tr:  Casos totales de Covid-19 en Turquía :flag_tr: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935283167827472464/casosturkey.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_tr:  Casos de Covid-19 del día de hoy en Turquía :flag_tr: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935283167827472464/casosturkey.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-
-      if (pais2 == "grecia" || pais2 == "gr") {
-        axios.get('https://disease.sh/v3/covid-19/countries/greek')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_gr:  Casos totales de Covid-19 en Grecia :flag_gr: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935287779531833494/casosgrecia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_gr:  Casos de Covid-19 del día de hoy en Grecia :flag_gr: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935287779531833494/casosgrecia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-
-
-      //Grecia
-      if (pais2 == "belgica" || pais2 == "be") {
-        axios.get('https://disease.sh/v3/covid-19/countries/belgium')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_be:  Casos totales de Covid-19 en Belgica :flag_be: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935288979085991946/casosbelgica.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_be:  Casos de Covid-19 del día de hoy en Belgica :flag_be: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935288979085991946/casosbelgica.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-
-      //Rep  Checa
-      if (pais2 == "republica checa" || pais2 == "chequia" || pais2 == "república  checa" || pais2 == "checa") {
-        axios.get('https://disease.sh/v3/covid-19/countries/Czechia')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_cz:  Casos totales de Covid-19 en República Checa :flag_cz: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935291012337786900/casoschequia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_cz:  Casos de Covid-19 del día de hoy en República Checa :flag_cz: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935291012337786900/casoschequia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-      //Eslovaquia
-      if (pais2 == "eslovaquia" || pais2 == "sk" || pais2 == "slovakia") {
-        axios.get('https://disease.sh/v3/covid-19/countries/Slovakia')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_sk:  Casos totales de Covid-19 en Eslovaquia :flag_sk: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935291528274915358/casosslovakia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_cz:  Casos de Covid-19 del día de hoy en República Checa :flag_cz: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935291012337786900/casoschequia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Austria
-
-      if (pais2 == "austria" || pais2 == "at") {
-        axios.get('https://disease.sh/v3/covid-19/countries/Austria')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_at:  Casos totales de Covid-19 en Austria :flag_at: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935293798743945306/casosaustria.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_at:  Casos de Covid-19 del día de hoy en Austria :flag_at: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935293798743945306/casosaustria.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //Ucrania
-
-      if (pais2 == "ucrania" || pais2 == "ua") {
-        axios.get('https://disease.sh/v3/covid-19/countries/Ukraine')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ua:  Casos totales de Covid-19 en Ucrania :flag_ua:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935297506064089158/casosucrania.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ua:  Casos de Covid-19 del día de hoy en Ucrania :flag_ua: ")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935297506064089158/casosucrania.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-
-      //Japon
-      if (pais2 == "japon" || pais2 == "jp") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/japan')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_jp: Casos totales de Covid-19 en Japon :flag_jp:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816696574214164/casosjapon.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_jp: Casos de Covid-19 del día de hoy en Japon :flag_jp:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816696574214164/casosjapon.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-
-      }
-
-      //Corea del sur
-      if (pais2 == "corea del sur" || pais2 == "corea" || pais2 == "korea" || pais2 == "southkorea" || pais2 == "surcorea") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/kr')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_kr: Casos totales de Covid-19 en Corea del Sur :flag_kr:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816696330964992/casoscorea.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_kr: Casos de Covid-19 del día de hoy en Corea del Sur :flag_kr:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816696330964992/casoscorea.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //China
-      if (pais2 == "cn" || pais2 == "china" || pais2 == "república popular de china" || pais2 == "republica popular de china") {
-        axios.get('https://disease.sh/v3/covid-19/countries/china')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_cn: Casos totales de Covid-19 en la República Popular de China :flag_cn:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2. \n Es posible que estos datos no sean veridicos")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929841100406005781/covidchina.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_cn: Casos de Covid-19 del día de hoy en la República Popular de China :flag_cn:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2. \n Es posible que estos datos no sean veridicos")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929841100406005781/covidchina.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-
-      //Taiwan
-      if (pais2 == "taiwan" || pais2 == "tw" || pais2 == "república de china" || pais2 == "republica de china") {
-        axios.get('https://disease.sh/v3/covid-19/countries/taiwan')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_tw: Casos totales de Covid-19 en la República de China (Taiwan) :flag_tw:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929841100145983498/casostaiwan.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_tw: Casos de Covid-19 del día de hoy en la República de China (Taiwan) :flag_tw:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2. \n Es posible que estos datos no sean veridicos")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929841100145983498/casostaiwan.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      //India
-      if (pais2 == "india" || pais2 == "in") {
-
-        axios.get('https://disease.sh/v3/covid-19/countries/india')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_in: Casos totales de Covid-19 en India :flag_in:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816696112848906/casosindia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_in: Casos de Covid-19 del día de hoy en India :flag_in:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816696112848906/casosindia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-
-
-      //Filipinas
-      if (pais2 == "filipinas" || pais2 == "ph") {
-        axios.get('https://disease.sh/v3/covid-19/countries/ph')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ph: Casos totales de Covid-19 en Filipinas :flag_ph:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935302014433386536/Casosfilipinas.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ph: Casos de Covid-19 del día de hoy en Filipinas :flag_ph:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/935302014433386536/Casosfilipinas.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-
-      }
-
-      //Australia
-
-      if (pais2 == "australia" || pais2 == "au") {
-        axios.get('https://disease.sh/v3/covid-19/countries/australia')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_au: Casos totales de Covid-19 en Australia :flag_au:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816695882170489/casosaustralia.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_au: Casos de Covid-19 del día de hoy en Australia :flag_au:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816695882170489/casosaustralia.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-
-      if (pais2 == "nueva zelanda" || pais2 == "nz") {
-        axios.get('https://disease.sh/v3/covid-19/countries/nz')
-          .then((covidPais) => {
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_nz: Casos totales de Covid-19 en Nueva Zelanda :flag_nz:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816695651491850/casosnz.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidPais.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidPais.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidPais.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidPais.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidPais.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .setFooter("Consulta realizada por: " + message.member.displayName, message.author.displayAvatarURL())
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_nz: Casos de Covid-19 del día de hoy en Nueva Zelanda :flag_nz:")
-              .setColor("RED")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928816695651491850/casosnz.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidPais.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidPais.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidPais.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-            ];
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(message, pages, buttonList, timeout);
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-          })
-      }
-    }
+    
   }
 })
 
-const mySecret = process.env['token']
+
+
 client.login(process.env.token);

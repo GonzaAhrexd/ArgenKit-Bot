@@ -41,7 +41,6 @@ const translate = require("translate");//Translate
 const impuestos = require("./functions/impuestos.js")
 //Estado del bot
 
-
   //Información
   //Creador
   
@@ -56,7 +55,30 @@ const impuestos = require("./functions/impuestos.js")
     }
     
     //Prender bot
-    
+
+    //Command Handler
+
+  client.slashcommands = new Discord.Collection();
+  const slashcommandsFile = fs.readdirSync('./commands').filter(file => file.endsWith("js"))
+  for(const file of slashcommandsFile){
+    const slash = require(`./commands/${file}`)
+    console.log(`Slash  commands - ${file} cargado`)
+    client.slashcommands.set(slash.data.name, slash)
+  }
+
+
+  client.on("interactionCreate", async(interaction) =>{
+    if(!interaction.isCommand()) return;
+    const slashcmds = client.slashcommands.get(interaction.commandName)
+    if(!slashcmds) return;
+
+    try{
+      await slashcmds.run(client, interaction)
+    } catch(e){
+      console.error(e)
+    }
+  })
+
     client.on("ready", async () => {
       console.log("TODO LISTO");
      
@@ -66,7 +88,7 @@ const impuestos = require("./functions/impuestos.js")
   const guild = client.guilds.cache.get()
   let commands
   
-  //   client.application.commands.set([]);
+    // client.application.commands.set([]);
   
   /*  const list = await client.application.commands.fetch()
      console.log(list)
@@ -77,62 +99,8 @@ const impuestos = require("./functions/impuestos.js")
   } else {
       commands = client.application?.commands
   }
-  
-  commands?.create({
-      name: 'creador',
-      description: 'Muestra información del creador del bot.',
-  })
-  //Api
-  commands?.create({
-      name: 'api',
-      description: 'Muestra las apis utilizadas en el bot',
-  })
-  //Donaciones
-  commands?.create({
-      name: 'donaciones',
-      description: 'Muestra formas de apoyar al creador mediante donaciones',
-  })
-  //Votar
-  commands?.create({
-      name: 'votar',
-      description: 'Vota al bot en top.gg',
-  })
-  //Servidor
-  commands?.create({
-      name: 'servidor',
-      description: '¡Unete al servidor oficial del bot!',
-  })
-  //Invitar
-  commands?.create({
-      name: 'invitar',
-      description: 'Invita al bot a unirte a tu servidor',
-  })
-  //Help
-  commands?.create({
-      name: 'help',
-      description: 'Muestra los comandos disponibles',
-  })
-  //Update
-  commands?.create({
-      name: 'update',
-      description: 'Muestra las novedades de la actualización',
-  })
-  
-  
+
   //Utilidad
-  //Impuesto
-  commands?.create({
-      name: 'impuesto',
-      description: 'Calcula el impuesto a compras online del 74% o 75%',
-      options: [
-          {
-              name: 'monto',
-              description: 'Valor a calcular.',
-              required: true,
-              type: "NUMBER"
-          }
-      ]
-  })
   
   //Calculadora
   commands?.create({
@@ -140,63 +108,6 @@ const impuestos = require("./functions/impuestos.js")
       description: 'Calculadora interactiva por simply.djs',
   })
   
-  //Anualizar
-  commands?.create({
-      name: 'anualizarinflacion',
-      description: 'Calcula la inflación anual a partir de la mensual',
-      options: [
-          {
-              name: 'mensual',
-              description: 'Inflación mensual a anualizar  sin el símbolo de %.',
-              required: true,
-              type: "NUMBER"
-          }
-      ]
-  })
-  //Traductor
-  commands?.create({
-      name: 'traducir',
-      description: 'Traduce rápidamente de un idioma a otro',
-      options: [
-          {
-              name: 'origen',
-              description: 'Idioma del texto',
-              required: true,
-              type: "STRING",
-              choices: [
-                  { name: 'Español', value: 'es' },
-                  { name: 'Inglés', value: 'en' },
-                  { name: 'Portugués', value: 'pt' },
-                  { name: 'Francés', value: 'fr' },
-                  { name: 'Italiano', value: 'it' },
-                  { name: 'Alemán', value: 'de' },
-                  { name: 'Japonés', value: 'ja' }
-              ]
-          },
-          {
-              name: 'destino',
-              description: 'Idioma que se quiere obtener',
-              required: true,
-              type: "STRING",
-              choices: [
-                  { name: 'Español', value: 'es' },
-                  { name: 'Inglés', value: 'en' },
-                  { name: 'Portugués', value: 'pt' },
-                  { name: 'Francés', value: 'fr' },
-                  { name: 'Italiano', value: 'it' },
-                  { name: 'Alemán', value: 'de' },
-                  { name: 'Japonés', value: 'ja' }
-              ]
-          },
-          {
-              name: 'texto',
-              description: 'Texto a traducir',
-              required: true,
-              type: "STRING"
-          }
-  
-      ]
-  })
   
   //Divisas
   commands?.create({
@@ -1642,21 +1553,7 @@ const impuestos = require("./functions/impuestos.js")
   
   })
   
-  //elecciones
-  
-  commands?.create({
-      name: 'elecciones',
-      description: 'Muestra cuántos días faltan para las siguientes elecciones en Argentina',
-  })
-  
-  
-  
-  //Futbol
-  
-  commands?.create({
-      name: 'futbol',
-      description: 'Muestra cuántos días faltan para  los siguientes partidos de la selección',
-  })
+
   
   //Provincia
   
@@ -1807,111 +1704,6 @@ const impuestos = require("./functions/impuestos.js")
 
 //Comandos
 
-//Creador
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName === 'creador') {
-
-    const embed = new MessageEmbed()
-      .setTitle("El creador del Bot es Gonzalo Ebel")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919017432591507537/coding.png")
-      .setDescription("Estas son mis redes sociales, podés darme sugerencias o ideas por Twitter o en el servidor oficial del bot!")
-      .setColor('#dfe5e8')
-      .addField("YouTube <:yt:919017871886123120> ", "https://www.youtube.com/c/GonzaAhrexd")
-      .addField("Twitch  <:twitch:919018371134140466> ", "https://www.twitch.tv/gonzaahre")
-      .addField("Twitter <:twitter:919018371406762024> ", "https://twitter.com/GonzaloEbel")
-      .addField("Instagram <:instagram:919018375563341876> ", "https://www.instagram.com/gonzaloebel/")
-      .addField("Reddit <:reddit:919018377740177418> ", "https://www.reddit.com/user/GonzaAhre")
-
-    interaction.reply({
-
-      embeds: [embed]
-
-    })
-  }
-})
-
-
-//API
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName === 'api') {
-
-    const embed = new Discord.MessageEmbed()
-      .setTitle("Apis utilizadas para la creación del bot")
-      .setColor('#dfe5e8')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919016293481472021/navegador.png")
-      .addField("Cotizaciones del dólar, euro, real", "https://github.com/Castrogiovanni20/api-dolar-argentina")
-      .addField("Valores de coronavirus en Argentina y el mundo: ", "https://disease.sh/")
-      .addField("Cotizaciones de otras divisas", "  https://exchangerate.host/#/")
-      .addField("Cotizaciones de criptomonedas", "https://www.coingecko.com/es")
-      .addField("Cotizaciones de criptomonedas", "https://criptoya.com/api")
-    interaction.reply({
-
-      embeds: [embed]
-
-    })
-  }
-})
-
-//Donaciones
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName === 'donaciones') {
-
-    const embed = new Discord.MessageEmbed()
-      .setTitle("DONACIONES")
-      .setColor('GOLD')
-      .setDescription("¡Si decidiste donarme te lo agradezco infinitamente! ¡Cada peso cuenta!")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919022487377961040/piggy-bank.png")
-      .addField("PAYPAL ", "http://paypal.me/GonzaAhre")
-      .addField("LEMONCASH ", " LemonTag: $gonzaahre \n  CVU: 0000168300000008383352")
-      .addField("UALA ", " Usuario: gonzajajaxd \n CVU: 0000007900204494414446 \n Código QR: ")
-      .setImage("https://cdn.discordapp.com/attachments/802944543510495292/814641023870697482/codigo_qr.png")
-    interaction.reply({
-
-      embeds: [embed]
-
-    })
-  }
-})
-
-
-//Votar
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName === 'votar') {
-    const embed = new Discord.MessageEmbed()
-      .setTitle("¡Apoya al bot votando en top.gg!")
-      .setURL("https://top.gg/bot/796173877981216799")
-      .setColor('7289d9')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919023182269280266/logoinverted.png")
-      .setDescription("¡Votar al bot en top.gg es otra forma de mostrar tu apoyo al bot!")
-    interaction.reply({
-
-      embeds: [embed]
-
-    })
-  }
-})
-
 
 //Servidor
 client.on('interactionCreate', async (interaction) => {
@@ -1935,28 +1727,6 @@ client.on('interactionCreate', async (interaction) => {
   }
 })
 
-
-//Invitar
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName === 'invitar') {
-    const embed = new Discord.MessageEmbed()
-      .setTitle("¡Invita al bot a tu servidor!")
-      .setColor('#0a9ee1')
-      .setURL("https://discord.com/api/oauth2/authorize?client_id=796173877981216799&permissions=414464867392&scope=bot%20applications.commands")
-      .setDescription("¡Gracias por decidir agregar mi bot a tu servidor!")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-    interaction.reply({
-
-      embeds: [embed]
-
-    })
-  }
-})
 
 
 
@@ -7884,190 +7654,6 @@ client.on('interactionCreate', async (interaction) => {
 
 })
 
-
-//Elecciones
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options, subcommand } = interaction
-  if (commandName === 'elecciones') {
-    var restante = 365 * 1; //Años que faltan para el año de la elección (2023)
-    var restanteL = 318; //Día  14/11  en el año (365)
-    var restanteCL = 344; //Día 10/12  en el año (365)
-    let currentDay;
-    let fecha;
-    fecha = new Date();
-    //message.channel.send(fecha.toString());
-    console.log(fecha)
-    if (fecha.toString()[4] == "J" && fecha.toString()[5] == "a" && fecha.toString()[6] == "n") {
-      currentDay = 0
-    }
-
-    if (fecha.toString()[4] == "F" && fecha.toString()[5] == "e" && fecha.toString()[6] == "b") {
-      currentDay = 31
-    }
-    if (fecha.toString()[4] == "M" && fecha.toString()[5] == "a" && fecha.toString()[6] == "r") {
-      currentDay = 59
-    }
-    if (fecha.toString()[4] == "A" && fecha.toString()[5] == "p" && fecha.toString()[6] == "r") {
-      currentDay = 90
-    }
-    if (fecha.toString()[4] == "M" && fecha.toString()[5] == "a" && fecha.toString()[6] == "y") {
-
-      currentDay = 120
-    }
-    if (fecha.toString()[4] == "J" && fecha.toString()[5] == "u" && fecha.toString()[6] == "n") {
-
-      currentDay = 151
-    }
-    if (fecha.toString()[4] == "J" && fecha.toString()[5] == "u" && fecha.toString()[6] == "l") {
-
-      currentDay = 181
-    }
-    if (fecha.toString()[4] == "A" && fecha.toString()[5] == "u" && fecha.toString()[6] == "g") {
-
-      currentDay = 212
-    }
-    if (fecha.toString()[4] == "S" && fecha.toString()[5] == "e" && fecha.toString()[6] == "p") {
-
-      currentDay = 249
-    }
-    if (fecha.toString()[4] == "O" && fecha.toString()[5] == "c" && fecha.toString()[6] == "t") {
-
-      currentDay = 273
-    }
-    if (fecha.toString()[4] == "N" && fecha.toString()[5] == "o" && fecha.toString()[6] == "v") {
-
-      currentDay = 304
-    }
-    if (fecha.toString()[4] == "D" && fecha.toString()[5] == "e" && fecha.toString()[6] == "c") {
-
-      currentDay = 334
-    }
-    var day = 0;
-
-    day = fecha.toString()[8] + fecha.toString()[9];
-
-    day2 = parseInt(day)
-
-
-
-    currentDay = currentDay + day2
-
-    restante = restante + (344 - currentDay)
-
-    restanteL = restanteL - currentDay
-
-    restanteCL = restanteCL - currentDay
-
-    const embed = new Discord.MessageEmbed()
-      .setTitle("Tiempo hasta las siguientes elecciones y cambios de gobierno")
-      .setColor("0ECFE1")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/825432782360150047/votar_1.png")
-      .addField("Elecciones presidenciales 2023 (27/10/2023) ", "Faltan " + (restante - 44) + " días para las siguientes elecciones ejecutivas ")
-      .addField("Cambio presidencial 2023 (10/12/2023) ", "Faltan " + restante + " días para el siguiente cambio presidencial ")
-
-    return interaction.reply({ embeds: [embed] });
-
-
-  }
-
-
-
-
-})
-
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options, subcommand } = interaction
-  if (commandName === 'futbol') {
-
-    var restante = 365 * 1; //Años que faltan para el año de la elección (2023)
-    var restanteL = 318; //Día  14/11  en el año (365)
-    var restanteCL = 344; //Día 10/12  en el año (365)
-    let currentDay; //Sumar los meses
-    let fecha; //Día actual
-    fecha = new Date();
-    //message.channel.send(fecha.toString());
-    if (fecha.toString()[4] == "J" && fecha.toString()[5] == "a" && fecha.toString()[6] == "n") {
-      currentDay = 0
-    }
-    if (fecha.toString()[4] == "F" && fecha.toString()[5] == "e" && fecha.toString()[6] == "b") {
-      currentDay = 31
-    }
-    if (fecha.toString()[4] == "M" && fecha.toString()[5] == "a" && fecha.toString()[6] == "r") {
-      currentDay = 59
-    }
-    if (fecha.toString()[4] == "A" && fecha.toString()[5] == "p" && fecha.toString()[6] == "r") {
-      currentDay = 90
-    }
-    if (fecha.toString()[4] == "M" && fecha.toString()[5] == "a" && fecha.toString()[6] == "y") {
-
-      currentDay = 120
-    }
-    if (fecha.toString()[4] == "J" && fecha.toString()[5] == "u" && fecha.toString()[6] == "n") {
-
-      currentDay = 151
-    }
-    if (fecha.toString()[4] == "J" && fecha.toString()[5] == "u" && fecha.toString()[6] == "l") {
-
-      currentDay = 181
-    }
-    if (fecha.toString()[4] == "A" && fecha.toString()[5] == "u" && fecha.toString()[6] == "g") {
-
-      currentDay = 212
-    }
-    if (fecha.toString()[4] == "S" && fecha.toString()[5] == "e" && fecha.toString()[6] == "p") {
-
-      currentDay = 249
-    }
-    if (fecha.toString()[4] == "O" && fecha.toString()[5] == "c" && fecha.toString()[6] == "t") {
-
-      currentDay = 273
-    }
-    if (fecha.toString()[4] == "N" && fecha.toString()[5] == "o" && fecha.toString()[6] == "v") {
-
-      currentDay = 304
-    }
-    if (fecha.toString()[4] == "D" && fecha.toString()[5] == "e" && fecha.toString()[6] == "c") {
-
-      currentDay = 334
-    }
-    var day = 0;
-
-    day = fecha.toString()[8] + fecha.toString()[9]; //Día actual
-
-    day2 = parseInt(day) //Convertir a número
-
-    currentDay = currentDay + day2 //Día actual en número sumando mes y día
-
-    restante = restante + (344 - currentDay)
-
-    restanteL = restanteL - currentDay
-
-    restanteCL = restanteCL - currentDay
-
-
-    let fd = fecha.toString;
-    const embed = new Discord.MessageEmbed()
-      .setTitle("Tiempo hasta los siguientes partidos de la selección Argentina")
-      .setColor("#7eb2fa")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929121012275093524/camiseta-de-futbol.png")
-      .addField("  :flag_ar: vs :flag_sa: \n(22/11/2022) ", "Faltan " + (326 - currentDay) + " días ", true)
-      .addField("  :flag_ar: vs :flag_mx: \n(26/11/2022) ", "Faltan " + (330 - currentDay) + " días ", true)
-      .addField("  :flag_ar: vs :flag_pl: \n(30/11/2022) ", "Faltan " + (334 - currentDay) + " días ", true)
-
-    return interaction.reply({ embeds: [embed] });
-
-  }
-
-
-})
-
 //Provincia
 
 client.on('interactionCreate', async (interaction) => {
@@ -9725,118 +9311,7 @@ client.on('interactionCreate', async (interaction) => {
 
 
 //Utilidad
-//Impuesto
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options, subcommand } = interaction
-  if (commandName === 'impuesto') {
-    var imp = options.getNumber('monto')
 
-    const embed1 = new Discord.MessageEmbed()
-      .setTitle("Impuestos a la compra Online (74%)")
-      .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-      .addField("Monto original", "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }))
-      .addField("I.V.A (21%) ", "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("P.A.I.S (8%) ", "$" + currencyFormatter.format(impuestos.pais8(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Total (74%)", "$" + currencyFormatter.format(impuestos.total74(imp), { locale: 'es-ES', code: ' ' }))
-
-    const embed2 = new Discord.MessageEmbed()
-      .setTitle("Impuesto a la compra Online (75%)")
-      .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-      .setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
-      .addField("Monto original", "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }))
-      .addField("P.A.I.S (30%) ", "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("TOTAL (75%)", "$" + currencyFormatter.format(impuestos.total75(imp), { locale: 'es-ES', code: ' ' }))
-
-    const embed3 = new Discord.MessageEmbed()
-      .setTitle("Impuesto a la compra Online")
-      .setColor("#d6f2fc")
-
-    const button1 = new MessageButton()
-      .setCustomId("previousbtn")
-      .setLabel("📄74%")
-      .setStyle("SUCCESS");
-
-    const button2 = new MessageButton()
-      .setCustomId("nextbtn")
-      .setLabel("📄75%")
-      .setStyle("DANGER");
-
-
-    const pages = [
-      embed1,
-      embed2,
-    ];
-
-
-    const buttonList = [button1, button2];
-
-    const timeout = 120000;
-    paginationEmbed(interaction, pages, buttonList, timeout);
-
-  }
-})
-
-//Inflación Mensual
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options, subcommand } = interaction
-  if (commandName === 'anualizarinflacion') {
-    var mes2 = options.getNumber('mensual')
-    mes = mes2 / 100
-    mes = mes + 1
-    mes = Math.pow(mes, 12)
-    mes = mes - 1
-    mes = mes * 100
-
-
-    const embed1 = new Discord.MessageEmbed()
-      .setTitle("Inflación mensual anualizada")
-      .setColor("#f82f40")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964701743504044072/loss.png")
-      .addField("Inflación mensual", mes2.toFixed(2) + "%")
-      .addField("Inflación anual ", mes.toFixed(2) + "%")
-
-
-    return interaction.reply({ embeds: [embed1] });
-
-  }
-})
-
-//Traductor
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options, subcommand } = interaction
-  if (commandName === 'traducir') {
-    let texto = await options.getString('texto')
-    let origen = await options.getString('origen')
-    let destino = await options.getString('destino')
-    let textoTraducido = await translate(texto, {from: origen, to: destino});
-    
-    const embed1 = new Discord.MessageEmbed()
-    .setTitle("Traducción")
-    .setColor("#ff9e53")
-    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1041196755670274058/translate.png")
-    .addField("Texto Original", texto)
-    .addField("Texto traducido", textoTraducido)
-    
-    return interaction.reply({ embeds: [embed1] });
-  }
-})
 //HELP
 
 client.on('interactionCreate', async (interaction) => {
@@ -9847,241 +9322,12 @@ client.on('interactionCreate', async (interaction) => {
   const { commandName, options } = interaction
   if (commandName === 'help') {
 
-    const row = new MessageActionRow()
-      .addComponents(
-        new MessageSelectMenu()
-          .setCustomId('select')
-          .setPlaceholder('¡Selecciona una categoría!')
-          .addOptions([
-            {
-              label: 'Utilidad y conversión de divisas',
-              description: 'Estos comandos contienen utilidades y conversión de divisas ',
-              value: 'first',
-              emoji: "<:Utilidadyconversin:903096312919126107>",
-            },
-            {
-              label: 'Divisas',
-              description: 'Fiat y Criptomonedas disponibles',
-              value: 'second',
-              emoji: "<:Divisas:903096313061724190>"
-            },
-            {
-              label: 'Información  del Covid19',
-              description: 'Información con respecto a la pandemia del covid19',
-              value: 'third',
-              emoji: "<:Covid:903096313439219762>"
-            },
-            {
-              label: 'Datos',
-              description: 'Datos variados acerca del país',
-              value: 'fourth',
-              emoji: "<:Datos2:903096311102988378>"
-            },
-            {
-              label: 'Servicios',
-              description: 'Precio de servicios de streaming y variados',
-              value: 'fifth',
-              emoji: "<:Servicios2:903097132683239474>"
-            },
-            {
-              label: 'Diversión',
-              description: 'Comandos de diversión',
-              value: 'sixth',
-              emoji: "<:Diversin:903096312289955860>"
-            },
-            {
-              label: 'Información',
-              description: 'Información del bot y su creador',
-              value: 'seventh',
-              emoji: "<:Informacindelbot:903096312713609246>"
-            }
-          ]
-          )
-
-      )
-
-    let embed = new Discord.MessageEmbed()
-      .setTitle(":desktop: COMANDOS DE ARGENKIT BOT :desktop: ")
-      .setColor('#fdcb68')
-      .addField("» Comandos disponibles", "¡Tenemos `7` categorías distintas llenas de comandos y subcomandos! \nRecuerda que ahora el bot solo puede ser utilizado con los slash commands \n Para ver las novedades más recientes del bot utiliza `/update`")
-      .addField("» Comandos populares", "`impuesto`  `convertir dolar`  `convertir blue`  `divisa dolar`  `divisa blue`  `covid casos`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `moneda`  `invite`")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903001307554652160/buscando.png")
-
-    let embed2 = new Discord.MessageEmbed()
-      .setTitle(":arrows_counterclockwise:  Utilidad y conversión de divisas :arrows_counterclockwise:  ")
-      .setColor('#fdcb68')
-      .setDescription("Estos comandos contienen utilidades y conversión de divisa")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903010091756814356/money-exchange.png")
-      .addField("» Utilidad ", "`impuesto`  `calculadora`  `anualizarinflacion`")
-      .addField("» `convertirdivisa`", "Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-      .addField("» `pesoa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-      .addField("» `convertircripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-      .addField("» `pesoacripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-      .addField("» `convertirmetal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
-      .addField("» `pesoametal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
-
-    let embed3 = new Discord.MessageEmbed()
-      .setTitle(":dollar:  Cotizaciones :dollar: ")
-      .setColor('#fdcb68')
-      .setDescription("Estos comandos contienen las distintas cotizaciones disponibles con su precio a pesos argentinos e informacion adicional")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/90301281.759495484/dollars.png")
-      .addField("» `divisa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-      .addField("» `criptomoneda` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-      .addField("» `metal`", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
-
-    let embed4 = new Discord.MessageEmbed()
-      .setTitle(":mask:  Covid19 :mask: ")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903019853202468884/nueva-normalidad.png")
-      .setDescription("Estos comandos contienen información sobre la pandemia del covid19")
-      .addField("» `covid`", "» Subcomandos `casos`  `global`  `covidpais`  `sintomas`  `recomendaciones`")
-
-    let embed5 = new Discord.MessageEmbed()
-      .setTitle(":bar_chart: Datos :bar_chart:")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094616071483392/unknown.png")
-      .setDescription("Estos comandos tienen distintos datos sobre Argentina")
-      .addField("» Comando `datos`", "subcomandos `riesgopais`  `reservas`  `circulante`")
-      .addField("» Otros Comandos ", "`elecciones`  `futbol`  `provinciainfo`")
-
-    let embed6 = new Discord.MessageEmbed()
-      .setTitle(":tv: Servicios Digitales :tv:")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903093667911315557/Servicios.png")
-      .setDescription("Estos subcomandos te dan el precio de distintos servicios digitales en Argentina con impuestos")
-      .addField("» `servicio`", "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`")
-
-    let embed7 = new Discord.MessageEmbed()
-      .setTitle(":rofl: Diversión :rofl:")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094465747648552/Diversion.png")
-      .setDescription("Estos son comandos con cosas divertidas mayormente basadas en aleatoridad")
-      .addField("» Comandos", "`odio argentina`  `odio latinoamerica`  `covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`  `piedrapapelotijera`  `tateti`")
-
-    let embed8 = new Discord.MessageEmbed()
-      .setTitle(":open_file_folder: Información del bot :open_file_folder:")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903095489719828541/Informacion_del_bot.png")
-      .setDescription("Estos comandos te permiten consultar más información acerca del bot")
-      .addField("» Comandos", "`creador`  `api`  `invitar`  `servidor`  `votar`  `donaciones`  `update`")
-
-    const collector = interaction.channel.createMessageComponentCollector({
-      componentType: "SELECT_MENU", time: 20000
-
-    })
-
-    interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
-
-
-
-    collector.on("collect", async (collected) => {
-
-      const value = collected.values[0]
-
-      if (value === "first") {
-        return interaction.editReply({ embeds: [embed2], ephemeral: false });
-      }
-      if (value === "second") {
-        await interaction.editReply({ embeds: [embed3], ephemeral: false })
-      }
-      if (value === "third") {
-        await interaction.editReply({ embeds: [embed4], ephemeral: false })
-      }
-      if (value === "fourth") {
-        await interaction.editReply({ embeds: [embed5], ephemeral: false })
-      }
-      if (value === "fifth") {
-        await interaction.editReply({ embeds: [embed6], ephemeral: false })
-      }
-      if (value === "sixth") {
-        await interaction.editReply({ embeds: [embed7], ephemeral: false })
-      }
-      if (value === "seventh") {
-        await interaction.editReply({ embeds: [embed8], ephemeral: false })
-      }
-
-    })
+   
   }
 })
 
 //Update
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options } = interaction
-  if (commandName === "update") {
 
-    const embed14 = new Discord.MessageEmbed()
-      .setTitle("ARGENKIT BOT VERSIÓN 1.4 ¡SLASH COMMANDS UPDATE!")
-      .setColor('#0a9ee1')
-      .setDescription("  Fecha de lanzamiento: 16/4/2022 \n Debido al anuncio de Discord de volver los Message Content algo privilegiado para bots verificados, esta actualización es obligatoria para poder seguir usando el bot.")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-      .addField("<:slash:964681731519164457> Slash commands ", "Se han actualizado todos los comandos al formato slash. Esto debido a que Discord ya no permitirá a los bots verificados usar comandos por mensaje  (Como venía siendo con el bot con todos sus comandos como `*ar impuesto`, `*ar dolar`, `*ar help`, etc), debido a esto, he tenido que actualizar todos los comandos regulares a slash commands. Prueba /help para descubrir cómo funcionan. Quizás  sea  necesario  expulsar y volver a invitar al bot si es que lo añadiste hace mucho tiempo.")
-      .addField("<:ethereum:963619533271232532> ¡Más Criptomonedas!", "Se han añadido el Ethereum, Tether, Axie Infinity, Terraluna, Decentraland, Solana, Dai y Dogecoin ")
-      .addField("<:goldingots:964717629484965938> ¡Metales!", "Se han añadido la onza de oro, plata, paladio y platino  ")
-      .addField(":chart_with_downwards_trend:  Anualizar Inflación", "Nuevo comando para calcular la inflación anualizada a partir de la mensual")
-
-    const embed13 = new Discord.MessageEmbed()
-      .setTitle("ARGENKIT BOT VERSIÓN 1.3 ¡LA ACTUALIZACIÓN DE ANIVERSARIO!")
-      .setColor('#0a9ee1')
-      .setDescription("  Fecha de lanzamiento: 1/2/2022 \n ¡Ha pasado un año desde la primera versión estable del bot (1.0), la cual fue en un principio cerrada solo a un grupo de amigos!  \n Hoy, estoy feliz de anunciar la actualización de aniversario, la versión 1.3! Que trae sobre todo un gran cambio en el diseño. Estas son las novedades: ")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-      .addField("<:djs:928800848996352041> Discord.js 13 ", "Se ha actualizado el bot a Discord.js 13 y node.js 16")
-      .addField(":sparkles: Cambio de  diseño ", "¡Se ha renovado por completo el diseño del bot para darle un estilo más moderno!")
-      .addField(":mouse_three_button:  Nuevos botones ", "¡Se han remplazado las reacciones por los  nuevos botones interactivos de discord!")
-      .addField(":handshake: Help mejorado ", "¡Se ha mejorado por completo el comando help, ahora incluye un menú desplegable para cada categoría!")
-      .addField("<:bitcoin:929073179262074960> Bitcoin ", "¡Ahora se puede consultar el precio del bitcoin,  así como convertirlo!")
-      .addField(":dollar: Nuevas divisas ", "Se ha agregado el Franco Suizo y la Lira Turca")
-      .addField(":microbe: Covid ", "Se han agregado nuevos países y la posibilidad de consultar los disponibles con `*ar covidpais`  sin argumentos")
-      .addField(":computer: Slash commands ", "Se han agregado algunos slash commands,  quizás tengas que expulsar y volver a invitar al bot al servidor para utilizarlos")
-      .addField(":abacus: Calculadora ", "Se ha agregado una calculadora interactiva con botones, usa `*ar calculadora` ")
-      .addField(":soccer:  Fulvo ", "Se ha agregado un contador de cuánto falta para los  siguientes partidos de la selección, pruebalo con `*ar fútbol` ")
-      .addField(":video_game:   Juegos ", "Se ha agregado un piedra papel o tijera y un tateti con botones de discord, pruebalo con `*ar tateti @usuario` o `*ar piedrapapelotijera @usuario`")
-      .addField(":alarm_clock: Husos horarios", "Se ha agregado un comando para consultar distintos husos horarios, prueba `*ar husos` (Eliminado en la versión  1.4 para una futura mejora)")
-
-    const embed12 = new Discord.MessageEmbed()
-      .setTitle("ARGENKIT BOT VERSIÓN 1.2 ¡LA ACTUALIZACIÓN DE LAS DIVISAS!")
-      .setColor('#0a9ee1')
-      .setDescription("  Fecha de lanzamiento: 26/6/2021 \n ¡Ya pasaron  más de 3 meses desde que el bot fue lanzado al público y alcanzó más de 150 servidores de Discord! Hoy, estoy feliz de anunciar la primera actualización grande del bot, la versión 1.2, la actualización de las divisas!  Estos son los cambios introducidos en la versión: ")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-      .addField(":dollar: ¡Nuevas divisas! ", "Como la misma actualización lo indica, se han agregado un total de 17 nuevas divisas, formando un total de 21 divisas actualmente disponibles! Estas nuevas son: yen japonés, libra esterlina,  rublo ruso, dólar canadiense, dólar australiano, dólar neozelandes, peso mexicano, peso chileno, peso uruguayo, peso boliviano, peso colombiano, sol  peruano, guarani paraguayo, bolivar venezolano,  rupia india, yuan chino y won surcoreano!")
-      .addField(":flag_ar: ¡Provincias! ", "Se agregó una función para  consultar información  de  las 23 provincias argentinas y la Ciudad Autónoma de buenos Aires!  Pruebalo con *ar provincia [provincia] ")
-      .addField(":grey_exclamation: Más información", "Nueva información  de cada divisa en una  segunda página")
-      .addField(":calendar: Elecciones ", "Nuevo contador de días hasta  las siguientes  elecciones!")
-      .addField(":tv: ¡Nuevos servicios! ", "Se agregó el precio de  HBO Max, Paramount+, Discord  Nitro, Google One, EA Play, Wallet de Steam y Twitch!")
-      .addField(":moneybag: Impuesto ", "Se agregó  una segunda página al comando de impuesto para ver el impuesto sin IVA (75%)")
-      .addField(":question: Help", " El comando de help recibió un gran cambio")
-      .addField(":microbe: Actualización a las funciones de covid19 ", "Se agregaron nuevos países para ver sus casos de covid19, además de una segunda pestaña para ver los casos en el día de hoy")
-      .addField(":incoming_envelope: Bienvenido al servidor del bot! ", "¡Ya disponible el servidor de discord! Usa el comando *ar discord para unirte!")
-      .addField(":white_check_mark: Apoya al bot votando en top.gg! ", "Se  agregó el comando *ar vote ")
-      .addField(":eyes: Entre otras cosas ", "Se mejoró el código y se hicieron otros cambios menores")
-
-    const button1 = new MessageButton()
-      .setCustomId("previousbtn")
-      .setLabel("Más reciente")
-      .setStyle("SUCCESS");
-
-    const button2 = new MessageButton()
-      .setCustomId("nextbtn")
-      .setLabel("Anterior")
-      .setStyle("DANGER");
-
-    const pages = [
-      embed14,
-      embed13,
-      embed12,
-
-
-    ];
-
-    const buttonList = [button1, button2];
-    const timeout = 120000;
-    paginationEmbed(interaction, pages, buttonList, timeout);
-
-  }
-
-})
 
 
 

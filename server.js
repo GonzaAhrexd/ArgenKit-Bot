@@ -1,15 +1,18 @@
-
+//Express (Usado en repl.it para estar 24/7)
 const express = require('express')
 const app = express()
-
 app.get('/', function (req, res) {
-  res.send('<h1> Argenkit Bot Versión 1.4 Slash Commands Update </h1>')
+  res.send(`<h1> Argenkit Bot Versión 1.5 Actualización Técnica </h1>
+  <p> Esta actualización trae muchos cambios del lado del código para una mejor optimización y orden. </p>
+  `
+  )
 })
-
 let port = process.env.PORT || 3500;
 app.listen(port)
 
-//Requerir Discord.js
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Dependencias de node
 const Discord = require("discord.js");
 
 //Intents requeridos
@@ -19,17 +22,11 @@ const client = new Client({
   Intents.FLAGS.GUILD_MESSAGES,
   ],
 });
-
-const fs = require ('fs')
-const path = require('path')
-
-//client.setMaxListeners(50);
-//Nueva cosa para que el bot funcione
-
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-
-var currencyFormatter = require('currency-formatter') //Currency formatter
-const axios = require('axios'); //Axios (Apis)
+const fs = require ('fs') //fs
+const path = require('path') //Path
+const currencyFormatter = require('currency-formatter') //Currency formatter
+const axios = require('axios'); //Axios
 const paginationEmbed = require('discordjs-button-pagination'); //Botones
 const { Interaction } = require("discord.js"); //Discord.js
 const { SlashCommandBuilder } = require('@discordjs/builders'); //Slash Commands
@@ -39,25 +36,19 @@ const translate = require("translate");//Translate
 
 //Funciones
 const impuestos = require("./functions/impuestos.js")
-//Estado del bot
 
-  //Información
-  //Creador
-  
+//Estado del bot
+// client.setMaxListeners(50);
   function presence() {
       client.user.setPresence({
         status: "online",
         activities: [{
-          name: 'Bot crado por GonzaAhre | Prueba /help o /update',
+          name: 'Bot creado por GonzaAhre | Prueba /help o /update',
           type: "PLAYING"
         }]
       });
     }
-    
-    //Prender bot
-
-    //Command Handler
-
+//Command Handler
   client.slashcommands = new Discord.Collection();
   const slashcommandsFile = fs.readdirSync('./commands').filter(file => file.endsWith("js"))
   for(const file of slashcommandsFile){
@@ -65,8 +56,6 @@ const impuestos = require("./functions/impuestos.js")
     console.log(`Slash  commands - ${file} cargado`)
     client.slashcommands.set(slash.data.name, slash)
   }
-
-
   client.on("interactionCreate", async(interaction) =>{
     if(!interaction.isCommand()) return;
     const slashcmds = client.slashcommands.get(interaction.commandName)
@@ -78,19 +67,20 @@ const impuestos = require("./functions/impuestos.js")
       console.error(e)
     }
   })
-
     client.on("ready", async () => {
-      console.log("TODO LISTO");
-     
+
+      console.log("Bot funcionando y conectado a Discord");
       presence();
      
   // const guildId = '740761148160213082'
   const guild = client.guilds.cache.get()
   let commands
   
-    // client.application.commands.set([]);
+    // client.application.commands.set([]); Resetear comandos
   
-  /*  const list = await client.application.commands.fetch()
+  /*
+  Mostrar comandos
+  const list = await client.application.commands.fetch()  
      console.log(list)
   */
   
@@ -100,15 +90,9 @@ const impuestos = require("./functions/impuestos.js")
       commands = client.application?.commands
   }
 
-  //Utilidad
-  
-  //Calculadora
-  commands?.create({
-      name: 'calculadora',
-      description: 'Calculadora interactiva por simply.djs',
-  })
-  
-  
+ 
+//Simply.djs comandos
+
   //Divisas
   commands?.create({
       name: 'divisa',
@@ -1446,115 +1430,6 @@ const impuestos = require("./functions/impuestos.js")
       ]
   })
   
-  //Servicios
-  commands?.create({
-      name: 'servicio',
-      description: 'Mostrar el precio de un servicio de Streaming',
-      options: [
-          {
-              type: "SUB_COMMAND",
-              name: "netflix",
-              description: "Muestra el precio de Netflix + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "youtube",
-              description: "Muestra el precio de YouTube + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "spotify",
-              description: "Muestra el precio de Spotify + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "crunchyroll",
-              description: "Muestra el precio de Crunchyroll + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "disney",
-              description: "Muestra el precio de Disney+ + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "xboxgamepass",
-              description: "Muestra el precio de Xbox GamePass + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "primevideo",
-              description: "Muestra el precio de Prime Video + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "appletv",
-              description: "Muestra el precio de AppleTV + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "hbomax",
-              description: "Muestra el precio de HBO Max + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "discordnitro",
-              description: "Muestra el precio de Discord Nitro + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "googleone",
-              description: "Muestra el precio de Google One + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "ea",
-              description: "Muestra el precio de EA + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "steam",
-              description: "Muestra el precio de la cartera de Steam + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "paramount",
-              description: "Muestra el precio de Paramount+ + impuestos"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "twitch",
-              description: "Muestra el precio de las suscripciones y bits de Twitch + impuestos"
-          }
-      ]
-  })
-  
-  //Datos
-  commands?.create({
-      name: 'datos',
-      description: 'Muestra distintos datos de Argentina',
-      options: [
-          {
-              type: "SUB_COMMAND",
-              name: "riesgopais",
-              description: "Muestra el Riesgo País de Argentina "
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "reservas",
-              description: "Muestra las reservas actuales del Banco Central "
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "circulante",
-              description: "Muestra la cantidad de pesos circulantes en la economía"
-          }
-      ]
-  
-  })
-  
-
-  
   //Provincia
   
   commands?.create({
@@ -1571,61 +1446,14 @@ const impuestos = require("./functions/impuestos.js")
   })
   
   
-  //FUN
+  //Simply DJS
   
-  //Odio
+  //Calculadora
   commands?.create({
-      name: 'odio',
-      description: 'Muestra tu nivel de odio o bronca',
-      options: [
-          {
-              type: "SUB_COMMAND",
-              name: "argentina",
-              description: "Muestra tu nivel de odio o bronca a Argentina "
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "latinoamerica",
-              description: "Muestra tu nivel de odio o bronca a Latinoamérica "
-          },
-      ]
-  
-  })
-  //Covidtest
-  commands?.create({
-      name: 'covidtest',
-      description: 'Te hace un test de covid',
-  })
-  //Escaparlatam
-  commands?.create({
-      name: 'escaparlatam',
-      description: 'Muestra tus posibilidades de escapar de latinoamérica',
-  })
-  //Moneda
-  commands?.create({
-      name: 'moneda',
-      description: 'Tira una moneda',
-  })
-  //Dados
-  commands?.create({
-      name: 'dados',
-      description: 'Tira unos dados',
-  })
-  
-  commands?.create({
-      name: '8ball',
-      description: 'Pregúntale a la bola mágica 8',
-      options: [
-          {
-              name: 'consulta',
-              description: 'Consulta a realizar.',
-              type: "STRING",
-              required: true
-          }
-      ]
-  })
-  
-  
+    name: 'calculadora',
+    description: 'Calculadora interactiva por simply.djs',
+})
+
   //Piedra Papel o Tijera
   commands?.create({
       name: 'piedrapapelotijera',
@@ -1640,6 +1468,8 @@ const impuestos = require("./functions/impuestos.js")
       ],
   })
   
+  //Tateti
+
   commands?.create({
       name: 'tateti',
       description: 'Juego de Tateti. Usando simply-djs',
@@ -1653,82 +1483,6 @@ const impuestos = require("./functions/impuestos.js")
   })
   
   
-  
-  //Covid
-  
-  commands?.create({
-      name: 'covid',
-      description: 'Muestra comandos relacionados a la infección SARS-CoV-2',
-      options: [
-          {
-              type: "SUB_COMMAND",
-              name: "casos",
-              description: "Muestra los casos de covid19 en Argentina "
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "global",
-              description: "Muestra los casos de covid19  actuales en el mundo "
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "recomendaciones",
-              description: "Muestra las recomendaciones con respecto al covid19"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "sintomas",
-              description: "Muestra los síntomas del covid19"
-          },
-          {
-              type: "SUB_COMMAND",
-              name: "covidpais",
-              description: "Muestra los datos de covid de cierto país",
-              options: [
-                  {
-                      name: 'pais',
-                      description: 'País a consultar.',
-                      type: "STRING",
-                      required: false
-                  }
-  
-              ]
-  
-          }
-      ]
-  
-  })
-    })
-
-// })
-
-//Comandos
-
-
-//Servidor
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName === 'servidor') {
-    const embed = new Discord.MessageEmbed()
-      .setTitle("¡Unete al servidor oficial de Argenkit Bot!")
-      .setURL("https://discord.gg/68jsHeTRYa")
-      .setColor('#0a9ee1')
-      .setDescription("¡Puedes unirte al servidor oficial de Argenkit bot para aportar ideas o dar reportes de bugs! ¡O simplemente hablar con otras personas! ")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-    interaction.reply({
-
-      embeds: [embed]
-
-    })
-  }
-})
-
-
-
 
 //Divisas
 //Dolar
@@ -7203,456 +6957,6 @@ client.on('interactionCreate', async (interaction) => {
 })
 
 
-//Servicios
-
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName == "servicio") {
-
-    if (interaction.options.getSubcommand() === 'netflix') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("Netflix")
-        .setURL("https://www.netflix.com/ar/")
-        .setDescription("Los precios de Netflix con impuestos en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setColor('#9a0611')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903356797920894996/netflix_2.png")
-        .addField("Básico:", "ARS$ " + currencyFormatter.format((429 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Estándar:", "ARS$" + currencyFormatter.format((799 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Premium:", "ARS$" + currencyFormatter.format((1199 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (interaction.options.getSubcommand() === 'youtube') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("YouTube Premium")
-        .setURL("https://www.youtube.com/premium")
-        .setDescription("Los precios de YouTube Premium en Argentina con impuestos son los siguientes:\n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setColor('#ff0000')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903357207310127185/youtube.png")
-        .addField("YouTube Music:", "ARS$ " + currencyFormatter.format((99 * 1.75), { locale: 'es-ES', code: ' ' }))
-        .addField("YouTube Premium Individual:", "ARS$ " + currencyFormatter.format((119 * 1.75), { locale: 'es-ES', code: ' ' }))
-        .addField("YouTube Premium Familiar:", "ARS$ " + currencyFormatter.format((179 * 1.75), { locale: 'es-ES', code: ' ' }))
-
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (interaction.options.getSubcommand() === 'spotify') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("Spotify")
-        .setURL("https://www.spotify.com/ar/premium/")
-        .setDescription("Los precios de Spotify Premium en Argentina con impuestos son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setColor('#7ad684')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903358342733389854/spotify_1.png")
-        .addField("Individual:", "ARS$ " + currencyFormatter.format((279.00 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Dúo:", "ARS$ " + currencyFormatter.format((389.00 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Familiar:", "ARS$ " + currencyFormatter.format((489.00 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Estudiantes: ", "ARS$ " + currencyFormatter.format((119.00 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (interaction.options.getSubcommand() === 'crunchyroll') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("Crunchyroll")
-        .setURL("https://www.crunchyroll.com/es")
-        .setColor('#fec105')
-        .setDescription("Precio  de Crunchyroll  con impuestos en Argentina \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903849721699913778/crunchyroll.png")
-        .addField("Fan (1 MES):", "ARS$ " + currencyFormatter.format((99 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Mega Fan (1 Mes):", "ARS$ " + currencyFormatter.format((125 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Mega Fan (1 Año):", "ARS$ " + currencyFormatter.format((1250 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    if (interaction.options.getSubcommand() === 'disney') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("Disney+")
-        .setURL("https://www.disneyplus.com/home")
-        .setDescription("Debido a que Disney factura en Argentina, este no cobra impuestos internacionales.")
-        .setColor('#3fa5dc')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903852192929288213/icons8-disney-plus-480.png")
-        .addField("1 Mes:", "ARS$ 385,00", true)
-        .addField("1 Año:", "ARS$ 3850,00 ", true)
-        .addField("Combo con Star+ mensual", "ARS$ 995,00 ", true)
-        .addField("Combo con Star+ y StarZPlay mensual", "ARS$ 1150,00 ", true)
-      return interaction.reply({ embeds: [embed] });
-
-    }
-
-    //Xbox
-
-
-    if (interaction.options.getSubcommand() === 'xboxgamepass') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("Xbox Game Pass")
-        .setURL("https://www.xbox.com/es-AR/xbox-game-pass")
-        .setDescription("Los precios de Xbox Game Pass con impuestos en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setColor('#a6ed75')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903853195443445770/xbox.png")
-        .addField("Xbox Game Pass primer mes", "ARS$ " + currencyFormatter.format((39 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Xbox Game Pass para PC", "ARS$ " + currencyFormatter.format((599 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Xbox Game Pass Ultimate", "ARS$ " + currencyFormatter.format((899 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-
-
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    //Prime Video
-    if (interaction.options.getSubcommand() === 'primevideo') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("Prime Video")
-        .setURL("https://www.primevideo.com/")
-        .setDescription("El precio de  Prime Video con impuestos en Argentina es el siguiente: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setColor('#1aa6e0')
-        .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
-        .addField("Costo mensual", "ARS$ " + currencyFormatter.format((319 * 1.74), { locale: 'es-ES', code: ' ' }))
-      return interaction.reply({ embeds: [embed] });
-
-    }
-
-    //AppleTV
-
-    if (interaction.options.getSubcommand() === 'appletv') {
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
-        .then((oficial) => {
-          const embed = new Discord.MessageEmbed()
-            .setTitle("Apple TV+")
-            .setURL("https://www.apple.com/la/tv/")
-            .setDescription("Los precios de Apple TV en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-            .setColor('#eeeeee')
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913852356771319928/televisor_1.png")
-            .addField("Plan individual", 'ARS$  ' + currencyFormatter.format(((9.95 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Plan familiar", 'ARS$ ' + currencyFormatter.format(((13.95 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-          return interaction.reply({ embeds: [embed] });
-
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-
-        })
-
-    }
-
-
-    //HBO Max
-    if (interaction.options.getSubcommand() === 'hbomax') {
-
-
-      const embed1 = new Discord.MessageEmbed()
-        .setTitle("HBO Max")
-        .setURL("https://www.hbomax.com/latam/es")
-        .setDescription("Precio de HBO Max  en  Argentina con impuestos \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setColor('#970899')
-        .setThumbnail("https://hbomax-images.warnermediacdn.com/2020-05/square%20social%20logo%20400%20x%20400_0.png")
-        .addField("Suscripción mensual móvil", "ARS$ " + currencyFormatter.format((279 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Suscripción mensual estándar", "ARS$ " + currencyFormatter.format((399 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-
-
-
-        .addField("Suscripción trimestral móvil", "ARS$ " + currencyFormatter.format((739 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Suscripción trimestral estándar", "ARS$ " + currencyFormatter.format((1089 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-
-
-
-        .addField("Suscripción anual móvil", "ARS$ " + currencyFormatter.format((2279 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-
-        .addField("Suscripción anual estándar", "ARS$ " + currencyFormatter.format((3499 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-
-
-
-      return interaction.reply({ embeds: [embed1] });
-
-    }
-    //Nitro
-
-
-    if (interaction.options.getSubcommand() === 'discordnitro') {
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
-        .then((oficial) => {
-
-          const embed = new Discord.MessageEmbed()
-            .setTitle("Discord Nitro")
-            .setDescription("Los precios de Discord Nitro en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-            .setColor('#8aa9fa')
-            .setThumbnail("https://gitdab.com/distok/apkfuckery/raw/commit/ceffadc1723d227e61ee1001a624979fd9c783bb/com.discord/res/drawable-xxxhdpi/img_wumpus_jetpack.png")
-            .addField("Discord Nitro Classic Mensual ", 'ARS$ ' + currencyFormatter.format((291.99 * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Discord Nitro Mensual ", 'ARS$ ' + currencyFormatter.format((584.99 * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Discord Nitro Classic Anual  ", 'ARS$ ' + currencyFormatter.format((2919.99 * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Discord Nitro Anual  ", 'ARS$ ' + currencyFormatter.format((5849.99 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-          return interaction.reply({ embeds: [embed] });
-
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-        })
-
-    }
-
-    //Google One
-
-    if (interaction.options.getSubcommand() === 'googleone') {
-
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
-        .then((oficial) => {
-          const embed1 = new Discord.MessageEmbed()
-            .setTitle("Google One")
-            .setDescription("Los precios de Google One mensual en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-            .setColor('#f1bb1a')
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
-            .addField("Plan de 100GB (USD$ 1,99)", 'ARS$ ' + currencyFormatter.format(((1.99 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Plan de 200GB (USD$ 2,99)", 'ARS$ ' + currencyFormatter.format(((2.99 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Plan de 1TB (USD$ 9.99)", 'ARS$ ' + currencyFormatter.format(((9.99 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-
-          const embed2 = new Discord.MessageEmbed()
-            .setTitle("Google One")
-            .setDescription("Los precios de Google One anual en Argentina son los siguientes:")
-            .setColor('#f1bb1a')
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
-            .addField("Plan de 100GB (USD$ 19,99)", 'ARS$ ' + currencyFormatter.format(((19.99 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Plan de 200GB (USD$ 29,99)", 'ARS$ ' + currencyFormatter.format(((29.99 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Plan de 1TB (USD$ 99,99)", 'ARS$ ' + currencyFormatter.format(((99.99 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-
-
-          const button1 = new MessageButton()
-            .setCustomId("previousbtn")
-            .setLabel("Mensual")
-            .setStyle("SUCCESS");
-
-          const button2 = new MessageButton()
-            .setCustomId("nextbtn")
-            .setLabel("Anual")
-            .setStyle("DANGER");
-
-          const pages = [
-            embed1,
-            embed2,
-
-
-          ];
-
-          const buttonList = [button1, button2];
-          const timeout = 30000;
-          paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-
-        })
-
-
-
-    }
-
-    //EA
-
-    if (interaction.options.getSubcommand() === 'ea') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("EA Play")
-        .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
-        .setDescription("Los precios de EA Play con impuestos en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setColor('#fe4747')
-        .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
-        .addField("EA Play Mensual", "ARS$  " + currencyFormatter.format((499 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("EA Play Anual:", "ARS$   " + currencyFormatter.format((3099 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-      return interaction.reply({ embeds: [embed] });
-
-    }
-
-    //Steam
-
-    if (interaction.options.getSubcommand() === 'steam') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("Fondos de la Cartera de Steam")
-        .setURL("https://store.steampowered.com/steamaccount/addfunds")
-        .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setColor('#306fb5')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
-        .addField("ARS$ 100 ", "ARS$ " + currencyFormatter.format((100 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 160 ", "ARS$  " + currencyFormatter.format((160 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 400 ", "ARS$   " + currencyFormatter.format((400 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 800 ", "ARS$  " + currencyFormatter.format((800 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 1600 ", "ARS$   " + currencyFormatter.format((1600 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 3200 ", "ARS$   " + currencyFormatter.format((3200 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    //Paramount
-
-    if (interaction.options.getSubcommand() === 'paramount') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("Paramount+")
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Paramount_Plus.svg/1920px-Paramount_Plus.svg.png")
-        .setURL("https://www.paramountplus.com/ar/")
-        .setDescription("Los precios de Paramount+ en Argentina con impuestos son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-        .setColor('#0b67ff')
-        .addField("Plan  mensual ", "ARS$ 299 ")
-
-      return interaction.reply({ embeds: [embed] });
-
-    }
-
-    //Twitch
-
-    if (interaction.options.getSubcommand() === 'twitch') {
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
-        .then((oficial) => {
-          const embed1 = new Discord.MessageEmbed()
-            .setTitle("Siscripciones de Twitch")
-            .setURL("https://www.twitch.tv/")
-            .setDescription("Los precios de las suscripciones a Twitch en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-            .setColor('#9246ff')
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
-            .addField("Suscripción de nivel 1", 'ARS$ ' + currencyFormatter.format(((1.99 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Suscripción de nivel 2", 'ARS$ ' + currencyFormatter.format(((3.99 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("Suscripción de nivel 3", 'ARS$ ' + currencyFormatter.format(((9.99 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-
-
-          const embed2 = new Discord.MessageEmbed()
-            .setTitle("Bits de Twitch")
-            .setDescription("Los precios de los bits de Twitch en Argentina son los siguientes: \n Nota: Es posible que se apliquen ingresos brutos dependiendo la provincia: \nCABA y Gran Buenos Aires: 2%\nLa Pampa:  1%\nCórdoba: 3%\n Salta: 3,6%\nChaco: 5,5%\nRío Negro: 5%\nNeuquen: 3%")
-            .setColor('#9246ff')
-            .setURL("https://www.twitch.tv/")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
-            .addField("100 bits", 'ARS$ ' + currencyFormatter.format(((1.40 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("300 bits", 'ARS$ ' + currencyFormatter.format(((3.00 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("500 bits", 'ARS$ ' + currencyFormatter.format(((7.00 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("1.500 bits", 'ARS$ ' + currencyFormatter.format(((19.95 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("5.000 bits", 'ARS$ ' + currencyFormatter.format(((64.40 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("10.000 bits", 'ARS$ ' + currencyFormatter.format(((126.00 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-            .addField("25.000 bits", 'ARS$ ' + currencyFormatter.format(((308.00 * oficial.data['venta']) * 1.74), { locale: 'es-ES', code: ' ' }))
-
-
-          const button1 = new MessageButton()
-            .setCustomId("previousbtn")
-            .setLabel("Suscripciones")
-            .setStyle("SUCCESS");
-
-          const button2 = new MessageButton()
-            .setCustomId("nextbtn")
-            .setLabel("Bits")
-            .setStyle("PRIMARY");
-
-          const pages = [
-            embed1,
-            embed2,
-
-
-          ];
-
-          const buttonList = [button1, button2];
-          const timeout = 30000;
-          paginationEmbed(interaction, pages, buttonList, timeout);
-
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-
-        })
-
-    }
-
-  }
-})
-
-//Datos
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName == "datos") {
-
-    //Riesgo País
-
-    if (interaction.options.getSubcommand() === 'riesgopais') {
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/riesgopais')
-        .then((RIESGO) => {
-          const embed = new Discord.MessageEmbed()
-            .setTitle("Riesgo País")
-            .setColor("#e6306c")
-            .setDescription("El riesgo país es todo riesgo inherente a las inversiones y a las financiaciones en un país en contraste con otro.")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903121332810690570/RiesgoPais.png")
-            .addField("Valor :chart_with_upwards_trend: ", currencyFormatter.format(RIESGO.data['valor'], { locale: 'es-ES', code: ' ', precision: 0 }) + 'puntos', true)
-
-          return interaction.reply({ embeds: [embed] });
-
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-
-        })
-    }
-
-    //Reservas
-
-    if (interaction.options.getSubcommand() === 'reservas') {
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/bcra/reservas')
-        .then((RESERVAS) => {
-          const embed = new Discord.MessageEmbed()
-            .setTitle("Reservas del Banco Central de la República Argentina")
-            .setColor("#9bcef7")
-            .setDescription("Las reservas constituyen el componente más importante de los activos del Banco Central y se utilizan para financiar los pagos al exterior o para intervenir en el mercado cambiario.")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903122250708963358/bank.png")
-            .addField("Valor :bank: ", 'USD ' + currencyFormatter.format(RESERVAS.data['valor'], { locale: 'es-ES', code: ' ' }), true)
-
-          return interaction.reply({ embeds: [embed] });
-
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-
-        })
-    }
-
-    //Circulante
-    if (interaction.options.getSubcommand() === 'circulante') {
-
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/bcra/circulante')
-        .then((CIRCULANTE) => {
-          const embed = new Discord.MessageEmbed()
-            .setTitle("Pesos Argentinos en circulación")
-            .setColor("fad56f")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903124593483583499/money.png")
-            .addField("Cantidad :money_with_wings: ", 'ARS ' + currencyFormatter.format(CIRCULANTE.data['valor'], { locale: 'es-ES', code: ' ' }), true)
-          return interaction.reply({ embeds: [embed] });
-
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-
-        })
-    }
-
-
-
-  }
-
-})
 
 //Provincia
 
@@ -8897,365 +8201,11 @@ client.on('interactionCreate', async (interaction) => {
   }
 })
 //Fun
-//Odio Arg
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName == "odio") {
-
-    //Arg
-
-    if (interaction.options.getSubcommand() === 'argentina') {
-      var a = Math.floor(Math.random() * 100 + 1);
-      var d = '█'
-      for (i = 0; i <= a; i = i + 4) {
-        d = '█' + d
-      }
-
-      const embed = new Discord.MessageEmbed()
-        .setColor("RED")
-        .setDescription("Calculando...")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300290027550/odioarg.png")
-        .addField("Tu odio hacía Argentina es del: ", d + ' ' + a + '%')
-
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    //LATAM
-
-    if (interaction.options.getSubcommand() === 'latinoamerica') {
-      var a = Math.floor(Math.random() * 100 + 1);
-      var d = '█'
-      for (i = 0; i <= a; i = i + 4) {
-        d = '█' + d
-      }
-
-      const embed = new Discord.MessageEmbed()
-        .setColor("RED")
-        .setDescription("Calculando...")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300512329768/odiolatam.png")
-        .addField("Tu odio hacía Latinoamérica es del: ", d + ' ' + a + '%')
-      return interaction.reply({ embeds: [embed] });
-
-    }
-
-  }
-
-})
-
-//Escaparlatam
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options } = interaction
-  if (commandName == "escaparlatam") {
-    var a = Math.floor(Math.random() * 100 + 1);
-    var d = '█'
-    for (i = 0; i <= a; i = i + 4) {
-      d = '█' + d
-    }
 
 
-    const embed = new Discord.MessageEmbed()
-      .setColor("GREEN")
-      .setDescription("Calculando...")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300000636958/escaparlatam.png")
-      .addField("Tus probabilidades de escapar de latinoamérica son de: ", d + ' ' + a + '%')
 
-    return interaction.reply({ embeds: [embed] });
-  }
-
-})
 //8ball
 
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options } = interaction
-  if (commandName == "8ball") {
-
-    var consulta2 = options.getString('consulta')
-
-
-    var a = Math.floor(Math.random() * 15 + 1);
-
-    if (a == 1) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("GREEN")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Ma' vale ")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 2) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("GREEN")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice...  ", "Métele sí ")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 3) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("GREEN")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Obvioo ")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 4) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("GREEN")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Y sí")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 5) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("GREEN")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice...  ", "Re sí amigo")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 6) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("RED")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice...  ", "Ni empedo")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 7) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("RED")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice...  ", "Para nada")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 8) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("RED")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Ni loco")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 9) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("RED")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Ni ahí")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 10) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("RED")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Naa")
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    if (a == 11) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("YELLOW")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Puede ser...")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 12) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("YELLOW")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "El tiempo lo dirá")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 13) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("YELLOW")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Ya veremos dijo el ciego")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 14) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("YELLOW")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Quizás")
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 15) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("YELLOW")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
-        .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", "Ni idea amigo")
-      return interaction.reply({ embeds: [embed] });
-    }
-
-  }
-
-})
-
-
-
-//Covidtest
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options } = interaction
-  if (commandName == "covidtest") {
-    const a = Math.floor(Math.random() * 2 + 1)
-    if (a == 1) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("GREEN")
-        .setDescription("Calculando...")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/937780157387780116/test-results_1.png")
-        .addField("RESULTADOS: ", "POSITIVO (+)")
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    if (a == 2) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("RED")
-        .setDescription("Calculando...")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/937781157196611644/negativotest.png")
-        .addField("RESULTADOS: ", "NEGATIVO (-)")
-      return interaction.reply({ embeds: [embed] });
-    }
-  }
-
-})
-
-//Flip coin
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options } = interaction
-  if (commandName == "moneda") {
-    const a = Math.floor(Math.random() * 2 + 1)
-
-    if (a == 1) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("#27C5F5")
-        .setDescription("Tirando...")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/805139900768190484/bancario_1.png")
-        .addField("LA MONEDA QUEDÓ EN: ", " **SOL** :sun_with_face: ")
-
-      return interaction.reply({ embeds: [embed] });
-    }
-    if (a == 2) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("#FCFBFB")
-        .setDescription("Tirando...")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/805139082417799168/BancarioEscudo.png")
-        .addField("LA MONEDA QUEDÓ EN: ", " **ESCUDO** :shield:")
-
-      return interaction.reply({ embeds: [embed] });
-    }
-  }
-})
-
-
-//Dados
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-  const { commandName, options } = interaction
-  if (commandName == "dados") {
-    var a = Math.floor(Math.random() * 6 + 1);
-
-    if (a == 1) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("#ffe082")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921904012138258452/dado.png")
-        .setDescription("Tirando dados...")
-        .addField("El dado cayó en... ", " Número :one: ")
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    if (a == 2) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("#ffe082")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921904011915952160/dado_1.png")
-        .setDescription("Tirando dados...")
-        .addField("El dado cayó en... ", " Número :two: ")
-      return interaction.reply({ embeds: [embed] });
-
-    }
-
-    if (a == 3) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("#ffe082")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921904011685294090/dado_2.png")
-        .setDescription("Tirando dados...")
-        .addField("El dado cayó en... ", " Número :three: ")
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    if (a == 4) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("#ffe082")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921904286303133807/dado_5.png")
-        .setDescription("Tirando dados...")
-        .addField("El dado cayó en... ", " Número :four: ")
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    if (a == 5) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("#ffe082")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921904011479769180/dado_3.png")
-        .setDescription("Tirando dados...")
-        .addField("El dado cayó en... ", " Número :five: ")
-      return interaction.reply({ embeds: [embed] });
-    }
-
-    if (a == 6) {
-      const embed = new Discord.MessageEmbed()
-        .setColor("#ffe082")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921904011244871730/dado_4.png")
-        .setDescription("Tirando dados...")
-        .addField("El dado cayó en... ", " Número :six: ")
-      return interaction.reply({ embeds: [embed] });
-    }
-  }
-})
 
 //Piedra papel  o tijera
 
@@ -9312,27 +8262,6 @@ client.on('interactionCreate', async (interaction) => {
 
 //Utilidad
 
-//HELP
-
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
-
-  const { commandName, options } = interaction
-  if (commandName === 'help') {
-
-   
-  }
-})
-
-//Update
-
-
-
-
-//     .addField("  GMT-3 :flag_ar: :flag_uy: :flag_br:  ",  hora.toLocaleString("es-ES", {timeZone: "America/Argentina/Buenos_Aires"}))
-
 //Calculadora
 
 client.on('interactionCreate', async (interaction) => {
@@ -9355,208 +8284,9 @@ client.on('interactionCreate', async (interaction) => {
 
 
 //Covid
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) {
-    return
-  }
 
-  const { commandName, options } = interaction
+    })
+
     
-    if (commandName == "covid") {
- 
-
-      if (interaction.options.getSubcommand() === 'casos') {
-      
-        axios.get('https://disease.sh/v3/covid-19/countries/argentina')
-
-          .then((covidArg) => {
-
-            const embed1 = new Discord.MessageEmbed()
-              .setTitle(":flag_ar: Casos totales de Covid-19 en Argentina :flag_ar:")
-              .setColor("#dd5460")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706078806536243/casosarg.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidArg.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidArg.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidArg.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidArg.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidArg.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-            const embed2 = new Discord.MessageEmbed()
-              .setTitle(":flag_ar: Casos de Covid-19 del día de hoy en Argentina :flag_ar:")
-              .setColor("#dd5460")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/928706078806536243/casosarg.png")
-              .addField("Casos hoy :mask: ", currencyFormatter.format(covidArg.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes hoy :skull: ", currencyFormatter.format(covidArg.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidArg.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-
-
-            const button1 = new MessageButton()
-              .setCustomId("previousbtn")
-              .setLabel("😷 Total")
-              .setStyle("DANGER");
-
-            const button2 = new MessageButton()
-              .setCustomId("nextbtn")
-              .setLabel("📅 Hoy")
-              .setStyle("SUCCESS");
-
-            const pages = [
-              embed1,
-              embed2,
-
-
-            ];
-
-            const buttonList = [button1, button2];
-            const timeout = 30000;
-            paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-
-      }
-
-      if (interaction.options.getSubcommand() === 'global') {
-        axios.get('https://disease.sh/v3/covid-19/all')
-          .then((covidGlobal) => {
-            const embed = new Discord.MessageEmbed()
-              .setTitle(":earth_americas: Casos totales de Covid-19 en el mundo :earth_americas:")
-              .setColor("#dd5460")
-              .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903133714362531901/casosglobal.png")
-              .addField("Casos :mask: ", currencyFormatter.format(covidGlobal.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Testeos :test_tube: ", currencyFormatter.format(covidGlobal.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Muertes :skull: ", currencyFormatter.format(covidGlobal.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Recuperados :green_square: ", currencyFormatter.format(covidGlobal.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-              .addField("Activos :red_square: ", currencyFormatter.format(covidGlobal.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-            return interaction.reply({ embeds: [embed] });
-
-          })
-          .catch((err) => {
-            console.error('ERR', err)
-
-
-          })
-
-      }
-      if (interaction.options.getSubcommand() === 'recomendaciones') {
-        const embed = new Discord.MessageEmbed()
-          .setTitle(":mask: Recomendaciones ante el Covid-19 :mask: ")
-          .setColor("#366ef7")
-          .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2. \n Estas son algunas recomendaciones. ")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903136380580937768/mask.png")
-          .addField(" :open_hands: Lávate las manos con frecuencia ", " Usa agua y jabón o un desinfectante de manos a base de alcohol ")
-          .addField(" :person_walking: Manten la distancia ", " Mantén una distancia de seguridad con personas que tosan o estornuden. ")
-          .addField(" :mask: Usa mascarilla ", " Utiliza mascarilla cuando no sea posible mantener el distanciamiento físico. ")
-          .addField(" :eyes: :no_entry_sign: ", " No te toques los ojos, la nariz ni la boca. ")
-          .addField(" :sneezing_face: Cuidado al estornudar ", " Cuando tosas o estornudes, cúbrete la nariz y la boca con el codo flexionado o con un pañuelo. ")
-          .addField(" :house: Quedate en casa ", " Si no te encuentras bien, quédate en casa. ")
-          .addField(" :ambulance: En caso de síntomas ", " En caso de que tengas fiebre, tos o dificultad para respirar, busca atención médica. ")
-
-        return interaction.reply({ embeds: [embed] });
-
-
-      }
-      if (interaction.options.getSubcommand() === 'sintomas') {
-        const embed = new Discord.MessageEmbed()
-          .setTitle(":sneezing_face: Síntomas del Covid-19 :mask: ")
-          .setColor("#dd5460")
-          .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.\n Estos son algunos de los síntomas de la enfermedad, si padece alguno de ellos y no está seguro si tiene el virus se recomienda hacerse un hisopado. ")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903134963501768754/Sintomas.png")
-          .addField(" :green_circle: Síntomas más habituales", " - Fiebre \n - Tos seca \n - Cansancio ", true)
-          .addField(" :yellow_circle: Síntomas menos comunes", " - Molestias y dolores \n - Dolor de garganta \n - Diarrea \n - Conjuntivitis \n - Dolor de cabeza \n - Pérdida del sentido del olfato o del gusto \n - Erupciones cutáneas o pérdida del color en los dedos de las manos o de los pies", true)
-          .addField(" :red_circle: Síntomas más graves", " - Dificultad para respirar o sensación de falta de aire \n - Dolor o presión en el pecho \n - Incapacidad para hablar o moverse ", true)
-
-        return interaction.reply({ embeds: [embed] });
-      }
-
-
-
-      if (interaction.options.getSubcommand() === 'covidpais') {
-      
-        //Lista
-        var pais = options.getString('pais')
-        if (pais != null) {
-          var pais2 = pais.toLowerCase()
-        }
-
-        if (pais == null) {
-
-          const embed = new Discord.MessageEmbed()
-            .setTitle("Países disponibles")
-            .setColor("RED")
-            .setDescription("Utiliza `/covid covidpais [nombre del país]` para ver los datos de covid")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903133714362531901/casosglobal.png")
-          return interaction.reply({ embeds: [embed] });
-        }
-       
-
-        //Todos los paises
-        if (pais2.length != 0) {
-          
-          const paisEN = await translate(pais2, {from: "es", to: "en" });
-          let covidArg = await axios.get(`https://disease.sh/v3/covid-19/countries/${paisEN}`)
-
-              const nombrePais = await translate(covidArg.data.country, {from: "en", to: "es"})
-              console.log(nombrePais)
-              const embed1 = new Discord.MessageEmbed()
-                .setTitle(`:flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}: Casos totales de Covid-19 en ${nombrePais} :flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}:`)
-                .setColor("#dd5460")
-                .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-                .setThumbnail(covidArg.data['countryInfo']['flag'])
-                .addField("Casos :mask: ", currencyFormatter.format(covidArg.data['cases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-                .addField("Testeos :test_tube: ", currencyFormatter.format(covidArg.data['tests'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-                .addField("Muertes :skull: ", currencyFormatter.format(covidArg.data['deaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-                .addField("Recuperados :green_square: ", currencyFormatter.format(covidArg.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-                .addField("Activos :red_square: ", currencyFormatter.format(covidArg.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-              const embed2 = new Discord.MessageEmbed()
-                .setTitle(`:flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}: Casos totales de Covid-19 en ${nombrePais} :flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}:`)
-                .setThumbnail(covidArg.data['countryInfo']['flag'])
-                .setColor("#dd5460")
-                .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
-                .addField("Casos hoy :mask: ", currencyFormatter.format(covidArg.data['todayCases'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-                .addField("Muertes hoy :skull: ", currencyFormatter.format(covidArg.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-                .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidArg.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
-
-
-              const button1 = new MessageButton()
-                .setCustomId("previousbtn")
-                .setLabel("😷 Total")
-                .setStyle("DANGER");
-
-              const button2 = new MessageButton()
-                .setCustomId("nextbtn")
-                .setLabel("📅 Hoy")
-                .setStyle("SUCCESS");
-
-              const pages = [
-                embed1,
-                embed2,
-              ];
-              const buttonList = [button1, button2];
-              const timeout = 30000;
-              paginationEmbed(interaction, pages, buttonList, timeout);
-        }
-      }
-    
-  }
-})
-
-
-
 client.login(process.env.token);
+    

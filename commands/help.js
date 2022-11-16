@@ -74,7 +74,7 @@ module.exports = {
         .setColor('#fdcb68')
         .setDescription("Estos comandos contienen utilidades y conversión de divisa")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903010091756814356/money-exchange.png")
-        .addField("» Utilidad ", "`impuesto`  `calculadora`  `anualizarinflacion`")
+        .addField("» Utilidad ", "`impuesto`  `calculadora`  `anualizarinflacion`  `traductor`")
         .addField("» `convertirdivisa`", "Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
         .addField("» `pesoa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
         .addField("» `convertircripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")

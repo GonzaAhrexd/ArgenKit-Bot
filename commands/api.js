@@ -12,7 +12,7 @@ module.exports = {
         .setTitle("Apis utilizadas para la creación del bot")
         .setColor('#dfe5e8')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919016293481472021/navegador.png")
-        .addField("Cotizaciones del dólar, euro, real", "https://github.com/Castrogiovanni20/api-dolar-argentina")
+        .addField("Cotizaciones del dólar, euro, real", "https://github.com/guidospadavecchia/DolarBot-Api")
         .addField("Valores de coronavirus en Argentina y el mundo: ", "https://disease.sh/")
         .addField("Cotizaciones de otras divisas", "  https://exchangerate.host/#/")
         .addField("Cotizaciones de criptomonedas", "https://www.coingecko.com/es")

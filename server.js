@@ -1484,7 +1484,7 @@ client.on('interactionCreate', async (interaction) => {
 
     if (interaction.options.getSubcommand() === 'dolar') {
 
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
           const embed1 = new Discord.MessageEmbed()
             .setTitle("Dólar estadounidese :flag_us:")
@@ -1541,7 +1541,7 @@ client.on('interactionCreate', async (interaction) => {
 
     //Dólar blue 
     if (interaction.options.getSubcommand() === 'dolarblue') {
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolarblue')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolarblue')
         .then((blue) => {
           const embed1 = new Discord.MessageEmbed()
             .setTitle("Dólar blue :flag_us:")
@@ -1606,7 +1606,7 @@ client.on('interactionCreate', async (interaction) => {
 
 
     if (interaction.options.getSubcommand() === 'euro') {
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
         .then((euro) => {
           var euroImpuesto = (euro.data['venta'] * 1.75).toFixed(2)
           const embed1 = new Discord.MessageEmbed()
@@ -1667,7 +1667,7 @@ client.on('interactionCreate', async (interaction) => {
 
     //Real
     if (interaction.options.getSubcommand() === 'real') {
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/real/nacion')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
         .then((real) => {
           var realImpuesto = ((real.data['venta'] * 1.75)).toFixed(2)
           const embed1 = new Discord.MessageEmbed()
@@ -1733,7 +1733,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((YEN) => {
           yen1 = YEN.data['rates']['JPY']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -1800,7 +1800,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((GBP) => {
           libra1 = GBP.data['rates']['GBP']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -1867,7 +1867,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((RUB) => {
           rublo = RUB.data['rates']['RUB']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -1935,7 +1935,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((CAD) => {
           canadiense = CAD.data['rates']['CAD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2003,7 +2003,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((CAD) => {
           dolar = CAD.data['rates']['AUD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2071,7 +2071,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((NZD) => {
           dolar = NZD.data['rates']['NZD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2137,7 +2137,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((MEX) => {
           mexicano = MEX.data['rates']['MXN']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2203,7 +2203,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((CLP) => {
           chileno = CLP.data['rates']['CLP']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2269,7 +2269,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((UYU) => {
           peso = UYU.data['rates']['UYU']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2333,7 +2333,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((COL) => {
           pesos = COL.data['rates']['COP']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2402,7 +2402,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((BOB) => {
           pesos = BOB.data['rates']['BOB']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2466,7 +2466,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((PEN) => {
           sol = PEN.data['rates']['PEN']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2534,7 +2534,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((PYG) => {
           guarani = PYG.data['rates']['PYG']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2600,7 +2600,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((VEZ) => {
           bolivar = VEZ.data['rates']['VES']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2666,7 +2666,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((CNY) => {
           yuan = CNY.data['rates']['CNY']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2734,7 +2734,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((INR) => {
           rupia = INR.data['rates']['INR']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2800,7 +2800,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((KRW) => {
           won = KRW.data['rates']['KRW']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2868,7 +2868,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((suiza) => {
           franco = suiza.data['rates']['CHF']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -2934,7 +2934,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((LIRA) => {
           Turca = LIRA.data['rates']['TRY']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -3290,7 +3290,7 @@ client.on('interactionCreate', async (interaction) => {
 
 
 
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
 
             .then((USD) => {
               const embed1 = new Discord.MessageEmbed()
@@ -3788,7 +3788,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((GOLD) => {
           oro = GOLD.data['rates']['XAU']
 
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
               const embed1 = new Discord.MessageEmbed()
@@ -3852,7 +3852,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((SILVER) => {
           plata = SILVER.data['rates']['XAG']
 
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
 
@@ -3916,7 +3916,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((ladio) => {
           paladio = ladio.data['rates']['XPD']
 
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
 
@@ -3982,7 +3982,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((pl) => {
           platino = pl.data['rates']['XPT']
 
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
 
             .then((EUR) => {
 
@@ -4053,7 +4053,7 @@ client.on('interactionCreate', async (interaction) => {
     if (interaction.options.getSubcommand() === 'dolar') {
 
       var conv2 = options.getNumber('usd')
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
           const embed1 = new Discord.MessageEmbed()
 
@@ -4117,7 +4117,7 @@ client.on('interactionCreate', async (interaction) => {
 
       var conv2 = options.getNumber('usd')
 
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolarblue')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolarblue')
         .then((blue) => {
           const embed = new Discord.MessageEmbed()
             .setTitle("Dólar Blue  <:rightarrow:921907270747570247> Peso Argentino")
@@ -4144,7 +4144,7 @@ client.on('interactionCreate', async (interaction) => {
 
       var conv3 = options.getNumber('eur')
 
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
         .then((euro) => {
           const embed = new Discord.MessageEmbed()
             .setTitle("Euro <:rightarrow:921907270747570247> Peso Argentino")
@@ -4173,7 +4173,7 @@ client.on('interactionCreate', async (interaction) => {
       var conv4 = options.getNumber('brl')
 
 
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/real/nacion')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
         .then((real) => {
           const embed = new Discord.MessageEmbed()
             .setTitle("Real Brasileño <:rightarrow:921907270747570247> Peso Argentino")
@@ -4205,7 +4205,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((YEN) => {
 
           yen1 = YEN.data['rates']['JPY']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Yen Japonés <:rightarrow:921907270747570247> Peso Argentino ")
@@ -4240,7 +4240,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((LIBRA) => {
 
           libra = LIBRA.data['rates']['GBP']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Libra Esterlina <:rightarrow:921907270747570247> Peso Argentino")
@@ -4277,7 +4277,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((RUBLO) => {
 
           rublo = RUBLO.data['rates']['RUB']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Rublo Ruso <:rightarrow:921907270747570247> Peso Argentino")
@@ -4311,7 +4311,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((CAD) => {
 
           cad = CAD.data['rates']['CAD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Dólar Canadiense <:rightarrow:921907270747570247> Peso Argentino")
@@ -4349,7 +4349,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((AUD) => {
 
           dolar = AUD.data['rates']['AUD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Dólar Australiano <:rightarrow:921907270747570247> Peso Argentino")
@@ -4388,7 +4388,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((NZD) => {
 
           dolar = NZD.data['rates']['NZD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Dólar Neozelandés <:rightarrow:921907270747570247> Peso Argentino")
@@ -4424,7 +4424,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((MXN) => {
 
           mxn = MXN.data['rates']['MXN']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Méxicano <:rightarrow:921907270747570247> Peso Argentino")
@@ -4459,7 +4459,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((CLP) => {
 
           clp = CLP.data['rates']['CLP']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Chileno <:rightarrow:921907270747570247> Peso Argentino")
@@ -4496,7 +4496,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((UYU) => {
 
           peso = UYU.data['rates']['UYU']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Uruguayo <:rightarrow:921907270747570247> Peso Argentino")
@@ -4533,7 +4533,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((COL) => {
 
           pesos = COL.data['rates']['COP']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Colombiano <:rightarrow:921907270747570247> Peso Argentino")
@@ -4569,7 +4569,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((BOB) => {
 
           peso = BOB.data['rates']['BOB']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Boliviano <:rightarrow:921907270747570247> Peso Argentino")
@@ -4606,7 +4606,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((PEN) => {
 
           sol = PEN.data['rates']['PEN']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Sol Peruano <:rightarrow:921907270747570247> Peso Argentino")
@@ -4639,7 +4639,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((PYG) => {
 
           guarani = PYG.data['rates']['PYG']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Guaraní paraguayo <:rightarrow:921907270747570247> Peso Argentino")
@@ -4676,7 +4676,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((VES) => {
 
           bolivar = VES.data['rates']['VES']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Bolivar Digital Venezolano <:rightarrow:921907270747570247> Peso Argentino")
@@ -4712,7 +4712,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((CNY) => {
 
           yuan = CNY.data['rates']['CNY']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Renminbi chino <:rightarrow:921907270747570247> Peso Argentino")
@@ -4750,7 +4750,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((INR) => {
 
           rupia = INR.data['rates']['INR']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Rupia India <:rightarrow:921907270747570247> Peso Argentino")
@@ -4785,7 +4785,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((KRW) => {
 
           won = KRW.data['rates']['KRW']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Won Surcoreano <:rightarrow:921907270747570247> Peso Argentino")
@@ -4820,7 +4820,7 @@ client.on('interactionCreate', async (interaction) => {
       axios.get('https://api.exchangerate.host/latest')
         .then((suizo) => {
           franco = suizo.data['rates']['CHF']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Franco Suizo <:rightarrow:921907270747570247> Peso Argentino")
@@ -4854,7 +4854,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((TRY) => {
 
           lira = TRY.data['rates']['TRY']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Lira turca <:rightarrow:921907270747570247> Peso Argentino")
@@ -5324,7 +5324,7 @@ client.on('interactionCreate', async (interaction) => {
           doge = DOGE.data['prices'][0][1]
 
 
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
             .then((USD) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Dogecoin <:rightarrow:921907270747570247> Peso Argentino")
@@ -5377,7 +5377,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((GOLD) => {
 
           oro = GOLD.data['rates']['XAU']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Oro <:rightarrow:921907270747570247> Peso Argentino")
@@ -5412,7 +5412,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((silver) => {
 
           plata = silver.data['rates']['XAG']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Plata <:rightarrow:921907270747570247> Peso Argentino")
@@ -5449,7 +5449,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((pd) => {
 
           paladio = pd.data['rates']['XPD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Paladio <:rightarrow:921907270747570247> Peso Argentino")
@@ -5485,7 +5485,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((pt) => {
 
           platino = pt.data['rates']['XPT']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Platino <:rightarrow:921907270747570247> Peso Argentino")
@@ -5540,7 +5540,7 @@ client.on('interactionCreate', async (interaction) => {
 
     if (interaction.options.getSubcommand() === 'dolar') {
       var conv2 = options.getNumber('ars')
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
           const embed = new Discord.MessageEmbed()
             .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Dólar estadounidense")
@@ -5565,7 +5565,7 @@ client.on('interactionCreate', async (interaction) => {
 
     if (interaction.options.getSubcommand() === 'dolarblue') {
       var conv2 = options.getNumber('ars')
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/dolarblue')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolarblue')
         .then((blue) => {
           const embed = new Discord.MessageEmbed()
             .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Dólar Blue")
@@ -5589,7 +5589,7 @@ client.on('interactionCreate', async (interaction) => {
 
     if (interaction.options.getSubcommand() === 'euro') {
       var conv2 = options.getNumber('ars')
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
         .then((euro) => {
           const embed = new Discord.MessageEmbed()
             .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Euro ")
@@ -5614,7 +5614,7 @@ client.on('interactionCreate', async (interaction) => {
 
     if (interaction.options.getSubcommand() === 'real') {
       var conv2 = options.getNumber('ars')
-      axios.get('https://api-dolar-argentina.herokuapp.com/api/real/nacion')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
         .then((real) => {
           const embed = new Discord.MessageEmbed()
             .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Real Brasileño")
@@ -5644,7 +5644,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((YEN) => {
 
           yen1 = YEN.data['rates']['JPY']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Yen Japonés")
@@ -5679,7 +5679,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((LIBRA) => {
 
           libra1 = LIBRA.data['rates']['GBP']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Libra Esterlina")
@@ -5715,7 +5715,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((RUBLO) => {
 
           rublo = RUBLO.data['rates']['RUB']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Rublo Ruso")
@@ -5750,7 +5750,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((CAD) => {
 
           canadiense = CAD.data['rates']['CAD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Dólar Canadiense")
@@ -5785,7 +5785,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((AUD) => {
 
           dolar = AUD.data['rates']['AUD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Dólar Australiano")
@@ -5822,7 +5822,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((NZD) => {
 
           dolar = NZD.data['rates']['NZD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Dólar Neozelandes")
@@ -5860,7 +5860,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((mxn) => {
 
           peso = mxn.data['rates']['MXN']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Peso Méxicano")
@@ -5897,7 +5897,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((CLP) => {
 
           peso = CLP.data['rates']['CLP']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Peso Chileno")
@@ -5932,7 +5932,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((UYU) => {
 
           peso = UYU.data['rates']['UYU']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Peso Uruguayo")
@@ -5965,7 +5965,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((COP) => {
 
           pesos = COP.data['rates']['COP']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Peso Colombiano")
@@ -6001,7 +6001,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((BOB) => {
 
           peso = BOB.data['rates']['BOB']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Boliviano")
@@ -6035,7 +6035,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((PEN) => {
 
           sol = PEN.data['rates']['PEN']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Sol")
@@ -6073,7 +6073,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((PYG) => {
 
           guarani = PYG.data['rates']['PYG']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Guaraní Paraguayo")
@@ -6109,7 +6109,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((VES) => {
 
           bolivar = VES.data['rates']['VES']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((USD) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Bolivar Digital Venezolano")
@@ -6143,7 +6143,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((CNY) => {
 
           yuan = CNY.data['rates']['CNY']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Renminbi")
@@ -6177,7 +6177,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((INR) => {
 
           rupia = INR.data['rates']['INR']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Rupia India")
@@ -6212,7 +6212,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((KRW) => {
 
           won = KRW.data['rates']['KRW']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Won Surcoreano")
@@ -6247,7 +6247,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((suizo) => {
 
           franco = suizo.data['rates']['CHF']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Franco Suizo")
@@ -6283,7 +6283,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((turca) => {
 
           lira = turca.data['rates']['TRY']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Lira Turca")
@@ -6457,7 +6457,7 @@ client.on('interactionCreate', async (interaction) => {
           ethereum = ETH.data['prices'][0][1]
 
 
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/dolaroficial')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
             .then((USD) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Axie Infinity")
@@ -6802,7 +6802,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((GOLD) => {
 
           oro = GOLD.data['rates']['XAU']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Oro")
@@ -6838,7 +6838,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((silver) => {
 
           plata = silver.data['rates']['XAG']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Pesos Argentino <:rightarrow:921907270747570247> Plata")
@@ -6875,7 +6875,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((pd) => {
 
           paladio = pd.data['rates']['XPD']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Paladio")
@@ -6912,7 +6912,7 @@ client.on('interactionCreate', async (interaction) => {
         .then((pt) => {
 
           platino = pt.data['rates']['XPT']
-          axios.get('https://api-dolar-argentina.herokuapp.com/api/euro/nacion')
+          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
             .then((EUR) => {
               const embed = new Discord.MessageEmbed()
                 .setTitle("Peso Argentino <:rightarrow:921907270747570247> Platino")

@@ -53,7 +53,7 @@ const impuestos = require("./functions/impuestos.js")
   const slashcommandsFile = fs.readdirSync('./commands').filter(file => file.endsWith("js"))
   for(const file of slashcommandsFile){
     const slash = require(`./commands/${file}`)
-    console.log(`Slash  commands - ${file} cargado`)
+    // console.log(`Slash  commands - ${file} cargado`)
     client.slashcommands.set(slash.data.name, slash)
   }
   client.on("interactionCreate", async(interaction) =>{

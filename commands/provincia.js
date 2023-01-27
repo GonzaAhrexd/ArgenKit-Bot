@@ -3,6 +3,8 @@ const { MessageEmbed } = require("discord.js")
 const Discord = require("discord.js")
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
 const paginationEmbed = require('discordjs-button-pagination'); //Botones
+
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('provinciainfo')
@@ -27,7 +29,7 @@ module.exports = {
           { name: 'Mendoza', value: 'mendoza' },
           { name: 'Misiones', value: 'misiones' },
           { name: 'Neuquén', value: 'neuquén' },
-          { name: 'Río Negro', value: 'rio negro' },
+          { name: 'Río Negro', value: 'río negro' },
           { name: 'Salta', value: 'salta' },
           { name: 'San Juan', value: 'san juan' },
           { name: 'San Luis', value: 'san luis' },
@@ -41,7 +43,6 @@ module.exports = {
   async run(client, interaction, options) {
 
     let provincia = interaction.options.getString('provincia')
-    console.log(provincia)
     const provincias = [
       //Buenos Aires
       { identificacion: "buenos aires", nombre: "Buenos Aires  (BA)", color: "#0b67ff", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Bandera_de_la_Provincia_de_Buenos_Aires.svg/1280px-Bandera_de_la_Provincia_de_Buenos_Aires.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Buenos_Aires", descripcion: "Buenos Aires es la provincia más grande y más poblada de Argentina. Su nombre proviene de la capital del país, la Ciudad  Autonoma de Buenos Aires,  que solía ser parte de la provincia hasta su federalización en 1880.", gobernador: "Alex Kicillof", capital: "La Plata", poblada: "La Matanza", fundacion: "2 de febrero de 1536 \n 11 de junio de 1580 (por Juan de Garay)", autonomia: "16 de febrero de 1820 ", superficie: "307.571 km²", poblacion: "18.004.120 hab.", gentillicio: "Bonaerense", clima: "Templado húmedo (clima pampeano)", ubicacion: "https://www.google.com.ar/maps/place/Provincia+de+Buenos+Aires/@-37.1243654,-62.2683371,7z/data=!3m1!4b1!4m5!3m4!1s0x95edbcb7595281d9:0x4ad309fcdcf0a144!8m2!3d-37.2017285!4d-59.8410697", ubicacionDesc: "El territorio está en la región este del país; limita al norte con las provincias de Santa Fe y Entre Ríos, al noreste con el Río de la Plata y la Ciudad Autónoma de Buenos Aires,9​ al este y sur con el mar Argentino del océano Atlántico, al suroeste con Río Negro, al oeste con la Provincia de La Pampa y al noroeste con la Provincia de Córdoba.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
@@ -56,7 +57,7 @@ module.exports = {
       //Corrientes
       { identificacion: "corrientes", nombre: "Corrientes (CR)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bandera_de_la_Provincia_de_Corrientes.svg/300px-Bandera_de_la_Provincia_de_Corrientes.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Corrientes", descripcion: "Corrientes es una de las 23 provincias de Argentina ubicada en el centro del país.\n En el aspecto histórico de la construcción del Estado Argentino, es una de las provincias más antiguas del territorio argentino y una de las catorce provincias fundadoras de la Confederación Argentina.", gobernador: "Gustavo Valdés", capital: "Corrientes", poblada: "Corrientes", fundacion: "3 de abril de 1588", autonomia: "20 de abril de 1814 ", superficie: " 88.199 km² ", poblacion: "1.111.052 hab. ", gentillicio: "Correntino/na ", clima: "Subtropical", ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada geográficamente al noreste del país, en la región del Norte Grande Argentino, limitando al oeste y norte con el río Paraná que la separa de Santa Fe, Chaco y Paraguay, al noreste con Misiones, al este con el río Uruguay que la separa de Brasil y Uruguay, y al sur con Entre Ríos.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Corrientes_in_Argentina_%28%2BFalkland%29.svg/352px-Corrientes_in_Argentina_%28%2BFalkland%29.svg.png" },
       //Entre Ríos
-      { identificacion: "entre rios", nombre: "Entre Ríos (ER)", color: "#991426", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bandera_de_la_Provincia_de_Entre_R%C3%ADos.svg/800px-Bandera_de_la_Provincia_de_Entre_R%C3%ADos.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Entre_R%C3%ADos", descripcion: "Entre Ríos es una de las 23 provincias de Argentina ubicada en el centro del país localizada en la región mesopotámica del país. \nEs un componente (el más meridional) de la Mesopotamia argentina, conformada por los ríos Uruguay y Paraná en el Litoral argentino. Un 15 por ciento de su territorio está compuesto de islas y tierras anegadizas. A menudo se la considera como una provincia «insular», por estar rodeada por ríos y arroyos.\nLa actividad económica de la provincia se sustenta principalmente en la agricultura, la ganadería y el turismo y en menor medida en la minería y la industria.", gobernador: "Gustavo Bordet", capital: "Paraná", poblada: "Gran Paraná", fundacion: "3 de abril de 1588", autonomia: "20 de abril de 1814 ", superficie: " 88.199 km² ", poblacion: "1.111.052 hab. ", gentillicio: "Correntino/na ", clima: "Subtropical", ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada geográficamente al noreste del país, en la región del Norte Grande Argentino, limitando al oeste y norte con el río Paraná que la separa de Santa Fe, Chaco y Paraguay, al noreste con Misiones, al este con el río Uruguay que la separa de Brasil y Uruguay, y al sur con Entre Ríos.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Corrientes_in_Argentina_%28%2BFalkland%29.svg/352px-Corrientes_in_Argentina_%28%2BFalkland%29.svg.png" },
+      { identificacion: "entre ríos", nombre: "Entre Ríos (ER)", color: "#991426", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bandera_de_la_Provincia_de_Entre_R%C3%ADos.svg/800px-Bandera_de_la_Provincia_de_Entre_R%C3%ADos.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Entre_R%C3%ADos", descripcion: "Entre Ríos es una de las 23 provincias de Argentina ubicada en el centro del país localizada en la región mesopotámica del país. \nEs un componente (el más meridional) de la Mesopotamia argentina, conformada por los ríos Uruguay y Paraná en el Litoral argentino. Un 15 por ciento de su territorio está compuesto de islas y tierras anegadizas. A menudo se la considera como una provincia «insular», por estar rodeada por ríos y arroyos.\nLa actividad económica de la provincia se sustenta principalmente en la agricultura, la ganadería y el turismo y en menor medida en la minería y la industria.", gobernador: "Gustavo Bordet", capital: "Paraná", poblada: "Gran Paraná", fundacion: "3 de abril de 1588", autonomia: "20 de abril de 1814 ", superficie: " 88.199 km² ", poblacion: "1.111.052 hab. ", gentillicio: "Correntino/na ", clima: "Subtropical", ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada geográficamente al noreste del país, en la región del Norte Grande Argentino, limitando al oeste y norte con el río Paraná que la separa de Santa Fe, Chaco y Paraguay, al noreste con Misiones, al este con el río Uruguay que la separa de Brasil y Uruguay, y al sur con Entre Ríos.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Corrientes_in_Argentina_%28%2BFalkland%29.svg/352px-Corrientes_in_Argentina_%28%2BFalkland%29.svg.png" },
 
       //Formosa
       { identificacion: "formosa", nombre: "Formosa (FO)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Bandera_de_la_Provincia_de_Formosa.svg/550px-Bandera_de_la_Provincia_de_Formosa.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Formosa", descripcion: "Formosa es una de las 23 provincias de Argentina ubicada en el noreste de Argentina.\nHabitada ancestralmente por varias tribus de origen pámpido y amazónico, el primer europeo arriba al territorio en 1528. La belicosidad de los nativos obligó a todos los intentos colonizadores a postergar su intento de ocupación. Luego de la Revolución de Mayo y las guerras de la Independencia, se mantuvo aislada, solo ocasionalmente habitada por obrajeros que arribaban a su territorio en busca de maderas. La Guerra de la Triple Alianza, en la que Paraguay fue atacado por Brasil, Argentina y Uruguay, despertó el interés del gobierno de la República Argentina de ocupar el mismo hacia la década de 1870.\nLa economía privada es esencialmente primaria, estando basada en la cría de ganado y en la agricultura.", gobernador: "Gildo Insfrán", capital: "Formosa", poblada: "Formosa", fundacion: "8 de abril de 1879", autonomia: "15 de junio de 1955 ", superficie: " 72.066 km² ", poblacion: "595.280 hab. ", gentillicio: "Formoseño/ña ", clima: "Tropical", ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noreste del país, en la región del Norte Grande Argentino, limitando al norte con el río Pilcomayo que la separa de Paraguay, al este con el río Paraguay que la separa de nuevo de Paraguay, al sur con los ríos Bermejo y Teuco que la separan de Chaco, y al oeste con Salta, mediante un meridiano", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Formosa_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Formosa_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
@@ -71,12 +72,23 @@ module.exports = {
       //Misiones
       { identificacion: "misiones", nombre: "Misiones (MI)", color: "#dd0000", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Bandera_de_la_Provincia_de_Misiones.svg/800px-Bandera_de_la_Provincia_de_Misiones.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Misiones", descripcion: "Mendoza es una de las 23 provincias de Argentina y se ubica en el noreste de Argentina.\n Misiones posee tierra colorada en la totalidad de su territorio (tipo de suelo considerado como el más fértil del mundo por su alto contenido de nutrientes para plantas y árboles de gran demanda nutricional, caracterizado por ser el resultado de la descomposición de rocas de origen arenito-basáltico (derrames volcánicos). \nA nivel nacional Misiones se destaca con más del 80 % de la producción de tung, yerba mate y té, además de La agroindustria y la industria forestal y el turismo.  \n Las Cataratas del Iguazú son la principal atracción turística de la provincia, donde se pueden ver miles  de extranjeros todos los años. ", gobernador: "Oscar Herrera Ahuad ", capital: "Posadas", poblada: "Posadas", fundacion: "22 de diciembre de 1881", autonomia: "10 de diciembre de 1953  ", superficie: "29.801 km² ", poblacion: "1.233.177  hab. ", gentillicio: "Misionero/ra   ", clima: "Subtropical húmedo sin estación seca", ubicacion: "https://www.google.com.ar/maps/place/Misiones/data=!4m2!3m1!1s0x94f811245d4ce333:0xfb5d357febb15a1d?sa=X&ved=2ahUKEwiV--Ge-p3xAhWQr5UCHfDnADEQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noreste del país, en la región del Norte Grande Argentino, limitando al norte y este con los ríos Iguazú, San Antonio, Pepirí Guazú y Uruguay que la separan de Brasil, al sur con Corrientes, por medio de los arroyos Itaembé y Chimiray, y al oeste con el río Paraná que la separa de Paraguay.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Misiones_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Misiones_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
       //Neuquen
-      { identificacion: "neuquen", nombre: "Neuquén  (NQN)", color: "#04a2e0", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bandera_de_la_Provincia_del_Neuquen.svg/800px-Bandera_de_la_Provincia_del_Neuquen.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_del_Neuqu%C3%A9n", descripcion: "Neuquén es una de las 23 provincias de Argentina y se ubica en el noroeste la región patagónica de Argentina.\n La principal actividad productiva es la explotación de hidrocarburos. La cuenca neuquina, compartida con Río Negro, La Pampa y Mendoza, es la zona petrolera y gasífera más importante de Argentina. Además produce el 52 % de la energía eléctrica (principalmente hidroelectridad) del país con centrales en los embalses Piedra del Águila, Pichi Picún Leufú, El Chocón, Planicie Banderita y Alicurá. ", gobernador: "Omar Gutiérrez ", capital: "Neuquén", poblada: "Neuquén", fundacion: "8 de febrero de 1883", autonomia: "15 de junio de 1955  ", superficie: "94.078 km² ", poblacion: "637.913  hab. ", gentillicio: "Neuquino/na    ", clima: "Continental, frío, con estación templada.", ubicacion: "https://www.google.com.ar/maps/place/Neuqu%C3%A9n/data=!4m2!3m1!1s0x960d6bad5ae41889:0x8c3031d1bbb3d22f?sa=X&ved=2ahUKEwiCnuLDpaHxAhVGrZUCHUMUA4gQ8gEwFHoECAUQAQ", ubicacionDesc: "Está ubicada al noroeste de la región patagónica, la cual ocupa la mitad sur del país; limita al norte con Mendoza (parte de su frontera la forma el río Colorado), al sureste con Río Negro (gran parte de esta frontera la forma el río Limay) y al oeste con Chile, con las regiones chilenas de Maule, Ñuble, Bío-bío, La Araucanía, Los Ríos y Los Lagos; cuyos límites están determinados por la divisoria de agua y el criterio de altas cumbres de la cordillera de los Andes.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Neuquen_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Neuquen_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+      { identificacion: "neuquén", nombre: "Neuquén  (NQN)", color: "#04a2e0", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bandera_de_la_Provincia_del_Neuquen.svg/800px-Bandera_de_la_Provincia_del_Neuquen.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_del_Neuqu%C3%A9n", descripcion: "Neuquén es una de las 23 provincias de Argentina y se ubica en el noroeste la región patagónica de Argentina.\n La principal actividad productiva es la explotación de hidrocarburos. La cuenca neuquina, compartida con Río Negro, La Pampa y Mendoza, es la zona petrolera y gasífera más importante de Argentina. Además produce el 52 % de la energía eléctrica (principalmente hidroelectridad) del país con centrales en los embalses Piedra del Águila, Pichi Picún Leufú, El Chocón, Planicie Banderita y Alicurá. ", gobernador: "Omar Gutiérrez ", capital: "Neuquén", poblada: "Neuquén", fundacion: "8 de febrero de 1883", autonomia: "15 de junio de 1955  ", superficie: "94.078 km² ", poblacion: "637.913  hab. ", gentillicio: "Neuquino/na    ", clima: "Continental, frío, con estación templada.", ubicacion: "https://www.google.com.ar/maps/place/Neuqu%C3%A9n/data=!4m2!3m1!1s0x960d6bad5ae41889:0x8c3031d1bbb3d22f?sa=X&ved=2ahUKEwiCnuLDpaHxAhVGrZUCHUMUA4gQ8gEwFHoECAUQAQ", ubicacionDesc: "Está ubicada al noroeste de la región patagónica, la cual ocupa la mitad sur del país; limita al norte con Mendoza (parte de su frontera la forma el río Colorado), al sureste con Río Negro (gran parte de esta frontera la forma el río Limay) y al oeste con Chile, con las regiones chilenas de Maule, Ñuble, Bío-bío, La Araucanía, Los Ríos y Los Lagos; cuyos límites están determinados por la divisoria de agua y el criterio de altas cumbres de la cordillera de los Andes.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Neuquen_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Neuquen_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
       //Río Negro
-      { identificacion: "río negro", nombre: "Río Negro (RN)", color: "#029a3a", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Bandera_de_la_Provincia_del_R%C3%ADo_Negro.svg/800px-Bandera_de_la_Provincia_del_R%C3%ADo_Negro.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_R%C3%ADo_Negro", descripcion: "Río Negro es una de las 23 provincias de Argentina y se ubica en el centro-norte de la región patagónica de Argentina.\n Su economía está basada en la fruticultura, concentrada en las zonas de valles. Predominan los cultivos de frutales (manzanas y peras). También poseen cultivos de hortalizas (tomate y cebolla), y frutas finas (frambuesa, guinda y frutilla). ", gobernador: "Arabela Carreras ", capital: "Viedma", poblada: "San Carlos de Bariloche", fundacion: "16 de octubre de 1884", autonomia: "15 de junio de 1955  ", superficie: "203.013 km² ", poblacion: "708.799  hab. ", gentillicio: "Rionegrino/na    ", clima: "Frío seco", ubicacion: "https://www.google.com.ar/maps/place/R%C3%ADo+Negro/data=!4m2!3m1!1s0x95e282c4b0a6530b:0xc2dfc6ff33b0aedb?sa=X&ved=2ahUKEwiD7caRq6HxAhWxqZUCHfv0AjoQ8gEwAHoECAYQAQ", ubicacionDesc: "Ubicada al centro-norte de la región patagónica (en la mitad sur del país), limita al noroeste con el río Limay que forma parte de su límite con Neuquén (el resto del límite es una línea recta vertical), al norte con el río Colorado que la separa de la Provincia de La Pampa, al noreste con la Provincia de Buenos Aires (parte de su límite lo forma el río Negro y otra, una línea vertical) y el golfo San Matías (mar Argentino, océano Atlántico), al sur con Chubut y al oeste con la región chilena de Los Lagos, cuya frontera está determinada por la línea de altas cumbres de la cordillera de los Andes. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Rio_Negro_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Rio_Negro_in_Argentina_%28%2BFalkland_hatched%29.svg.png" }
+      { identificacion: "río negro", nombre: "Río Negro (RN)", color: "#029a3a", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Bandera_de_la_Provincia_del_R%C3%ADo_Negro.svg/800px-Bandera_de_la_Provincia_del_R%C3%ADo_Negro.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_R%C3%ADo_Negro", descripcion: "Río Negro es una de las 23 provincias de Argentina y se ubica en el centro-norte de la región patagónica de Argentina.\n Su economía está basada en la fruticultura, concentrada en las zonas de valles. Predominan los cultivos de frutales (manzanas y peras). También poseen cultivos de hortalizas (tomate y cebolla), y frutas finas (frambuesa, guinda y frutilla). ", gobernador: "Arabela Carreras ", capital: "Viedma", poblada: "San Carlos de Bariloche", fundacion: "16 de octubre de 1884", autonomia: "15 de junio de 1955  ", superficie: "203.013 km² ", poblacion: "708.799  hab. ", gentillicio: "Rionegrino/na    ", clima: "Frío seco", ubicacion: "https://www.google.com.ar/maps/place/R%C3%ADo+Negro/data=!4m2!3m1!1s0x95e282c4b0a6530b:0xc2dfc6ff33b0aedb?sa=X&ved=2ahUKEwiD7caRq6HxAhWxqZUCHfv0AjoQ8gEwAHoECAYQAQ", ubicacionDesc: "Ubicada al centro-norte de la región patagónica (en la mitad sur del país), limita al noroeste con el río Limay que forma parte de su límite con Neuquén (el resto del límite es una línea recta vertical), al norte con el río Colorado que la separa de la Provincia de La Pampa, al noreste con la Provincia de Buenos Aires (parte de su límite lo forma el río Negro y otra, una línea vertical) y el golfo San Matías (mar Argentino, océano Atlántico), al sur con Chubut y al oeste con la región chilena de Los Lagos, cuya frontera está determinada por la línea de altas cumbres de la cordillera de los Andes. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Rio_Negro_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Rio_Negro_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+      { identificacion: "salta", nombre: "Salta (SA)", color: "#8a293d", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Bandera_de_la_Provincia_de_Salta.svg/564px-Bandera_de_la_Provincia_de_Salta.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Salta", descripcion: "Salta es una de las 23 provincias de Argentina y se ubica en el noroeste del país.\n El sector primario está dado por cultivos industriales como el cacao café, tabaco, chirimoya, caña de azúcar, banana, mango, papaya, cítricos, legumbres, hortalizas, vid, ajíes, cebollas, papas y algodón. En el secundario destacan azúcar y sus subproductos, vino, cervezas, lácteos y pastas. \n El azúcar y el vino se exportan a Europa y los Estados Unidos, y en el caso del vino salteño, goza de una excelente reputación a nivel internacional. \n  En la capital provincial y las principales localidades gran parte de la población se dedica al sector de servicios: comercio, bancos y actividades financieras, educación, salud, transporte, comunicaciones, gastronomía y entretenimiento, etc. El turismo ha cobrado gran importancia, y se han abierto numerosos hoteles, algunos de gran categoría. ", gobernador: "Gustavo Sáenz ", capital: "Salta", poblada: "Salta", fundacion: "8 de octubre de 1814", autonomia: "17 de diciembre de 1836  ", superficie: "155.488 km² ", poblacion: "1.333.365  hab. ", gentillicio: "Salteño/ña    ", clima: "Cálido", ubicacion: "https://www.google.com.ar/maps/place/Salta/data=!4m2!3m1!1s0x941b0d2938ead0c7:0x8b4a1bd1f6c37998?sa=X&ved=2ahUKEwjQ-dacsKHxAhVZrJUCHVEVCfEQ8gEwFHoECAYQAQ", ubicacionDesc: "Está ubicada al noroeste del país, N.O.A. , limitando al norte con la Provincia de Jujuy y con el Departamento de Potosí y el Departamento de Tarija en Bolivia hasta el trifinio Hito Esmeralda, donde comienza su frontera con el Departamento de Boquerón en Paraguay (hacia el noreste), al este con Formosa y Chaco, al sur con Santiago del Estero, Tucumán y Catamarca, y al oeste con la Región de Antofagasta en Chile. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Salta_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Salta_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+      //San  Juan
+      { identificacion: "san juan", nombre: "SAN JUAN (SJ)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bandera_de_San_Juan_Ciudadana.png/800px-Bandera_de_San_Juan_Ciudadana.png", url: "https://es.wikipedia.org/wiki/Provincia_de_San_Juan_(Argentina)", descripcion: "San Juan es una de las 23 provincias de Argentina y se ubica en el noroeste del país.\n La economía de la provincia de San Juan está representada por la agricultura, donde sobresale en cultivo de la vid. En la industria se destaca la elaboración del vino y diversas conservas de alimentos. También ha comenzado a desarrollarse intensamente la minería, con la extracción de diversos minerales, de la mano de varias empresas multinacionales, y el turismo. ", gobernador: "Sergio Uñac ", capital: "San Juan", poblada: "Gran San Juan", fundacion: "13 de junio de 1562", autonomia: "1 de marzo de 1820", superficie: "89.651 km² ", poblacion: "738.959  hab. ", gentillicio: "Sanjuanino/na  ", clima: "Templado seco", ubicacion: "https://www.google.com.ar/maps/place/San+Juan/data=!4m2!3m1!1s0x96814029a33cd497:0x3552ffe367e3b1df?sa=X&ved=2ahUKEwjlr7HyzKHxAhU0r5UCHRgSCEYQ8gEwAHoECAUQAQ", ubicacionDesc: "Está ubicada en el noroeste de la región de Cuyo y más exactamente el Cuyo, al oeste del país, limitando al noreste con La Rioja, al sureste con San Luis, al sur con Mendoza y al oeste con las regiones chilenas de Atacama, Coquimbo y Valparaíso, cuyo límite está determinado divisoria de agua de la cordillera de los Andes. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/San_Juan_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-San_Juan_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+      //San Luis
+      { identificacion: "san luis", nombre: "SAN LUIS (SL)", color: "FDFDFD", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Bandera_de_la_Provincia_de_San_Luis.svg/800px-Bandera_de_la_Provincia_de_San_Luis.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_San_Luis", descripcion: "San Luis es una de las 23 provincias de Argentina y se ubica al sureste de la región del Nuevo Cuyo, al oeste del país.\n En el sector agroindustrial se destacan los frigoríficos y las curtiembres. En los últimos años creció la actividad lechera, la producción de electrodomésticos, plásticos y artículos de papel y cartón. También se desarrolla la industria minera en las sierras de San Luis, del Gigante y de la Estanzuela, ricas en granito y lajas, de donde extraen calizas, basalto y mármol.\n  El turismo es otra de las actividades impulsadas por el gobierno puntano a partir del retorno de la democracia en 1983. Actualmente la provincia cuenta con la más importante red de autopistas del país, que conecta a la mayoría de las localidades turísticas con la capital provincial. ", gobernador: "Alberto Rodríguez Saá ", capital: "San Luis", poblada: "Gran San Luis", fundacion: "25 de agosto de 1594", autonomia: "1 de marzo de 1820", superficie: "76.748 km² ", poblacion: "502.003  hab.", gentillicio: "Sanluiseño/ña o puntano/na (para los nacidos en la capital) ", clima: "Continental seco", ubicacion: "https://www.google.com.ar/maps/place/San+Luis/data=!4m2!3m1!1s0x95d43be4529ad73d:0x5dee1e83bd8abc46?sa=X&ved=2ahUKEwiV5c7R1aHxAhVPrZUCHcnCDCIQ8gEwAHoECAYQAQ", ubicacionDesc: "Está ubicada al sureste de la región del Nuevo Cuyo, al oeste del país, limitando al norte con La Rioja, al este con Córdoba, al sureste y sur con la Provincia de La Pampa, al oeste con el río Desaguadero que la separa de Mendoza, y al noroeste con San Juan. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/San_Luis_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-San_Luis_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+     { identificacion: "santa cruz", nombre: "SANTA CRUZ (SC)", color: "#2197de", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Bandera_de_la_Provincia_de_Santa_Cruz.svg/765px-Bandera_de_la_Provincia_de_Santa_Cruz.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Santa_Cruz", descripcion: "Santa Cruz es una de las 23 provincias de Argentina y se ubica al sur de la región patagónica de Argentina.\n  La provincia de Santa Cruz es pionera a nivel mundial en el uso de energías alternativas renovables: la gran amplitud de las mareas, principalmente en las rías y estuarios, es fuente de gran potencial para obtener energía mareomotriz, aunque en el 2005 la más desarrollada de las energías limpias es la energía que se obtiene de los fuertes y constantes vientos que soplan de oeste a este por gran parte de la provincia, en este caso, varios molinos producen energía eólica. \n  La economía de la zona se basa principalmente en la extracción de petróleo, gas butano y metano. En minería, se explota oro en Cerro Vanguardia con una importante producción, y oro con plata en la mina de Manantial Espejo.  ", gobernador: "Alicia Kirchner ", capital: "Río Gallegos", poblada: "Río Gallegos", fundacion: "16 de octubre de 1884 ", autonomia: "22 de noviembre de 1956", superficie: "243.943 km² ", poblacion: "273.964  hab.", gentillicio: "Santacruceño/ña  ", clima: "Árido y frío", ubicacion: "https://www.google.com.ar/maps/place/Santa+Cruz/data=!4m2!3m1!1s0xbdb6fbfdc37f535f:0xe4b90d77fdc8237c?sa=X&ved=2ahUKEwjZsdXh2KHxAhWnq5UCHSJFCjIQ8gEwAHoECBAQAQ", ubicacionDesc: "Está ubicada al sur de la región patagónica, la cual ocupa la mitad sur del país, limitando al norte con Chubut, al este con el océano Atlántico y al sur y oeste con las regiones de Magallanes y de Aysén de la República de Chile. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Santa_Cruz_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Santa_Cruz_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+      //Santa Fé
+      { identificacion: "santa fe", nombre: "SANTA FE (SF)", color: "#b43232", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Bandera_de_la_Provincia_de_Santa_Fe.svg/435px-Bandera_de_la_Provincia_de_Santa_Fe.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Santa_Fe", descripcion: "Santa Fe es una de las 23 provincias de Argentina y se ubica en el centro-este de Argentina.\n  La  economía de Santa Fe es la segunda más importante del país. Representa el 8 % del total de Argentina, la producción se estima en ARS 27 mil millones en 2006, es decir, USD 9000 per cápita (alrededor de la media nacional). A pesar de que la economía está bien diversificada, la agricultura sigue teniendo un papel indispensable que desempeñar a través de los ingresos de divisas y la rentabilidad de las exportaciones de ITS. El veintiún por ciento de las tierras cultivadas de la Argentina están en Santa Fe, cuyos cultivos principales son soja (principal productor nacional), girasol, maíz y trigo. En menor escala fresas, miel y sus derivados (300.000 colmenas), la madera y el algodón.  ", gobernador: "Omar Perotti", capital: "Santa Fe", poblada: "Rosario", fundacion: "15 de noviembre de 1573 ", autonomia: "10 de mayo de 1816", superficie: "133.007 km² ", poblacion: "3.397.532  hab.", gentillicio: "Santafesino/na  ", clima: "Templado y subtropical", ubicacion: "https://www.google.com.ar/maps/place/Santa+Fe/data=!4m2!3m1!1s0x944ac01eb26c186f:0x8e3e4e20675a3bbc?sa=X&ved=2ahUKEwihn4GU3aHxAhVnrJUCHfF7BlsQ8gEwFHoECAgQAQ", ubicacionDesc: "Está ubicada en el oeste de la Región del Litoral​ y forma parte de la región integrada Centro,​ limitando al norte con Chaco, al este con el río Paraná que la separa de Corrientes y Entre Ríos, al sur con la Provincia de Buenos Aires y al oeste con la Provincia de Córdoba y Santiago del Estero. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Santa_Fe_in_Argentina.svg/352px-Santa_Fe_in_Argentina.svg.png" },
+      { identificacion: "santiago del estero", nombre: "SANTIAGO DEL ESTERO (SE)", color: "#b43232", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Bandera_de_la_Provincia_de_Santiago_del_Estero.svg/750px-Bandera_de_la_Provincia_de_Santiago_del_Estero.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Santiago_del_Estero", descripcion: "Santiago del Estero es una de las 23 provincias de Argentina y se ubica en el norte de Argentina.\n La explotación forestal es la actividad económica más importante de la provincia. Los bosques -más del 50% del territorio- producen el mayor volumen de madera del país. Muchos obrajes preparan durmientes, leña, carbón vegetal, rollizos y postes. La agricultura y la ganadería, en gran desarrollo, tienen su asiento principalmente entre los ríos Salado del Norte y Dulce. Gracias al riego se cultiva trigo, maíz, alfalfa, lino, algodón y frutales. El ganado más abundante es el caprino. En escala más reducida hay bovinos, lanares, caballares, porcinos y asnales. La producción minera está representada por cal, yeso, granito, sal, manganeso y mármol. Además de la producción de carbón vegetal y madera, hay fábricas de cemento y elaboradoras de cal.", gobernador: "Gerardo Zamora", capital: "Santiago del Estero", poblada: "Santiago del Estero", fundacion: "25 de julio de 1553 ", autonomia: "27 de abril de 1820", superficie: "136.351 km²", poblacion: "928.097  hab.", gentillicio: "Santiagueño/ña", clima: "Semitropical continental", ubicacion: "https://www.google.com.ar/maps/place/Santiago+del+Estero/data=!4m2!3m1!1s0x9425a84f49ae19cf:0xe23b1c64d3a49ba5?sa=X&ved=2ahUKEwihspzS4KHxAhXGrJUCHcf9Bt4Q8gEwAHoECAYQAQ", ubicacionDesc: "Está ubicada al norte del país, en la región del Norte Grande Argentino, limitando al norte con Salta y Chaco, al este nuevamente con Chaco y Santa Fe, al sur con Córdoba y al oeste con Catamarca y Tucumán.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Santiago_del_Estero_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Santiago_del_Estero_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+      { identificacion: "tierra del fuego", nombre: "PROVINCIA DE TIERRA DEL FUEGO, ANTÁRTIDA E ISLAS DEL ATLÁNTICO SUR (TF)", color: "#fd9830", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Bandera_de_la_Provincia_de_Tierra_del_Fuego.svg/320px-Bandera_de_la_Provincia_de_Tierra_del_Fuego.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tierra_del_Fuego,_Ant%C3%A1rtida_e_Islas_del_Atl%C3%A1ntico_Sur", descripcion: "Tierra del Fuego, Antártida e Islas del Atlántico Sur es una de las 23 provincias de Argentina y se ubica en el sur de Argentina, siendo el territorio más austral del país. \nCon respecto a los territorios cuya soberanía se encuentra en disputa (islas Malvinas, islas Georgias del Sur, islas Sandwich del Sur, islas Orcadas del Sur, islas Shetland del Sur, Antártida Argentina), la ley de provincialización en su artículo 2 establece que corresponden al territorio de la provincia, pero «sujeta a los tratados con potencias extranjeras que celebre el gobierno federal, para cuya ratificación no será necesario consultar al gobierno provincial», norma que habilita la secesión de dichos territorios por la sola decisión del Estado nacional en el marco de las negociaciones sobre la soberanía con otras potencias.", gobernador: "Gustavo Melella", capital: "Río Grande", poblada: "Santiago del Estero", fundacion: "1884 ", autonomia: "26 de abril de 1990", superficie: "21.571 km² (excluyendo territorio reclamado) \n  1.002.445  km² (incluyendo territorio reclamado)", poblacion: "160.720  hab.", gentillicio: "Fueguino/na", clima: "Templado frío y húmedo", ubicacion: "https://www.google.com.ar/maps/place/Tierra+del+Fuego/data=!4m2!3m1!1s0xbc4c22cfd9432921:0x80ee54358cf0d88d?sa=X&ved=2ahUKEwiqpfvA5KHxAhWlq5UCHerrDA4Q8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en la región patagónica, en el extremo sur de la Argentina, y ocupa un amplio territorio insular, marítimo y antártico, que se extiende desde la Isla Grande de Tierra del Fuego al polo Sur, incluyendo la isla de los Estados, las islas Malvinas, las islas del Atlántico Sur, la península Antártica, formando un triángulo cuyos lados son los meridianos 74°O y 25°O y su vértice el polo Sur.",ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Tierra_del_Fuego%2C_Antartida_e_Islas_del_Atlantico_Sur_%28de-facto_%2Bclaims_hatched%29_%28special_marker%29_%28%2BAntarctica%29.svg/641px-Tierra_del_Fuego%2C_Antartida_e_Islas_del_Atlantico_Sur_%28de-facto_%2Bclaims_hatched%29_%28special_marker%29_%28%2BAntarctica%29.svg.png"},
 
+      { identificacion: "tucuman", nombre: "TUCUMAN (TU)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg/700px-Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tucum%C3%A1n", descripcion: "Tucuman es una de las 23 provincias de Argentina y se ubica en el noroeste de Argentina. \n Fue escenario del Congreso de Tucumán entre los años 1816 y 1820 que, entre otras cosas, declaró la Independencia de las Provincias Unidas del Sud (primer nombre oficial del Estado soberano llamado Argentina) respecto a España y cualquier otro poder extranjero, el 9 de julio de 1816. Es la provincia de menor superficie de la Argentina y la de mayor densidad de población del país. \n \n Actualmente entre las principales actividades que se desarrollan se encuentran los complejos agroindustriales del azúcar y del limón, obteniéndose, en el caso del limón, desde fruta en fresco clasificada y empacada hasta productos industriales como jugos concentrados o aceites esenciales. También posee distintas industrias: automotriz, textil y calzado, golosinas, gaseosas y papel, cervecerías, excelentes quesillos y quesos.", gobernador: "Juan Manzur", capital: "San Miguel de Tucumán", poblada: "San Miguel de Tucumán", fundacion: "1564", autonomia: "25 de noviembre de 1825", superficie: "22.525 km²", poblacion: "1.767.500  hab.", gentillicio: "Tucumano/na", clima: "Cálido subtropical con estación seca", ubicacion: "https://www.google.com.ar/maps/place/San+Miguel+de+Tucum%C3%A1n,+Tucum%C3%A1n/data=!4m2!3m1!1s0x94223792d6c56903:0xf88d5b92b5c56527?sa=X&ved=2ahUKEwicmajl6KHxAhVLqJUCHfLRDqYQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noroeste del país, en la región del Norte Grande Argentino, limitando al norte con Salta, al este con Santiago del Estero y al sur y oeste con Catamarca.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
     ]
-    console.log(provincia)
+  
     if (provincia != null) {
       var provincia2 = provincia.toLowerCase()
     }
@@ -191,411 +203,7 @@ module.exports = {
       paginationEmbed(interaction, pages, buttonList, timeout);
 
     }
-
-  
-    if (provincia2 == "salta" || provincia2 == "sa") {
-      const embed1 = new Discord.MessageEmbed()
-        .setTitle("SALTA (SA)")
-        .setURL("https://es.wikipedia.org/wiki/Provincia_de_Salta")
-        .setDescription("Salta es una de las 23 provincias de Argentina y se ubica en el noroeste del país.\n El sector primario está dado por cultivos industriales como el cacao café, tabaco, chirimoya, caña de azúcar, banana, mango, papaya, cítricos, legumbres, hortalizas, vid, ajíes, cebollas, papas y algodón. En el secundario destacan azúcar y sus subproductos, vino, cervezas, lácteos y pastas. \n El azúcar y el vino se exportan a Europa y los Estados Unidos, y en el caso del vino salteño, goza de una excelente reputación a nivel internacional. \n  En la capital provincial y las principales localidades gran parte de la población se dedica al sector de servicios: comercio, bancos y actividades financieras, educación, salud, transporte, comunicaciones, gastronomía y entretenimiento, etc. El turismo ha cobrado gran importancia, y se han abierto numerosos hoteles, algunos de gran categoría.")
-        .setColor('#8a293d')
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Bandera_de_la_Provincia_de_Salta.svg/564px-Bandera_de_la_Provincia_de_Salta.svg.png")
-        .addField("Gobernador ", "Gustavo Sáenz", true)
-        .addField("Capital ", "Salta", true)
-        .addField("Ciudad más poblada ", "Salta", true)
-        .addField("Fundación ", "8 de octubre de 1814", true)
-        .addField("Declaración de autonomía ", "17 de diciembre de 1836", true)
-        .addField("Superficie ", "155.488 km²", true)
-        .addField("Población (2017) ", "1.333.365  hab.", true)
-        .addField("Gentillicio ", "Salteño/ña ", true)
-        .addField("Clima ", "Cálido", true)
-
-
-      const embed2 = new Discord.MessageEmbed()
-        .setTitle("Ubicación de Salta")
-        .setURL("https://www.google.com.ar/maps/place/Salta/data=!4m2!3m1!1s0x941b0d2938ead0c7:0x8b4a1bd1f6c37998?sa=X&ved=2ahUKEwjQ-dacsKHxAhVZrJUCHVEVCfEQ8gEwFHoECAYQAQ")
-        .setDescription("Está ubicada al noroeste del país, N.O.A. , limitando al norte con la Provincia de Jujuy y con el Departamento de Potosí y el Departamento de Tarija en Bolivia hasta el trifinio Hito Esmeralda, donde comienza su frontera con el Departamento de Boquerón en Paraguay (hacia el noreste), al este con Formosa y Chaco, al sur con Santiago del Estero, Tucumán y Catamarca, y al oeste con la Región de Antofagasta en Chile. ")
-        .setColor('#8a293d')
-        .setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Salta_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Salta_in_Argentina_%28%2BFalkland_hatched%29.svg.png")
-
-
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("❓ Información")
-        .setStyle("SUCCESS");
-
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("🗺️ Ubicación")
-        .setStyle("PRIMARY");
-
-      const pages = [
-        embed1,
-        embed2,
-
-
-      ];
-
-      const buttonList = [button1, button2];
-      const timeout = 30000;
-      paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-    }
-
-    if (provincia2 == "san juan" || provincia2 == "sj" || provincia2 == "sanjuan") {
-      const embed1 = new Discord.MessageEmbed()
-        .setTitle("SAN JUAN (SJ)")
-        .setURL("https://es.wikipedia.org/wiki/Provincia_de_San_Juan_(Argentina)")
-        .setDescription("San Juan es una de las 23 provincias de Argentina y se ubica en el noroeste del país.\n La economía de la provincia de San Juan está representada por la agricultura, donde sobresale en cultivo de la vid. En la industria se destaca la elaboración del vino y diversas conservas de alimentos. También ha comenzado a desarrollarse intensamente la minería, con la extracción de diversos minerales, de la mano de varias empresas multinacionales, y el turismo.  ")
-        .setColor('#76abdc')
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bandera_de_San_Juan_Ciudadana.png/800px-Bandera_de_San_Juan_Ciudadana.png")
-        .addField("Gobernador ", "Sergio Uñac", true)
-        .addField("Capital ", "San Juan", true)
-        .addField("Ciudad más poblada ", "Gran San Juan", true)
-        .addField("Fundación ", "13 de junio de 1562", true)
-        .addField("Declaración de autonomía ", "1 de marzo de 1820", true)
-        .addField("Superficie ", "89.651 km²", true)
-        .addField("Población (2014) ", "738.959  hab.", true)
-        .addField("Gentillicio ", "Sanjuanino/na ", true)
-        .addField("Clima ", "Templado seco", true)
-
-
-      const embed2 = new Discord.MessageEmbed()
-        .setTitle("Ubicación de San Juan")
-        .setURL("https://www.google.com.ar/maps/place/San+Juan/data=!4m2!3m1!1s0x96814029a33cd497:0x3552ffe367e3b1df?sa=X&ved=2ahUKEwjlr7HyzKHxAhU0r5UCHRgSCEYQ8gEwAHoECAUQAQ")
-        .setDescription("Está ubicada en el noroeste de la región de Cuyo y más exactamente el Cuyo, al oeste del país, limitando al noreste con La Rioja, al sureste con San Luis, al sur con Mendoza y al oeste con las regiones chilenas de Atacama, Coquimbo y Valparaíso, cuyo límite está determinado divisoria de agua de la cordillera de los Andes. ")
-        .setColor('#76abdc')
-        .setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/San_Juan_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-San_Juan_in_Argentina_%28%2BFalkland_hatched%29.svg.png")
-
-
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("❓ Información")
-        .setStyle("SUCCESS");
-
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("🗺️ Ubicación")
-        .setStyle("PRIMARY");
-
-      const pages = [
-        embed1,
-        embed2,
-
-
-      ];
-
-      const buttonList = [button1, button2];
-      const timeout = 30000;
-      paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-    }
-
-    if (provincia2 == "sl" || provincia2 == "sanluis" || provincia2 == "san luis") {
-      const embed1 = new Discord.MessageEmbed()
-        .setTitle("SAN LUIS (SL)")
-        .setURL("https://es.wikipedia.org/wiki/Provincia_de_San_Luis")
-        .setDescription("San Luis es una de las 23 provincias de Argentina y se ubica al sureste de la región del Nuevo Cuyo, al oeste del país.\n En el sector agroindustrial se destacan los frigoríficos y las curtiembres. En los últimos años creció la actividad lechera, la producción de electrodomésticos, plásticos y artículos de papel y cartón. También se desarrolla la industria minera en las sierras de San Luis, del Gigante y de la Estanzuela, ricas en granito y lajas, de donde extraen calizas, basalto y mármol.\n  El turismo es otra de las actividades impulsadas por el gobierno puntano a partir del retorno de la democracia en 1983. Actualmente la provincia cuenta con la más importante red de autopistas del país, que conecta a la mayoría de las localidades turísticas con la capital provincial. ")
-        .setColor('#FDFDFD')
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Bandera_de_la_Provincia_de_San_Luis.svg/800px-Bandera_de_la_Provincia_de_San_Luis.svg.png")
-        .addField("Gobernador ", "Alberto Rodríguez Saá ", true)
-        .addField("Capital ", "	San Luis", true)
-        .addField("Ciudad más poblada ", "Gran San Luis", true)
-        .addField("Fundación ", "25 de agosto de 1594 ", true)
-        .addField("Declaración de autonomía ", "1 de marzo de 1820", true)
-        .addField("Superficie ", "76.748 km²", true)
-        .addField("Población (2017) ", "502.003  hab.", true)
-        .addField("Gentillicio ", "	Sanluiseño/ña o puntano/na (para los nacidos en la capital) ", true)
-        .addField("Clima ", "Continental seco", true)
-
-      const embed2 = new Discord.MessageEmbed()
-        .setTitle("Ubicación de San Luis")
-        .setURL("https://www.google.com.ar/maps/place/San+Luis/data=!4m2!3m1!1s0x95d43be4529ad73d:0x5dee1e83bd8abc46?sa=X&ved=2ahUKEwiV5c7R1aHxAhVPrZUCHcnCDCIQ8gEwAHoECAYQAQ")
-        .setDescription(" Está ubicada al sureste de la región del Nuevo Cuyo, al oeste del país, limitando al norte con La Rioja, al este con Córdoba, al sureste y sur con la Provincia de La Pampa, al oeste con el río Desaguadero que la separa de Mendoza, y al noroeste con San Juan.")
-        .setColor('#FDFDFD')
-        .setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/San_Luis_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-San_Luis_in_Argentina_%28%2BFalkland_hatched%29.svg.png")
-
-
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("❓ Información")
-        .setStyle("SUCCESS");
-
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("🗺️ Ubicación")
-        .setStyle("PRIMARY");
-
-      const pages = [
-        embed1,
-        embed2,
-
-
-      ];
-
-      const buttonList = [button1, button2];
-      const timeout = 30000;
-      paginationEmbed(interaction, pages, buttonList, timeout);
-
-    }
-
-    if (provincia2 == "santa cruz" || provincia2 == "sc" || provincia2 == "santacruz") {
-
-      const embed1 = new Discord.MessageEmbed()
-        .setTitle("SANTA CRUZ (SC)")
-        .setURL("https://es.wikipedia.org/wiki/Provincia_de_Santa_Cruz")
-        .setDescription("Santa Cruz es una de las 23 provincias de Argentina y se ubica al sur de la región patagónica de Argentina.\n  La provincia de Santa Cruz es pionera a nivel mundial en el uso de energías alternativas renovables: la gran amplitud de las mareas, principalmente en las rías y estuarios, es fuente de gran potencial para obtener energía mareomotriz, aunque en el 2005 la más desarrollada de las energías limpias es la energía que se obtiene de los fuertes y constantes vientos que soplan de oeste a este por gran parte de la provincia, en este caso, varios molinos producen energía eólica. \n  La economía de la zona se basa principalmente en la extracción de petróleo, gas butano y metano. En minería, se explota oro en Cerro Vanguardia con una importante producción, y oro con plata en la mina de Manantial Espejo.  ")
-        .setColor('#2197de')
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Bandera_de_la_Provincia_de_Santa_Cruz.svg/765px-Bandera_de_la_Provincia_de_Santa_Cruz.svg.png")
-        .addField("Gobernador ", "Alicia Kirchner ", true)
-        .addField("Capital ", "Río Gallegos", true)
-        .addField("Ciudad más poblada ", "Río Gallegos", true)
-        .addField("Fundación ", "16 de octubre de 1884 ", true)
-        .addField("Declaración de autonomía ", "22 de noviembre de 1956", true)
-        .addField("Superficie ", "243.943 km²", true)
-        .addField("Población (2010) ", "273.964  hab.", true)
-        .addField("Gentillicio ", "	Santacruceño/ña ", true)
-        .addField("Clima ", "Árido y frío", true)
-
-
-      const embed2 = new Discord.MessageEmbed()
-        .setTitle("Ubicación de Santa Cruz")
-        .setURL("https://www.google.com.ar/maps/place/Santa+Cruz/data=!4m2!3m1!1s0xbdb6fbfdc37f535f:0xe4b90d77fdc8237c?sa=X&ved=2ahUKEwjZsdXh2KHxAhWnq5UCHSJFCjIQ8gEwAHoECBAQAQ")
-        .setDescription(" Está ubicada al sur de la región patagónica, la cual ocupa la mitad sur del país, limitando al norte con Chubut, al este con el océano Atlántico y al sur y oeste con las regiones de Magallanes y de Aysén de la República de Chile. ")
-        .setColor('#2197de')
-        .setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Santa_Cruz_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Santa_Cruz_in_Argentina_%28%2BFalkland_hatched%29.svg.png")
-
-
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("❓ Información")
-        .setStyle("SUCCESS");
-
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("🗺️ Ubicación")
-        .setStyle("PRIMARY");
-
-      const pages = [
-        embed1,
-        embed2,
-
-
-      ];
-
-      const buttonList = [button1, button2];
-      const timeout = 30000;
-      paginationEmbed(interaction, pages, buttonList, timeout);
-
-    }
-
-    if (provincia2 == "santa fé" || provincia2 == "sf" || provincia2 == "santafe" || provincia2 == "santa fe") {
-      const embed1 = new Discord.MessageEmbed()
-        .setTitle("SANTA FE (SF)")
-        .setURL("https://es.wikipedia.org/wiki/Provincia_de_Santa_Fe")
-        .setDescription("Santa Fe es una de las 23 provincias de Argentina y se ubica en el centro-este de Argentina.\n  La  economía de Santa Fe es la segunda más importante del país. Representa el 8 % del total de Argentina, la producción se estima en ARS 27 mil millones en 2006, es decir, USD 9000 per cápita (alrededor de la media nacional). A pesar de que la economía está bien diversificada, la agricultura sigue teniendo un papel indispensable que desempeñar a través de los ingresos de divisas y la rentabilidad de las exportaciones de ITS. El veintiún por ciento de las tierras cultivadas de la Argentina están en Santa Fe, cuyos cultivos principales son soja (principal productor nacional), girasol, maíz y trigo. En menor escala fresas, miel y sus derivados (300.000 colmenas), la madera y el algodón.")
-        .setColor('#b43232')
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Bandera_de_la_Provincia_de_Santa_Fe.svg/435px-Bandera_de_la_Provincia_de_Santa_Fe.svg.png")
-        .addField("Gobernador ", "Omar Perotti", true)
-        .addField("Capital ", "Santa Fe", true)
-        .addField("Ciudad más poblada ", "Rosario", true)
-        .addField("Fundación ", "15 de noviembre de 1573 ", true)
-        .addField("Declaración de autonomía ", "10 de mayo de 1816", true)
-        .addField("Superficie ", "133.007 km²", true)
-        .addField("Población (2015) ", "3.397.532  hab.", true)
-        .addField("Gentillicio ", "Santafesino/na", true)
-        .addField("Clima ", "Templado y subtropical", true)
-
-
-      const embed2 = new Discord.MessageEmbed()
-        .setTitle("Ubicación de Santa Fe")
-        .setURL("https://www.google.com.ar/maps/place/Santa+Fe/data=!4m2!3m1!1s0x944ac01eb26c186f:0x8e3e4e20675a3bbc?sa=X&ved=2ahUKEwihn4GU3aHxAhVnrJUCHfF7BlsQ8gEwFHoECAgQAQ")
-        .setDescription("Está ubicada en el oeste de la Región del Litoral​ y forma parte de la región integrada Centro,​ limitando al norte con Chaco, al este con el río Paraná que la separa de Corrientes y Entre Ríos, al sur con la Provincia de Buenos Aires y al oeste con la Provincia de Córdoba y Santiago del Estero.")
-        .setColor('#b43232')
-        .setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Santa_Fe_in_Argentina.svg/352px-Santa_Fe_in_Argentina.svg.png")
-
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("❓ Información")
-        .setStyle("SUCCESS");
-
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("🗺️ Ubicación")
-        .setStyle("PRIMARY");
-
-      const pages = [
-        embed1,
-        embed2,
-
-
-      ];
-
-      const buttonList = [button1, button2];
-      const timeout = 30000;
-      paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-    }
-
-    if (provincia2 == "santiago del estero" || provincia2 == "se" || provincia2 == "santiagodelestero") {
-      const embed1 = new Discord.MessageEmbed()
-        .setTitle("SANTIAGO DEL ESTERO (SE)")
-        .setURL("https://es.wikipedia.org/wiki/Provincia_de_Santiago_del_Estero")
-        .setDescription("Santiago del Estero es una de las 23 provincias de Argentina y se ubica en el norte de Argentina.\n La explotación forestal es la actividad económica más importante de la provincia. Los bosques -más del 50% del territorio- producen el mayor volumen de madera del país. Muchos obrajes preparan durmientes, leña, carbón vegetal, rollizos y postes. La agricultura y la ganadería, en gran desarrollo, tienen su asiento principalmente entre los ríos Salado del Norte y Dulce. Gracias al riego se cultiva trigo, maíz, alfalfa, lino, algodón y frutales. El ganado más abundante es el caprino. En escala más reducida hay bovinos, lanares, caballares, porcinos y asnales. La producción minera está representada por cal, yeso, granito, sal, manganeso y mármol. Además de la producción de carbón vegetal y madera, hay fábricas de cemento y elaboradoras de cal.")
-        .setColor('#b43232')
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Bandera_de_la_Provincia_de_Santiago_del_Estero.svg/750px-Bandera_de_la_Provincia_de_Santiago_del_Estero.svg.png")
-        .addField("Gobernador ", "Gerardo Zamora", true)
-        .addField("Capital ", "Santiago del Estero", true)
-        .addField("Ciudad más poblada ", "Santiago del Estero", true)
-        .addField("Fundación ", "25 de julio de 1553", true)
-        .addField("Declaración de autonomía ", "27 de abril de 1820", true)
-        .addField("Superficie ", "136.351 km²", true)
-        .addField("Población (2015) ", "928.097  hab.", true)
-        .addField("Gentillicio ", "Santiagueño/ña", true)
-        .addField("Clima ", "Semitropical continental", true)
-
-
-      const embed2 = new Discord.MessageEmbed()
-        .setTitle("Ubicación de Santiago del Estero")
-        .setURL("https://www.google.com.ar/maps/place/Santiago+del+Estero/data=!4m2!3m1!1s0x9425a84f49ae19cf:0xe23b1c64d3a49ba5?sa=X&ved=2ahUKEwihspzS4KHxAhXGrJUCHcf9Bt4Q8gEwAHoECAYQAQ")
-        .setDescription("Está ubicada al norte del país, en la región del Norte Grande Argentino, limitando al norte con Salta y Chaco, al este nuevamente con Chaco y Santa Fe, al sur con Córdoba y al oeste con Catamarca y Tucumán.")
-        .setColor('#b43232')
-        .setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Santiago_del_Estero_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Santiago_del_Estero_in_Argentina_%28%2BFalkland_hatched%29.svg.png")
-
-
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("❓ Información")
-        .setStyle("SUCCESS");
-
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("🗺️ Ubicación")
-        .setStyle("PRIMARY");
-
-      const pages = [
-        embed1,
-        embed2,
-
-
-      ];
-
-      const buttonList = [button1, button2];
-      const timeout = 30000;
-      paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-
-
-    }
-
-    if (provincia2 == "tierra del fuego" || provincia2 == "tf" || provincia2 == "provincia de tierra del fuego, antártida e islas del  atlántico sur") {
-      const embed1 = new Discord.MessageEmbed()
-        .setTitle("PROVINCIA DE TIERRA DEL FUEGO, ANTÁRTIDA E ISLAS DEL ATLÁNTICO SUR (TF)")
-        .setURL("https://es.wikipedia.org/wiki/Provincia_de_Tierra_del_Fuego,_Ant%C3%A1rtida_e_Islas_del_Atl%C3%A1ntico_Sur")
-        .setDescription("Tierra del Fuego, Antártida e Islas del Atlántico Sur es una de las 23 provincias de Argentina y se ubica en el sur de Argentina, siendo el territorio más austral del país. \nCon respecto a los territorios cuya soberanía se encuentra en disputa (islas Malvinas, islas Georgias del Sur, islas Sandwich del Sur, islas Orcadas del Sur, islas Shetland del Sur, Antártida Argentina), la ley de provincialización en su artículo 2 establece que corresponden al territorio de la provincia, pero «sujeta a los tratados con potencias extranjeras que celebre el gobierno federal, para cuya ratificación no será necesario consultar al gobierno provincial», norma que habilita la secesión de dichos territorios por la sola decisión del Estado nacional en el marco de las negociaciones sobre la soberanía con otras potencias.")
-        .setColor('#fd9830')
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Bandera_de_la_Provincia_de_Tierra_del_Fuego.svg/320px-Bandera_de_la_Provincia_de_Tierra_del_Fuego.svg.png")
-        .addField("Gobernador ", "Gustavo Melella", true)
-        .addField("Capital ", "	Ushuaia", true)
-        .addField("Ciudad más poblada ", "Río Grande", true)
-        .addField("Fundación ", "1884", true)
-        .addField("Declaración de autonomía ", "26 de abril de 1990", true)
-        .addField("Superficie ", "21.571 km² (excluyendo territorio reclamado) \n  1.002.445  km² (incluyendo territorio reclamado)", true)
-        .addField("Población (2017) ", "160.720  hab.", true)
-        .addField("Gentillicio ", "Fueguino/na", true)
-        .addField("Clima ", "Templado frío y húmedo", true)
-
-
-      const embed2 = new Discord.MessageEmbed()
-        .setTitle("Ubicación de Tierra del Fuego + territorios reclamados")
-        .setURL("https://www.google.com.ar/maps/place/Tierra+del+Fuego/data=!4m2!3m1!1s0xbc4c22cfd9432921:0x80ee54358cf0d88d?sa=X&ved=2ahUKEwiqpfvA5KHxAhWlq5UCHerrDA4Q8gEwAHoECAcQAQ")
-        .setDescription("Está ubicada en la región patagónica, en el extremo sur de la Argentina, y ocupa un amplio territorio insular, marítimo y antártico, que se extiende desde la Isla Grande de Tierra del Fuego al polo Sur, incluyendo la isla de los Estados, las islas Malvinas, las islas del Atlántico Sur, la península Antártica, formando un triángulo cuyos lados son los meridianos 74°O y 25°O y su vértice el polo Sur.")
-        .setColor('#fd9830')
-        .setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Tierra_del_Fuego%2C_Antartida_e_Islas_del_Atlantico_Sur_%28de-facto_%2Bclaims_hatched%29_%28special_marker%29_%28%2BAntarctica%29.svg/641px-Tierra_del_Fuego%2C_Antartida_e_Islas_del_Atlantico_Sur_%28de-facto_%2Bclaims_hatched%29_%28special_marker%29_%28%2BAntarctica%29.svg.png")
-
-
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("❓ Información")
-        .setStyle("SUCCESS");
-
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("🗺️ Ubicación")
-        .setStyle("PRIMARY");
-
-      const pages = [
-        embed1,
-        embed2,
-
-
-      ];
-
-      const buttonList = [button1, button2];
-      const timeout = 30000;
-      paginationEmbed(interaction, pages, buttonList, timeout);
-
-    }
-
-    if (provincia2 == "tucuman" || provincia2 == "tu") {
-      const embed1 = new Discord.MessageEmbed()
-        .setTitle("TUCUMAN (TU)")
-        .setURL("https://es.wikipedia.org/wiki/Provincia_de_Tucum%C3%A1n")
-        .setDescription("Tucuman es una de las 23 provincias de Argentina y se ubica en el noroeste de Argentina. \n Fue escenario del Congreso de Tucumán entre los años 1816 y 1820 que, entre otras cosas, declaró la Independencia de las Provincias Unidas del Sud (primer nombre oficial del Estado soberano llamado Argentina) respecto a España y cualquier otro poder extranjero, el 9 de julio de 1816. Es la provincia de menor superficie de la Argentina y la de mayor densidad de población del país. \n \n Actualmente entre las principales actividades que se desarrollan se encuentran los complejos agroindustriales del azúcar y del limón, obteniéndose, en el caso del limón, desde fruta en fresco clasificada y empacada hasta productos industriales como jugos concentrados o aceites esenciales. También posee distintas industrias: automotriz, textil y calzado, golosinas, gaseosas y papel, cervecerías, excelentes quesillos y quesos.")
-        .setColor('#76abdc')
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg/700px-Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg.png")
-        .addField("Gobernador ", "Juan Manzur", true)
-        .addField("Capital ", "San Miguel de Tucumán", true)
-        .addField("Ciudad más poblada ", "San Miguel de Tucumán", true)
-        .addField("Fundación ", "1564", true)
-        .addField("Declaración de autonomía ", "25 de noviembre de 1825", true)
-        .addField("Superficie ", "22.525 km²", true)
-        .addField("Población (2010) ", "1.767.500  hab.", true)
-        .addField("Gentillicio ", "Tucumano/na", true)
-        .addField("Clima ", "Cálido subtropical con estación seca", true)
-
-      const embed2 = new Discord.MessageEmbed()
-        .setTitle("Ubicación de Tucuman")
-        .setURL("https://www.google.com.ar/maps/place/San+Miguel+de+Tucum%C3%A1n,+Tucum%C3%A1n/data=!4m2!3m1!1s0x94223792d6c56903:0xf88d5b92b5c56527?sa=X&ved=2ahUKEwicmajl6KHxAhVLqJUCHfLRDqYQ8gEwAHoECAcQAQ")
-        .setDescription("Está ubicada en el noroeste del país, en la región del Norte Grande Argentino, limitando al norte con Salta, al este con Santiago del Estero y al sur y oeste con Catamarca.")
-        .setColor('#76abdc')
-        .setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg.png")
-
-
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("❓ Información")
-        .setStyle("SUCCESS");
-
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("🗺️ Ubicación")
-        .setStyle("PRIMARY");
-
-      const pages = [
-        embed1,
-        embed2,
-
-
-      ];
-
-      const buttonList = [button1, button2];
-      const timeout = 30000;
-      paginationEmbed(interaction, pages, buttonList, timeout);
-
-
-    }
-
-
   }
-
 
 }
 

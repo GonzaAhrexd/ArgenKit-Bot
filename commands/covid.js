@@ -87,7 +87,7 @@ module.exports = {
                     const timeout = 30000;
                     paginationEmbed(interaction, pages, buttonList, timeout);
 
-
+                    return interaction.reply({ content: ' ‎  ' });
 
 
                 })
@@ -222,6 +222,7 @@ module.exports = {
                 const buttonList = [button1, button2];
                 const timeout = 30000;
                 paginationEmbed(interaction, pages, buttonList, timeout);
+                return interaction.reply({ content: ' ‎  ' });
             }
         }
 

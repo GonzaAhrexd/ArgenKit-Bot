@@ -14,9 +14,7 @@ module.exports = {
         .setDescription("¡Si decidiste donarme te lo agradezco infinitamente! ¡Cada peso cuenta!")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919022487377961040/piggy-bank.png")
         .addField("PAYPAL ", "http://paypal.me/GonzaAhre")
-        .addField("LEMONCASH ", " LemonTag: $gonzaahre \n  CVU: 0000168300000008383352")
-        .addField("UALA ", " Usuario: gonzajajaxd \n CVU: 0000007900204494414446 \n Código QR: ")
-        .setImage("https://cdn.discordapp.com/attachments/802944543510495292/814641023870697482/codigo_qr.png")
+        .addField("LEMONCASH ", " LemonTag: $gonzaahre \n  CVU: 0000168300000008383352 \n Alias: gonzaahre.LEMON")
       interaction.reply({
   
         embeds: [embed]

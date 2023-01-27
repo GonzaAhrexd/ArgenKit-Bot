@@ -85,7 +85,8 @@ module.exports = {
     const timeout = 120000;
     paginationEmbed(interaction, pages, buttonList, timeout);
 
-  
+    return interaction.reply({ content: ' ‎  ' });
+     
     }
 
 }

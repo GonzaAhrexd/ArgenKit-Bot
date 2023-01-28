@@ -65,29 +65,43 @@ module.exports = {
 
 
 
-
-                    const button1 = new MessageButton()
-                        .setCustomId("previousbtn")
-                        .setLabel("😷 Total")
-                        .setStyle("DANGER");
-
-                    const button2 = new MessageButton()
-                        .setCustomId("nextbtn")
-                        .setLabel("📅 Hoy")
-                        .setStyle("SUCCESS");
-
-                    const pages = [
-                        embed1,
-                        embed2,
+                    const row = new MessageActionRow()
+                        .addComponents(
+                            new MessageButton()
+                                .setCustomId("previousbtn")
+                                .setLabel("😷 Total")
+                                .setStyle("DANGER")
+                        ).addComponents(
+                            new MessageButton()
+                                .setCustomId("nextbtn")
+                                .setLabel("📅 Hoy")
+                                .setStyle("SUCCESS")
+                        )
 
 
-                    ];
+                    interaction.reply({ embeds: [embed1], components: [row] });
 
-                    const buttonList = [button1, button2];
-                    const timeout = 30000;
-                    paginationEmbed(interaction, pages, buttonList, timeout);
+                    client.on('interactionCreate', interaction => {
+                        if (!interaction.isButton()) return;
+                    });
 
-                    return interaction.reply({ content: ' ‎  ' });
+
+                    const filter = i => i.customId;
+
+                    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+
+                    collector.on('collect', async i => {
+                        if (i.customId === 'previousbtn') {
+                            await i.deferUpdate()
+                            await i.editReply({ embeds: [embed1], components: [row] });
+                        }
+                        if (i.customId === 'nextbtn') {
+
+                            await i.deferUpdate();
+                            await i.editReply({ embeds: [embed2], components: [row] });
+                        }
+
+                    });
 
 
                 })
@@ -179,7 +193,11 @@ module.exports = {
             //Todos los paises
             if (pais2.length != 0) {
 
-                const paisEN = await translate(pais2, { from: "es", to: "en" });
+                let paisEN = await translate(pais2, { from: "es", to: "en" });
+
+                if (paisEN == "U.S")
+                    paisEN = "USA"
+
                 let covidArg = await axios.get(`https://disease.sh/v3/covid-19/countries/${paisEN}`)
 
                 const nombrePais = await translate(covidArg.data.country, { from: "en", to: "es" })
@@ -205,24 +223,44 @@ module.exports = {
                     .addField("Recuperados hoy :green_square: ", currencyFormatter.format(covidArg.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), true)
 
 
-                const button1 = new MessageButton()
-                    .setCustomId("previousbtn")
-                    .setLabel("😷 Total")
-                    .setStyle("DANGER");
+                const row = new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                            .setCustomId("previousbtn")
+                            .setLabel("😷 Total")
+                            .setStyle("DANGER")
+                    ).addComponents(
+                        new MessageButton()
+                            .setCustomId("nextbtn")
+                            .setLabel("📅 Hoy")
+                            .setStyle("SUCCESS")
+                    )
 
-                const button2 = new MessageButton()
-                    .setCustomId("nextbtn")
-                    .setLabel("📅 Hoy")
-                    .setStyle("SUCCESS");
 
-                const pages = [
-                    embed1,
-                    embed2,
-                ];
-                const buttonList = [button1, button2];
-                const timeout = 30000;
-                paginationEmbed(interaction, pages, buttonList, timeout);
-                return interaction.reply({ content: ' ‎  ' });
+                interaction.reply({ embeds: [embed1], components: [row] });
+
+                client.on('interactionCreate', interaction => {
+                    if (!interaction.isButton()) return;
+                });
+
+
+                const filter = i => i.customId;
+
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+
+                collector.on('collect', async i => {
+                    if (i.customId === 'previousbtn') {
+                        await i.deferUpdate()
+                        await i.editReply({ embeds: [embed1], components: [row] });
+                    }
+                    if (i.customId === 'nextbtn') {
+
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed2], components: [row] });
+                    }
+
+                });
+
             }
         }
 

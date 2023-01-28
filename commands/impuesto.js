@@ -78,8 +78,10 @@ module.exports = {
       if (!interaction.isButton()) return;
     });
 
-    
-    const filter = i => i.customId ;
+
+  
+
+    const filter = i => i.user.id === interaction.user.id;
 
     const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 

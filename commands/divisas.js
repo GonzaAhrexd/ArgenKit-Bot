@@ -144,26 +144,54 @@ module.exports = {
                                                 .addField("Inflación anual  :chart_with_downwards_trend: ", "7,1% (2021)", true)
                                                 .addField("Emisor :bank: ", "Sistema de Reserva Federal ", true)
 
-                                            
+                                                const row = new MessageActionRow()
+                                                .addComponents(
+                                                    new MessageButton()
+                                                        .setCustomId("conversion")
+                                                        .setLabel("💸 Conversión ")
+                                                        .setStyle("SUCCESS")
+                                                )
+                                                .addComponents(
+                                                    new MessageButton()
+                                                        .setCustomId("informacion")
+                                                        .setLabel("📋 Información")
+                                                        .setStyle("PRIMARY")
+                                                )
+                
+                
+                
+                
+                                            interaction.reply({ embeds: [embed1], components: [row] });
+                
+                                            client.on('interactionCreate', interaction => {
+                                                if (!interaction.isButton()) return;
+                                            });
+                
+                                            const filter = i => i.user.id === interaction.user.id;
+                
+                                            const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+                
+                                            var actual = embed1
+                
+                                            collector.on('collect', async i => {
+                                                if (i.customId === 'conversion') {
+                                                    await i.deferUpdate()
+                                                    await i.editReply({ embeds: [embed1], components: [row] });
+                                                    actual = embed1                                                
+                                                }
+                                                if (i.customId === 'informacion') {
+                                                    await i.deferUpdate();
+                                                    await i.editReply({ embeds: [embed2], components: [row] });
+                                                    actual = embed2
+                                                }
+                                            });
+                
+                                            collector.on("end", (collected, reason) => {
+                                                if (reason === "time") {
+                                                    interaction.editReply({ embeds: [actual], components: [] });
+                                                }
+                                            })
 
-                                            const button1 = new MessageButton()
-                                                .setCustomId("previousbtn")
-                                                .setLabel("💸 Conversión ")
-                                                .setStyle("SUCCESS");
-
-                                            const button2 = new MessageButton()
-                                                .setCustomId("nextbtn")
-                                                .setLabel("📋 Información")
-                                                .setStyle("PRIMARY");
-
-                                            const pages = [
-                                                embed1,
-                                                embed2,
-                                            ];
-                                            const buttonList = [button1, button2];
-                                            const timeout = 60000;
-                                            paginationEmbed(interaction, pages, buttonList, timeout);
-                                            return interaction.reply({ content: ' ‎ ' });
                                         })
                                         .catch((err) => {
                                             console.error('ERR', err)
@@ -234,27 +262,56 @@ module.exports = {
                                 .addField("Emisor :bank: ", "Banco Central Europeo", true)
 
 
-
-                            const button1 = new MessageButton()
-                                .setCustomId("previousbtn")
-                                .setLabel("💸 Conversión ")
-                                .setStyle("SUCCESS");
-
-                            const button2 = new MessageButton()
-                                .setCustomId("nextbtn")
-                                .setLabel("📋 Información")
-                                .setStyle("PRIMARY");
-
-                            const pages = [
-                                embed1,
-                                embed2,
-                            ];
-                            const buttonList = [button1, button2];
-                            const timeout = 60000;
-                            paginationEmbed(interaction, pages, buttonList, timeout);
-                            return interaction.reply({ content: ' ‎ ' });
+                       
+                                const row = new MessageActionRow()
+                                .addComponents(
+                                    new MessageButton()
+                                        .setCustomId("conversion")
+                                        .setLabel("💸 Conversión ")
+                                        .setStyle("SUCCESS")
+                                )
+                                .addComponents(
+                                    new MessageButton()
+                                        .setCustomId("informacion")
+                                        .setLabel("📋 Información")
+                                        .setStyle("PRIMARY")
+                                )
 
 
+
+
+                            interaction.reply({ embeds: [embed1], components: [row] });
+
+                            client.on('interactionCreate', interaction => {
+                                if (!interaction.isButton()) return;
+                            });
+
+                            const filter = i => i.user.id === interaction.user.id;
+
+                            const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+
+                            var actual = embed1
+
+                            collector.on('collect', async i => {
+                                if (i.customId === 'conversion') {
+                                    await i.deferUpdate()
+                                    await i.editReply({ embeds: [embed1], components: [row] });
+                                    actual = embed1                                                
+                                }
+                                if (i.customId === 'informacion') {
+                                    await i.deferUpdate();
+                                    await i.editReply({ embeds: [embed2], components: [row] });
+                                    actual = embed2
+                                }
+                            });
+
+                            collector.on("end", (collected, reason) => {
+                                if (reason === "time") {
+                                    interaction.editReply({ embeds: [actual], components: [] });
+                                }
+                            })
+    
+                            
 
                         })
                         .catch((err) => {
@@ -318,29 +375,60 @@ module.exports = {
 
 
 
-                            const button1 = new MessageButton()
-                                .setCustomId("previousbtn")
-                                .setLabel("💸 Conversión ")
-                                .setStyle("SUCCESS");
+                                const row = new MessageActionRow()
+                                .addComponents(
+                                    new MessageButton()
+                                        .setCustomId("conversion")
+                                        .setLabel("💸 Conversión ")
+                                        .setStyle("SUCCESS")
+                                )
+                                .addComponents(
+                                    new MessageButton()
+                                        .setCustomId("informacion")
+                                        .setLabel("📋 Información")
+                                        .setStyle("PRIMARY")
+                                )
 
-                            const button2 = new MessageButton()
-                                .setCustomId("nextbtn")
-                                .setLabel("📋 Información")
-                                .setStyle("PRIMARY");
 
-                            const pages = [
-                                embed1,
-                                embed2,
-                            ];
-                            const buttonList = [button1, button2];
-                            const timeout = 60000;
-                            paginationEmbed(interaction, pages, buttonList, timeout);
-                            return interaction.reply({ content: ' ‎ ' });
+
+
+                            interaction.reply({ embeds: [embed1], components: [row] });
+
+                            client.on('interactionCreate', interaction => {
+                                if (!interaction.isButton()) return;
+                            });
+
+                            const filter = i => i.user.id === interaction.user.id;
+
+                            const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+
+                            var actual = embed1
+
+                            collector.on('collect', async i => {
+                                if (i.customId === 'conversion') {
+                                    await i.deferUpdate()
+                                    await i.editReply({ embeds: [embed1], components: [row] });
+                                    actual = embed1                                                
+                                }
+                                if (i.customId === 'informacion') {
+                                    await i.deferUpdate();
+                                    await i.editReply({ embeds: [embed2], components: [row] });
+                                    actual = embed2
+                                }
+                            });
+
+                            collector.on("end", (collected, reason) => {
+                                if (reason === "time") {
+                                    interaction.editReply({ embeds: [actual], components: [] });
+                                }
+                            })
+    
+                            });
                         })
                         .catch((err) => {
                             console.error('ERR', err)
                         })
-                })
+                
 
 
                 .catch((err) => {
@@ -721,42 +809,74 @@ module.exports = {
                                             .addField("Inflación anual :chart_with_downwards_trend: ", divisa.inflacion, true)
                                             .addField("Emisor :bank: ", divisa.emisor, true)
 
-                                        const button1 = new MessageButton()
-                                            .setCustomId("previousbtn")
-                                            .setLabel("💸 Conversión ")
-                                            .setStyle("SUCCESS");
 
-                                        const button2 = new MessageButton()
-                                            .setCustomId("nextbtn")
-                                            .setLabel("📋 Información")
-                                            .setStyle("PRIMARY");
+                                        const row = new MessageActionRow()
+                                            .addComponents(
+                                                new MessageButton()
+                                                    .setCustomId("conversion")
+                                                    .setLabel("💸 Conversión ")
+                                                    .setStyle("SUCCESS")
+                                            )
+                                            .addComponents(
+                                                new MessageButton()
+                                                    .setCustomId("informacion")
+                                                    .setLabel("📋 Información")
+                                                    .setStyle("PRIMARY")
+                                            )
 
-                                        const pages = [
-                                            embed1,
-                                            embed2,
-                                        ];
-                                        const buttonList = [button1, button2];
-                                        const timeout = 60000;
-                                        paginationEmbed(interaction, pages, buttonList, timeout);
-                                        return interaction.reply({ content: ' ‎ ' });
+
+
+
+                                        interaction.reply({ embeds: [embed1], components: [row] });
+
+                                        client.on('interactionCreate', interaction => {
+                                            if (!interaction.isButton()) return;
+                                        });
+
+                                        const filter = i => i.user.id === interaction.user.id;
+
+                                        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+
+                                        var actual = embed1
+
+                                        collector.on('collect', async i => {
+                                            if (i.customId === 'conversion') {
+                                                await i.deferUpdate()
+                                                await i.editReply({ embeds: [embed1], components: [row] });
+                                                actual = embed1                                                
+                                            }
+                                            if (i.customId === 'informacion') {
+                                                await i.deferUpdate();
+                                                await i.editReply({ embeds: [embed2], components: [row] });
+                                                actual = embed2
+                                            }
+                                        });
+
+                                        collector.on("end", (collected, reason) => {
+                                            if (reason === "time") {
+                                                interaction.editReply({ embeds: [actual], components: [] });
+                                            }
+                                        })
+
+                                        })
+                                            .catch((err) => {
+                                                console.error('ERR', err)
+                                            })
                                     })
                                     .catch((err) => {
                                         console.error('ERR', err)
                                     })
                             })
+
                             .catch((err) => {
                                 console.error('ERR', err)
                             })
-                    })
+                            .catch((err) => {
+                                console.error('ERR', err)
+                            })
 
-                    .catch((err) => {
-                        console.error('ERR', err)
-                    })
-                    .catch((err) => {
-                        console.error('ERR', err)
-                    })
-
-            }
+                    }
+        
         })
 
     }

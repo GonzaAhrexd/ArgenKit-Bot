@@ -1,3 +1,4 @@
+// @ts-ignore
 const { SlashCommandBuilder } = require("@discordjs/builders")
 const { MessageEmbed } = require("discord.js")
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
@@ -165,7 +166,7 @@ module.exports = {
                 color: "#2488ff",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/sol"
-            }
+            },
             {
                 id: "dai",
                 nombre: "DAI",

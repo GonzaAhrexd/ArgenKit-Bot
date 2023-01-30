@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+// @ts-ignore
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
@@ -111,6 +112,66 @@ module.exports = {
                     color: "#ffd83a",
                     apicoingecko: "https://api.coingecko.com/api/v3/coins/terra-luna-2/market_chart?vs_currency=usd&days=0",
                     apilemon: "https://criptoya.com/api/lemoncash/usdt"
+                },
+                {
+                    id: "decentraland",
+                    nombre: "Decentraland",
+                    emoji: "<:decentraland:964349085089931324>",
+                    desc: "Decentraland es una plataforma de mundos virtuales en 3D basada en la tecnología blockchain. Los usuarios pueden crear, experimentar y monetizar contenido y aplicaciones en estos mundos virtuales. Decentraland utiliza su propia criptomoneda, el MANA, como medio de intercambio en la plataforma.",
+                    lanzamiento: "Febrero de 2017",
+                    iso: "MANA",
+                    simbolo: "MANA",
+                    desarrollador: "Decentraland Foundation",
+                    limitedeemision: "No tiene límite fijo",
+                    imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964351096871088128/decentraland.png",
+                    color: "#ffa6b7",
+                    apicoingecko: "https://api.coingecko.com/api/v3/coins/decentraland/market_chart?vs_currency=usd&days=0",
+                    apilemon: "https://criptoya.com/api/lemoncash/mana"
+                },
+                {
+                    id: "solana",
+                    nombre: "Solana",
+                    emoji: "<:solana:964349096775282738>",
+                    desc: "Solana es una blockchain de alta velocidad y escalabilidad. Utiliza un algoritmo de consenso de prueba de participación delegada y un sistema de validación descentralizado para asegurar una alta velocidad de transacción y bajos costos. Solana es utilizado para aplicaciones de cifrado, juegos y aplicaciones descentralizadas.",
+                    lanzamiento: "Marzo de 2017",
+                    iso: "SOL",
+                    simbolo: "SOL",
+                    desarrollador: "Anatoly Yakovenko, Greg Fitzgerald, Stephen Akridge, Raj Gokal",
+                    limitedeemision: "No tiene límite fijo",
+                    imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964351112725540934/solana.png",
+                    color: "#2488ff",
+                    apicoingecko: "https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=0",
+                    apilemon: "https://criptoya.com/api/lemoncash/sol"
+                },
+                {
+                    id: "dai",
+                    nombre: "DAI",
+                    emoji: "<:dai:964681594344443904>",
+                    desc: "DAI es una stablecoin respaldada por el dólar estadounidense, que se basa en la red Ethereum. Es emitida por MakerDAO, un sistema descentralizado de préstamos collateralizados que busca proporcionar estabilidad financiera en el ecosistema de criptomonedas.",
+                    lanzamiento: "18 de diciembre de 2017",
+                    iso: "DAI",
+                    simbolo: "DAI",
+                    desarrollador: "Maker Foundation",
+                    limitedeemision: "Respaldado en dólares, otras criptomonedas y contratos inteligentes",
+                    imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964681693292285962/dai.png",
+                    color: "#efc637",
+                    apicoingecko: "https://api.coingecko.com/api/v3/coins/dai/market_chart?vs_currency=usd&days=0",
+                    apilemon: "https://criptoya.com/api/lemoncash/dai"
+                },
+                {
+                    id: "dogecoin",
+                    nombre: "Dogecoin",
+                    emoji: "<:dogecoin:964686144530939904>",
+                    desc: "Dogecoin es una criptomoneda basada en una memea popular en internet. Fue creada en 2013 como una broma pero ha ganado una gran popularidad debido a su comunidad amigable y su uso en transacciones pequeñas. Es conocida por su símbolo de perro Shiba Inu en su logo.",
+                    lanzamiento: "6 de diciembre de 2013",
+                    iso: "DOGE",
+                    simbolo: "Ð",
+                    desarrollador: "Billy Markus, Jackson Palmer",
+                    limitedeemision: "No tiene límite fijo",
+                    imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964686112096391189/dogecoin.png",
+                    color: "#f5a431",
+                    apicoingecko: "https://api.coingecko.com/api/v3/coins/dogecoin/market_chart?vs_currency=usd&days=0",
+                    apilemon: "https://criptoya.com/api/bitso/doge"
                 }
             ];
             Criptomonedas.forEach(cripto => {
@@ -200,209 +261,8 @@ module.exports = {
                 }
             });
             //Decentraland
-            if (interaction.options.getSubcommand() === 'decentraland') {
-                axios.get('https://api.coingecko.com/api/v3/coins/decentraland/market_chart?vs_currency=usd&days=0')
-                    .then((MANA) => {
-                    let tl = MANA.data['prices'][0][1];
-                    axios.get('https://criptoya.com/api/lemoncash/mana')
-                        .then((USD) => {
-                        const embed1 = new Discord.MessageEmbed()
-                            .setTitle("Decentraland")
-                            .setColor("#ffa6b7")
-                            .setDescription("Decentraland + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964351096871088128/decentraland.png")
-                            .addField("Precio <:decentraland:964349085089931324>", 'USD$ ' + currencyFormatter.format(((tl)), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Volumen  <:decentraland:964349085089931324>", 'USD$ ' + currencyFormatter.format(((MANA.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Capitalización <:decentraland:964349085089931324>", 'USD$ ' + currencyFormatter.format(((MANA.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Compra <:decentraland:964349085089931324>", 'ARS$ ' + currencyFormatter.format(USD.data['bid'], { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Venta <:decentraland:964349085089931324>", 'ARS$ ' + currencyFormatter.format(USD.data['ask'], { locale: 'es-ES', code: ' ' }), true);
-                        const embed2 = new Discord.MessageEmbed()
-                            .setTitle("Decentraland")
-                            .setColor("#ffa6b7")
-                            .setDescription("Decentraland es una plataforma de realidad virtual descentralizada 3D que consiste en 90601 parcelas de tierra. La propiedad virtual en decentraland son los NFT que se pueden comprar por medio de la criptomoneda MANA, que está basada en la Blockchain de Ethereum. Fue inauguarada de manera pública en febrero de 2020,​ y se es supervisada por la organización sin ánimo de lucro Decentraland Foundation .Fue desarrollada por los argentinos Ari Meilich y Esteban Ordano ")
-                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964351096871088128/decentraland.png")
-                            .addField("Lanzamiento inicial", "20 de febrero de 2020")
-                            .addField("Código ISO", "MANA ", true)
-                            .addField("Símbolo ", "	- ", true)
-                            .addField("Desarrollador ", "Ari Meilich y Esteban Ordano")
-                            .addField("Límite de Emisión  ", "Sin límite");
-                        const button1 = new MessageButton()
-                            .setCustomId("previousbtn")
-                            .setLabel("💸 Conversión ")
-                            .setStyle("SUCCESS");
-                        const button2 = new MessageButton()
-                            .setCustomId("nextbtn")
-                            .setLabel("📋 Información")
-                            .setStyle("PRIMARY");
-                        const pages = [
-                            embed1,
-                            embed2,
-                        ];
-                        const buttonList = [button1, button2];
-                        const timeout = 30000;
-                        paginationEmbed(interaction, pages, buttonList, timeout);
-                    })
-                        .catch((err) => {
-                        console.error('ERR', err);
-                    });
-                })
-                    .catch((err) => {
-                    console.error('ERR', err);
-                });
-            }
             //Solana
-            if (interaction.options.getSubcommand() === 'solana') {
-                axios.get('https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=0')
-                    .then((MANA) => {
-                    let tl = MANA.data['prices'][0][1];
-                    axios.get('https://criptoya.com/api/lemoncash/sol')
-                        .then((USD) => {
-                        const embed1 = new Discord.MessageEmbed()
-                            .setTitle("Solana")
-                            .setColor("#2488ff")
-                            .setDescription("Decentraland + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964351112725540934/solana.png")
-                            .addField("Precio <:solana:964349096775282738>", 'USD$ ' + currencyFormatter.format(((tl)), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Volumen  <:solana:964349096775282738>", 'USD$ ' + currencyFormatter.format(((MANA.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Capitalización  <:solana:964349096775282738>", 'USD$ ' + currencyFormatter.format(((MANA.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Compra <:solana:964349096775282738>", 'ARS$ ' + currencyFormatter.format(USD.data['bid'], { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Venta <:solana:964349096775282738>", 'ARS$ ' + currencyFormatter.format(USD.data['ask'], { locale: 'es-ES', code: ' ' }), true);
-                        const embed2 = new Discord.MessageEmbed()
-                            .setTitle("Solana")
-                            .setColor("#2488ff")
-                            .setDescription("Solana ")
-                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964351112725540934/solana.png")
-                            .addField("Lanzamiento inicial", "Abril de 2019")
-                            .addField("Código ISO", "SOL", true)
-                            .addField("Símbolo ", "	◎ ", true)
-                            .addField("Desarrollador ", "Anatoly Yakovenko, Greg Fitzgerald, Stephen Akridge, Raj Gokal")
-                            .addField("Límite de Emisión  ", "$40.000.000.000 (Abril de 2022)");
-                        const button1 = new MessageButton()
-                            .setCustomId("previousbtn")
-                            .setLabel("💸 Conversión ")
-                            .setStyle("SUCCESS");
-                        const button2 = new MessageButton()
-                            .setCustomId("nextbtn")
-                            .setLabel("📋 Información")
-                            .setStyle("PRIMARY");
-                        const pages = [
-                            embed1,
-                            embed2,
-                        ];
-                        const buttonList = [button1, button2];
-                        const timeout = 30000;
-                        paginationEmbed(interaction, pages, buttonList, timeout);
-                    })
-                        .catch((err) => {
-                        console.error('ERR', err);
-                    });
-                })
-                    .catch((err) => {
-                    console.error('ERR', err);
-                });
-            }
-            //DAI
-            if (interaction.options.getSubcommand() === 'dai') {
-                axios.get('https://api.coingecko.com/api/v3/coins/dai/market_chart?vs_currency=usd&days=0')
-                    .then((DAI) => {
-                    let dai = DAI.data['prices'][0][1];
-                    axios.get('https://criptoya.com/api/lemoncash/dai')
-                        .then((USD) => {
-                        const embed1 = new Discord.MessageEmbed()
-                            .setTitle("DAI")
-                            .setColor("#efc637")
-                            .setDescription("DAI + impuestos (PAIS (30%) y adelanto de ganancias (45%)")
-                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964681693292285962/dai.png")
-                            .addField("Precio <:dai:964681594344443904>", 'USD$ ' + currencyFormatter.format(((dai)), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Volumen  <:dai:964681594344443904>", 'USD$ ' + currencyFormatter.format(((DAI.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Capitalización  <:dai:964681594344443904>", 'USD$ ' + currencyFormatter.format(((DAI.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Compra <:dai:964681594344443904>", 'ARS$ ' + currencyFormatter.format(USD.data['bid'], { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Venta <:dai:964681594344443904>", 'ARS$ ' + currencyFormatter.format(USD.data['ask'], { locale: 'es-ES', code: ' ' }), true);
-                        const embed2 = new Discord.MessageEmbed()
-                            .setTitle("DAI")
-                            .setColor("#efc637")
-                            .setDescription("Dai (o DAI) es una criptomoneda estable que tiene como objetivo mantener su valor lo más cercano posible al dólar estadounidense (USD) a través de un sistema automatizado de contratos inteligentes en la cadena de bloques de Ethereum. ")
-                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964681693292285962/dai.png")
-                            .addField("Lanzamiento inicial", "18 de diciembre de 2017")
-                            .addField("Código ISO", "DAI", true)
-                            .addField("Símbolo ", "	DAI ", true)
-                            .addField("Desarrollador ", "Maker Foundation")
-                            .addField("Límite de Emisión  ", "Respaldado en dólares, otras criptomonedas y contratos inteligentes");
-                        const button1 = new MessageButton()
-                            .setCustomId("previousbtn")
-                            .setLabel("💸 Conversión ")
-                            .setStyle("SUCCESS");
-                        const button2 = new MessageButton()
-                            .setCustomId("nextbtn")
-                            .setLabel("📋 Información")
-                            .setStyle("PRIMARY");
-                        const pages = [
-                            embed1,
-                            embed2,
-                        ];
-                        const buttonList = [button1, button2];
-                        const timeout = 30000;
-                        paginationEmbed(interaction, pages, buttonList, timeout);
-                    })
-                        .catch((err) => {
-                        console.error('ERR', err);
-                    });
-                })
-                    .catch((err) => {
-                    console.error('ERR', err);
-                });
-            }
-            //Dogecoin
-            if (interaction.options.getSubcommand() === 'dogecoin') {
-                axios.get('https://api.coingecko.com/api/v3/coins/dogecoin/market_chart?vs_currency=usd&days=0')
-                    .then((DAI) => {
-                    let dogecoin = DAI.data['prices'][0][1];
-                    axios.get('https://criptoya.com/api/bitso/doge')
-                        .then((USD) => {
-                        const embed1 = new Discord.MessageEmbed()
-                            .setTitle("DOGECOIN")
-                            .setColor("#f5a431")
-                            .setDescription("Dogecoin a precio del mercado (Cotización bitso)")
-                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964686112096391189/dogecoin.png")
-                            .addField("Precio <:dogecoin:964686144530939904>", 'USD$ ' + currencyFormatter.format(((dogecoin)), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Volumen  <:dogecoin:964686144530939904>", 'USD$ ' + currencyFormatter.format(((DAI.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Capitalización  <:dogecoin:964686144530939904>", 'USD$ ' + currencyFormatter.format(((DAI.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Compra <:dogecoin:964686144530939904>", 'ARS$ ' + currencyFormatter.format(((dogecoin)) * USD.data['bid'], { locale: 'es-ES', code: ' ' }), true)
-                            .addField("Venta <:dogecoin:964686144530939904>", 'ARS$ ' + currencyFormatter.format(((dogecoin)) * USD.data['ask'], { locale: 'es-ES', code: ' ' }), true);
-                        const embed2 = new Discord.MessageEmbed()
-                            .setTitle("Dogecoin")
-                            .setColor("#f5a431")
-                            .setDescription("Dogecoin (código: DOGE, símbolo: Ð y D) es una criptodivisa derivada de Bitcoin que usa como mascota un perro Shiba Inu del meme de Internet «Doge». Es una criptomoneda inflacionaria porque no tiene límite de emisión. La segunda quincena de junio de 2014, se había minado más de 100 mil millones (100,000,000,000) de Dogecoins. Tiene un coste energético por transacción de de 0.12 kWh por transacción frente a los 707 kWh por transacción de Bitcoin. Energéticamente, Dogecoin es 5892 veces más eficiente que Bitcoin.7")
-                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964686112096391189/dogecoin.png")
-                            .addField("Lanzamiento inicial", "6 de diciembre de 2013 ")
-                            .addField("Código ISO", "DOGE", true)
-                            .addField("Símbolo ", "	Ð ", true)
-                            .addField("Desarrollador ", "Billy Markus (Shibetoshi Nakamoto), Jackson Palmer")
-                            .addField("Límite de Emisión  ", "Sin límite ");
-                        const button1 = new MessageButton()
-                            .setCustomId("previousbtn")
-                            .setLabel("💸 Conversión ")
-                            .setStyle("SUCCESS");
-                        const button2 = new MessageButton()
-                            .setCustomId("nextbtn")
-                            .setLabel("📋 Información")
-                            .setStyle("PRIMARY");
-                        const pages = [
-                            embed1,
-                            embed2,
-                        ];
-                        const buttonList = [button1, button2];
-                        const timeout = 30000;
-                        paginationEmbed(interaction, pages, buttonList, timeout);
-                    })
-                        .catch((err) => {
-                        console.error('ERR', err);
-                    });
-                })
-                    .catch((err) => {
-                    console.error('ERR', err);
-                });
-            }
+            //DAI//Dogecoin
         });
     }
 };

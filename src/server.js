@@ -1,15 +1,3 @@
-//Express (Usado en repl.it para estar 24/7)
-const express = require('express')
-const app = express()
-app.get('/', function (req, res) {
-  res.send(`<h1> Argenkit Bot Versión 1.5 Actualización Técnica </h1>
-  <p> Esta actualización trae muchos cambios del lado del código para una mejor optimización y orden. </p>
-  `
-  )
-})
-let port = process.env.PORT || 3500;
-app.listen(port)
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Dependencias de node
@@ -50,7 +38,7 @@ function presence() {
 }
 //Command Handler
 client.slashcommands = new Discord.Collection();
-const slashcommandsFile = fs.readdirSync('./commands').filter(file => file.endsWith("js"))
+const slashcommandsFile = fs.readdirSync('./src/commands').filter(file => file.endsWith("js"))
 for (const file of slashcommandsFile) {
   const slash = require(`./commands/${file}`)
   console.log(`Slash  commands - ${file} cargado`)

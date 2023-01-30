@@ -1,8 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 //Dependencias de node
 const Discord = require("discord.js");
-
 //Intents requeridos
 const { Client, Intents, MessageEmbed, reactions, Collection } = require('discord.js');
 const client = new Client({
@@ -20,11 +18,6 @@ const { Interaction } = require("discord.js"); //Discord.js
 const { SlashCommandBuilder } = require('@discordjs/builders'); //Slash Commands
 const simplydjs = require("simply-djs"); //Simplydjs 
 require('dotenv').config() //Variables de entorno
-const translate = require("translate");//Translate
-
-//Funciones
-const impuestos = require("./functions/impuestos.js")
-
 //Estado del bot
 // client.setMaxListeners(50);
 function presence() {
@@ -38,9 +31,9 @@ function presence() {
 }
 //Command Handler
 client.slashcommands = new Discord.Collection();
-const slashcommandsFile = fs.readdirSync('./src/commands').filter(file => file.endsWith("js"))
+const slashcommandsFile = fs.readdirSync('./dist/commands').filter(file => file.endsWith("js"))
 for (const file of slashcommandsFile) {
-  const slash = require(`./commands/${file}`)
+  const slash = require(`../dist/commands/${file}`)
   console.log(`Slash  commands - ${file} cargado`)
   client.slashcommands.set(slash.data.name, slash)
 }

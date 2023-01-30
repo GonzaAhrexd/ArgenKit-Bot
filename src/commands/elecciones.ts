@@ -4,7 +4,7 @@ const {SlashCommandBuilder} = require("@discordjs/builders")
 const { MessageEmbed } = require("discord.js")
 //@ts-ignore
 const Discord = require("discord.js")
-
+//@ts-ignore
 const {diasHasta} = require('../functions/diasHasta')
 module.exports = {
     data: new SlashCommandBuilder()

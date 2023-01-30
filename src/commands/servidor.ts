@@ -1,19 +1,22 @@
+//@ts-ignore
 const {SlashCommandBuilder} = require("@discordjs/builders")
+//@ts-ignore
 const { MessageEmbed } = require("discord.js")
+//@ts-ignore
 const Discord = require("discord.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName("invitar")
-    .setDescription("Invita al bot a unirte a tu servidor"),
+    .setName("servidor")
+    .setDescription("¡Unete al servidor oficial del bot!"),
 
     async run(client, interaction){
 
         const embed = new Discord.MessageEmbed()
-        .setTitle("¡Invita al bot a tu servidor!")
+        .setTitle("¡Unete al servidor oficial de Argenkit Bot!")
+        .setURL("https://discord.gg/68jsHeTRYa")
         .setColor('#0a9ee1')
-        .setURL("https://discord.com/api/oauth2/authorize?client_id=796173877981216799&permissions=414464867392&scope=bot%20applications.commands")
-        .setDescription("¡Gracias por decidir agregar mi bot a tu servidor!")
+        .setDescription("¡Puedes unirte al servidor oficial de Argenkit bot para aportar ideas o dar reportes de bugs! ¡O simplemente hablar con otras personas! ")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
       interaction.reply({
   

@@ -1,7 +1,12 @@
+//@ts-ignore
 const { SlashCommandBuilder } = require("@discordjs/builders")
+//@ts-ignore
 const { MessageEmbed } = require("discord.js")
+//@ts-ignore
 const Discord = require("discord.js")
+//@ts-ignore
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
+//@ts-ignore
 const paginationEmbed = require('discordjs-button-pagination'); //Botones
 
 
@@ -43,7 +48,28 @@ module.exports = {
   async run(client, interaction, options) {
 
     let provincia = interaction.options.getString('provincia')
-    const provincias = [
+   const provincias: Array<{
+        identificacion: String,
+        nombre: String,
+        color: String,
+        bandera: String,
+        url:String,
+        descripcion: String,
+        gobernador: String,
+        capital: String,
+        poblada: String,
+        fundacion: String,
+        autonomia:String,
+        superficie: String,
+        poblacion: String,
+        gentillicio: String,
+        clima: String,
+        ubicacion: String,
+        ubicacionDesc: String,
+        ubicacionImg: String,
+
+    }>
+     = [
       //Buenos Aires
       { identificacion: "buenos aires", nombre: "Buenos Aires  (BA)", color: "#0b67ff", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Bandera_de_la_Provincia_de_Buenos_Aires.svg/1280px-Bandera_de_la_Provincia_de_Buenos_Aires.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Buenos_Aires", descripcion: "Buenos Aires es la provincia más grande y más poblada de Argentina. Su nombre proviene de la capital del país, la Ciudad  Autonoma de Buenos Aires,  que solía ser parte de la provincia hasta su federalización en 1880.", gobernador: "Alex Kicillof", capital: "La Plata", poblada: "La Matanza", fundacion: "2 de febrero de 1536 \n 11 de junio de 1580 (por Juan de Garay)", autonomia: "16 de febrero de 1820 ", superficie: "307.571 km²", poblacion: "18.004.120 hab.", gentillicio: "Bonaerense", clima: "Templado húmedo (clima pampeano)", ubicacion: "https://www.google.com.ar/maps/place/Provincia+de+Buenos+Aires/@-37.1243654,-62.2683371,7z/data=!3m1!4b1!4m5!3m4!1s0x95edbcb7595281d9:0x4ad309fcdcf0a144!8m2!3d-37.2017285!4d-59.8410697", ubicacionDesc: "El territorio está en la región este del país; limita al norte con las provincias de Santa Fe y Entre Ríos, al noreste con el Río de la Plata y la Ciudad Autónoma de Buenos Aires,9​ al este y sur con el mar Argentino del océano Atlántico, al suroeste con Río Negro, al oeste con la Provincia de La Pampa y al noroeste con la Provincia de Córdoba.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
       //Catamarca

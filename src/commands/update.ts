@@ -1,7 +1,12 @@
+//@ts-ignore
 const {SlashCommandBuilder} = require("@discordjs/builders")
+//@ts-ignore
 const { MessageEmbed } = require("discord.js")
+//@ts-ignore
 const Discord = require("discord.js")
+//@ts-ignore
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
+//@ts-ignore
 const paginationEmbed = require('discordjs-button-pagination'); //Botones
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,10 +18,13 @@ module.exports = {
         .setTitle("ARGENKIT BOT VERSIÓN 1.5 ¡ACTUALIZACIÓN TÉCNICA!")
         .setColor('#0a9ee1')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+        .addField("<:slash:964681731519164457> TypeScript ", "Ahora el bot está escrito en TypeScript.")
+        .addField("<:slash:964681731519164457> Optimización ", "Se ha optimizado muchisimos comandos del bot.")
         .addField("<:slash:964681731519164457> Command Handler ", "Se reestructuró el código para una mayor organización de los comandos .")
         .addField("<:slash:964681731519164457> Covid19 Paises ", "Se optimizó el comando, ahora están disponibles los 194 paises del mundo.")
         .addField("<:slash:964681731519164457> Traductor ", "Se ha agregado un traductor.")
-      
+        .addField("<:slash:964681731519164457> Botones ", "Se han solucionado los botones.")
+        .addField("<:slash:964681731519164457>  Metales ", "Ahora el bot devuelve correctamente el precio de los metales")
         const embed14 = new Discord.MessageEmbed()
       .setTitle("ARGENKIT BOT VERSIÓN 1.4 ¡SLASH COMMANDS UPDATE!")
       .setColor('#0a9ee1')

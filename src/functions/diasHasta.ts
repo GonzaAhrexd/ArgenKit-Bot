@@ -1,5 +1,7 @@
-function diasHasta(fecha) {
+//@ts-ignore
+function diasHasta(fecha):any {
     let hoy = new Date();
+    //@ts-ignore
     return ((fecha - hoy) / (1000 * 60 * 60 * 24)).toFixed(0);
 }
 

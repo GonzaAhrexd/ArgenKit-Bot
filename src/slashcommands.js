@@ -9,7 +9,7 @@ const commands = []
 let slashcommandFiles = fs.readdirSync("./commands").filter(file => file.endsWith('js'))
 
 for(const file of slashcommandFiles){
-    const slash = require(`./commands/${file}`)
+    const slash = require(`../dist/commands/${file}`)
     commands.push(slash.data)
 }
 

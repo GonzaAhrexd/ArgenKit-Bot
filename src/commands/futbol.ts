@@ -1,8 +1,14 @@
+//@ts-ignore
 const {SlashCommandBuilder} = require("@discordjs/builders")
+//@ts-ignore
 const { MessageEmbed } = require("discord.js")
+//@ts-ignore
 const Discord = require("discord.js")
+//@ts-ignore
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
+//@ts-ignore
 const paginationEmbed = require('discordjs-button-pagination'); //Botones
+//@ts-ignore
 const {diasHasta} = require('../functions/diasHasta')
 module.exports = {
     data: new SlashCommandBuilder()
@@ -29,7 +35,8 @@ module.exports = {
           .addField("  :flag_ar: vs :flag_nl: \n(09/12/2022) ", "Resultado: \n :flag_ar: 2 (4) - 2 (3) :flag_nl: ", true)
           .addField("  :flag_ar: vs :flag_hr: \n(13/12/2022) ", "Resultado: \n :flag_ar: 3 - 0 :flag_hr:  ", true)
           .addField("  :flag_ar: vs :flag_fr: \n(18/12/2022) ", "Resultado  \n :flag_ar: 3 (4) - 3 (2) :flag_fr: ", true)
-        return interaction.reply({ embeds: [embed] });
+        
+          return interaction.reply({ embeds: [embed] });
 
     }
 }

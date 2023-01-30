@@ -1,9 +1,16 @@
+//@ts-ignore
 const { SlashCommandBuilder } = require("@discordjs/builders")
+//@ts-ignore
 const { MessageEmbed } = require("discord.js")
+//@ts-ignore
 const Discord = require("discord.js");
+//@ts-ignore
 const axios = require("axios")
+//@ts-ignore
 var currencyFormatter = require('currency-formatter'); //Currency formatter
+//@ts-ignore
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
+//@ts-ignore
 const { total75, total74 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
   data: new SlashCommandBuilder()

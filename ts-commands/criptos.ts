@@ -1,14 +1,19 @@
 // @ts-ignore
 const { SlashCommandBuilder } = require("@discordjs/builders")
+// @ts-ignore
 const { MessageEmbed } = require("discord.js")
+// @ts-ignore
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
+// @ts-ignore
 const paginationEmbed = require('discordjs-button-pagination'); //Botones
+// @ts-ignore
 const Discord = require("discord.js");
-const { porcentaje } = require("../functions/funPorcentaje");
+// @ts-ignore
 const axios = require("axios")
+// @ts-ignore
 var currencyFormatter = require('currency-formatter'); //Currency formatter
+// @ts-ignore
 const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
-const infobox = require('wiki-infobox');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('criptomoneda')
@@ -199,13 +204,13 @@ module.exports = {
             }
             ]
 
-        Criptomonedas.forEach(cripto => {
+        Criptomonedas.forEach(async cripto => {
             if (interaction.options.getSubcommand() === cripto.id) {
-                axios.get(cripto.apicoingecko)
-                    .then((CRIPTOINFO) => {
+                await axios.get(cripto.apicoingecko)
+                    .then(async (CRIPTOINFO) => {
                         let conversion: number = CRIPTOINFO.data['prices'][0][1];
 
-                        axios.get(cripto.apilemon)
+                        await axios.get(cripto.apilemon)
                             .then((LEMON) => {
                                 const embed1 = new Discord.MessageEmbed()
 

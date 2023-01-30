@@ -10,15 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 // @ts-ignore
 const { SlashCommandBuilder } = require("@discordjs/builders");
+// @ts-ignore
 const { MessageEmbed } = require("discord.js");
+// @ts-ignore
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
+// @ts-ignore
 const paginationEmbed = require('discordjs-button-pagination'); //Botones
+// @ts-ignore
 const Discord = require("discord.js");
-const { porcentaje } = require("../functions/funPorcentaje");
+// @ts-ignore
 const axios = require("axios");
+// @ts-ignore
 var currencyFormatter = require('currency-formatter'); //Currency formatter
+// @ts-ignore
 const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
-const infobox = require('wiki-infobox');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('criptomoneda')
@@ -174,12 +179,12 @@ module.exports = {
                     apilemon: "https://criptoya.com/api/bitso/doge"
                 }
             ];
-            Criptomonedas.forEach(cripto => {
+            Criptomonedas.forEach((cripto) => __awaiter(this, void 0, void 0, function* () {
                 if (interaction.options.getSubcommand() === cripto.id) {
-                    axios.get(cripto.apicoingecko)
-                        .then((CRIPTOINFO) => {
+                    yield axios.get(cripto.apicoingecko)
+                        .then((CRIPTOINFO) => __awaiter(this, void 0, void 0, function* () {
                         let conversion = CRIPTOINFO.data['prices'][0][1];
-                        axios.get(cripto.apilemon)
+                        yield axios.get(cripto.apilemon)
                             .then((LEMON) => {
                             const embed1 = new Discord.MessageEmbed();
                             if (cripto.id === "terraluna") {
@@ -254,12 +259,12 @@ module.exports = {
                             .catch((err) => {
                             console.error('ERR', err);
                         });
-                    })
+                    }))
                         .catch((err) => {
                         console.error('ERR', err);
                     });
                 }
-            });
+            }));
             //Decentraland
             //Solana
             //DAI//Dogecoin

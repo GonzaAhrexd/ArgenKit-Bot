@@ -98,17 +98,20 @@ module.exports = {
         Metales.forEach(async Metal => {
             if (interaction.options.getSubcommand() === Metal.id) {
                 await axios.get('https://api.metals.live/v1/spot/') //Precio en dólares
-                    .then(async (precio) => {
-                        //Aaar
-                        let metalMap = new Map<String, any>([
-                            ['oro', precio.data[0].gold],
-                            ['plata', precio.data[1].silver],
-                            ['platino', precio.data[2].platinum],
-                            ['paladio', precio.data[3].palladium],
-                          ]);
-                          
-                          let conversion = metalMap.get(Metal.id );
-                          
+                    .then(async (precio) => { 
+                          let conversion:number = 0
+
+                          if (Metal.id == 'oro')
+                          conversion = precio.data[0].gold
+
+                      if (Metal.id == 'plata')
+                          conversion = precio.data[1].silver
+
+                      if (Metal.id == 'platino')
+                          conversion = precio.data[2].platinum
+
+                      if (Metal.id == 'paladio')
+                          conversion = precio.data[3].palladium
 
                         await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
 
@@ -137,7 +140,7 @@ module.exports = {
 
                                             // //Blue
 
-                                            .addField(Metal.nombre + "a precio blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
+                                            .addField(Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
                                             .addField("COMPRA  ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
                                             .addField("VENTA ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
 
@@ -170,7 +173,7 @@ module.exports = {
                                         await interaction.deferReply();
                                         setTimeout(() => {
                                             interaction.editReply({ embeds: [embed1], components: [row] });
-                                        }, 5000)
+                                        }, 4000)
 
 
                                         client.on('interactionCreate', interaction => {

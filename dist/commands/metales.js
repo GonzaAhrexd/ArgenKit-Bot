@@ -79,14 +79,15 @@ module.exports = {
             if (interaction.options.getSubcommand() === Metal.id) {
                 await axios.get('https://api.metals.live/v1/spot/') //Precio en dólares
                     .then(async (precio) => {
-                    //Aaar
-                    let metalMap = new Map([
-                        ['oro', precio.data[0].gold],
-                        ['plata', precio.data[1].silver],
-                        ['platino', precio.data[2].platinum],
-                        ['paladio', precio.data[3].palladium],
-                    ]);
-                    let conversion = metalMap.get(Metal.id);
+                    let conversion = 0;
+                    if (Metal.id == 'oro')
+                        conversion = precio.data[0].gold;
+                    if (Metal.id == 'plata')
+                        conversion = precio.data[1].silver;
+                    if (Metal.id == 'platino')
+                        conversion = precio.data[2].platinum;
+                    if (Metal.id == 'paladio')
+                        conversion = precio.data[3].palladium;
                     await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
                         .then(async (oficial) => {
                         await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
@@ -106,7 +107,7 @@ module.exports = {
                                 .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
                                 .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
                                 // //Blue
-                                .addField(Metal.nombre + "a precio blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
+                                .addField(Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
                                 .addField("COMPRA  ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
                                 .addField("VENTA ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true);
                             const embed2 = new Discord.MessageEmbed()
@@ -130,7 +131,7 @@ module.exports = {
                             await interaction.deferReply();
                             setTimeout(() => {
                                 interaction.editReply({ embeds: [embed1], components: [row] });
-                            }, 5000);
+                            }, 4000);
                             client.on('interactionCreate', interaction => {
                                 if (!interaction.isButton())
                                     return;

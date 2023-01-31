@@ -14,7 +14,7 @@ const axios = require("axios");
 //@ts-ignore
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 //@ts-ignore
-const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
+const { restar74, restar75, restar100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('pesoa')
@@ -109,7 +109,7 @@ module.exports = {
         .setDescription("Monto en Pesos Argentinos."))),
     async run(client, interaction, options) {
         if (interaction.options.getSubcommand() === 'dolar') {
-            var conv2 = options.getNumber('ars');
+            let convertir = interaction.options.getNumber('ars');
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
                 .then((oficial) => {
                 const embed = new Discord.MessageEmbed()
@@ -117,10 +117,17 @@ module.exports = {
                     .setColor("GREEN")
                     .setDescription("Pesos argentinos expresados en dolares estadounideneses a tasa oficial + impuestos (PAIS (30%) y adelanto de ganancias (45%))")
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
-                    .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-                    .addField("Compra :dollar:", 'USD$ ' + currencyFormatter.format((conv2 / oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                    .addField("Venta :dollar:", 'USD$ ' + currencyFormatter.format((conv2 / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                    .addField("Impuestos :dollar: ", 'USD$ ' + currencyFormatter.format(((conv2 / oficial.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true);
+                    .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }))
+                    //Oficial
+                    .addField("Dólar oficial :bank: ", "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
+                    .addField("Compra :dollar:", 'USD$ ' + currencyFormatter.format((convertir / oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
+                    .addField("Venta :dollar:", 'USD$ ' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                    //Impuestos
+                    .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
+                    .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                    .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                    .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                    .addField("Impuestos :dollar: ", 'USD$ ' + currencyFormatter.format(((convertir / oficial.data['venta']) / 1.75), { locale: 'es-ES', code: ' ' }), true);
                 return interaction.reply({ embeds: [embed] });
             })
                 .catch((err) => {

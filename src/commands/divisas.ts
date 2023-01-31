@@ -449,8 +449,6 @@ module.exports = {
                 })
 
         }
-
-        //Yen
         let divisas: Array<
             {
                 id: string,

@@ -317,7 +317,6 @@ module.exports = {
                 console.error('ERR', err);
             });
         }
-        //Yen
         let divisas = [{
                 id: "yen",
                 nombre: "Yen Japonés",

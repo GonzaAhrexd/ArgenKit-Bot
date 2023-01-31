@@ -397,12 +397,11 @@ module.exports = {
                                         .setStyle("PRIMARY")
                                 )
 
-
-
                                 await interaction.deferReply();
-                                setTimeout( () => {
-                                 interaction.editReply({ embeds: [embed1], components: [row] });
+                                setTimeout(() => {
+                                    interaction.editReply({ embeds: [embed1], components: [row] });
                                 }, 3000)
+
                                 
                             client.on('interactionCreate', interaction => {
                                 if (!interaction.isButton()) return;
@@ -790,7 +789,7 @@ module.exports = {
                         await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
                             .then(async (oficial) => {
                                 await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                                    .then((blue) => {
+                                    .then(async (blue) => {
                                         let conversion: number = DIVISA.data['rates'][divisa.iso]
                                         let num: number = 1
                                         let cantidad: string = " "
@@ -850,9 +849,11 @@ module.exports = {
                                             )
 
 
+                                            await interaction.deferReply();
+                                            setTimeout(() => {
+                                                interaction.editReply({ embeds: [embed1], components: [row] });
+                                            }, 3000)
 
-
-                                        interaction.reply({ embeds: [embed1], components: [row] });
 
                                         client.on('interactionCreate', interaction => {
                                             if (!interaction.isButton()) return;

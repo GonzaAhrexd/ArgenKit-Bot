@@ -131,7 +131,7 @@ module.exports = {
                             await interaction.deferReply();
                             setTimeout(() => {
                                 interaction.editReply({ embeds: [embed1], components: [row] });
-                            }, 4000);
+                            }, 3000);
                             client.on('interactionCreate', interaction => {
                                 if (!interaction.isButton())
                                     return;
@@ -158,13 +158,13 @@ module.exports = {
                             });
                         })
                             .catch((err) => {
-                            console.error('ERR', err);
+                            console.error('Error en la API de dolar blue', err);
                         })
                             .catch((err) => {
-                            console.error('ERR', err);
+                            console.error('Error en la API de dolar oficial', err);
                         })
                             .catch((err) => {
-                            console.error('ERR', err);
+                            console.error('Error en la API de metal', err);
                         });
                     }); //Cierra Precio en  dólares
                 }); //Cierra if == id

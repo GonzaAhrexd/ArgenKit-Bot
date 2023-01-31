@@ -637,7 +637,7 @@ module.exports = {
                     await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
                         .then(async (oficial) => {
                         await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                            .then((blue) => {
+                            .then(async (blue) => {
                             let conversion = DIVISA.data['rates'][divisa.iso];
                             let num = 1;
                             let cantidad = " ";
@@ -685,7 +685,10 @@ module.exports = {
                                 .setCustomId("informacion")
                                 .setLabel("📋 Información")
                                 .setStyle("PRIMARY"));
-                            interaction.reply({ embeds: [embed1], components: [row] });
+                            await interaction.deferReply();
+                            setTimeout(() => {
+                                interaction.editReply({ embeds: [embed1], components: [row] });
+                            }, 3000);
                             client.on('interactionCreate', interaction => {
                                 if (!interaction.isButton())
                                     return;

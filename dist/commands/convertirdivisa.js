@@ -207,13 +207,13 @@ module.exports = {
                 await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
                     .then(async (blue) => {
                     const embed = new Discord.MessageEmbed()
-                        .setTitle("Euro <:rightarrow:921907270747570247> Peso Argentino")
+                        .setTitle("Real <:rightarrow:921907270747570247> Peso Argentino")
                         .setColor("#6da545")
-                        .setDescription("Euro expresado en pesos argentinos")
+                        .setDescription("Real expresado en pesos argentinos")
                         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553925243117698/realapeso.png")
                         .addField("Monto original :flag_br: ", 'BRL R$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
                         //Oficial
-                        .addField("Dólar oficial :bank: ", "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
+                        .addField("Real oficial :bank: ", "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
                         .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
                         .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
                         //Impuestos

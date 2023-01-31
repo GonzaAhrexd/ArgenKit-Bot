@@ -170,10 +170,10 @@ module.exports = {
 
 
 
-                                        await interaction.deferReply();
-                                        setTimeout(() => {
-                                            interaction.editReply({ embeds: [embed1], components: [row] });
-                                        }, 4000)
+                                            await interaction.deferReply();
+                                            setTimeout(() => {
+                                                interaction.editReply({ embeds: [embed1], components: [row] });
+                                            }, 3000)
 
 
                                         client.on('interactionCreate', interaction => {
@@ -201,14 +201,14 @@ module.exports = {
                                         })
                                     })
                                     .catch((err) => { // Catch del axios precio en dólares
-                                        console.error('ERR', err)
+                                        console.error('Error en la API de dolar blue', err)
                                     })
                                     .catch((err) => { // Catch del axios dólar oficial
-                                        console.error('ERR', err)
+                                        console.error('Error en la API de dolar oficial', err)
                                     })
 
                                     .catch((err) => { // Catch del axios dólar blue
-                                        console.error('ERR', err)
+                                        console.error('Error en la API de metal', err)
                                     })
                             }) //Cierra Precio en  dólares
 

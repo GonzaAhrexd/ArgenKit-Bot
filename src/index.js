@@ -1,13 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Dependencias de node
 const Discord = require("discord.js");
-//Intents requeridos
-const { Client, Intents, MessageEmbed, reactions, Collection } = require('discord.js');
-const client = new Client({
-  intents: [Intents.FLAGS.GUILDS,
-  Intents.FLAGS.GUILD_MESSAGES,
-  ],
-});
 const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
 const fs = require('fs') //fs
 const path = require('path') //Path
@@ -18,6 +11,14 @@ const { Interaction } = require("discord.js"); //Discord.js
 const { SlashCommandBuilder } = require('@discordjs/builders'); //Slash Commands
 const simplydjs = require("simply-djs"); //Simplydjs 
 require('dotenv').config() //Variables de entorno
+
+//Intents requeridos
+const { Client, Intents, MessageEmbed, reactions, Collection } = require('discord.js');
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS,
+  Intents.FLAGS.GUILD_MESSAGES,
+  ],
+});
 //Estado del bot
 // client.setMaxListeners(50);
 function presence() {
@@ -27,14 +28,14 @@ function presence() {
       name: 'Bot creado por GonzaAhre | Prueba /help o /update',
       type: "PLAYING"
     }]
-  });
+  })
 }
 //Command Handler
 client.slashcommands = new Discord.Collection();
 const slashcommandsFile = fs.readdirSync('./dist/commands').filter(file => file.endsWith("js"))
 for (const file of slashcommandsFile) {
   const slash = require(`../dist/commands/${file}`)
-  console.log(`Slash  commands - ${file} cargado`)
+  // console.log(`Slash  commands - ${file} cargado`)
   client.slashcommands.set(slash.data.name, slash)
 }
 client.on("interactionCreate", async (interaction) => {
@@ -50,30 +51,26 @@ client.on("interactionCreate", async (interaction) => {
 })
 client.on("ready", async () => {
 
-  console.log("Bot funcionando y conectado a Discord");
+  console.log("Bot funcionando y conectado a Discord ✅");
   presence();
 
-  // const guildId = '740761148160213082'
+
   const guild = client.guilds.cache.get()
   let commands
-
+  // const guildId = '740761148160213082' //guild server de pruebas
   // client.application.commands.set([]); //Resetear comandos
 
-  /*
-  Mostrar comandos
+  
+  /*Mostrar comandos
   const list = await client.application.commands.fetch()  
-     console.log(list)
-  */
+     console.log(list) */
+
 
   if (guild) {
     commands = guild.commands
   } else {
     commands = client.application?.commands
   }
-
-
-  //Simply.djs comandos
-
 
   //Convertir cripto
   commands?.create({
@@ -499,9 +496,6 @@ client.on("ready", async () => {
     ]
   })
 
-
-
-
   //Simply DJS
 
   //Calculadora
@@ -538,13 +532,7 @@ client.on("ready", async () => {
     ],
   })
 
-
-
-
-
   //Convertir
-
-
   //Convertir cripto 
 
   client.on('interactionCreate', async (interaction) => {

@@ -164,7 +164,13 @@ module.exports = {
                             console.error('Error en la API de dolar oficial', err);
                         })
                             .catch((err) => {
-                            console.error('Error en la API de metal', err);
+                            console.error('Error en el API de Metales', err);
+                            const embed = new Discord.MessageEmbed()
+                                .setTitle(`Ha ocurrido un error`)
+                                .setColor(Metal.color)
+                                .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
+                                .setDescription("Ha ocurrido un error relacionado con el api de Metales");
+                            interaction.reply({ embeds: [embed] });
                         });
                     }); //Cierra Precio en  dólares
                 }); //Cierra if == id

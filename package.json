@@ -28,6 +28,7 @@
     "reconlx": "^1.2.41",
     "simply-djs": "^3.0.2",
     "translate": "^1.4.1",
+    "ts-node": "^10.9.1",
     "weky": "^3.1.8"
   },
   "devDependencies": {

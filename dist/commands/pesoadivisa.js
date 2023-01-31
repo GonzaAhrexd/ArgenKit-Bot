@@ -404,7 +404,7 @@ module.exports = {
                             const embed = new Discord.MessageEmbed()
                                 .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${divisa.nombre}`)
                                 .setColor(divisa.color)
-                                .setDescription("Pesos argentinos expresados en Yen japonés al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) ")
+                                .setDescription(`Pesos argentinos expresados en ${divisa.nombre} al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) `)
                                 .setThumbnail(divisa.img)
                                 .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }))
                                 .addField(`${divisa.nombre} oficial :bank: `, `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos `, false)

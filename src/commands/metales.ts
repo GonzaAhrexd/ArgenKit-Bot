@@ -98,20 +98,20 @@ module.exports = {
         Metales.forEach(async Metal => {
             if (interaction.options.getSubcommand() === Metal.id) {
                 await axios.get('https://api.metals.live/v1/spot/') //Precio en dólares
-                    .then(async (precio) => { 
-                          let conversion:number = 0
+                    .then(async (precio) => {
+                        let conversion: number = 0
 
-                          if (Metal.id == 'oro')
-                          conversion = precio.data[0].gold
+                        if (Metal.id == 'oro')
+                            conversion = precio.data[0].gold
 
-                      if (Metal.id == 'plata')
-                          conversion = precio.data[1].silver
+                        if (Metal.id == 'plata')
+                            conversion = precio.data[1].silver
 
-                      if (Metal.id == 'platino')
-                          conversion = precio.data[2].platinum
+                        if (Metal.id == 'platino')
+                            conversion = precio.data[2].platinum
 
-                      if (Metal.id == 'paladio')
-                          conversion = precio.data[3].palladium
+                        if (Metal.id == 'paladio')
+                            conversion = precio.data[3].palladium
 
                         await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
 
@@ -170,10 +170,10 @@ module.exports = {
 
 
 
-                                            await interaction.deferReply();
-                                            setTimeout(() => {
-                                                interaction.editReply({ embeds: [embed1], components: [row] });
-                                            }, 3000)
+                                        await interaction.deferReply();
+                                        setTimeout(() => {
+                                            interaction.editReply({ embeds: [embed1], components: [row] });
+                                        }, 3000)
 
 
                                         client.on('interactionCreate', interaction => {
@@ -208,7 +208,14 @@ module.exports = {
                                     })
 
                                     .catch((err) => { // Catch del axios dólar blue
-                                        console.error('Error en la API de metal', err)
+                                        console.error('Error en el API de Metales', err)
+                                        const embed = new Discord.MessageEmbed()
+                                            .setTitle(`Ha ocurrido un error`)
+                                            .setColor(Metal.color)
+                                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
+                                            .setDescription("Ha ocurrido un error relacionado con el api de Metales")
+                                        interaction.reply({ embeds: [embed] });
+
                                     })
                             }) //Cierra Precio en  dólares
 

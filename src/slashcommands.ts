@@ -1,6 +1,10 @@
+//@ts-ignore
 const fs = require('fs')
+//@ts-ignore
 const Discord = require('discord.js')
+//@ts-ignore
 const {  REST } = require('@discordjs/rest')
+//@ts-ignore
 const { Routes } = require('discord-api-types/v9')
 require('dotenv').config() //Variables de entorno
 // const guild = client.guilds.cache.get()  
@@ -10,6 +14,7 @@ let slashcommandFiles = fs.readdirSync("./dist/commands").filter(file => file.en
 
 for(const file of slashcommandFiles){
     const slash = require(`../dist/commands/${file}`)
+    //@ts-ignore
     commands.push(slash.data)
 }
 

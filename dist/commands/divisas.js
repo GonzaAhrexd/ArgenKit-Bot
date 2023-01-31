@@ -1,6 +1,6 @@
 "use strict";
-//@ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders");
+Object.defineProperty(exports, "__esModule", { value: true });
+const builders_1 = require("@discordjs/builders");
 //@ts-ignore
 const { MessageEmbed } = require("discord.js");
 //@ts-ignore
@@ -16,7 +16,7 @@ var currencyFormatter = require('currency-formatter'); //Currency formatter
 //@ts-ignore
 const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new builders_1.SlashCommandBuilder()
         .setName('divisa')
         .setDescription('Mostrar los datos de una divisa y todos sus tipos de cambio')
         .addSubcommand(subcommand => subcommand.setName('dolar')

@@ -6,7 +6,7 @@ require('dotenv').config() //Variables de entorno
 // const guild = client.guilds.cache.get()  
 const clientId = '810272095279251556' //Cambiar por el ID del bot estable
 const commands = []
-let slashcommandFiles = fs.readdirSync("./commands").filter(file => file.endsWith('js'))
+let slashcommandFiles = fs.readdirSync("./dist/commands").filter(file => file.endsWith('js'))
 
 for(const file of slashcommandFiles){
     const slash = require(`../dist/commands/${file}`)

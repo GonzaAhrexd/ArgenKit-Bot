@@ -21,173 +21,173 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand.setName('dolar')
                 .setDescription('Convierte de Dólares Estadounidenses a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('usd')
-                        .setDescription('Monto en Dólares.')
+                        .setDescription('Monto en Dólares.').setRequired(true)
                 ))
         .addSubcommand(subcommand =>
             subcommand.setName('euro')
                 .setDescription('Convierte de Euros a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('eur')
-                        .setDescription('Monto en Euros.')
+                        .setDescription('Monto en Euros.').setRequired(true)
                 ))
         .addSubcommand(subcommand =>
             subcommand.setName('real')
                 .setDescription('Convierte de Reales Brasileños a Pesos Argentinos')
                 .addStringOption(option =>
                     option.setName('brl')
-                        .setDescription('Monto en Reales.')
+                        .setDescription('Monto en Reales.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('yen')
                 .setDescription('Convierte de Yenes Japoneses a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('jpy')
-                        .setDescription('Monto en Yenes.')
+                        .setDescription('Monto en Yenes.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('libra')
                 .setDescription('Convierte de Libras Esterlinas a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('gbp')
-                        .setDescription('Monto en Libras.')
+                        .setDescription('Monto en Libras.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('rublo')
                 .setDescription('Convierte de Rublos Rusos a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('rub')
-                        .setDescription('Monto en Rublos.')
+                        .setDescription('Monto en Rublos.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('dolarcanadiense')
                 .setDescription('Convierte de Dólares Canadianos a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('cad')
-                        .setDescription('Monto en Dólares Canadianos.')
+                        .setDescription('Monto en Dólares Canadianos.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('dolaraustraliano')
                 .setDescription('Convierte de Dólares Australianos a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('aud')
-                        .setDescription('Monto en Dólares Australianos.')
+                        .setDescription('Monto en Dólares Australianos.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('dolarneozelandes')
                 .setDescription('Convierte de Dólares Neozelandeses a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('nzd')
-                        .setDescription('Monto en Dólares Neozelandeses.')
+                        .setDescription('Monto en Dólares Neozelandeses.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('pesomexicano')
                 .setDescription('Convierte de Pesos Mexicanos a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('mxn')
-                        .setDescription('Monto en Pesos Mexicanos.')
+                        .setDescription('Monto en Pesos Mexicanos.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('pesochileno')
                 .setDescription('Convierte de Pesos Chilenos a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('clp')
-                        .setDescription('Monto en Pesos Chilenos.')
+                        .setDescription('Monto en Pesos Chilenos.').setRequired(true)
                 ))
         .addSubcommand(subcommand =>
             subcommand.setName('pesocolombiano')
                 .setDescription('Convierte de Pesos Colombianos a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('cop')
-                        .setDescription('Monto en Pesos Colombianos.')
+                        .setDescription('Monto en Pesos Colombianos.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('pesouruguayo')
                 .setDescription('Convierte de Pesos Uruguayos a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('uyu')
-                        .setDescription('Monto en Pesos Uruguayos.')
+                        .setDescription('Monto en Pesos Uruguayos.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('boliviano')
                 .setDescription('Convierte de Bolivianos a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('bob')
-                        .setDescription('Monto en Bolivianos.')
+                        .setDescription('Monto en Bolivianos.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('sol')
                 .setDescription('Convierte de Soles a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('pen')
-                        .setDescription('Monto en Soles.')
+                        .setDescription('Monto en Soles.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('guarani')
                 .setDescription('Convierte de Guaraníes a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('pyg')
-                        .setDescription('Monto en Guaraníes.')
+                        .setDescription('Monto en Guaraníes.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('bolivar')
                 .setDescription('Convierte de Bolívares a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('vef')
-                        .setDescription('Monto en Bolívares.')
+                        .setDescription('Monto en Bolívares.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('yuan')
                 .setDescription('Convierte de Yuanes a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('cny')
-                        .setDescription('Monto en Yuanes.')
+                        .setDescription('Monto en Yuanes.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('rupia')
                 .setDescription('Convierte de Rupias a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('inr')
-                        .setDescription('Monto en Rupias.')
+                        .setDescription('Monto en Rupias.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('won')
                 .setDescription('Convierte de Wons a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('krw')
-                        .setDescription('Monto en Wons.')
+                        .setDescription('Monto en Wons.').setRequired(true)
                 ))
 
         .addSubcommand(subcommand =>
             subcommand.setName('franco')
                 .setDescription('Convierte de Francos Suizos a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('chf')
-                        .setDescription('Monto en Francos.')
+                        .setDescription('Monto en Francos.').setRequired(true)
                 ))
                 .addSubcommand(subcommand =>
                     subcommand.setName('lira')
                         .setDescription('Convierte de Liras Turcas a Pesos Argentinos')
-                        .addStringOption(option =>
+                        .addNumberOption(option =>
                             option.setName('try')
-                                .setDescription('Monto en Liras.')
+                                .setDescription('Monto en Liras.').setRequired(true)
                         )),
 
 

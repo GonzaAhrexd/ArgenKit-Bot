@@ -23,163 +23,155 @@ module.exports = {
     .addSubcommand(subcommand =>
       subcommand.setName('dolar')
         .setDescription('Convierte de  Pesos Argentinos a Dólares Estadounidenses')
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName('ars')
-            .setDescription('Monto en Pesos Argentinos.')
+            .setDescription('Monto en Pesos Argentinos.').setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName('euro')
         .setDescription('Convierte Pesos Argentinos a Euros')
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName('ars')
-            .setDescription('Monto en Pesos Argentinos.')
+            .setDescription('Monto en Pesos Argentinos.').setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("real")
         .setDescription("Convierte de Pesos Argentinos a Reales Brasileños")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("yen")
         .setDescription("Convierte de Pesos Argentinos a Yenes Japoneses")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("libra")
         .setDescription("Convierte de Pesos Argentinos a Libras Esterlinas")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("rublo")
         .setDescription("Convierte de Pesos Argentinos a Rublos Rusos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("dolarcanadiense")
         .setDescription("Convierte de Pesos Argentinos a Dólares Canadienses")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("dolaraustraliano")
         .setDescription("Convierte de Pesos Argentinos a Dólares Australianos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("dolarnuevozelandes")
         .setDescription("Convierte de Pesos Argentinos a Dólares Nuevos Zelandaes")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName('pesomexicano')
         .setDescription('Convierte de Pesos Mexicanos a Pesos Argentinos')
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName('mxn')
-            .setDescription('Monto en Pesos Mexicanos.')
-        ))
-
-    .addSubcommand(subcommand =>
-      subcommand.setName("pesomexicano")
-        .setDescription("Convierte de Pesos Argentinos a Pesos Mexicanos")
-        .addStringOption(option =>
-          option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription('Monto en Pesos Mexicanos.').setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("pesochileno")
         .setDescription("Convierte de Pesos Argentinos a Pesos Chilenos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("pesouruguayo")
         .setDescription("Convierte de Pesos Argentinos a Pesos Uruguayos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("boliviano")
         .setDescription("Convierte de Pesos Argentinos a Bolivianos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("sol")
         .setDescription("Convierte de Pesos Argentinos a Soles Peruanos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("guarani")
         .setDescription("Convierte de Pesos Argentinos a Guaraníes Paraguayos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         ))
 
     .addSubcommand(subcommand =>
       subcommand.setName("bolivar")
         .setDescription("Convierte de Pesos Argentinos a Bolívares Venezolanos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         )
     )
     .addSubcommand(subcommand =>
       subcommand.setName("yuan")
         .setDescription("Convierte de Pesos Argentinos a Yuanes Chinos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         )
     )
     .addSubcommand(subcommand =>
       subcommand.setName("rupia")
         .setDescription("Convierte de Pesos Argentinos a Rupias Indianas")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         )
     )
     .addSubcommand(subcommand =>
       subcommand.setName("won")
         .setDescription("Convierte de Pesos Argentinos a Wones Surcoreanos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         )
     )
     .addSubcommand(subcommand =>
       subcommand.setName("franco")
         .setDescription("Convierte de Pesos Argentinos a Francos Suizos")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         )
     )
     .addSubcommand(subcommand =>
       subcommand.setName("lira")
         .setDescription("Convierte de Pesos Argentinos a Liras Turcas")
-        .addStringOption(option =>
+        .addNumberOption(option =>
           option.setName("ars")
-            .setDescription("Monto en Pesos Argentinos.")
+            .setDescription("Monto en Pesos Argentinos.").setRequired(true)
         )
     ),
 

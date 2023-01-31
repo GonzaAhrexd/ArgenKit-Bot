@@ -98,14 +98,14 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'dolar') {
 
 
-           await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+            await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
                 .then(async (oficial) => {
                     await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
                         .then(async (blue) => {
                             await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa')
-                                .then(async(mep) => {
+                                .then(async (mep) => {
                                     await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui')
-                                        .then((ccl) => {
+                                        .then(async (ccl) => {
 
                                             const embed1 = new Discord.MessageEmbed()
                                                 .setTitle("Dólar estadounidese :flag_us:")
@@ -150,7 +150,7 @@ module.exports = {
                                                 .addField("Inflación anual  :chart_with_downwards_trend: ", "7,1% (2021)", true)
                                                 .addField("Emisor :bank: ", "Sistema de Reserva Federal ", true)
 
-                                                const row = new MessageActionRow()
+                                            const row = new MessageActionRow()
                                                 .addComponents(
                                                     new MessageButton()
                                                         .setCustomId("conversion")
@@ -163,27 +163,29 @@ module.exports = {
                                                         .setLabel("📋 Información")
                                                         .setStyle("PRIMARY")
                                                 )
-                
-                
-                
-                
-                                            interaction.reply({ embeds: [embed1], components: [row] });
-                
+
+
+                                            //Deferir las respuestas para que no se crashee todo
+                                            await interaction.deferReply();
+                                            setTimeout(() => {
+                                                interaction.editReply({ embeds: [embed1], components: [row] });
+                                            }, 3000)
+
                                             client.on('interactionCreate', interaction => {
                                                 if (!interaction.isButton()) return;
                                             });
-                
+
                                             const filter = i => i.user.id === interaction.user.id;
-                
+
                                             const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
-                
+
                                             var actual = embed1
-                
+
                                             collector.on('collect', async i => {
                                                 if (i.customId === 'conversion') {
                                                     await i.deferUpdate()
                                                     await i.editReply({ embeds: [embed1], components: [row] });
-                                                    actual = embed1                                                
+                                                    actual = embed1
                                                 }
                                                 if (i.customId === 'informacion') {
                                                     await i.deferUpdate();
@@ -191,7 +193,7 @@ module.exports = {
                                                     actual = embed2
                                                 }
                                             });
-                
+
                                             collector.on("end", (collected, reason) => {
                                                 if (reason === "time") {
                                                     interaction.editReply({ embeds: [actual], components: [] });
@@ -228,7 +230,7 @@ module.exports = {
             await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
                 .then(async (oficial) => {
                     await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                        .then((blue) => {
+                        .then(async (blue) => {
 
 
                             const embed1 = new Discord.MessageEmbed()
@@ -268,8 +270,8 @@ module.exports = {
                                 .addField("Emisor :bank: ", "Banco Central Europeo", true)
 
 
-                       
-                                const row = new MessageActionRow()
+
+                            const row = new MessageActionRow()
                                 .addComponents(
                                     new MessageButton()
                                         .setCustomId("conversion")
@@ -284,10 +286,10 @@ module.exports = {
                                 )
 
 
-
-
-                            interaction.reply({ embeds: [embed1], components: [row] });
-
+                            await interaction.deferReply();
+                            setTimeout(() => {
+                                interaction.editReply({ embeds: [embed1], components: [row] });
+                            }, 3000)
                             client.on('interactionCreate', interaction => {
                                 if (!interaction.isButton()) return;
                             });
@@ -302,7 +304,7 @@ module.exports = {
                                 if (i.customId === 'conversion') {
                                     await i.deferUpdate()
                                     await i.editReply({ embeds: [embed1], components: [row] });
-                                    actual = embed1                                                
+                                    actual = embed1
                                 }
                                 if (i.customId === 'informacion') {
                                     await i.deferUpdate();
@@ -316,8 +318,8 @@ module.exports = {
                                     interaction.editReply({ embeds: [actual], components: [] });
                                 }
                             })
-    
-                            
+
+
 
                         })
                         .catch((err) => {
@@ -340,7 +342,7 @@ module.exports = {
             await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
                 .then(async (oficial) => {
                     await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
-                        .then((blue) => {
+                        .then(async (blue) => {
 
 
                             const embed1 = new Discord.MessageEmbed()
@@ -381,7 +383,7 @@ module.exports = {
 
 
 
-                                const row = new MessageActionRow()
+                            const row = new MessageActionRow()
                                 .addComponents(
                                     new MessageButton()
                                         .setCustomId("conversion")
@@ -397,9 +399,11 @@ module.exports = {
 
 
 
-
-                            interaction.reply({ embeds: [embed1], components: [row] });
-
+                                await interaction.deferReply();
+                                setTimeout( () => {
+                                 interaction.editReply({ embeds: [embed1], components: [row] });
+                                }, 3000)
+                                
                             client.on('interactionCreate', interaction => {
                                 if (!interaction.isButton()) return;
                             });
@@ -414,7 +418,7 @@ module.exports = {
                                 if (i.customId === 'conversion') {
                                     await i.deferUpdate()
                                     await i.editReply({ embeds: [embed1], components: [row] });
-                                    actual = embed1                                                
+                                    actual = embed1
                                 }
                                 if (i.customId === 'informacion') {
                                     await i.deferUpdate();
@@ -428,13 +432,13 @@ module.exports = {
                                     interaction.editReply({ embeds: [actual], components: [] });
                                 }
                             })
-    
-                            });
-                        })
-                        .catch((err) => {
-                            console.error('ERR', err)
-                        })
-                
+
+                        });
+                })
+                .catch((err) => {
+                    console.error('ERR', err)
+                })
+
 
 
                 .catch((err) => {
@@ -447,22 +451,23 @@ module.exports = {
         }
 
         //Yen
-        let divisas:Array<
-        {id: string,
-        nombre: string,
-        iso:  string,
-        bandera:  string,
-        desc: string,
-        color:  string,
-        img:  string,
-        ac:  string,
-        paises:  string,
-        simbolo:  string,
-        billetes:  string,
-        monedas:  string,
-        inflacion:  string,
-        emisor:  string
-        }
+        let divisas: Array<
+            {
+                id: string,
+                nombre: string,
+                iso: string,
+                bandera: string,
+                desc: string,
+                color: string,
+                img: string,
+                ac: string,
+                paises: string,
+                simbolo: string,
+                billetes: string,
+                monedas: string,
+                inflacion: string,
+                emisor: string
+            }
         > = [{
             id: "yen",
             nombre: "Yen Japonés",
@@ -778,7 +783,7 @@ module.exports = {
 
 
 
-        ]
+            ]
 
         divisas.forEach(async divisa => {
             if (interaction.options.getSubcommand() === divisa.id) {
@@ -788,9 +793,9 @@ module.exports = {
                             .then(async (oficial) => {
                                 await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
                                     .then((blue) => {
-                                        let conversion:number = DIVISA.data['rates'][divisa.iso]
-                                        let num:number = 1
-                                        let cantidad:string = " "
+                                        let conversion: number = DIVISA.data['rates'][divisa.iso]
+                                        let num: number = 1
+                                        let cantidad: string = " "
                                         if (divisa.iso === 'COP' || divisa.iso === "PYG" || divisa.iso === "KRW") {
                                             num = 1000
                                             cantidad = "(1000 Unidades)"
@@ -801,7 +806,7 @@ module.exports = {
                                             .setDescription(divisa.desc)
                                             .setThumbnail(divisa.img)
                                             .addField(divisa.nombre + " :bank: ", "Valor de " + divisa.nombre + " que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos", false)
-                                           
+
                                             //Oficial
                                             .addField("COMPRA  ", "ARS$ " + currencyFormatter.format(((num / conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), true)
                                             .addField("VENTA  ", "ARS$ " + currencyFormatter.format(((num / conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), true)
@@ -865,7 +870,7 @@ module.exports = {
                                             if (i.customId === 'conversion') {
                                                 await i.deferUpdate()
                                                 await i.editReply({ embeds: [embed1], components: [row] });
-                                                actual = embed1                                                
+                                                actual = embed1
                                             }
                                             if (i.customId === 'informacion') {
                                                 await i.deferUpdate();
@@ -880,25 +885,25 @@ module.exports = {
                                             }
                                         })
 
-                                        })
-                                            .catch((err) => {
-                                                console.error('ERR', err)
-                                            })
                                     })
                                     .catch((err) => {
                                         console.error('ERR', err)
                                     })
                             })
-
                             .catch((err) => {
                                 console.error('ERR', err)
                             })
-                            .catch((err) => {
-                                console.error('ERR', err)
-                            })
+                    })
 
-                    }
-        
+                    .catch((err) => {
+                        console.error('ERR', err)
+                    })
+                    .catch((err) => {
+                        console.error('ERR', err)
+                    })
+
+            }
+
         })
 
     }

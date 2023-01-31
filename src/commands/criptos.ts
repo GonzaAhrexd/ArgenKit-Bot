@@ -211,7 +211,7 @@ module.exports = {
                         let conversion: number = CRIPTOINFO.data['prices'][0][1];
 
                         await axios.get(cripto.apilemon)
-                            .then((LEMON) => {
+                            .then(async (LEMON) => {
                                 const embed1 = new Discord.MessageEmbed()
 
                                 if (cripto.id === "terraluna") {
@@ -269,7 +269,10 @@ module.exports = {
 
 
 
-                                interaction.reply({ embeds: [embed1], components: [row] });
+                                    await interaction.deferReply();
+                                    setTimeout(() => {
+                                        interaction.editReply({ embeds: [embed1], components: [row] });
+                                    }, 3000)
                                 client.on('interactionCreate', interaction => {
                                     if (!interaction.isButton()) return;
                                 });

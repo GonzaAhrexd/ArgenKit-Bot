@@ -24,14 +24,14 @@ module.exports = {
                 .addStringOption(option =>
                     option.setName('usd')
                         .setDescription('Monto en Dólares.')
-
-                )).addSubcommand(subcommand =>
-                    subcommand.setName('euro')
-                        .setDescription('Convierte de Euros a Pesos Argentinos')
-                        .addStringOption(option =>
-                            option.setName('eur')
-                                .setDescription('Monto en Euros.')
-                        ))
+                ))
+        .addSubcommand(subcommand =>
+            subcommand.setName('euro')
+                .setDescription('Convierte de Euros a Pesos Argentinos')
+                .addStringOption(option =>
+                    option.setName('eur')
+                        .setDescription('Monto en Euros.')
+                ))
         .addSubcommand(subcommand =>
             subcommand.setName('real')
                 .setDescription('Convierte de Reales Brasileños a Pesos Argentinos')
@@ -65,7 +65,7 @@ module.exports = {
                 ))
 
         .addSubcommand(subcommand =>
-            subcommand.setName('dolar_canadiense')
+            subcommand.setName('dolarcanadiense')
                 .setDescription('Convierte de Dólares Canadianos a Pesos Argentinos')
                 .addStringOption(option =>
                     option.setName('cad')
@@ -73,7 +73,7 @@ module.exports = {
                 ))
 
         .addSubcommand(subcommand =>
-            subcommand.setName('dolar_australiano')
+            subcommand.setName('dolaraustraliano')
                 .setDescription('Convierte de Dólares Australianos a Pesos Argentinos')
                 .addStringOption(option =>
                     option.setName('aud')
@@ -81,7 +81,7 @@ module.exports = {
                 ))
 
         .addSubcommand(subcommand =>
-            subcommand.setName('dolar_neozelandes')
+            subcommand.setName('dolarneozelandes')
                 .setDescription('Convierte de Dólares Neozelandeses a Pesos Argentinos')
                 .addStringOption(option =>
                     option.setName('nzd')
@@ -89,7 +89,7 @@ module.exports = {
                 ))
 
         .addSubcommand(subcommand =>
-            subcommand.setName('peso_mexicano')
+            subcommand.setName('pesomexicano')
                 .setDescription('Convierte de Pesos Mexicanos a Pesos Argentinos')
                 .addStringOption(option =>
                     option.setName('mxn')
@@ -97,7 +97,7 @@ module.exports = {
                 ))
 
         .addSubcommand(subcommand =>
-            subcommand.setName('peso_chileno')
+            subcommand.setName('pesochileno')
                 .setDescription('Convierte de Pesos Chilenos a Pesos Argentinos')
                 .addStringOption(option =>
                     option.setName('clp')
@@ -181,7 +181,14 @@ module.exports = {
                 .addStringOption(option =>
                     option.setName('chf')
                         .setDescription('Monto en Francos.')
-                )),
+                ))
+                .addSubcommand(subcommand =>
+                    subcommand.setName('lira')
+                        .setDescription('Convierte de Liras Turcas a Pesos Argentinos')
+                        .addStringOption(option =>
+                            option.setName('try')
+                                .setDescription('Monto en Liras.')
+                        )),
 
 
     async run(client, interaction, options) {
@@ -195,7 +202,7 @@ module.exports = {
                             await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa')
                                 .then(async (mep) => {
                                     await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui')
-                                        .then((ccl) => {
+                                        .then(async (ccl) => {
 
                                             const embed = new Discord.MessageEmbed()
 
@@ -226,7 +233,10 @@ module.exports = {
                                                 .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * ccl.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
 
-                                            return interaction.reply({ embeds: [embed] });
+                                                await interaction.deferReply();
+                                                setTimeout( () => {
+                                                 interaction.editReply({ embeds: [embed] });
+                                                }, 3000)
 
                                         })
                                         .catch((err) => {
@@ -281,7 +291,13 @@ module.exports = {
                                 .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
 
-                            return interaction.reply({ embeds: [embed] });
+                       
+
+                                await interaction.deferReply();
+                                setTimeout( () => {
+                                 interaction.editReply({ embeds: [embed] });
+                                }, 3000)
+
 
                         })
                         .catch((err) => {
@@ -328,7 +344,13 @@ module.exports = {
                                 .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
 
-                            return interaction.reply({ embeds: [embed] });
+                           
+
+                                await interaction.deferReply();
+                                setTimeout( () => {
+                                 interaction.editReply({ embeds: [embed] });
+                                }, 3000)
+
 
                         })
                         .catch((err) => {
@@ -531,9 +553,6 @@ module.exports = {
             img: "https://cdn.discordapp.com/attachments/802944543510495292/930966650122014740/liraapeso.png",
             simbolo: "TRY₺",
         }
-
-
-
             ]
 
         divisas.forEach(async divisa => {
@@ -544,11 +563,11 @@ module.exports = {
                 axios.get('https://api.exchangerate.host/latest')
                     .then((DIVISA) => {
                         let aconvertir = DIVISA.data['rates'][divisa.iso]
-                
+
                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
                             .then((oficial) => {
                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                                    .then((blue) => {
+                                    .then(async (blue) => {
 
                                         //Aquí el código
                                         const embed = new Discord.MessageEmbed()
@@ -573,10 +592,10 @@ module.exports = {
                                             .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format(((convertir / aconvertir) * blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
                                             .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format(((convertir / aconvertir) * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
-
-                                        return interaction.reply({ embeds: [embed] });
-
-
+                                            await interaction.deferReply();
+                                            setTimeout( () => {
+                                             interaction.editReply({ embeds: [embed] });
+                                            }, 3000)
                                     }).catch((err) => {
                                         console.error('ERR', err)
                                     })
@@ -586,25 +605,7 @@ module.exports = {
                     }).catch((err) => {
                         console.error('ERR', err)
                     })
-
             }
         })
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
 }

@@ -81,136 +81,137 @@ module.exports = {
                 masaatomica: "106,42(1) u",
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964713789259911218/paladio.png",
                 color: "#808080"
-                },
-                {
-                    id: "platino",
-                    nombre: "Platino",
-                    emoji: "<:platinum:964717592923222017>",
-                    desc: "El platino es un elemento químico cuyo número atómico es 78. Está ubicado en el grupo 10 de la tabla periódica y es uno de los metales más raros en la corteza terrestre. Es valorado por su alta resistencia a la corrosión y por sus propiedades catalíticas. Se utiliza en la fabricación de joyas, catalizadores y termopares. Su símbolo es Pt.",
-                    iso: "XPT",
-                    numeroysimboloatomico: "78 - Pt",
-                    dureza: "4",
-                    masaatomica: "195,084(5) u",
-                    imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964713788978913320/platinum.png",
-                    color: "#a9f8f7"
-                    },
+            },
+            {
+                id: "platino",
+                nombre: "Platino",
+                emoji: "<:platinum:964717592923222017>",
+                desc: "El platino es un elemento químico cuyo número atómico es 78. Está ubicado en el grupo 10 de la tabla periódica y es uno de los metales más raros en la corteza terrestre. Es valorado por su alta resistencia a la corrosión y por sus propiedades catalíticas. Se utiliza en la fabricación de joyas, catalizadores y termopares. Su símbolo es Pt.",
+                iso: "XPT",
+                numeroysimboloatomico: "78 - Pt",
+                dureza: "4",
+                masaatomica: "195,084(5) u",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964713788978913320/platinum.png",
+                color: "#a9f8f7"
+            },
             ]
         Metales.forEach(async Metal => {
             if (interaction.options.getSubcommand() === Metal.id) {
                 await axios.get('https://api.metals.live/v1/spot/') //Precio en dólares
                     .then(async (precio) => {
-                        let conversion: number = 0
-                        if (Metal.id == 'oro')
-                            conversion = precio.data[0].gold
-
-                        if (Metal.id == 'plata')
-                            conversion = precio.data[1].silver
-
-                        if (Metal.id == 'platino')
-                            conversion = precio.data[2].platinum
-
-                        if (Metal.id == 'paladio')
-                            conversion = precio.data[3].palladium
-
-
-                        console.log(conversion)
-
+                        //Aaar
+                        let metalMap = new Map<String, any>([
+                            ['oro', precio.data[0].gold],
+                            ['plata', precio.data[1].silver],
+                            ['platino', precio.data[2].platinum],
+                            ['paladio', precio.data[3].palladium],
+                          ]);
+                          
+                          let conversion = metalMap.get(Metal.id );
+                          
 
                         await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
 
                             .then(async (oficial) => {
-                                                await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                                                    .then((blue) => {
-
-                        
-                                const embed1 = new Discord.MessageEmbed()
-                                    .setTitle(`${Metal.nombre} ${Metal.emoji}`)
-                                    .setColor(Metal.color)
-                                    .setDescription(Metal.desc)
-                                    .setThumbnail(Metal.imagen)
-                                    .addField(`Precio en dólares ${Metal.emoji}`, 'USD$ ' + currencyFormatter.format((conversion), { locale: 'es-ES', code: ' ' }), true)
+                                await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                                    .then(async (blue) => {
 
 
-                                    //Oficial
-                                    .addField(`Compra ${Metal.emoji}`, 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-                                    .addField(`Venta ${Metal.emoji}`, 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                                        const embed1 = new Discord.MessageEmbed()
+                                            .setTitle(`${Metal.nombre} ${Metal.emoji}`)
+                                            .setColor(Metal.color)
+                                            .setDescription(Metal.desc)
+                                            .setThumbnail(Metal.imagen)
+                                            .addField(`Precio en dólares ${Metal.emoji}`, 'USD$ ' + currencyFormatter.format((conversion), { locale: 'es-ES', code: ' ' }), true)
 
-                                    //Impuestos
-                                    .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Precio con los  distintos impuestos en transacciones en dólares  ", false)
-                                    .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                    .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                    .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
-                                // //Blue
+                                            //Oficial
+                                            .addField(`Compra ${Metal.emoji}`, 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), true)
+                                            .addField(`Venta ${Metal.emoji}`, 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), true)
 
-                                .addField(Metal.nombre + "a precio blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                .addField("COMPRA  ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-                                .addField("VENTA ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                                            //Impuestos
+                                            .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Precio con los  distintos impuestos en transacciones en dólares  ", false)
+                                            .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                            .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                            .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
-                                const embed2 = new Discord.MessageEmbed()
-                                    .setTitle("Oro")
-                                    .setColor("#fddc4d")
-                                    .setDescription(Metal.desc)
-                                    .setThumbnail(Metal.imagen)
-                                    .addField("Código ISO", Metal.iso, true)
-                                    .addField("Número y símbolo atómico ", Metal.numeroysimboloatomico, true)
-                                    .addField("Dureza ", Metal.dureza, true)
-                                    .addField("Masa atómica", Metal.masaatomica, true)
+                                            // //Blue
 
-                                const row = new MessageActionRow()
-                                    .addComponents(
-                                        new MessageButton()
-                                            .setCustomId("conversion")
-                                            .setLabel("💸 Conversión ")
-                                            .setStyle("SUCCESS")
-                                    )
-                                    .addComponents(
-                                        new MessageButton()
-                                            .setCustomId("informacion")
-                                            .setLabel("📋 Información")
-                                            .setStyle("PRIMARY")
-                                    )
+                                            .addField(Metal.nombre + "a precio blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
+                                            .addField("COMPRA  ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                                            .addField("VENTA ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
 
-                                interaction.reply({ embeds: [embed1], components: [row] });
-                                client.on('interactionCreate', interaction => {
-                                    if (!interaction.isButton()) return;
-                                });
-                                const filter = i => i.user.id === interaction.user.id;
-                                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
-                                var actual = embed1
-                                collector.on('collect', async i => {
-                                    if (i.customId === 'conversion') {
-                                        await i.deferUpdate()
-                                        await i.editReply({ embeds: [embed1], components: [row] });
-                                        actual = embed1
-                                    }
-                                    if (i.customId === 'informacion') {
-                                        await i.deferUpdate();
-                                        await i.editReply({ embeds: [embed2], components: [row] });
-                                        actual = embed2
-                                    }
-                                })
-                                collector.on("end", (collected, reason) => {
-                                    if (reason === "time") {
-                                        interaction.editReply({ embeds: [actual], components: [] });
-                                    }
-                                })
-                            })
-                            .catch((err) => { // Catch del axios precio en dólares
-                                console.error('ERR', err)
-                            })
-                            .catch((err) => { // Catch del axios dólar oficial
-                                console.error('ERR', err)
-                            })
-                  
-                                .catch((err) => { // Catch del axios dólar blue
-                                    console.error('ERR', err)
-                                })
-                        }) //Cierra Precio en  dólares
+                                        const embed2 = new Discord.MessageEmbed()
+                                            .setTitle("Oro")
+                                            .setColor("#fddc4d")
+                                            .setDescription(Metal.desc)
+                                            .setThumbnail(Metal.imagen)
+                                            .addField("Código ISO", Metal.iso, true)
+                                            .addField("Número y símbolo atómico ", Metal.numeroysimboloatomico, true)
+                                            .addField("Dureza ", Metal.dureza, true)
+                                            .addField("Masa atómica", Metal.masaatomica, true)
+
+                                        const row = new MessageActionRow()
+                                            .addComponents(
+                                                new MessageButton()
+                                                    .setCustomId("conversion")
+                                                    .setLabel("💸 Conversión ")
+                                                    .setStyle("SUCCESS")
+                                            )
+                                            .addComponents(
+                                                new MessageButton()
+                                                    .setCustomId("informacion")
+                                                    .setLabel("📋 Información")
+                                                    .setStyle("PRIMARY")
+                                            )
+
+
+
+                                        await interaction.deferReply();
+                                        setTimeout(() => {
+                                            interaction.editReply({ embeds: [embed1], components: [row] });
+                                        }, 5000)
+
+
+                                        client.on('interactionCreate', interaction => {
+                                            if (!interaction.isButton()) return;
+                                        });
+                                        const filter = i => i.user.id === interaction.user.id;
+                                        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+                                        var actual = embed1
+                                        collector.on('collect', async i => {
+                                            if (i.customId === 'conversion') {
+                                                await i.deferUpdate()
+                                                await i.editReply({ embeds: [embed1], components: [row] });
+                                                actual = embed1
+                                            }
+                                            if (i.customId === 'informacion') {
+                                                await i.deferUpdate();
+                                                await i.editReply({ embeds: [embed2], components: [row] });
+                                                actual = embed2
+                                            }
+                                        })
+                                        collector.on("end", (collected, reason) => {
+                                            if (reason === "time") {
+                                                interaction.editReply({ embeds: [actual], components: [] });
+                                            }
+                                        })
+                                    })
+                                    .catch((err) => { // Catch del axios precio en dólares
+                                        console.error('ERR', err)
+                                    })
+                                    .catch((err) => { // Catch del axios dólar oficial
+                                        console.error('ERR', err)
+                                    })
+
+                                    .catch((err) => { // Catch del axios dólar blue
+                                        console.error('ERR', err)
+                                    })
+                            }) //Cierra Precio en  dólares
 
 
                     }) //Cierra if == id
-            }  
+            }
         }) //Cierra Async Run del inicio
 
 

@@ -3,8 +3,8 @@ const Discord = require('discord.js')
 const {  REST } = require('@discordjs/rest')
 const { Routes } = require('discord-api-types/v9')
 require('dotenv').config() //Variables de entorno
-// const guild = client.guilds.cache.get()
-const clientId = '810272095279251556'
+// const guild = client.guilds.cache.get()  
+const clientId = '810272095279251556' //Cambiar por el ID del bot estable
 const commands = []
 let slashcommandFiles = fs.readdirSync("./commands").filter(file => file.endsWith('js'))
 

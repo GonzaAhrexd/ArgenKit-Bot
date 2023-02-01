@@ -10,10 +10,10 @@ require('dotenv').config() //Variables de entorno
 // const guild = client.guilds.cache.get()  
 const clientId = '810272095279251556' //Cambiar por el ID del bot estable
 const commands = []
-let slashcommandFiles = fs.readdirSync("./dist/commands").filter(file => file.endsWith('js'))
+let slashcommandFiles = fs.readdirSync("./src/commands").filter(file => file.endsWith('ts'))
 
 for(const file of slashcommandFiles){
-    const slash = require(`../dist/commands/${file}`)
+    const slash = require(`./commands/${file}`)
     //@ts-ignore
     commands.push(slash.data)
 }

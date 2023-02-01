@@ -18,9 +18,11 @@ const client = new Client({
 //Command Handler
 client.slashcommands = new Discord.Collection();
 const slashcommandsFile = fs.readdirSync('src/commands').filter(file => file.endsWith("ts"))
+let cantidadComandos:number = 0
 for (const file of slashcommandsFile) {
   const slash = require(`./commands/${file}`)
-  console.log(`Slash  commands - ${file} cargado`)
+  // console.log(`Slash  commands - ${file} cargado`)
+  cantidadComandos++
   client.slashcommands.set(slash.data.name, slash)
 }
 client.on("interactionCreate", async (interaction) => {
@@ -38,6 +40,7 @@ client.on("interactionCreate", async (interaction) => {
 //Ready
 client.on("ready", async () => {
   console.log("Bot funcionando y conectado a Discord ✅");
+  console.log("Cargados "  +  cantidadComandos +  " comandos ✅")
   client.user.setPresence({
     status: "online",
     activities: [{

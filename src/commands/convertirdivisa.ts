@@ -35,11 +35,10 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand.setName('real')
                 .setDescription('Convierte de Reales Brasileños a Pesos Argentinos')
-                .addStringOption(option =>
+                .addNumberOption(option =>
                     option.setName('brl')
                         .setDescription('Monto en Reales.').setRequired(true)
                 ))
-
         .addSubcommand(subcommand =>
             subcommand.setName('yen')
                 .setDescription('Convierte de Yenes Japoneses a Pesos Argentinos')

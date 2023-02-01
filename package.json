@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --watch",
     "dev": "nodemon --exec ts-node -- src/index.ts",
-    "slash": "node src/slashcommands.js"
+    "slash": "ts-node -- src/slashcommands.ts"
   },
   "keywords": [],
   "author": "",

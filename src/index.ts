@@ -17,9 +17,9 @@ const client = new Client({
 
 //Command Handler
 client.slashcommands = new Discord.Collection();
-const slashcommandsFile = fs.readdirSync('./dist/commands').filter(file => file.endsWith("js"))
+const slashcommandsFile = fs.readdirSync('src/commands').filter(file => file.endsWith("ts"))
 for (const file of slashcommandsFile) {
-  const slash = require(`../dist/commands/${file}`)
+  const slash = require(`./commands/${file}`)
   console.log(`Slash  commands - ${file} cargado`)
   client.slashcommands.set(slash.data.name, slash)
 }

@@ -5,7 +5,7 @@ const { MessageEmbed } = require("discord.js")
 //@ts-ignore
 const Discord = require("discord.js")
 //@ts-ignore
-const impuestos = require("../functions/impuestos.js")
+const impuestos = require("../functions/impuestos.ts")
 //@ts-ignore
 var currencyFormatter = require('currency-formatter') //Currency formatter
 //@ts-ignore

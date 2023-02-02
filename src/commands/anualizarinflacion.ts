@@ -1,9 +1,5 @@
-// @ts-ignore
-const {SlashCommandBuilder} = require("@discordjs/builders")
-// @ts-ignore
-const { MessageEmbed } = require("discord.js")
-// @ts-ignore
-const Discord = require("discord.js")
+import {SlashCommandBuilder} from "@discordjs/builders"
+import Discord from "discord.js"
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -20,6 +16,7 @@ module.exports = {
           .setTitle("Inflación mensual anualizada")
           .setColor("#f82f40")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964701743504044072/loss.png")
+          .addField("Inflación mensual", `${interaction.options.getNumber('mensual')}%`)
           .addField("Inflación anual", mes.toFixed(2) + "%");
       return interaction.reply({ embeds: [embed1] });
 

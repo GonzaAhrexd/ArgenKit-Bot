@@ -1,24 +1,10 @@
-// @ts-ignore
-const {SlashCommandBuilder} = require("@discordjs/builders")
-// @ts-ignore
-const { MessageEmbed } = require("discord.js")
-// @ts-ignore
-const Discord = require("discord.js")
-// @ts-ignore
-const axios = require("axios")
+import {SlashCommandBuilder} from "@discordjs/builders"
+import Discord from "discord.js"
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("api")
     .setDescription("Muestra las apis utilizadas por el bot"),
-
-
-
-
-
     async run(client, interaction){
-        
-
-
         const embed = new Discord.MessageEmbed()
         .setTitle("Apis utilizadas para la creación del bot")
         .setColor('#dfe5e8')
@@ -29,13 +15,7 @@ module.exports = {
         .addField("Cotizaciones de criptomonedas", "https://www.coingecko.com/es")
         .addField("Cotizaciones de criptomonedas", "https://criptoya.com/api")
         .addField("Cotizaciones de metales", "https://api.metals.live/")
-      interaction.reply({
-  
-        embeds: [embed]
-  
-      })
-
-      
+      interaction.reply({ embeds: [embed]})
     }
 
 }

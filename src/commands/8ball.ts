@@ -1,9 +1,5 @@
-// @ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-// @ts-ignore
-const { MessageEmbed } = require("discord.js")
-// @ts-ignore
-const Discord = require("discord.js")
+import { SlashCommandBuilder } from "@discordjs/builders"
+import Discord from "discord.js"
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,8 +17,8 @@ module.exports = {
 
     let Respuesta: Array<{
         opcion: Number,
-        respuesta: String,
-        color: string,
+        respuesta: string,
+        color: Discord.ColorResolvable,
     }> = [
         //Afirmativas ✅
         {opcion: 0, respuesta: "Ma' vale", color: "GREEN"},

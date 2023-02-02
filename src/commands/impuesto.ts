@@ -15,7 +15,7 @@ const paginationEmbed = require('discordjs-button-pagination'); //Botones
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('impuesto')
-    .setDescription('Calcula el impuesto a compras online del 74% o 75%')
+    .setDescription('Calcula el impuesto a compras extranjeras con tarjeta')
     .addNumberOption(option =>
       option.setName('monto')
         .setDescription('Valor a calcular.')

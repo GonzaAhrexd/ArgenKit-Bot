@@ -1,18 +1,7 @@
-//@ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-//@ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
-//@ts-ignore
-const Discord = require("discord.js");
-//@ts-ignore
-const axios = require("axios")
-//@ts-ignore
+import { SlashCommandBuilder } from "@discordjs/builders"
+import Discord from "discord.js"
+import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-//@ts-ignore
 const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
@@ -146,7 +135,7 @@ module.exports = {
             subcommand.setName('bolivar')
                 .setDescription('Convierte de Bolívares a Pesos Argentinos')
                 .addNumberOption(option =>
-                    option.setName('vef')
+                    option.setName('ves')
                         .setDescription('Monto en Bolívares.').setRequired(true)
                 ))
 
@@ -193,15 +182,15 @@ module.exports = {
     async run(client, interaction, options) {
 
         if (interaction.options.getSubcommand() === 'dolar') {
-            let conv2 = interaction.options.getNumber('usd')
+            let convertir:number = interaction.options.getNumber('usd')
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
-                .then(async (oficial) => {
-                    await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
-                        .then(async (blue) => {
-                            await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa')
-                                .then(async (mep) => {
-                                    await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui')
-                                        .then(async (ccl) => {
+                .then( (oficial) => {
+                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
+                        .then( (blue) => {
+                             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa')
+                                .then( (mep) => {
+                                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui')
+                                        .then( (ccl) => {
 
                                             const embed = new Discord.MessageEmbed()
 
@@ -209,30 +198,30 @@ module.exports = {
                                                 .setColor("GREEN")
                                                 .setDescription("Dólares estadounidenses expresado en pesos argentinos")
                                                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
-                                                .addField("Monto original :dollar: ", 'USD$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
+                                                .addField("Monto original :dollar: ", 'USD$ ' + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }))
                                                 //Oficial
                                                 .addField("Dólar oficial :bank: ", "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
-                                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                                                 //Impuestos
                                                 .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
-                                                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74(conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75(conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100(conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                                                 //Blue
                                                 .addField("Dólar blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                                                 //Financieros
                                                 .addField("Financieros <:finanzas:1068357650380755045>", "Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares.", false)
-                                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * mep.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * ccl.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * mep.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * ccl.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
 
-                                                await interaction.deferReply();
+                                               interaction.deferReply();
                                                 setTimeout( () => {
                                                  interaction.editReply({ embeds: [embed] });
                                                 }, 3000)
@@ -261,9 +250,9 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'euro') {
             let conv2 = interaction.options.getNumber('eur')
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
-                .then(async (oficial) => {
-                    await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                        .then(async (blue) => {
+                .then( (oficial) => {
+                   axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                        .then((blue) => {
 
 
                             const embed = new Discord.MessageEmbed()
@@ -292,7 +281,7 @@ module.exports = {
 
                        
 
-                                await interaction.deferReply();
+                               interaction.deferReply();
                                 setTimeout( () => {
                                  interaction.editReply({ embeds: [embed] });
                                 }, 3000)
@@ -314,9 +303,9 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'real') {
             let conv2 = interaction.options.getNumber('brl')
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
-                .then(async (oficial) => {
-                    await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
-                        .then(async (blue) => {
+                .then((oficial) => {
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
+                        .then( (blue) => {
 
 
                             const embed = new Discord.MessageEmbed()
@@ -345,7 +334,7 @@ module.exports = {
 
                            
 
-                                await interaction.deferReply();
+                                 interaction.deferReply();
                                 setTimeout( () => {
                                  interaction.editReply({ embeds: [embed] });
                                 }, 3000)
@@ -370,7 +359,7 @@ module.exports = {
                 nombre: string,
                 iso: string,
                 bandera: string,
-                color: string,
+                color: Discord.ColorResolvable,
                 img: string,
                 simbolo: string,
 
@@ -399,7 +388,7 @@ module.exports = {
             nombre: "Rublo",
             iso: "RUB",
             bandera: "<:rublo:913901788531417229>",
-            color: "red",
+            color: "RED",
             img: "https://cdn.discordapp.com/attachments/802944543510495292/928344880995008602/rubloapeso.png",
             simbolo: "₽"
         },
@@ -453,7 +442,7 @@ module.exports = {
             nombre: "Peso uruguayo",
             iso: "UYU",
             bandera: ":flag_uy:",
-            color: "blue",
+            color: "BLUE",
             img: "https://cdn.discordapp.com/attachments/802944543510495292/928350035744288878/uyuapeso.png",
             simbolo: "$",
         },
@@ -501,7 +490,7 @@ module.exports = {
             nombre: "Bolívar",
             iso: "VES",
             bandera: ":flag_ve:",
-            color: "red",
+            color: "RED",
             img: "https://cdn.discordapp.com/attachments/802944543510495292/928354779887960105/bolivarapeso.png",
             simbolo: "Bs S",
 
@@ -566,7 +555,7 @@ module.exports = {
                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
                             .then((oficial) => {
                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                                    .then(async (blue) => {
+                                    .then((blue) => {
 
                                         //Aquí el código
                                         const embed = new Discord.MessageEmbed()
@@ -591,10 +580,10 @@ module.exports = {
                                             .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format(((convertir / aconvertir) * blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
                                             .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format(((convertir / aconvertir) * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
-                                            await interaction.deferReply();
+                                            interaction.deferReply();
                                             setTimeout( () => {
                                              interaction.editReply({ embeds: [embed] });
-                                            }, 3000)
+                                            }, 4000)
                                     }).catch((err) => {
                                         console.error('ERR', err)
                                     })

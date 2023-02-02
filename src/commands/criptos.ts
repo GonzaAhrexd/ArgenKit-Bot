@@ -204,14 +204,14 @@ module.exports = {
             }
             ]
 
-        Criptomonedas.forEach(async cripto => {
+        Criptomonedas.forEach( cripto => {
             if (interaction.options.getSubcommand() === cripto.id) {
-                await axios.get(cripto.apicoingecko)
-                    .then(async (CRIPTOINFO) => {
+                 axios.get(cripto.apicoingecko)
+                    .then( (CRIPTOINFO) => {
                         let conversion: number = CRIPTOINFO.data['prices'][0][1];
 
-                        await axios.get(cripto.apilemon)
-                            .then(async (LEMON) => {
+                         axios.get(cripto.apilemon)
+                            .then( (LEMON) => {
                                 const embed1 = new Discord.MessageEmbed()
 
                                 if (cripto.id === "terraluna") {
@@ -269,7 +269,7 @@ module.exports = {
 
 
 
-                                    await interaction.deferReply();
+                                     interaction.deferReply();
                                     setTimeout(() => {
                                         interaction.editReply({ embeds: [embed1], components: [row] });
                                     }, 3000)

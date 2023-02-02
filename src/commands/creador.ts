@@ -1,9 +1,6 @@
-//@ts-ignore
-const {SlashCommandBuilder} = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const Discord = require("discord.js")
+import {SlashCommandBuilder} from "@discordjs/builders"
+import { MessageEmbed } from "discord.js"
+import Discord from "discord.js"
 
 module.exports = {
     data: new SlashCommandBuilder()

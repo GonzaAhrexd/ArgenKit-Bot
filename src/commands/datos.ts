@@ -1,11 +1,6 @@
-//@ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const Discord = require("discord.js");
-//@ts-ignore
-const axios = require ("axios")
+import { SlashCommandBuilder } from "@discordjs/builders"
+import  Discord from "discord.js"
+import axios from "axios"
 var currencyFormatter = require('currency-formatter') //Currency formatter
 module.exports = {
     data: new SlashCommandBuilder()
@@ -69,7 +64,7 @@ module.exports = {
               .then((CIRCULANTE) => {
                 const embed = new Discord.MessageEmbed()
                   .setTitle("Pesos Argentinos en circulación")
-                  .setColor("fad56f")
+                  .setColor("#FAD56F")
                   .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903124593483583499/money.png")
                   .addField("Cantidad :money_with_wings: ", 'ARS ' + currencyFormatter.format(CIRCULANTE.data['valor'], { locale: 'es-ES', code: ' ' }), true)
                 return interaction.reply({ embeds: [embed] });

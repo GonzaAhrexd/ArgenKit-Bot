@@ -3,15 +3,8 @@ import { disableValidators } from "@discordjs/builders";
 //@ts-ignore
 const { SlashCommandBuilder } = require("@discordjs/builders")
 //@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-//@ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
-//@ts-ignore
-const Discord = require("discord.js");
-//@ts-ignore
-const axios = require("axios")
+import Discord = require("discord.js");
+import axios from "axios"
 //@ts-ignore
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 //@ts-ignore
@@ -85,10 +78,10 @@ module.exports = {
         ))
     .addSubcommand(subcommand =>
       subcommand.setName('pesomexicano')
-        .setDescription('Convierte de Pesos Mexicanos a Pesos Argentinos')
+        .setDescription('Convierte de Pesos Argentinos a Pesos Mexicanos')
         .addNumberOption(option =>
-          option.setName('mxn')
-            .setDescription('Monto en Pesos Mexicanos.').setRequired(true)
+          option.setName('ars')
+            .setDescription('Monto en Pesos Argentinos.').setRequired(true)
         ))
     .addSubcommand(subcommand =>
       subcommand.setName("pesochileno")
@@ -329,7 +322,7 @@ module.exports = {
         nombre: string,
         iso: string,
         bandera: string,
-        color: string,
+        color: Discord.ColorResolvable,
         img: string,
         simbolo: string,
 

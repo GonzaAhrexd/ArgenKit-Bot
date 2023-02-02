@@ -1,9 +1,5 @@
-// @ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-// @ts-ignore
-const { MessageEmbed } = require("discord.js")
-// @ts-ignore
-const Discord = require("discord.js")
+import { SlashCommandBuilder } from "@discordjs/builders"
+import Discord from "discord.js"
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,7 +9,7 @@ module.exports = {
         let a = Math.floor(Math.random() * 6 + 1);
         let Dado:Array<{
             number: Number,
-            img: String,
+            img: string,
             emoji: string,
         }> = [{
             number: 1, img: 'https://cdn.discordapp.com/attachments/802944543510495292/921904012138258452/dado.png', emoji: "one"}, //0

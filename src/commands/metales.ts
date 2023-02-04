@@ -132,7 +132,7 @@ module.exports = {
                                             // //Blue
 
                                             .addField(Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                            .addField("COMPRA  ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                                            .addField("COMPRA  ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), true)
                                             .addField("VENTA ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
 
                                         const embed2 = new Discord.MessageEmbed()

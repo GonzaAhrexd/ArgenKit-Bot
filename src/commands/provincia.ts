@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
-import paginationEmbed = require('discordjs-button-pagination') //Botones
+import paginationEmbed from 'discordjs-button-pagination' //Botones
 
 
 module.exports = {

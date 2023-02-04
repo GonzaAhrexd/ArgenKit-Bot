@@ -15,8 +15,7 @@ module.exports = {
             .setColor("GREEN")
             .setDescription("Calculando...")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300000636958/escaparlatam.png")
-            .addField("Tus probabilidades de escapar de latinoamérica son de: ", escaparLatam[0] + ' ' + escaparLatam[1] + '%')
-
+            .addFields({ name: "Tus probabilidades de escapar de latinoamérica son de: ", value: `${escaparLatam[0]} ${escaparLatam[1]}%`})
         return interaction.reply({ embeds: [embed] });
     }
 }

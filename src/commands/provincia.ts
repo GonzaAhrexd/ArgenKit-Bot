@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
-
+import { MessageActionRow, MessageButton } from 'discord.js'
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -165,10 +165,8 @@ module.exports = {
               .setStyle("PRIMARY")
           )
 
-        interaction.deferReply();
-        setTimeout(() => {
-          interaction.editReply({ embeds: [embed1], components: [row] });
-        }, 3000)
+        interaction.reply({ embeds: [embed1], components: [row]   });
+
 
 
         client.on('interactionCreate', interaction => {
@@ -243,11 +241,8 @@ module.exports = {
             .setLabel("🗺️ Ubicación")
             .setStyle("PRIMARY")
         )
-
-      interaction.deferReply();
-      setTimeout(() => {
-        interaction.editReply({ embeds: [embed1], components: [row] });
-      }, 3000)
+        
+        interaction.reply({ embeds: [embed1], components: [row]   });
 
 
       client.on('interactionCreate', interaction => {

@@ -62,7 +62,7 @@ module.exports = {
                     option.setName('ars').setDescription('Monto en Pesos Argentinos').setRequired(true)
                 )),
 
- 
+
     async run(client, interaction, options) {
         let Criptomonedas: Array<{
             id: string,
@@ -80,7 +80,7 @@ module.exports = {
             [{
                 id: "bitcoin",
                 nombre: "Bitcoin",
-                emoji: "<:bitcoin:929073179262074960>", 
+                emoji: "<:bitcoin:929073179262074960>",
                 iso: "BTC",
                 simbolo: "₿",
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/929076353079328868/bitcoinapeso.png",
@@ -92,10 +92,10 @@ module.exports = {
                 id: "ethereum",
                 nombre: "Ethereum",
                 emoji: "<:ethereum:963619533271232532>",
-            
+
                 iso: "ETH",
                 simbolo: "Ξ",
-               
+
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/963885915619610714/convethereum.png",
                 color: "#7be0ff",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=0",
@@ -138,7 +138,7 @@ module.exports = {
                 id: "decentraland",
                 nombre: "Decentraland",
                 emoji: "<:decentraland:964349085089931324>",
-                 iso: "MANA",
+                iso: "MANA",
                 simbolo: "MANA",
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964380633042419722/convertirdecentraland.png",
                 color: "#ffa6b7",
@@ -182,32 +182,54 @@ module.exports = {
 
         Criptomonedas.forEach(async cripto => {
             if (interaction.options.getSubcommand() === cripto.id) {
-             let convertir:number = interaction.options.getNumber('ars')
+                let convertir: number = interaction.options.getNumber('ars')
 
-                  axios.get(cripto.apilemon)
+                axios.get(cripto.apilemon)
                     .then((CONVERTIRLEMON) => {
-                      const embed = new Discord.MessageEmbed()
-                        .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)
-                        .setColor(cripto.color)
-                        .setDescription(`Pesos argentinos expresado en ${cripto.nombre} a la cotización del mercado`)
-                        .setThumbnail(cripto.imagen)
-                        .addField(`Monto original :flag_ar: `, `ARS$ ${convertir} `)
-                        .addField("Compra :flag_ar: ", `${cripto.iso} ${cripto.simbolo}` + (convertir / CONVERTIRLEMON.data['bid']).toFixed(8), true)
-                        .addField("Venta :flag_ar: ", `${cripto.iso} ${cripto.simbolo}` + (convertir / CONVERTIRLEMON.data['ask']).toFixed(8), true)
-      
-                      return interaction.reply({ embeds: [embed] });
-      
+                        if (cripto.id == "terraluna") {
+
+                            axios.get(cripto.apicoingecko)
+                                .then((CONVERTIRCOINGECKO) => {
+                    
+                                    const embed = new Discord.MessageEmbed()
+                                        .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)
+                                        .setColor(cripto.color)
+                                        .setDescription(`Pesos argentinos expresado en ${cripto.nombre} a la cotización del mercado`)
+                                        .setThumbnail(cripto.imagen)
+                                        .addFields(
+                                            { name: `Monto original :flag_ar: `, value: `ARS$ ${convertir} `},
+                                            { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + ((convertir / CONVERTIRCOINGECKO.data['prices'][0][1]) / CONVERTIRLEMON.data['bid']).toFixed(8), inline: true},
+                                            { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + ((convertir / CONVERTIRCOINGECKO.data['prices'][0][1]) / CONVERTIRLEMON.data['ask']).toFixed(8), inline: true})
+                                    return interaction.reply({ embeds: [embed] });
+
+                                }).catch((err) => {
+                                    console.error('ERR', err)
+                                })
+
+                        }
+                        else {
+                            const embed = new Discord.MessageEmbed()
+                                .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)
+                                .setColor(cripto.color)
+                                .setDescription(`Pesos argentinos expresado en ${cripto.nombre} a la cotización del mercado`)
+                                .setThumbnail(cripto.imagen)
+                                .addFields(
+                                    { name: `Monto original :flag_ar: `, value: `ARS$ ${convertir} `},
+                                    { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + (convertir / CONVERTIRLEMON.data['bid']).toFixed(8), inline: true},
+                                    { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + (convertir / CONVERTIRLEMON.data['ask']).toFixed(8), inline: true})
+                            return interaction.reply({ embeds: [embed] });
+                        }
                     })
-          
-                .catch((err) => {
-                  console.error('ERR', err)
-      
-      
-                })
-      
+
+                    .catch((err) => {
+                        console.error('ERR', err)
+
+
+                    })
+
             }
-      
-            })
-        
+
+        })
+
     } //Async run
 } //Module export

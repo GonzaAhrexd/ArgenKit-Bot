@@ -48,9 +48,9 @@ module.exports = {
             .setTitle("Traducción")
             .setColor("#ff9e53")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1041196755670274058/translate.png")
-            .addField("Texto Original", texto)
-            .addField("Texto traducido", textoTraducido)
-
+            .addFields(
+                { name: "Texto Original", value: texto},
+                { name: "Texto traducido", value: textoTraducido})
         return interaction.reply({ embeds: [embed1] });
     }
 }

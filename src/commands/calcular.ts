@@ -18,8 +18,7 @@ module.exports = {
         .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1071230926358581308/calculator.png')
         .addFields(
             { name: 'Operación', value: calcular },
-            { name: 'Resultado', value: (eval(calcular)).toString()},
-            )
+            { name: 'Resultado', value: (eval(calcular)).toString()})
             return interaction.reply({ embeds: [embed] });
     }
 }

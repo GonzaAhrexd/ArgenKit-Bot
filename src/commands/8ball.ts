@@ -12,8 +12,8 @@ module.exports = {
         ),
     async run(client, interaction, options) {
   
-    let consulta2 = interaction.options.getString('consulta')
-    let a = Math.floor(Math.random() * 14 + 0);
+    let consulta:string = interaction.options.getString('consulta')
+    let a:number = Math.floor(Math.random() * 14 + 0);
 
     let Respuesta: Array<{
         opcion: Number,
@@ -46,8 +46,9 @@ module.exports = {
         .setColor(Respuesta.color)
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
         .setDescription("Calculando...")
-        .addField("Consulta: ", consulta2)
-        .addField("La bola 8 mágica dice... ", Respuesta.respuesta)
+        .addFields(
+            { name: 'Consulta:', value: consulta },
+            { name: 'La bola 8 mágica dice...', value: Respuesta.respuesta})
       return interaction.reply({ embeds: [embed] });
         }
     });

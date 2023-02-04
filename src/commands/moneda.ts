@@ -14,8 +14,8 @@ module.exports = {
         .setColor("#27C5F5")
         .setDescription("Tirando...")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/805139900768190484/bancario_1.png")
-        .addField("LA MONEDA QUEDÓ EN: ", " **SOL** :sun_with_face: ")
-
+        .addFields({ name: "LA MONEDA QUEDÓ EN: ", value: `**SOL** :sun_with_face:`})
+            
       return interaction.reply({ embeds: [embed] });
     }
     if (a == 2) {
@@ -23,8 +23,8 @@ module.exports = {
         .setColor("#FCFBFB")
         .setDescription("Tirando...")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/805139082417799168/BancarioEscudo.png")
-        .addField("LA MONEDA QUEDÓ EN: ", " **ESCUDO** :shield:")
-
+        .addFields({ name: "LA MONEDA QUEDÓ EN: ", value: `**ESCUDO** :shield:`})
+              
       return interaction.reply({ embeds: [embed] });
     }
     }

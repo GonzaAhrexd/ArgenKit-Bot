@@ -1,26 +1,27 @@
-import {SlashCommandBuilder} from "@discordjs/builders"
+import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
 import { MessageButton } from 'discord.js'
 import paginationEmbed from 'discordjs-button-pagination' //Botones
 module.exports = {
-    data: new SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("update")
     .setDescription("Muestra las novedades de la actualización"),
 
-    async run(client, interaction){
-        const embed15 = new Discord.MessageEmbed()
-        .setTitle("ARGENKIT BOT VERSIÓN 1.5 ¡ACTUALIZACIÓN TÉCNICA!")
-        .setColor('#0a9ee1')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-        .addField("<:ts:1070169624693456959> TypeScript ", "Ahora el bot está escrito en TypeScript.")
-        .addField(":white_check_mark:  Optimización ", "Se ha optimizado muchisimos comandos del bot.")
-        .addField("<:slash:964681731519164457> Command Handler ", "Se reestructuró el código para una mayor organización de los comandos, mejorando el desarrollo futuro .")
-        .addField("<:Covid:903096313439219762> Covid19 Paises ", "Se optimizó el comando, ahora están disponibles los 194 paises del mundo.")
-        .addField(" <:traducir:1070170257806872588> Traductor ", "Se ha agregado un traductor, prueba el comando /traducir.")
-        .addField(" <:calculator:1071233126656917624> Calculadora ", "Se ha remplazado la calculadora de simplydjs por el comando /calcular debido a errores que presentaba.")
-        .addField("<:goldingots:964717629484965938> Metales ", "Ahora el bot devuelve correctamente el precio de los metales")
-        .addField(":money_with_wings: Argentina y sus 50 tipos de dólar" , "Ahora el comando /divisa dolar viene con el dólar MEP, CCL, Solidario, Tarjeta, Qatar y Blue integrados. Las demás divisas ahora integran el Blue, Solidario, Tarjeta y Qatar")
-        const embed14 = new Discord.MessageEmbed()
+  async run(client, interaction) {
+    const embed15 = new Discord.MessageEmbed()
+      .setTitle("ARGENKIT BOT VERSIÓN 1.5 ¡ACTUALIZACIÓN TÉCNICA!")
+      .setColor('#0a9ee1')
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+      .addField("<:ts:1070169624693456959> TypeScript ", "Ahora el bot está escrito en TypeScript.")
+      .addField(":white_check_mark:  Optimización ", "Se ha optimizado muchisimos comandos del bot.")
+      .addField("<:slash:964681731519164457> Command Handler ", "Se reestructuró el código para una mayor organización de los comandos, mejorando el desarrollo futuro .")
+      .addField("<:Covid:903096313439219762> Covid19 Paises ", "Se optimizó el comando, ahora están disponibles los 194 paises del mundo.")
+      .addField(" <:traducir:1070170257806872588> Traductor ", "Se ha agregado un traductor, prueba el comando /traducir.")
+      .addField(" <:calculator:1071233126656917624> Calculadora ", "Se ha remplazado la calculadora de simplydjs por el comando /calcular debido a errores que presentaba.")
+      .addField("<:goldingots:964717629484965938> Metales ", "Ahora el bot devuelve correctamente el precio de los metales")
+      .addField(":money_with_wings: Argentina y sus 50 tipos de dólar", "Ahora el comando /divisa dolar viene con el dólar MEP, CCL, Solidario, Tarjeta, Qatar y Blue integrados. Las demás divisas ahora integran el Blue, Solidario, Tarjeta y Qatar")
+
+    const embed14 = new Discord.MessageEmbed()
       .setTitle("ARGENKIT BOT VERSIÓN 1.4 ¡SLASH COMMANDS UPDATE!")
       .setColor('#0a9ee1')
       .setDescription("  Fecha de lanzamiento: 16/4/2022 \n Debido al anuncio de Discord de volver los Message Content algo privilegiado para bots verificados, esta actualización es obligatoria para poder seguir usando el bot.")
@@ -89,7 +90,7 @@ module.exports = {
     paginationEmbed(interaction, pages, buttonList, timeout);
 
     return interaction.reply({ content: ' ‎  ' });
-     
-    }
+
+  }
 
 }

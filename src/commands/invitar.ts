@@ -14,11 +14,7 @@ module.exports = {
         .setURL("https://discord.com/api/oauth2/authorize?client_id=796173877981216799&permissions=414464867392&scope=bot%20applications.commands")
         .setDescription("¡Gracias por decidir agregar mi bot a tu servidor!")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
-      interaction.reply({
-  
-        embeds: [embed]
-  
-      })
+      interaction.reply({  embeds: [embed] })
     }
 
 }

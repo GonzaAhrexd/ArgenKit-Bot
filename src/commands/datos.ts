@@ -31,8 +31,8 @@ module.exports = {
                   .setColor("#e6306c")
                   .setDescription("El riesgo país es todo riesgo inherente a las inversiones y a las financiaciones en un país en contraste con otro.")
                   .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903121332810690570/RiesgoPais.png")
-                  .addField("Valor :chart_with_upwards_trend: ", currencyFormatter.format(RIESGO.data['valor'], { locale: 'es-ES', code: ' ', precision: 0 }) + 'puntos', true)
-      
+                  .addFields({ name: "Valor :chart_with_upwards_trend: ", value: currencyFormatter.format(RIESGO.data['valor'], { locale: 'es-ES', code: ' ', precision: 0 }) })
+            
                 return interaction.reply({ embeds: [embed] });
       
               })
@@ -51,7 +51,8 @@ module.exports = {
                   .setColor("#9bcef7")
                   .setDescription("Las reservas constituyen el componente más importante de los activos del Banco Central y se utilizan para financiar los pagos al exterior o para intervenir en el mercado cambiario.")
                   .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903122250708963358/bank.png")
-                  .addField("Valor :bank: ", 'USD ' + currencyFormatter.format(RESERVAS.data['valor'], { locale: 'es-ES', code: ' ' }), true)
+                  .addFields({ name: "Valor  :bank: ", value: 'USD ' + currencyFormatter.format(RESERVAS.data['valor'], { locale: 'es-ES', code: ' ', precision: 0 }) })
+            
                 return interaction.reply({ embeds: [embed] });
               })
               .catch((err) => {
@@ -66,7 +67,8 @@ module.exports = {
                   .setTitle("Pesos Argentinos en circulación")
                   .setColor("#FAD56F")
                   .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903124593483583499/money.png")
-                  .addField("Cantidad :money_with_wings: ", 'ARS ' + currencyFormatter.format(CIRCULANTE.data['valor'], { locale: 'es-ES', code: ' ' }), true)
+                  .addFields({ name: "Cantidad :money_with_wings:  ", value: currencyFormatter.format(CIRCULANTE.data['valor'], { locale: 'es-ES', code: ' ', precision: 0 }) })
+            
                 return interaction.reply({ embeds: [embed] });
               })
               .catch((err) => {

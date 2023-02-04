@@ -25,7 +25,8 @@ module.exports = {
                 .setColor("#ffe082")
                 .setThumbnail(Dado.img)
                 .setDescription("Tirando dados...")
-                .addField("El dado cayó en... ", ` Número :${Dado.emoji}:` )
+                .addFields({ name: "El dado cayó en...  ", value: ` Número :${Dado.emoji}:` })
+            
               return interaction.reply({ embeds: [embed] });
             
         }

@@ -188,18 +188,33 @@ module.exports = {
                     let criptodolar:  number =  ACONVERTIR.data['prices'][0][1]
                   axios.get(cripto.apilemon)
                     .then((CONVERTIRLEMON) => {
+
+                        if(cripto.id == "terraluna"){
+                            const embed = new Discord.MessageEmbed()
+                            .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
+                            .setColor(cripto.color)
+                            .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
+                            .setThumbnail(cripto.imagen)
+                            .addFields(
+                                { name: `Monto original ${cripto.emoji} `, value: `${cripto.simbolo} ${convertir} `},
+                                { name: "Dólares :dollar: ", value:  'USD$ ' + currencyFormatter.format(((convertir * criptodolar)), { locale: 'es-ES', code: ' ' }), inline: true} ,
+                                { name: "Compra :flag_ar: ", value: 'ARS$ ' + currencyFormatter.format((( (convertir * criptodolar) * CONVERTIRLEMON.data['bid'])), { locale: 'es-ES', code: ' ' }), inline: true},
+                                { name: "Venta :flag_ar: ", value: 'ARS$ ' + currencyFormatter.format((((convertir * criptodolar) * CONVERTIRLEMON.data['ask'])), { locale: 'es-ES', code: ' ' }), inline: true})
+                                return interaction.reply({ embeds: [embed] });
+                        }
+                        else{
                       const embed = new Discord.MessageEmbed()
                         .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                         .setColor(cripto.color)
                         .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
                         .setThumbnail(cripto.imagen)
-                        .addField(`Monto original ${cripto.emoji} `, `${cripto.simbolo} ${convertir} `)
-                        .addField("Dólares :dollar: ", 'USD$ ' + currencyFormatter.format(((convertir * criptodolar)), { locale: 'es-ES', code: ' ' }), true)
-                        .addField("Compra :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((convertir * CONVERTIRLEMON.data['bid'])), { locale: 'es-ES', code: ' ' }), true)
-                        .addField("Venta :flag_ar: ", 'ARS$ ' + currencyFormatter.format(((convertir * CONVERTIRLEMON.data['ask'])), { locale: 'es-ES', code: ' ' }), true)
-      
-                      return interaction.reply({ embeds: [embed] });
-      
+                        .addFields(
+                            { name: `Monto original ${cripto.emoji} `, value: `${cripto.simbolo} ${convertir} `},
+                            { name: "Dólares :dollar: ", value:  'USD$ ' + currencyFormatter.format(((convertir * criptodolar)), { locale: 'es-ES', code: ' ' }), inline: true} ,
+                            { name: "Compra :flag_ar: ", value: 'ARS$ ' + currencyFormatter.format(((convertir * CONVERTIRLEMON.data['bid'])), { locale: 'es-ES', code: ' ' }), inline: true},
+                            { name: "Venta :flag_ar: ", value: 'ARS$ ' + currencyFormatter.format(((convertir * CONVERTIRLEMON.data['ask'])), { locale: 'es-ES', code: ' ' }), inline: true})
+                            return interaction.reply({ embeds: [embed] });
+                        }
                     })
                     .catch((err) => {
                       console.error('ERR', err)

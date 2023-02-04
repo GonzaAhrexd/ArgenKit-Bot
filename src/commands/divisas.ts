@@ -1,17 +1,8 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-//@ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
-//@ts-ignore
-const Discord = require("discord.js");
-//@ts-ignore
-const axios = require("axios")
-//@ts-ignore
+import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
+import Discord from "discord.js"
+import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-//@ts-ignore
 const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
@@ -97,14 +88,14 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'dolar') {
 
 
-            await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
-                .then(async (oficial) => {
-                    await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
-                        .then(async (blue) => {
-                            await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa')
-                                .then(async (mep) => {
-                                    await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui')
-                                        .then(async (ccl) => {
+             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+                .then( (oficial) => {
+                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
+                        .then( (blue) => {
+                             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa')
+                                .then( (mep) => {
+                                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui')
+                                        .then( (ccl) => {
 
                                             const embed1 = new Discord.MessageEmbed()
                                                 .setTitle("Dólar estadounidese :flag_us:")
@@ -165,7 +156,7 @@ module.exports = {
 
 
                                             //Deferir las respuestas para que no se crashee todo
-                                            await interaction.deferReply();
+                                             interaction.deferReply();
                                             setTimeout(() => {
                                                 interaction.editReply({ embeds: [embed1], components: [row] });
                                             }, 3000)
@@ -226,10 +217,10 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'euro') {
 
-            await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
-                .then(async (oficial) => {
-                    await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                        .then(async (blue) => {
+             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
+                .then( (oficial) => {
+                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                        .then( (blue) => {
 
 
                             const embed1 = new Discord.MessageEmbed()
@@ -285,7 +276,7 @@ module.exports = {
                                 )
 
 
-                            await interaction.deferReply();
+                             interaction.deferReply();
                             setTimeout(() => {
                                 interaction.editReply({ embeds: [embed1], components: [row] });
                             }, 3000)
@@ -338,10 +329,10 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'real') {
 
-            await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
-                .then(async (oficial) => {
-                    await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
-                        .then(async (blue) => {
+             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
+                .then( (oficial) => {
+                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
+                        .then( (blue) => {
 
 
                             const embed1 = new Discord.MessageEmbed()
@@ -396,7 +387,7 @@ module.exports = {
                                         .setStyle("PRIMARY")
                                 )
 
-                                await interaction.deferReply();
+                                 interaction.deferReply();
                                 setTimeout(() => {
                                     interaction.editReply({ embeds: [embed1], components: [row] });
                                 }, 3000)
@@ -454,7 +445,7 @@ module.exports = {
                 iso: string,
                 bandera: string,
                 desc: string,
-                color: string,
+                color: Discord.ColorResolvable,
                 img: string,
                 ac: string,
                 paises: string,
@@ -781,14 +772,14 @@ module.exports = {
 
             ]
 
-        divisas.forEach(async divisa => {
+        divisas.forEach(divisa => {
             if (interaction.options.getSubcommand() === divisa.id) {
-                await axios.get('https://api.exchangerate.host/latest')
-                    .then(async (DIVISA) => {
-                        await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
-                            .then(async (oficial) => {
-                                await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                                    .then(async (blue) => {
+                 axios.get('https://api.exchangerate.host/latest')
+                    .then((DIVISA) => {
+                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
+                            .then((oficial) => {
+                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                                    .then((blue) => {
                                         let conversion: number = DIVISA.data['rates'][divisa.iso]
                                         let num: number = 1
                                         let cantidad: string = " "
@@ -848,7 +839,7 @@ module.exports = {
                                             )
 
 
-                                            await interaction.deferReply();
+                                            interaction.deferReply();
                                             setTimeout(() => {
                                                 interaction.editReply({ embeds: [embed1], components: [row] });
                                             }, 3000)

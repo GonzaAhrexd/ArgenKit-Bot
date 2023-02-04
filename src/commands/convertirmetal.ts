@@ -90,7 +90,7 @@ module.exports = {
                 let convertir: number = interaction.options.getNumber((Metal.iso).toLowerCase())
               
                 axios.get('https://api.metals.live/v1/spot/')
-                    .then(async (ACONVERTIR) => {
+                    .then( (ACONVERTIR) => {
 
                         var conversion: number = 0
 
@@ -106,12 +106,12 @@ module.exports = {
                         if (Metal.id == 'paladio')
                             conversion = ACONVERTIR.data[3].palladium
 
-                        await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
 
-                            .then(async (oficial) => {
-                                await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                            .then( (oficial) => {
+                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
                
-                                    .then(async (blue) => {
+                                    .then( (blue) => {
 
                                         const embed = new Discord.MessageEmbed()
                                             .setTitle(`${Metal.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
@@ -132,7 +132,7 @@ module.exports = {
                                             .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), true)
                                             .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
 
-                                        await interaction.deferReply();
+                                         interaction.deferReply();
                                         setTimeout(() => {
                                             interaction.editReply({ embeds: [embed] });
                                         }, 3000)

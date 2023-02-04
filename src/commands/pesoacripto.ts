@@ -1,18 +1,7 @@
-//@ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-//@ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
-//@ts-ignore
-const Discord = require("discord.js");
-//@ts-ignore
-const axios = require("axios")
-//@ts-ignore
-var currencyFormatter = require('currency-formatter'); //Currency formatter
-//@ts-ignore
+import { SlashCommandBuilder } from "@discordjs/builders"
+import Discord from "discord.js"
+import axios from "axios"
+var currencyFormatter = ('currency-formatter'); //Currency formatter
 const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
@@ -76,15 +65,15 @@ module.exports = {
  
     async run(client, interaction, options) {
         let Criptomonedas: Array<{
-            id: String,
-            nombre: String,
+            id: string,
+            nombre: string,
             emoji: string,
             iso: string,
             simbolo: string,
-            imagen: String
-            color: String
+            imagen: string
+            color: Discord.ColorResolvable
             apicoingecko: string
-            apilemon?: string
+            apilemon: string
 
         }> =
             //BTC

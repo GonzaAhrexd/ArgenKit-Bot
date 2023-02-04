@@ -1,13 +1,7 @@
-import { disableValidators } from "@discordjs/builders";
-
-//@ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-//@ts-ignore
-import Discord = require("discord.js");
+import { SlashCommandBuilder } from "@discordjs/builders"
+import Discord from "discord.js"
 import axios from "axios"
-//@ts-ignore
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-//@ts-ignore
 const { restar74, restar75, restar100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
   data: new SlashCommandBuilder()
@@ -176,9 +170,9 @@ module.exports = {
       let convertir: number = interaction.options.getNumber('ars')
 
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
-        .then(async (oficial) => {
-          await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
-            .then(async (blue) => {
+        .then( (oficial) => {
+           axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
+            .then( (blue) => {
 
               const embed = new Discord.MessageEmbed()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Dólar estadounidense")
@@ -204,7 +198,7 @@ module.exports = {
                 .addField("Venta :dollar:", 'USD$ ' + currencyFormatter.format((convertir / blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
 
-              await interaction.deferReply();
+               interaction.deferReply();
               setTimeout(() => {
                 interaction.editReply({ embeds: [embed] });
               }, 3000)
@@ -223,9 +217,9 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'euro') {
       let convertir: number = interaction.options.getNumber('ars')
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
-        .then(async (oficial) => {
-          await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
-            .then(async (blue) => {
+        .then( (oficial) => {
+           axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
+            .then( (blue) => {
 
               const embed = new Discord.MessageEmbed()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Euro")
@@ -251,7 +245,7 @@ module.exports = {
                 .addField("Venta :dollar:", 'USD$ ' + currencyFormatter.format((convertir / blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
 
-              await interaction.deferReply();
+               interaction.deferReply();
               setTimeout(() => {
                 interaction.editReply({ embeds: [embed] });
               }, 3000)

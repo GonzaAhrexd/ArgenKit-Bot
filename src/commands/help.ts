@@ -1,11 +1,6 @@
-//@ts-ignore
-const {SlashCommandBuilder} = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const Discord = require("discord.js")
-//@ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
+import {SlashCommandBuilder} from "@discordjs/builders"
+import Discord from "discord.js"
+import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -78,11 +73,11 @@ module.exports = {
         .setColor('#fdcb68')
         .setDescription("Estos comandos contienen utilidades y conversión de divisa")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903010091756814356/money-exchange.png")
-        .addField("» Utilidad ", "`impuesto`  `calculadora`  `anualizarinflacion`  `traductor`")
+        .addField("» Utilidad ", "`impuesto`  `calcular`  `anualizarinflacion`  `traductor`")
         .addField("» `convertirdivisa`", "Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
         .addField("» `pesoa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-        .addField("» `convertircripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
-        .addField("» `pesoacripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
+        .addField("» `convertircripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `decentraland`  `solana`  `dai`  `dogecoin`")
+        .addField("» `pesoacripto` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `decentraland`  `solana`  `dai`  `dogecoin`")
         .addField("» `convertirmetal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
         .addField("» `pesoametal` ", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
   
@@ -92,7 +87,7 @@ module.exports = {
         .setDescription("Estos comandos contienen las distintas cotizaciones disponibles con su precio a pesos argentinos e informacion adicional")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/90301281.759495484/dollars.png")
         .addField("» `divisa` ", "» Subcomandos `dolar`  `dolarblue`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`")
-        .addField("» `criptomoneda` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `terralunaclassic`  `terrausdclassic`  `decentraland`  `solana`  `dai`  `dogecoin`")
+        .addField("» `criptomoneda` ", "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `decentraland`  `solana`  `dai`  `dogecoin`")
         .addField("» `metal`", "» Subcomandos `oro`  `plata`  `paladio`  `platino`")
   
       let embed4 = new Discord.MessageEmbed()
@@ -122,7 +117,7 @@ module.exports = {
         .setColor('#fdcb68')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094465747648552/Diversion.png")
         .setDescription("Estos son comandos con cosas divertidas mayormente basadas en aleatoridad")
-        .addField("» Comandos", "`odio argentina`  `odio latinoamerica`  `covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`  `piedrapapelotijera`  `tateti`")
+        .addField("» Comandos", "`odio argentina`  `odio latinoamerica`  `covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`")
   
       let embed8 = new Discord.MessageEmbed()
         .setTitle(":open_file_folder: Información del bot :open_file_folder:")

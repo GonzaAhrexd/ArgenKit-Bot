@@ -316,7 +316,7 @@ module.exports = {
                                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553925243117698/realapeso.png")
                                 .addField("Monto original :flag_br: ", 'BRL R$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
                                 //Oficial
-                                .addField("Real oficial :bank: ", "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
+                                .addField("Real oficial :bank: ", "Valor del real que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
                                 .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
                                 .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
@@ -364,7 +364,6 @@ module.exports = {
                 simbolo: string,
 
             }
-
         > = [{
             id: "yen",
             nombre: "Yen Japonés",
@@ -540,8 +539,7 @@ module.exports = {
             color: "#d70224",
             img: "https://cdn.discordapp.com/attachments/802944543510495292/930966650122014740/liraapeso.png",
             simbolo: "TRY₺",
-        }
-            ]
+        }]
 
         divisas.forEach(async divisa => {
             if (interaction.options.getSubcommand() === divisa.id) {

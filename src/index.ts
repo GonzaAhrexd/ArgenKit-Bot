@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Dependencias de node
 import Discord = require("discord.js");
-import fs = require('fs') //fs
-import simplydjs = require("simply-djs"); //Simplydjs 
+import fs = require('fs') //fs 
+const simplydjs = require("simply-djs"); //Simplydjs 
 require('dotenv').config() //Variables de entorno
 
 //Intents requeridos
@@ -52,19 +52,21 @@ client.on("ready", async () => {
   const guild = client.guilds.cache.get()
   let commands
   // const guildId = '740761148160213082' //guild server de pruebas
-  // client.application.commands.set([]); //Resetear comandos
-
-  
+  // client.application.commands.set([]); //Resetear comandos  
   /*Mostrar comandos
   const list = await client.application.commands.fetch()  
      console.log(list) */
+
+
+ 
 
   if (guild) {
     commands = guild.commands
   } else {
     commands = client.application?.commands
   }
+
+
+
 })
-
-
 client.login(process.env.token);

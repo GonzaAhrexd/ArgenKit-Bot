@@ -1,18 +1,7 @@
-//@ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-//@ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
-//@ts-ignore
-const Discord = require("discord.js");
-//@ts-ignore
-const axios = require("axios")
-//@ts-ignore
+import { SlashCommandBuilder } from "@discordjs/builders"
+import Discord from "discord.js"
+import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-//@ts-ignore
 const { restar75, restar74, restar100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
@@ -49,13 +38,13 @@ module.exports = {
 
     async run(client, interaction, options) {
         let Metales: Array<{
-            id: String,
-            nombre: String,
+            id: string,
+            nombre: string,
             emoji: string,
             desc: string,
             iso: string,
-            imagen: String
-            color: String
+            imagen: string
+            color: Discord.ColorResolvable
         }>
             = [{
                 id: "oro",
@@ -95,13 +84,13 @@ module.exports = {
             },
             ]
 
-        Metales.forEach(async Metal => {
+        Metales.forEach( Metal => {
             if (interaction.options.getSubcommand() === Metal.id) {
 
                 let convertir: number = interaction.options.getNumber('ars')
                 console.log(convertir)
                 axios.get('https://api.metals.live/v1/spot/')
-                    .then(async (ACONVERTIR) => {
+                    .then( (ACONVERTIR) => {
 
                         var conversion: number = 0
 
@@ -117,10 +106,10 @@ module.exports = {
                         if (Metal.id == 'paladio')
                             conversion = ACONVERTIR.data[3].palladium
 
-                        await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
 
                             .then(async (oficial) => {
-                                await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
                
                                     .then(async (blue) => {
 
@@ -142,7 +131,7 @@ module.exports = {
                                             .addField("Compra :flag_ar:", `${Metal.iso} ` + currencyFormatter.format((convertir / conversion) / blue.data['compra'], { locale: 'es-ES', code: ' ' }), true)
                                             .addField("Venta :flag_ar:", `${Metal.iso} ` + currencyFormatter.format((convertir / conversion) / blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
 
-                                        await interaction.deferReply();
+                                         interaction.deferReply();
                                         setTimeout(() => {
                                             interaction.editReply({ embeds: [embed] });
                                         }, 3000)

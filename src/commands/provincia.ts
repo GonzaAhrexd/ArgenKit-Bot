@@ -1,13 +1,6 @@
-//@ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const Discord = require("discord.js")
-//@ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-//@ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
+import { SlashCommandBuilder } from "@discordjs/builders"
+import Discord from "discord.js"
+import paginationEmbed = require('discordjs-button-pagination') //Botones
 
 
 module.exports = {
@@ -49,24 +42,24 @@ module.exports = {
 
     let provincia = interaction.options.getString('provincia')
    const provincias: Array<{
-        identificacion: String,
-        nombre: String,
-        color: String,
-        bandera: String,
-        url:String,
-        descripcion: String,
-        gobernador: String,
-        capital: String,
-        poblada: String,
-        fundacion: String,
-        autonomia:String,
-        superficie: String,
-        poblacion: String,
-        gentillicio: String,
-        clima: String,
-        ubicacion: String,
-        ubicacionDesc: String,
-        ubicacionImg: String,
+        identificacion: string,
+        nombre: string,
+        color: Discord.ColorResolvable,
+        bandera: string,
+        url:string,
+        descripcion: string,
+        gobernador: string,
+        capital: string,
+        poblada: string,
+        fundacion: string,
+        autonomia:string,
+        superficie: string,
+        poblacion: string,
+        gentillicio: string,
+        clima: string,
+        ubicacion: string,
+        ubicacionDesc: string,
+        ubicacionImg: string,
 
     }>
      = [
@@ -105,7 +98,7 @@ module.exports = {
       //San  Juan
       { identificacion: "san juan", nombre: "SAN JUAN (SJ)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bandera_de_San_Juan_Ciudadana.png/800px-Bandera_de_San_Juan_Ciudadana.png", url: "https://es.wikipedia.org/wiki/Provincia_de_San_Juan_(Argentina)", descripcion: "San Juan es una de las 23 provincias de Argentina y se ubica en el noroeste del país.\n La economía de la provincia de San Juan está representada por la agricultura, donde sobresale en cultivo de la vid. En la industria se destaca la elaboración del vino y diversas conservas de alimentos. También ha comenzado a desarrollarse intensamente la minería, con la extracción de diversos minerales, de la mano de varias empresas multinacionales, y el turismo. ", gobernador: "Sergio Uñac ", capital: "San Juan", poblada: "Gran San Juan", fundacion: "13 de junio de 1562", autonomia: "1 de marzo de 1820", superficie: "89.651 km² ", poblacion: "738.959  hab. ", gentillicio: "Sanjuanino/na  ", clima: "Templado seco", ubicacion: "https://www.google.com.ar/maps/place/San+Juan/data=!4m2!3m1!1s0x96814029a33cd497:0x3552ffe367e3b1df?sa=X&ved=2ahUKEwjlr7HyzKHxAhU0r5UCHRgSCEYQ8gEwAHoECAUQAQ", ubicacionDesc: "Está ubicada en el noroeste de la región de Cuyo y más exactamente el Cuyo, al oeste del país, limitando al noreste con La Rioja, al sureste con San Luis, al sur con Mendoza y al oeste con las regiones chilenas de Atacama, Coquimbo y Valparaíso, cuyo límite está determinado divisoria de agua de la cordillera de los Andes. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/San_Juan_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-San_Juan_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
       //San Luis
-      { identificacion: "san luis", nombre: "SAN LUIS (SL)", color: "FDFDFD", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Bandera_de_la_Provincia_de_San_Luis.svg/800px-Bandera_de_la_Provincia_de_San_Luis.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_San_Luis", descripcion: "San Luis es una de las 23 provincias de Argentina y se ubica al sureste de la región del Nuevo Cuyo, al oeste del país.\n En el sector agroindustrial se destacan los frigoríficos y las curtiembres. En los últimos años creció la actividad lechera, la producción de electrodomésticos, plásticos y artículos de papel y cartón. También se desarrolla la industria minera en las sierras de San Luis, del Gigante y de la Estanzuela, ricas en granito y lajas, de donde extraen calizas, basalto y mármol.\n  El turismo es otra de las actividades impulsadas por el gobierno puntano a partir del retorno de la democracia en 1983. Actualmente la provincia cuenta con la más importante red de autopistas del país, que conecta a la mayoría de las localidades turísticas con la capital provincial. ", gobernador: "Alberto Rodríguez Saá ", capital: "San Luis", poblada: "Gran San Luis", fundacion: "25 de agosto de 1594", autonomia: "1 de marzo de 1820", superficie: "76.748 km² ", poblacion: "502.003  hab.", gentillicio: "Sanluiseño/ña o puntano/na (para los nacidos en la capital) ", clima: "Continental seco", ubicacion: "https://www.google.com.ar/maps/place/San+Luis/data=!4m2!3m1!1s0x95d43be4529ad73d:0x5dee1e83bd8abc46?sa=X&ved=2ahUKEwiV5c7R1aHxAhVPrZUCHcnCDCIQ8gEwAHoECAYQAQ", ubicacionDesc: "Está ubicada al sureste de la región del Nuevo Cuyo, al oeste del país, limitando al norte con La Rioja, al este con Córdoba, al sureste y sur con la Provincia de La Pampa, al oeste con el río Desaguadero que la separa de Mendoza, y al noroeste con San Juan. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/San_Luis_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-San_Luis_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+      { identificacion: "san luis", nombre: "SAN LUIS (SL)", color: "#FDFDFD", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Bandera_de_la_Provincia_de_San_Luis.svg/800px-Bandera_de_la_Provincia_de_San_Luis.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_San_Luis", descripcion: "San Luis es una de las 23 provincias de Argentina y se ubica al sureste de la región del Nuevo Cuyo, al oeste del país.\n En el sector agroindustrial se destacan los frigoríficos y las curtiembres. En los últimos años creció la actividad lechera, la producción de electrodomésticos, plásticos y artículos de papel y cartón. También se desarrolla la industria minera en las sierras de San Luis, del Gigante y de la Estanzuela, ricas en granito y lajas, de donde extraen calizas, basalto y mármol.\n  El turismo es otra de las actividades impulsadas por el gobierno puntano a partir del retorno de la democracia en 1983. Actualmente la provincia cuenta con la más importante red de autopistas del país, que conecta a la mayoría de las localidades turísticas con la capital provincial. ", gobernador: "Alberto Rodríguez Saá ", capital: "San Luis", poblada: "Gran San Luis", fundacion: "25 de agosto de 1594", autonomia: "1 de marzo de 1820", superficie: "76.748 km² ", poblacion: "502.003  hab.", gentillicio: "Sanluiseño/ña o puntano/na (para los nacidos en la capital) ", clima: "Continental seco", ubicacion: "https://www.google.com.ar/maps/place/San+Luis/data=!4m2!3m1!1s0x95d43be4529ad73d:0x5dee1e83bd8abc46?sa=X&ved=2ahUKEwiV5c7R1aHxAhVPrZUCHcnCDCIQ8gEwAHoECAYQAQ", ubicacionDesc: "Está ubicada al sureste de la región del Nuevo Cuyo, al oeste del país, limitando al norte con La Rioja, al este con Córdoba, al sureste y sur con la Provincia de La Pampa, al oeste con el río Desaguadero que la separa de Mendoza, y al noroeste con San Juan. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/San_Luis_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-San_Luis_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
      { identificacion: "santa cruz", nombre: "SANTA CRUZ (SC)", color: "#2197de", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Bandera_de_la_Provincia_de_Santa_Cruz.svg/765px-Bandera_de_la_Provincia_de_Santa_Cruz.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Santa_Cruz", descripcion: "Santa Cruz es una de las 23 provincias de Argentina y se ubica al sur de la región patagónica de Argentina.\n  La provincia de Santa Cruz es pionera a nivel mundial en el uso de energías alternativas renovables: la gran amplitud de las mareas, principalmente en las rías y estuarios, es fuente de gran potencial para obtener energía mareomotriz, aunque en el 2005 la más desarrollada de las energías limpias es la energía que se obtiene de los fuertes y constantes vientos que soplan de oeste a este por gran parte de la provincia, en este caso, varios molinos producen energía eólica. \n  La economía de la zona se basa principalmente en la extracción de petróleo, gas butano y metano. En minería, se explota oro en Cerro Vanguardia con una importante producción, y oro con plata en la mina de Manantial Espejo.  ", gobernador: "Alicia Kirchner ", capital: "Río Gallegos", poblada: "Río Gallegos", fundacion: "16 de octubre de 1884 ", autonomia: "22 de noviembre de 1956", superficie: "243.943 km² ", poblacion: "273.964  hab.", gentillicio: "Santacruceño/ña  ", clima: "Árido y frío", ubicacion: "https://www.google.com.ar/maps/place/Santa+Cruz/data=!4m2!3m1!1s0xbdb6fbfdc37f535f:0xe4b90d77fdc8237c?sa=X&ved=2ahUKEwjZsdXh2KHxAhWnq5UCHSJFCjIQ8gEwAHoECBAQAQ", ubicacionDesc: "Está ubicada al sur de la región patagónica, la cual ocupa la mitad sur del país, limitando al norte con Chubut, al este con el océano Atlántico y al sur y oeste con las regiones de Magallanes y de Aysén de la República de Chile. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Santa_Cruz_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Santa_Cruz_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
       //Santa Fé
       { identificacion: "santa fe", nombre: "SANTA FE (SF)", color: "#b43232", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Bandera_de_la_Provincia_de_Santa_Fe.svg/435px-Bandera_de_la_Provincia_de_Santa_Fe.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Santa_Fe", descripcion: "Santa Fe es una de las 23 provincias de Argentina y se ubica en el centro-este de Argentina.\n  La  economía de Santa Fe es la segunda más importante del país. Representa el 8 % del total de Argentina, la producción se estima en ARS 27 mil millones en 2006, es decir, USD 9000 per cápita (alrededor de la media nacional). A pesar de que la economía está bien diversificada, la agricultura sigue teniendo un papel indispensable que desempeñar a través de los ingresos de divisas y la rentabilidad de las exportaciones de ITS. El veintiún por ciento de las tierras cultivadas de la Argentina están en Santa Fe, cuyos cultivos principales son soja (principal productor nacional), girasol, maíz y trigo. En menor escala fresas, miel y sus derivados (300.000 colmenas), la madera y el algodón.  ", gobernador: "Omar Perotti", capital: "Santa Fe", poblada: "Rosario", fundacion: "15 de noviembre de 1573 ", autonomia: "10 de mayo de 1816", superficie: "133.007 km² ", poblacion: "3.397.532  hab.", gentillicio: "Santafesino/na  ", clima: "Templado y subtropical", ubicacion: "https://www.google.com.ar/maps/place/Santa+Fe/data=!4m2!3m1!1s0x944ac01eb26c186f:0x8e3e4e20675a3bbc?sa=X&ved=2ahUKEwihn4GU3aHxAhVnrJUCHfF7BlsQ8gEwFHoECAgQAQ", ubicacionDesc: "Está ubicada en el oeste de la Región del Litoral​ y forma parte de la región integrada Centro,​ limitando al norte con Chaco, al este con el río Paraná que la separa de Corrientes y Entre Ríos, al sur con la Provincia de Buenos Aires y al oeste con la Provincia de Córdoba y Santiago del Estero. ", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Santa_Fe_in_Argentina.svg/352px-Santa_Fe_in_Argentina.svg.png" },

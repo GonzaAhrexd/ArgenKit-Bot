@@ -1,10 +1,5 @@
-//@ts-ignore
-const {SlashCommandBuilder} = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const Discord = require("discord.js");
-//@ts-ignore
+import {SlashCommandBuilder} from "@discordjs/builders"
+import Discord from "discord.js"
 const { porcentaje } = require("../functions/funPorcentaje");
 
 module.exports = {

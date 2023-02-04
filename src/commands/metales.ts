@@ -1,18 +1,9 @@
-// @ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-// @ts-ignore
-const { MessageEmbed } = require("discord.js")
-// @ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-// @ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
-// @ts-ignore
-const Discord = require("discord.js");
-// @ts-ignore
-const axios = require("axios")
-// @ts-ignore
+
+import { SlashCommandBuilder } from "@discordjs/builders"
+import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
+import Discord from "discord.js"
+import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-// @ts-ignore
 const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
@@ -43,8 +34,8 @@ module.exports = {
             numeroysimboloatomico: string,
             dureza: string,
             masaatomica: string,
-            imagen: String
-            color: String
+            imagen: string
+            color: Discord.ColorResolvable
         }>
             = [{
                 id: "oro",
@@ -95,10 +86,10 @@ module.exports = {
                 color: "#a9f8f7"
             },
             ]
-        Metales.forEach(async Metal => {
+        Metales.forEach( Metal => {
             if (interaction.options.getSubcommand() === Metal.id) {
-                await axios.get('https://api.metals.live/v1/spot/') //Precio en dólares
-                    .then(async (precio) => {
+                 axios.get('https://api.metals.live/v1/spot/') //Precio en dólares
+                    .then( (precio) => {
                         let conversion: number = 0
 
                         if (Metal.id == 'oro')
@@ -113,11 +104,11 @@ module.exports = {
                         if (Metal.id == 'paladio')
                             conversion = precio.data[3].palladium
 
-                        await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
 
-                            .then(async (oficial) => {
-                                await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                                    .then(async (blue) => {
+                            .then( (oficial) => {
+                                axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                                    .then( (blue) => {
 
 
                                         const embed1 = new Discord.MessageEmbed()
@@ -170,7 +161,7 @@ module.exports = {
 
 
 
-                                        await interaction.deferReply();
+                                         interaction.deferReply();
                                         setTimeout(() => {
                                             interaction.editReply({ embeds: [embed1], components: [row] });
                                         }, 3000)

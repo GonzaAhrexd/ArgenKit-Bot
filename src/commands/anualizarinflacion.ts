@@ -12,13 +12,13 @@ module.exports = {
     ),
     async run(client, interaction, options){
       let mes: number = (((interaction.options.getNumber('mensual') / 100) + 1) ** 12 - 1) * 100;
-      const embed1 = new Discord.MessageEmbed()
+      const embed = new Discord.MessageEmbed()
           .setTitle("Inflación mensual anualizada")
           .setColor("#f82f40")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964701743504044072/loss.png")
           .addField("Inflación mensual", `${interaction.options.getNumber('mensual')}%`)
           .addField("Inflación anual", mes.toFixed(2) + "%");
-      return interaction.reply({ embeds: [embed1] });
+      return interaction.reply({ embeds: [embed] });
 
   
     }

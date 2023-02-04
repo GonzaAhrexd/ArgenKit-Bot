@@ -1,13 +1,7 @@
-//@ts-ignore
-const {SlashCommandBuilder} = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const Discord = require("discord.js")
-//@ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-//@ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
+import {SlashCommandBuilder} from "@discordjs/builders"
+import Discord from "discord.js"
+import { MessageButton } from 'discord.js'
+import paginationEmbed from 'discordjs-button-pagination' //Botones
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("update")
@@ -23,6 +17,7 @@ module.exports = {
         .addField("<:slash:964681731519164457> Command Handler ", "Se reestructuró el código para una mayor organización de los comandos, mejorando el desarrollo futuro .")
         .addField("<:Covid:903096313439219762> Covid19 Paises ", "Se optimizó el comando, ahora están disponibles los 194 paises del mundo.")
         .addField(" <:traducir:1070170257806872588> Traductor ", "Se ha agregado un traductor, prueba el comando /traducir.")
+        .addField(" <:calculator:1071233126656917624> Calculadora ", "Se ha remplazado la calculadora de simplydjs por el comando /calcular debido a errores que presentaba.")
         .addField("<:goldingots:964717629484965938> Metales ", "Ahora el bot devuelve correctamente el precio de los metales")
         .addField(":money_with_wings: Argentina y sus 50 tipos de dólar" , "Ahora el comando /divisa dolar viene con el dólar MEP, CCL, Solidario, Tarjeta, Qatar y Blue integrados. Las demás divisas ahora integran el Blue, Solidario, Tarjeta y Qatar")
         const embed14 = new Discord.MessageEmbed()

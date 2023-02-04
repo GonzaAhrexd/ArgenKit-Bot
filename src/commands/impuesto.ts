@@ -1,17 +1,8 @@
-//@ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-//@ts-ignore
-const { MessageEmbed } = require("discord.js")
-//@ts-ignore
-const Discord = require("discord.js")
-//@ts-ignore
+import { SlashCommandBuilder } from "@discordjs/builders"
+import Discord from "discord.js"
+import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
 const impuestos = require("../functions/impuestos.ts")
-//@ts-ignore
 var currencyFormatter = require('currency-formatter') //Currency formatter
-//@ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-//@ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('impuesto')

@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
-import paginationEmbed from 'discordjs-button-pagination' //Botones
 
 
 module.exports = {
@@ -150,26 +149,56 @@ module.exports = {
           .setImage(province.ubicacionImg)
 
 
-        const button1 = new MessageButton()
-          .setCustomId("previousbtn")
-          .setLabel("❓ Información")
-          .setStyle("SUCCESS");
+      
 
-        const button2 = new MessageButton()
-          .setCustomId("nextbtn")
-          .setLabel("🗺️ Ubicación")
-          .setStyle("PRIMARY");
+          const row = new MessageActionRow()
+          .addComponents(
+              new MessageButton()
+                  .setCustomId("informacion")
+                  .setLabel("❓ Información")
+                  .setStyle("SUCCESS")
+          )
+          .addComponents(
+              new MessageButton()
+                  .setCustomId("ubicacion")
+                  .setLabel("🗺️ Ubicación")
+                  .setStyle("PRIMARY")          
+          )
 
-        const pages = [
-          embed1,
-          embed2,
+           interaction.deferReply();
+          setTimeout(() => {
+              interaction.editReply({ embeds: [embed1], components: [row] });
+          }, 3000)
 
+          
+      client.on('interactionCreate', interaction => {
+          if (!interaction.isButton()) return;
+      });
 
-        ];
+      const filter = i => i.user.id === interaction.user.id;
 
-        const buttonList = [button1, button2];
-        const timeout = 30000;
-        paginationEmbed(interaction, pages, buttonList, timeout);
+      const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+
+      var actual = embed1
+
+      collector.on('collect', async i => {
+          if (i.customId === 'conversion') {
+              await i.deferUpdate()
+              await i.editReply({ embeds: [embed1], components: [row] });
+              actual = embed1
+          }
+          if (i.customId === 'informacion') {
+              await i.deferUpdate();
+              await i.editReply({ embeds: [embed2], components: [row] });
+              actual = embed2
+          }
+      });
+
+      collector.on("end", (collected, reason) => {
+          if (reason === "time") {
+              interaction.editReply({ embeds: [actual], components: [] });
+          }
+      })
 
 
       }
@@ -200,26 +229,55 @@ module.exports = {
         .setImage("https://maps.wikimedia.org/img/osm-intl,10,-34.599722222222,-58.381944444444,300x300.png?lang=es&domain=es.wikipedia.org&title=Buenos+Aires&groups=_1f2405ce1888c1041823dcda962c8595b0609749")
         .setFooter("Para ver información de la Provincia de Buenos Aires prueba con /provinciainfo Buenos Aires")
 
-      const button1 = new MessageButton()
-        .setCustomId("previousbtn")
-        .setLabel("❓ Información")
-        .setStyle("SUCCESS");
+   
+        const row = new MessageActionRow()
+        .addComponents(
+            new MessageButton()
+                .setCustomId("informacion")
+                .setLabel("❓ Información")
+                .setStyle("SUCCESS")
+        )
+        .addComponents(
+            new MessageButton()
+                .setCustomId("ubicacion")
+                .setLabel("🗺️ Ubicación")
+                .setStyle("PRIMARY")          
+        )
 
-      const button2 = new MessageButton()
-        .setCustomId("nextbtn")
-        .setLabel("🗺️ Ubicación")
-        .setStyle("PRIMARY");
+         interaction.deferReply();
+        setTimeout(() => {
+            interaction.editReply({ embeds: [embed1], components: [row] });
+        }, 3000)
 
-      const pages = [
-        embed1,
-        embed2,
+        
+    client.on('interactionCreate', interaction => {
+        if (!interaction.isButton()) return;
+    });
 
+    const filter = i => i.user.id === interaction.user.id;
 
-      ];
+    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
 
-      const buttonList = [button1, button2];
-      const timeout = 30000;
-      paginationEmbed(interaction, pages, buttonList, timeout);
+    var actual = embed1
+
+    collector.on('collect', async i => {
+        if (i.customId === 'conversion') {
+            await i.deferUpdate()
+            await i.editReply({ embeds: [embed1], components: [row] });
+            actual = embed1
+        }
+        if (i.customId === 'informacion') {
+            await i.deferUpdate();
+            await i.editReply({ embeds: [embed2], components: [row] });
+            actual = embed2
+        }
+    });
+
+    collector.on("end", (collected, reason) => {
+        if (reason === "time") {
+            interaction.editReply({ embeds: [actual], components: [] });
+        }
+    })
 
     }
   }

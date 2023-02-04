@@ -103,14 +103,14 @@ module.exports = {
         nombre: "Asia",
         color: "YELLOW",
         zonas: [
-            {nombre: "🇰🇷 Seúl", codigo: "Asia/Seoul"},
-            {nombre: "🇯🇵 Tokio", codigo: "Asia/Tokyo"},          
-            {nombre: "🇨🇳 Pekín", codigo: "Asia/Shanghai"}, 
-            {nombre: "🇹🇼 Taipei", codigo: "Asia/Taipei"},
+            {nombre: "🇰🇷 Corea del Sur", codigo: "Asia/Seoul"},
+            {nombre: "🇯🇵 Japón", codigo: "Asia/Tokyo"},          
+            {nombre: "🇨🇳 República Popular de China", codigo: "Asia/Shanghai"}, 
+            {nombre: "🇹🇼 República de China (Taiwan)", codigo: "Asia/Taipei"},
             {nombre: "🇭🇰 Hong Kong", codigo: "Asia/Hong_Kong"},
-            {nombre: "🇹🇭 Bangkok", codigo: "Asia/Bangkok"},
-            {nombre: "🇮🇳 Nueva Delhi", codigo: "Asia/Kolkata"},
-            {nombre: "🇵🇰 Islamabad", codigo: "Asia/Karachi"},
+            {nombre: "🇹🇭 Tailandia", codigo: "Asia/Bangkok"},
+            {nombre: "🇮🇳 India", codigo: "Asia/Kolkata"},
+            {nombre: "🇵🇰 Pakistan", codigo: "Asia/Karachi"},
         ]
     },
     {

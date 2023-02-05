@@ -28,12 +28,12 @@
         <li> <a href="https://exchangerate.host/#/">Exchangerate </a></li>
         <li> <a href="https://www.coingecko.com/es">Coingecko </a></li>
         <li> <a href="https://criptoya.com/api">CriptoYa </a></li>
+            <li> <a href="https://api.metals.live/">Metals </a></li>
     </ul>
     
 <h2>Divisas disponibles</h2>
     <ul>
         <li>Dólar</li>
-        <li>Dólar blue</li>
         <li>Euro</li>
         <li>Real</li>
         <li>Yen</li>
@@ -63,8 +63,6 @@
         <li>Tether</li>
         <li>Axie Infinity</li>
         <li>Terra Luna 2.0</li>
-        <li>Terra Luna Classic</li>
-        <li>Terra USD Classic</li>
         <li>Decentraland</li>
         <li>Solana</li>
         <li>Dai</li>
@@ -99,9 +97,11 @@
     </ul>
 <h3>Utilidad y conversión de divisas</h3>
     <ul>
-        <li> <code>/impuesto</code> <code>  [monto] </code>:Muestra el precio ingresado con el impuesto del 64% o 65%.
+        <li> <code>/impuesto</code> <code>  [monto] </code>:Muestra el precio ingresado, aplicando los impuestos a las compras internacionales.
         </li>
-        <li> <code>/calculadora</code> Te permite usar una calculadora interactiva.
+        <li> <code>/calcular</code> Te permite realizar un calculo matemático.
+        </li>
+           <li> <code>/hora</code> Te permite ver la hora de distintos paises.
         </li>
         <li> <code>/anualizarinflacion</code> <code>  [mensual] </code> :Muestra la inflación anual en base a la
             inflación mensual ingresada.

@@ -18,6 +18,7 @@ module.exports = {
       .addField("<:Covid:903096313439219762> Covid19 Paises ", "Se optimizó el comando, ahora están disponibles los 194 paises del mundo.")
       .addField(" <:traducir:1070170257806872588> Traductor ", "Se ha agregado un traductor, prueba el comando /traducir.")
       .addField(" <:calculator:1071233126656917624> Calculadora ", "Se ha remplazado la calculadora de simplydjs por el comando /calcular debido a errores que presentaba.")
+      .addField(" :clock130:  Hora ", "Se ha agregado el comando de /hora, el  cual es una mejora al comando de /husoshorarios que antes existía.")
       .addField("<:goldingots:964717629484965938> Metales ", "Ahora el bot devuelve correctamente el precio de los metales")
       .addField(":money_with_wings: Argentina y sus 50 tipos de dólar", "Ahora el comando /divisa dolar viene con el dólar MEP, CCL, Solidario, Tarjeta, Qatar y Blue integrados. Las demás divisas ahora integran el Blue, Solidario, Tarjeta y Qatar")
 

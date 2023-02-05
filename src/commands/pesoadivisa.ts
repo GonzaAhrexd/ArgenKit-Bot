@@ -177,7 +177,7 @@ module.exports = {
               const embed = new Discord.MessageEmbed()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Dólar estadounidense")
                 .setColor("GREEN")
-                .setDescription("Pesos argentinos expresados en dolares estadounideneses a tasa oficial + impuestos (PAIS (30%) y adelanto de ganancias (45%))")
+                .setDescription("Pesos Argentinos expresados en Dólares Estadounidenses ")
                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
                 .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }))
 
@@ -188,9 +188,9 @@ module.exports = {
 
                 //Impuestos
                 .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
-                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("TARJETA (74%)  ", "USD$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("SOLIDARIO (75%)  ", "USD$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("TURISTA (100%)  ", "USD$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                 //Blue
                 .addField("Dólar blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
@@ -230,19 +230,19 @@ module.exports = {
 
                 //Oficial
                 .addField("Dólar oficial :bank: ", "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
-                .addField("Compra :dollar:", 'USD$ ' + currencyFormatter.format((convertir / oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("Venta :dollar:", 'USD$ ' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("Compra :dollar:", 'EUR€ ' + currencyFormatter.format((convertir / oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("Venta :dollar:", 'EUR€ ' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                 //Impuestos
                 .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
-                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("TARJETA (74%)  ", "EUR€ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("SOLIDARIO (75%)  ", "EUR€ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("TURISTA (100%)  ", "EUR€ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                 //Blue
                 .addField("Euro Blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                .addField("Compra :dollar:", 'USD$ ' + currencyFormatter.format((convertir / blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("Venta :dollar:", 'USD$ ' + currencyFormatter.format((convertir / blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("Compra :dollar:", 'EUR€ ' + currencyFormatter.format((convertir / blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("Venta :dollar:", 'EUR€ ' + currencyFormatter.format((convertir / blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
 
                interaction.deferReply();
@@ -272,7 +272,7 @@ module.exports = {
               const embed = new Discord.MessageEmbed()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Real Brasileño")
                 .setColor("#6da545")
-                .setDescription("Pesos argentinos expresados en reales brasileños")
+                .setDescription("Pesos argentinos expresados en Reales Brasileños")
                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553925243117698/realapeso.png")
                 .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }))
 
@@ -514,7 +514,7 @@ module.exports = {
                     const embed = new Discord.MessageEmbed()
                       .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${divisa.nombre}`)
                       .setColor(divisa.color)
-                      .setDescription(`Pesos argentinos expresados en ${divisa.nombre} al precio oficial del Banco Nación + impuestos (PAIS (30%) y adelanto de ganancias (45%)) `)
+                      .setDescription(`Pesos argentinos expresados en ${divisa.nombre} `)
                       .setThumbnail(divisa.img)
                       .addField("Monto Original :flag_ar: ", 'ARS$ ' + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }))
 

@@ -204,14 +204,14 @@ module.exports = {
             }
             ]
 
-        Criptomonedas.forEach( cripto => {
+        Criptomonedas.forEach(cripto => {
             if (interaction.options.getSubcommand() === cripto.id) {
-                 axios.get(cripto.apicoingecko)
-                    .then( (CRIPTOINFO) => {
+                axios.get(cripto.apicoingecko)
+                    .then((CRIPTOINFO) => {
                         let conversion: number = CRIPTOINFO.data['prices'][0][1];
 
-                         axios.get(cripto.apilemon)
-                            .then( (LEMON) => {
+                        axios.get(cripto.apilemon)
+                            .then((LEMON) => {
                                 const embed1 = new Discord.MessageEmbed()
 
                                 if (cripto.id === "terraluna") {
@@ -269,10 +269,10 @@ module.exports = {
 
 
 
-                                     interaction.deferReply();
-                                    setTimeout(() => {
-                                        interaction.editReply({ embeds: [embed1], components: [row] });
-                                    }, 3000)
+                                interaction.deferReply();
+                                setTimeout(() => {
+                                    interaction.editReply({ embeds: [embed1], components: [row] });
+                                }, 3000)
                                 client.on('interactionCreate', interaction => {
                                     if (!interaction.isButton()) return;
                                 });
@@ -312,14 +312,7 @@ module.exports = {
 
             }
         })
-
-
-
-        //Decentraland
-        //Solana
-        //DAI//Dogecoin
-
-          }
+    }
 
 
 }

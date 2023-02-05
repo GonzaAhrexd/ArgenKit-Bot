@@ -170,27 +170,27 @@ module.exports = {
                     option.setName('chf')
                         .setDescription('Monto en Francos.').setRequired(true)
                 ))
-                .addSubcommand(subcommand =>
-                    subcommand.setName('lira')
-                        .setDescription('Convierte de Liras Turcas a Pesos Argentinos')
-                        .addNumberOption(option =>
-                            option.setName('try')
-                                .setDescription('Monto en Liras.').setRequired(true)
-                        )),
+        .addSubcommand(subcommand =>
+            subcommand.setName('lira')
+                .setDescription('Convierte de Liras Turcas a Pesos Argentinos')
+                .addNumberOption(option =>
+                    option.setName('try')
+                        .setDescription('Monto en Liras.').setRequired(true)
+                )),
 
 
     async run(client, interaction, options) {
 
         if (interaction.options.getSubcommand() === 'dolar') {
-            let convertir:number = interaction.options.getNumber('usd')
+            let convertir: number = interaction.options.getNumber('usd')
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
-                .then( (oficial) => {
-                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
-                        .then( (blue) => {
-                             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa')
-                                .then( (mep) => {
-                                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui')
-                                        .then( (ccl) => {
+                .then((oficial) => {
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
+                        .then((blue) => {
+                            axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa')
+                                .then((mep) => {
+                                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui')
+                                        .then((ccl) => {
 
                                             const embed = new Discord.MessageEmbed()
 
@@ -198,33 +198,31 @@ module.exports = {
                                                 .setColor("GREEN")
                                                 .setDescription("Dólares estadounidenses expresado en pesos argentinos")
                                                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
-                                                .addField("Monto original :dollar: ", 'USD$ ' + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }))
-                                                //Oficial
-                                                .addField("Dólar oficial :bank: ", "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
-                                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                                .addFields(
+                                                    //Monto Original
+                                                    { name: `Monto original :dollar:  `, value: `USD$ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
+                                                    //Oficial
+                                                    { name: "Dólar oficial :bank: ", value: `Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.`},
+                                                    { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    //Impuestos
+                                                    { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
+                                                    { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    { name: "Tarjeta (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    { name: "Tarjeta (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    //Blue
+                                                    { name: `Dólar blue <:dollarblue:903149186436980767>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
+                                                    { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    { name: "Venta :flag_ar:", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    //Financieros
+                                                    { name: `Financieros <:finanzas:1068357650380755045>  `, value: `Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares.` },
+                                                    { name: "Dólar MEP ", value: `ARS$ ${currencyFormatter.format((convertir * mep.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    { name: "Contado con Liqui.", value: `ARS$ ${currencyFormatter.format((convertir * ccl.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true })
 
-                                                //Impuestos
-                                                .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
-                                                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-                                                //Blue
-                                                .addField("Dólar blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-                                                //Financieros
-                                                .addField("Financieros <:finanzas:1068357650380755045>", "Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares.", false)
-                                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * mep.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((convertir * ccl.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-
-                                               interaction.deferReply();
-                                                setTimeout( () => {
-                                                 interaction.editReply({ embeds: [embed] });
-                                                }, 3000)
+                                            interaction.deferReply();
+                                            setTimeout(() => {
+                                                interaction.editReply({ embeds: [embed] });
+                                            }, 3000)
 
                                         })
                                         .catch((err) => {
@@ -248,10 +246,10 @@ module.exports = {
         }
 
         if (interaction.options.getSubcommand() === 'euro') {
-            let conv2 = interaction.options.getNumber('eur')
+            let convertir = interaction.options.getNumber('eur')
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
-                .then( (oficial) => {
-                   axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                .then((oficial) => {
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
                         .then((blue) => {
 
 
@@ -261,30 +259,27 @@ module.exports = {
                                 .setColor("#0153b4")
                                 .setDescription("Euro expresado en pesos argentinos")
                                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922548848826654801/euroapeso.png")
-                                .addField("Monto original :euro: ", 'EUR€ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-                                //Oficial
-                                .addField("Euro oficial :bank: ", "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
-                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                .addFields(
+                                    //Monto Original
+                                    { name: `Monto original :euro:  `, value: `EUR€ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
+                                    //Oficial
+                                    { name: "Euro oficial :bank: ", value: `Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.`},
+                                    { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    //Impuestos
+                                    { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
+                                    { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Tarjeta (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Tarjeta (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    //Blue
+                                    { name: `Euro blue <:dollarblue:903149186436980767>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
+                                    { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Venta :flag_ar:", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true })
 
-                                //Impuestos
-                                .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados en los pagos con tarjeta o compra del banco  ", false)
-                                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74(conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75(conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100(conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-                                //Blue
-                                .addField("Euro Blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-
-                       
-
-                               interaction.deferReply();
-                                setTimeout( () => {
-                                 interaction.editReply({ embeds: [embed] });
-                                }, 3000)
+                            interaction.deferReply();
+                            setTimeout(() => {
+                                interaction.editReply({ embeds: [embed] });
+                            }, 3000)
 
 
                         })
@@ -301,11 +296,11 @@ module.exports = {
         }
 
         if (interaction.options.getSubcommand() === 'real') {
-            let conv2 = interaction.options.getNumber('brl')
+            let convertir = interaction.options.getNumber('brl')
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
                 .then((oficial) => {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
-                        .then( (blue) => {
+                        .then((blue) => {
 
 
                             const embed = new Discord.MessageEmbed()
@@ -314,30 +309,27 @@ module.exports = {
                                 .setColor("#6da545")
                                 .setDescription("Real expresado en pesos argentinos")
                                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553925243117698/realapeso.png")
-                                .addField("Monto original :flag_br: ", 'BRL R$ ' + currencyFormatter.format(conv2, { locale: 'es-ES', code: ' ' }))
-                                //Oficial
-                                .addField("Real oficial :bank: ", "Valor del real que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
-                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                .addFields(
+                                    //Monto Original
+                                    { name: `Monto original :flag_br:  `, value: `EUR€ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
+                                    //Oficial
+                                    { name: "Real oficial :flag_br: ", value: `Valor del Real Brasileño que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar el equivalente a USD$200 al mes.`},
+                                    { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    //Impuestos
+                                    { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
+                                    { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Tarjeta (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Tarjeta (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    //Blue
+                                    { name: `Real blue <:dollarblue:903149186436980767>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
+                                    { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Venta :flag_ar:", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true })
 
-                                //Impuestos
-                                .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados en los pagos con tarjeta o compra del banco  ", false)
-                                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74(conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75(conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100(conv2 * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-                                //Blue
-                                .addField("Real Blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format((conv2 * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-
-                           
-
-                                 interaction.deferReply();
-                                setTimeout( () => {
-                                 interaction.editReply({ embeds: [embed] });
-                                }, 3000)
+                            interaction.deferReply();
+                            setTimeout(() => {
+                                interaction.editReply({ embeds: [embed] });
+                            }, 3000)
 
 
                         })
@@ -561,27 +553,28 @@ module.exports = {
                                             .setColor(divisa.color)
                                             .setDescription(`${divisa.nombre} expresado en pesos argentinos`)
                                             .setThumbnail(divisa.img)
-                                            .addField(`Monto original ${divisa.bandera}`, divisa.simbolo + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }))
-                                            //Oficial
-                                            .addField(`${divisa.nombre} oficial :bank: `, `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos `, false)
-                                            .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format(((convertir / aconvertir) * oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                            .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format(((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                            .addFields(
+                                                //Monto Original
+                                                { name: `Monto original ${divisa.bandera}`, value:  `${divisa.simbolo} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
+                                                //Oficial
+                                                { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos `},
+                                                { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                //Impuestos
+                                                { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
+                                                { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                { name: "Solidario (75%) ", value: `ARS$ ${currencyFormatter.format(total75((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                { name: "Turista (100%) ", value: `ARS$ ${currencyFormatter.format(total100((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                //Blue
+                                                { name: `${divisa.nombre} Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
+                                                { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            )
 
-                                            //Impuestos
-                                            .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados en los pagos con tarjeta o compra del banco  ", false)
-                                            .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                            .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                            .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-                                            //Blue
-                                            .addField(`${divisa.nombre} Blue <:dollarblue:903149186436980767>`, "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                            .addField("Compra :flag_ar:", 'ARS$ ' + currencyFormatter.format(((convertir / aconvertir) * blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                                            .addField("Venta :flag_ar:", 'ARS$ ' + currencyFormatter.format(((convertir / aconvertir) * blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-                                            interaction.deferReply();
-                                            setTimeout( () => {
-                                             interaction.editReply({ embeds: [embed] });
-                                            }, 4000)
+                                        interaction.deferReply();
+                                        setTimeout(() => {
+                                            interaction.editReply({ embeds: [embed] });
+                                        }, 4000)
                                     }).catch((err) => {
                                         console.error('ERR', err)
                                     })

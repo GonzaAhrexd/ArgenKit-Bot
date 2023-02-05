@@ -198,8 +198,8 @@ module.exports = {
                                         .setThumbnail(cripto.imagen)
                                         .addFields(
                                             { name: `Monto original :flag_ar: `, value: `ARS$ ${convertir} `},
-                                            { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + ((convertir / CONVERTIRCOINGECKO.data['prices'][0][1]) / CONVERTIRLEMON.data['bid']).toFixed(8), inline: true},
-                                            { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + ((convertir / CONVERTIRCOINGECKO.data['prices'][0][1]) / CONVERTIRLEMON.data['ask']).toFixed(8), inline: true})
+                                            { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + ' ' + ((convertir / CONVERTIRCOINGECKO.data['prices'][0][1]) / CONVERTIRLEMON.data['bid']).toFixed(8), inline: true},
+                                            { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + ' ' + ((convertir / CONVERTIRCOINGECKO.data['prices'][0][1]) / CONVERTIRLEMON.data['ask']).toFixed(8), inline: true})
                                     return interaction.reply({ embeds: [embed] });
 
                                 }).catch((err) => {
@@ -215,9 +215,9 @@ module.exports = {
                                 .setThumbnail(cripto.imagen)
                                 .addFields(
                                     { name: `Monto original :flag_ar: `, value: `ARS$ ${convertir} `},
-                                    { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + (convertir / CONVERTIRLEMON.data['bid']).toFixed(8), inline: true},
-                                    { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + (convertir / CONVERTIRLEMON.data['ask']).toFixed(8), inline: true})
-                            return interaction.reply({ embeds: [embed] });
+                                    { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + ' ' + (convertir / CONVERTIRLEMON.data['bid']).toFixed(8), inline: true},
+                                    { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + ' '  + (convertir / CONVERTIRLEMON.data['ask']).toFixed(8), inline: true})
+                                    return interaction.reply({ embeds: [embed] });
                         }
                     })
 

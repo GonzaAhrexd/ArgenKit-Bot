@@ -792,7 +792,7 @@ module.exports = {
                                             .setColor(divisa.color)
                                             .setDescription(divisa.desc)
                                             .setThumbnail(divisa.img)
-                                            .addField(divisa.nombre + " :bank: ", "Valor de " + divisa.nombre + " que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos", false)
+                                            .addField(`${divisa.nombre} oficial :bank:`, `Valor de ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos`, false)
 
                                             //Oficial
                                             .addField("COMPRA  ", "ARS$ " + currencyFormatter.format(((num / conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), true)

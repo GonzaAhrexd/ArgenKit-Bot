@@ -13,7 +13,8 @@ module.exports = {
             .setColor("GREEN")
             .setDescription("Calculando...")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/937780157387780116/test-results_1.png")
-            .addField("RESULTADOS: ", "POSITIVO (+)")
+            .addFields({ name: "RESULTADOS: ", value: ` Positivo (+)` })
+            
           return interaction.reply({ embeds: [embed] });
         }
     
@@ -22,7 +23,9 @@ module.exports = {
             .setColor("RED")
             .setDescription("Calculando...")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/937781157196611644/negativotest.png")
-            .addField("RESULTADOS: ", "NEGATIVO (-)")
+            .addFields({ name: "RESULTADOS: ", value: ` NEGATIVO (-)` })
+            
+
           return interaction.reply({ embeds: [embed] });
         }
       }

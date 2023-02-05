@@ -208,8 +208,8 @@ module.exports = {
                                                     //Impuestos
                                                     { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
                                                     { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                                    { name: "Tarjeta (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                                    { name: "Tarjeta (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    { name: "Solidario (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                    { name: "Turista (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                                     //Blue
                                                     { name: `Dólar blue <:dollarblue:903149186436980767>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
                                                     { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -269,8 +269,8 @@ module.exports = {
                                     //Impuestos
                                     { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
                                     { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                    { name: "Tarjeta (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                    { name: "Tarjeta (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Solidario (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Turista (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                     //Blue
                                     { name: `Euro blue <:dollarblue:903149186436980767>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
                                     { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -319,8 +319,8 @@ module.exports = {
                                     //Impuestos
                                     { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
                                     { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                    { name: "Tarjeta (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                    { name: "Tarjeta (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Solidario (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Turista (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                     //Blue
                                     { name: `Real blue <:dollarblue:903149186436980767>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
                                     { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },

@@ -311,11 +311,11 @@ module.exports = {
                                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553925243117698/realapeso.png")
                                 .addFields(
                                     //Monto Original
-                                    { name: `Monto original :flag_br:  `, value: `EUR€ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
+                                    { name: `Monto original :flag_br:  `, value: `BRL R$ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
                                     //Oficial
                                     { name: "Real oficial :flag_br: ", value: `Valor del Real Brasileño que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar el equivalente a USD$200 al mes.`},
                                     { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                    { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                     //Impuestos
                                     { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
                                     { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },

@@ -15,17 +15,12 @@ module.exports = {
       const embed = new Discord.MessageEmbed()
      
       
-          .setTitle("¡ ARGENTINA CAMPEÓN DEL MUNDO!")
+          .setTitle("Tiempo hasta los siguientes partidos de la selección Argentina")
           .setColor("#7eb2fa")
           .setDescription("Tiempo hasta los siguientes partidos de la selección Argentina")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929121012275093524/camiseta-de-futbol.png")
-          .addField("  :flag_ar: vs :flag_sa: \n(22/11/2022) ", "Resultado: \n :flag_ar: 1 - 2 :flag_sa: ", true)
-          .addField("  :flag_ar: vs :flag_mx: \n(26/11/2022) ", "Resultado: \n :flag_ar: 2 - 0 :flag_mx: ", true)
-          .addField("  :flag_ar: vs :flag_pl: \n(30/11/2022) ", "Resultado: \n :flag_ar: 2 - 0 :flag_pl: ", true)
-          .addField("  :flag_ar: vs :flag_au: \n(03/12/2022) ", "Resultado: \n :flag_ar: 2 - 1 :flag_au: ", true)
-          .addField("  :flag_ar: vs :flag_nl: \n(09/12/2022) ", "Resultado: \n :flag_ar: 2 (4) - 2 (3) :flag_nl: ", true)
-          .addField("  :flag_ar: vs :flag_hr: \n(13/12/2022) ", "Resultado: \n :flag_ar: 3 - 0 :flag_hr:  ", true)
-          .addField("  :flag_ar: vs :flag_fr: \n(18/12/2022) ", "Resultado  \n :flag_ar: 3 (4) - 3 (2) :flag_fr: ", true)
+          .addField("  :flag_ar: vs :flag_pa: \n(23/03/2023) ", "Faltan " + diasHasta(new Date("2023-03-23")) + " días ", true)
+          .addField("  :flag_ar: vs :flag_cw:  \n(28/03/2023) ", "Faltan " + diasHasta(new Date("2023-03-28")) + " días ", true)
         
           return interaction.reply({ embeds: [embed] });
 

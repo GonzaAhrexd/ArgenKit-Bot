@@ -19,7 +19,7 @@ module.exports = {
           .setColor("#7eb2fa")
           .setDescription("Tiempo hasta los siguientes partidos de la selección Argentina")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929121012275093524/camiseta-de-futbol.png")
-          .addField("  :flag_ar: vs :flag_pa: \n(23/03/2023) ", "Faltan " + diasHasta(new Date("2023-03-23")) + " días ", true)
+          .addField("  :flag_ar: vs :flag_pa: \n(23/03/2023) ", "  2 - 0  ", true)
           .addField("  :flag_ar: vs :flag_cw:  \n(28/03/2023) ", "Faltan " + diasHasta(new Date("2023-03-28")) + " días ", true)
         
           return interaction.reply({ embeds: [embed] });

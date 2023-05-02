@@ -165,7 +165,7 @@ module.exports = {
         .setDescription("El precio de  Prime Video con impuestos en Argentina es el siguiente: ")
         .setColor('#1aa6e0')
         .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
-        .addField("Costo mensual", "ARS$ " + currencyFormatter.format((total74(319)), { locale: 'es-ES', code: ' ' }))
+        .addField("Costo mensual", "ARS$ " + currencyFormatter.format((total74(430)), { locale: 'es-ES', code: ' ' }))
       return interaction.reply({ embeds: [embed] });
 
     }

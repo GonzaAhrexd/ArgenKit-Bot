@@ -88,13 +88,13 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'dolar') {
 
 
-             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial')
                 .then( (oficial) => {
-                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
+                     axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/blue')
                         .then( (blue) => {
-                             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa')
+                             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/bolsa')
                                 .then( (mep) => {
-                                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui')
+                                     axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/contadoliqui')
                                         .then( (ccl) => {
 
                                             const embed1 = new Discord.MessageEmbed()
@@ -217,9 +217,9 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'euro') {
 
-             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
+             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
                 .then( (oficial) => {
-                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                     axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
                         .then( (blue) => {
 
 
@@ -329,9 +329,9 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'real') {
 
-             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
+             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/oficial')
                 .then( (oficial) => {
-                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
+                     axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/blue')
                         .then( (blue) => {
 
 
@@ -776,9 +776,9 @@ module.exports = {
             if (interaction.options.getSubcommand() === divisa.id) {
                  axios.get('https://api.exchangerate.host/latest')
                     .then((DIVISA) => {
-                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
+                         axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
                             .then((oficial) => {
-                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                                 axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
                                     .then((blue) => {
                                         let conversion: number = DIVISA.data['rates'][divisa.iso]
                                         let num: number = 1

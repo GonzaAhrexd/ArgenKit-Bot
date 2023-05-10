@@ -173,7 +173,7 @@ module.exports = {
     //AppleTV
 
     if (interaction.options.getSubcommand() === 'appletv') {
-      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+      axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial')
         .then((oficial) => {
           const embed = new Discord.MessageEmbed()
             .setTitle("Apple TV+")
@@ -218,7 +218,7 @@ module.exports = {
 
 
     if (interaction.options.getSubcommand() === 'discordnitro') {
-      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+      axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial')
         .then((oficial) => {
 
           const embed = new Discord.MessageEmbed()
@@ -245,7 +245,7 @@ module.exports = {
 
     if (interaction.options.getSubcommand() === 'googleone') {
 
-      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+      axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial')
         .then((oficial) => {
           const embed1 = new Discord.MessageEmbed()
             .setTitle("Google One")
@@ -370,7 +370,7 @@ module.exports = {
     //Twitch
 
     if (interaction.options.getSubcommand() === 'twitch') {
-      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+      axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial')
         .then((oficial) => {
           const embed1 = new Discord.MessageEmbed()
             .setTitle("Siscripciones de Twitch")

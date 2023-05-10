@@ -104,10 +104,10 @@ module.exports = {
                         if (Metal.id == 'paladio')
                             conversion = precio.data[3].palladium
 
-                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+                         axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial')
 
                             .then( (oficial) => {
-                                axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
+                                axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
                                     .then( (blue) => {
 
 

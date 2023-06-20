@@ -148,12 +148,9 @@ module.exports = {
         .setDescription("Los precios de Xbox Game Pass con impuestos en Argentina son los siguientes: ")
         .setColor('#a6ed75')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903853195443445770/xbox.png")
-        .addField("Xbox Game Pass primer mes", "ARS$ " + currencyFormatter.format((39 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Xbox Game Pass para PC", "ARS$ " + currencyFormatter.format((599 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("Xbox Game Pass Ultimate", "ARS$ " + currencyFormatter.format((899 * 1.74), { locale: 'es-ES', code: ' ' }))
-
-
-
+        .addField("Xbox Game Pass primer mes", "ARS$ " + currencyFormatter.format((total74(39)), { locale: 'es-ES', code: ' ' }))
+        .addField("Xbox Game Pass para PC", "ARS$ " + currencyFormatter.format((total74(599)), { locale: 'es-ES', code: ' ' }))
+        .addField("Xbox Game Pass Ultimate", "ARS$ " + currencyFormatter.format((total74(899)), { locale: 'es-ES', code: ' ' }))
       return interaction.reply({ embeds: [embed] });
     }
 
@@ -165,7 +162,7 @@ module.exports = {
         .setDescription("El precio de  Prime Video con impuestos en Argentina es el siguiente: ")
         .setColor('#1aa6e0')
         .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
-        .addField("Costo mensual", "ARS$ " + currencyFormatter.format((total74(430)), { locale: 'es-ES', code: ' ' }))
+        .addField("Costo mensual", "ARS$ " + currencyFormatter.format((total74(580)), { locale: 'es-ES', code: ' ' }))
       return interaction.reply({ embeds: [embed] });
 
     }
@@ -342,12 +339,12 @@ module.exports = {
         .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: ")
         .setColor('#306fb5')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
-        .addField("ARS$ 100 ", "ARS$ " + currencyFormatter.format((100 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 160 ", "ARS$  " + currencyFormatter.format((160 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 400 ", "ARS$   " + currencyFormatter.format((400 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 800 ", "ARS$  " + currencyFormatter.format((800 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 1600 ", "ARS$   " + currencyFormatter.format((1600 * 1.74), { locale: 'es-ES', code: ' ' }))
-        .addField("ARS$ 3200 ", "ARS$   " + currencyFormatter.format((3200 * 1.74), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 100 ", "ARS$ " + currencyFormatter.format((total74(100)), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 160 ", "ARS$  " + currencyFormatter.format((total74(160)), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 400 ", "ARS$   " + currencyFormatter.format((total74(400)), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 800 ", "ARS$  " + currencyFormatter.format((total74(800)), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 1600 ", "ARS$   " + currencyFormatter.format((total74(1600)), { locale: 'es-ES', code: ' ' }))
+        .addField("ARS$ 3200 ", "ARS$   " + currencyFormatter.format((total74(3200)), { locale: 'es-ES', code: ' ' }))
 
       return interaction.reply({ embeds: [embed] });
     }
@@ -361,7 +358,7 @@ module.exports = {
         .setURL("https://www.paramountplus.com/ar/")
         .setDescription("Los precios de Paramount+ en Argentina con impuestos son los siguientes: ")
         .setColor('#0b67ff')
-        .addField("Plan  mensual ", "ARS$ 299 ")
+        .addField("Plan  mensual ", "ARS$ 318 ")
 
       return interaction.reply({ embeds: [embed] });
 

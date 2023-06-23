@@ -86,358 +86,323 @@ module.exports = {
 
 
         if (interaction.options.getSubcommand() === 'dolar') {
+            try {
+                const [oficial, blue, mep, ccl] = await Promise.all([
+                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial'),
+                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/blue'),
+                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/bolsa'),
+                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/contadoliqui'),
+                ]);
 
+                const embed1 = new Discord.MessageEmbed()
+                    .setTitle("Dólar estadounidese :flag_us:")
+                    .setColor("#a9ea98")
+                    .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
+                    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903145945980604447/dolar3.png")
+                    .addFields(
+                        { name: "Dólar oficial :bank:", value: "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes." },
+                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        //Impuestos
+                        { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco" },
+                        { name: "TARJETA (74%)", value: `ARS$ ${currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "TURISTA (100%)", value: `ARS$ ${currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        //Blue
+                        { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
+                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        //Financieros
+                        { name: "Financieros <:finanzas:1068357650380755045>", value: "Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares." },
+                        { name: "CCL", value: `ARS$ ${currencyFormatter.format(ccl.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "MEP", value: `ARS$ ${currencyFormatter.format(mep.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                    );
+                const embed2 = new Discord.MessageEmbed()
+                    .setTitle("Dólar estadounidense")
+                    .setColor("#a9ea98")
+                    .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
+                    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903145945980604447/dolar3.png")
+                    .addFields(
+                        { name: "Acuñación", value: "2 de abril de 1792" },
+                        { name: "Países donde se utiliza:", value: ":flag_us: :flag_sv: :flag_ec: :flag_pa: :flag_pr: :flag_zw: :flag_tl: :flag_pw: :flag_fm: :flag_mh:" },
+                        { name: "Código ISO", value: "USD", inline: true },
+                        { name: "Símbolo", value: "$", inline: true },
+                        { name: "Billetes :dollar:", value: "$1, $2, $5, $10, $20, $50 y $100" },
+                        { name: "Monedas :coin:", value: "$0,01, $0,05, $0,10, $0,25, $0,50 y $1" },
+                        { name: "Inflación anual :chart_with_downwards_trend:", value: "7,1% (2021)", inline: true },
+                        { name: "Emisor :bank:", value: "Sistema de Reserva Federal", inline: true }
+                    );
 
-             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial')
-                .then( (oficial) => {
-                     axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/blue')
-                        .then( (blue) => {
-                             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/bolsa')
-                                .then( (mep) => {
-                                     axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/contadoliqui')
-                                        .then( (ccl) => {
+                const row = new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                            .setCustomId("conversion")
+                            .setLabel("💸 Conversión ")
+                            .setStyle("SUCCESS")
+                    )
+                    .addComponents(
+                        new MessageButton()
+                            .setCustomId("informacion")
+                            .setLabel("📋 Información")
+                            .setStyle("PRIMARY")
+                    )
 
-                                            const embed1 = new Discord.MessageEmbed()
-                                                .setTitle("Dólar estadounidese :flag_us:")
-                                                .setColor("#a9ea98")
-                                                .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
-                                                .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903145945980604447/dolar3.png")
+                interaction.deferReply();
+                setTimeout(() => {
+                    interaction.editReply({ embeds: [embed1], components: [row] });
+                }, 3000);
 
-                                                //Oficial
-                                                .addField("Dólar oficial :bank: ", "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
-                                                .addField("COMPRA  ", "ARS$ " + currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("VENTA  ", "ARS$ " + currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                client.on('interactionCreate', interaction => {
+                    if (!interaction.isButton()) return;
+                });
 
+                const filter = i => i.user.id === interaction.user.id;
 
-                                                //Impuestos
-                                                .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
-                                                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
 
+                var actual = embed1;
 
-                                                //Blue
-                                                .addField("Dólar blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                                .addField("COMPRA  ", "ARS$ " + currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("VENTA ", "ARS$ " + currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                collector.on('collect', async i => {
+                    if (i.customId === 'conversion') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed1], components: [row] });
+                        actual = embed1;
+                    }
+                    if (i.customId === 'informacion') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed2], components: [row] });
+                        actual = embed2;
+                    }
+                });
 
-                                                //Financieros
-                                                .addField("Financieros <:finanzas:1068357650380755045>", "Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares.", false)
-                                                .addField("CCL  ", "ARS$ " + currencyFormatter.format(ccl.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-                                                .addField("MEP ", "ARS$ " + currencyFormatter.format(mep.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                collector.on("end", (collected, reason) => {
+                    if (reason === "time") {
+                        interaction.editReply({ embeds: [actual], components: [] });
+                    }
+                });
+            } catch (err) {
+                console.error('ERR', err);
 
-                                            const embed2 = new Discord.MessageEmbed()
-                                                .setTitle("Dólar estadounidense")
-                                                .setColor("#a9ea98")
-                                                .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
-                                                .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903145945980604447/dolar3.png")
-                                                .addField("Acuñación", "2 de abril de 1792")
-                                                .addField("Países donde se utiliza:", ":flag_us: :flag_sv: :flag_ec: :flag_pa: :flag_pr: :flag_zw: :flag_tl: :flag_pw: :flag_fm: :flag_mh: ")
-                                                .addField("Código ISO", "USD ", true)
-                                                .addField("Símbolo", "$ ", true)
-                                                .addField("Billetes :dollar: ", "$1, $2, $5, $10, $20, $50 y $100")
-                                                .addField("Monedas :coin: ", "	$0,01, $0,05, $0,10, $0,25, $0,50 y $1")
-                                                .addField("Inflación anual  :chart_with_downwards_trend: ", "7,1% (2021)", true)
-                                                .addField("Emisor :bank: ", "Sistema de Reserva Federal ", true)
+                const errorEmbed = new Discord.MessageEmbed()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos del dólar. Por favor, inténtalo de nuevo más tarde.");
 
-                                            const row = new MessageActionRow()
-                                                .addComponents(
-                                                    new MessageButton()
-                                                        .setCustomId("conversion")
-                                                        .setLabel("💸 Conversión ")
-                                                        .setStyle("SUCCESS")
-                                                )
-                                                .addComponents(
-                                                    new MessageButton()
-                                                        .setCustomId("informacion")
-                                                        .setLabel("📋 Información")
-                                                        .setStyle("PRIMARY")
-                                                )
+                interaction.reply({ embeds: [errorEmbed] });
 
-
-                                            //Deferir las respuestas para que no se crashee todo
-                                             interaction.deferReply();
-                                            setTimeout(() => {
-                                                interaction.editReply({ embeds: [embed1], components: [row] });
-                                            }, 3000)
-
-                                            client.on('interactionCreate', interaction => {
-                                                if (!interaction.isButton()) return;
-                                            });
-
-                                            const filter = i => i.user.id === interaction.user.id;
-
-                                            const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
-
-                                            var actual = embed1
-
-                                            collector.on('collect', async i => {
-                                                if (i.customId === 'conversion') {
-                                                    await i.deferUpdate()
-                                                    await i.editReply({ embeds: [embed1], components: [row] });
-                                                    actual = embed1
-                                                }
-                                                if (i.customId === 'informacion') {
-                                                    await i.deferUpdate();
-                                                    await i.editReply({ embeds: [embed2], components: [row] });
-                                                    actual = embed2
-                                                }
-                                            });
-
-                                            collector.on("end", (collected, reason) => {
-                                                if (reason === "time") {
-                                                    interaction.editReply({ embeds: [actual], components: [] });
-                                                }
-                                            })
-
-                                        })
-                                        .catch((err) => {
-                                            console.error('ERR', err)
-                                        })
-                                })
-
-
-                                .catch((err) => {
-                                    console.error('ERR', err)
-                                })
-                                .catch((err) => {
-                                    console.error('ERR', err)
-                                })
-                        })
-                        .catch((err) => {
-                            console.error('ERR', err)
-                        })
-                })
-
+            }
         }
-
-
-
         //Euro
 
         if (interaction.options.getSubcommand() === 'euro') {
+            try {
+                const [oficial, blue] = await Promise.all([
+                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial'),
+                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
+                ]);
 
-             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
-                .then( (oficial) => {
-                     axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
-                        .then( (blue) => {
+                const embed1 = new Discord.MessageEmbed()
+                    .setTitle("Euro :flag_eu:")
+                    .setColor("#0153b4")
+                    .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
+                    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png")
+                    .addFields(
+                        { name: "Euro oficial :bank:", value: "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos, además, sólo se puede retirar el equivalente a USD$200 al mes." },
+                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco" },
+                        { name: "TARJETA (74%)", value: `ARS$ ${currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "TURISTA (100%)", value: `ARS$ ${currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Euro blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
+                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                    );
 
+                const embed2 = new Discord.MessageEmbed()
+                    .setTitle("Euro")
+                    .setColor("#0153b4")
+                    .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
+                    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png")
+                    .addFields(
+                        { name: "Acuñación", value: "1 de enero de 2002" },
+                        { name: "Países donde se utiliza:", value: ":flag_de: :flag_at: :flag_be: :flag_cy: :flag_sk: :flag_si: :flag_es: :flag_ee: :flag_fi: :flag_fr: :flag_gr: :flag_ie: :flag_it: :flag_lv: :flag_lt: :flag_lu: :flag_mt: :flag_nl: :flag_pt: :flag_ad: :flag_va: :flag_mc: :flag_sm: :flag_xk: :flag_me:" },
+                        { name: "Código ISO", value: "EUR", inline: true },
+                        { name: "Símbolo", value: "€", inline: true },
+                        { name: "Billetes <:euro:903349498930135160>", value: "€5, €10, €20, €50, €100, €200, €500" },
+                        { name: "Monedas :coin:", value: "€0,01, €0,02, €0,05, €0,10, €0,20, €0,50, €1, €2" },
+                        { name: "Inflación anual :chart_with_downwards_trend:", value: "-3.0% (2021)", inline: true },
+                        { name: "Emisor :bank:", value: "Banco Central Europeo", inline: true }
+                    );
 
-                            const embed1 = new Discord.MessageEmbed()
-                                .setTitle("Euro :flag_eu:")
-                                .setColor("#0153b4")
-                                .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
-                                .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png")
+                const row = new Discord.MessageActionRow()
+                    .addComponents(
+                        new Discord.MessageButton()
+                            .setCustomId("conversion")
+                            .setLabel("💸 Conversión ")
+                            .setStyle("SUCCESS")
+                    )
+                    .addComponents(
+                        new Discord.MessageButton()
+                            .setCustomId("informacion")
+                            .setLabel("📋 Información")
+                            .setStyle("PRIMARY")
+                    );
 
-                                //Oficial
-                                .addField("Euro oficial :bank: ", "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos, además, sólo se puede retirar el equivalente a USD$200 al mes.", false)
-                                .addField("COMPRA  ", "ARS$ " + currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-                                .addField("VENTA  ", "ARS$ " + currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                interaction.deferReply();
+                setTimeout(() => {
+                    interaction.editReply({ embeds: [embed1], components: [row] });
+                }, 3000);
 
-                                //Impuestos
-                                .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco  ", false)
-                                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                client.on('interactionCreate', interaction => {
+                    if (!interaction.isButton()) return;
+                });
 
-                                //Blue
-                                .addField("Euro blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                .addField("COMPRA  ", "ARS$ " + currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-                                .addField("VENTA ", "ARS$ " + currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                const filter = i => i.user.id === interaction.user.id;
 
-                            const embed2 = new Discord.MessageEmbed()
-                                .setTitle("Euro")
-                                .setColor("#0153b4")
-                                .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
-                                .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png")
-                                .addField("Acuñación", "1  de enero de 2002 ")
-                                .addField("Países donde se utiliza:", ":flag_de: :flag_at: :flag_be: :flag_cy: :flag_sk: :flag_si: :flag_es: :flag_ee: :flag_fi: :flag_fr: :flag_gr: :flag_ie: :flag_it: :flag_lv: :flag_lt: :flag_lu: :flag_mt: :flag_nl: :flag_pt: :flag_ad: :flag_va: :flag_mc: :flag_sm: :flag_xk: :flag_me:  ")
-                                .addField("Código ISO", "EUR ", true)
-                                .addField("Símbolo", "€ ", true)
-                                .addField("Billetes <:euro:903349498930135160> ", "€5, €10, €20, €50, €100, €200, €500")
-                                .addField("Monedas :coin: ", "	€0,01 , €0,02 , €0,05, €0,10 , €0,20, €0,50 , €1 , €2")
-                                .addField("Inflación anual :chart_with_downwards_trend:", "-3.0% (2021)", true)
-                                .addField("Emisor :bank: ", "Banco Central Europeo", true)
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
 
+                var actual = embed1;
 
+                collector.on('collect', async i => {
+                    if (i.customId === 'conversion') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed1], components: [row] });
+                        actual = embed1;
+                    }
+                    if (i.customId === 'informacion') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed2], components: [row] });
+                        actual = embed2;
+                    }
+                });
 
-                            const row = new MessageActionRow()
-                                .addComponents(
-                                    new MessageButton()
-                                        .setCustomId("conversion")
-                                        .setLabel("💸 Conversión ")
-                                        .setStyle("SUCCESS")
-                                )
-                                .addComponents(
-                                    new MessageButton()
-                                        .setCustomId("informacion")
-                                        .setLabel("📋 Información")
-                                        .setStyle("PRIMARY")
-                                )
+                collector.on("end", (collected, reason) => {
+                    if (reason === "time") {
+                        interaction.editReply({ embeds: [actual], components: [] });
+                    }
+                });
+            } catch (error) {
+                console.error(error);
 
+                const errorEmbed = new Discord.MessageEmbed()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos del euro. Por favor, inténtalo de nuevo más tarde.");
 
-                             interaction.deferReply();
-                            setTimeout(() => {
-                                interaction.editReply({ embeds: [embed1], components: [row] });
-                            }, 3000)
-                            client.on('interactionCreate', interaction => {
-                                if (!interaction.isButton()) return;
-                            });
-
-                            const filter = i => i.user.id === interaction.user.id;
-
-                            const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
-
-                            var actual = embed1
-
-                            collector.on('collect', async i => {
-                                if (i.customId === 'conversion') {
-                                    await i.deferUpdate()
-                                    await i.editReply({ embeds: [embed1], components: [row] });
-                                    actual = embed1
-                                }
-                                if (i.customId === 'informacion') {
-                                    await i.deferUpdate();
-                                    await i.editReply({ embeds: [embed2], components: [row] });
-                                    actual = embed2
-                                }
-                            });
-
-                            collector.on("end", (collected, reason) => {
-                                if (reason === "time") {
-                                    interaction.editReply({ embeds: [actual], components: [] });
-                                }
-                            })
-
-
-
-                        })
-                        .catch((err) => {
-                            console.error('ERR', err)
-                        })
-                })
-
-
-                .catch((err) => {
-                    console.error('ERR', err)
-                })
-                .catch((err) => {
-                    console.error('ERR', err)
-                })
-
+                interaction.reply({ embeds: [errorEmbed] });
+            }
         }
+
 
         if (interaction.options.getSubcommand() === 'real') {
 
-             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/oficial')
-                .then( (oficial) => {
-                     axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/blue')
-                        .then( (blue) => {
+            try {
+                const [oficial, blue] = await Promise.all([
+                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/oficial'),
+                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/blue')
+                ]);
+
+                const embed1 = new Discord.MessageEmbed()
+                    .setTitle("Real Brasileño  :flag_br:")
+                    .setColor("#e8ce6c")
+                    .setDescription("El real es la moneda de curso legal en Brasil y fuera de sus fronteras se le conoce como real brasileño. A partir de 2020, es la vigésima moneda más negociada en el mundo, la segunda en América Latina detrás de peso mexicano y la cuarta en el continente americano detrás del dólar estadounidense, el dólar canadiense y el peso mexicano")
+                    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1068375006784012288/BrazilMoney.png")
+                    //Oficial
+                    .addFields(
+                        { name: "Real oficial :bank:", value: "Valor del real que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, además, sólo se puede retirar el equivalente a USD$200 al mes.", inline: false },
+                        { name: "COMPRA", value: "ARS$ " + currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
+                        { name: "VENTA", value: "ARS$ " + currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
+                        { name: "Impuestos <:taxes:1068370368819101746>", value: "Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco", inline: false },
+                        { name: "TARJETA (74%)", value: "ARS$ " + currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                        { name: "SOLIDARIO (75%)", value: "ARS$ " + currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                        { name: "TURISTA (100%)", value: "ARS$ " + currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                        { name: "Real blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
+                        { name: "COMPRA", value: "ARS$ " + currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
+                        { name: "VENTA", value: "ARS$ " + currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true }
+                    )
+
+                const embed2 = new Discord.MessageEmbed()
+                    .setTitle("Real Brasileño")
+                    .setColor("#e8ce6c")
+                    .setDescription("El real es la moneda de curso legal en Brasil y fuera de sus fronteras se le conoce como real brasileño. A partir de 2020, es la vigésima moneda más negociada en el mundo, la segunda en América Latina detrás de peso mexicano y la cuarta en el continente americano detrás del dólar estadounidense, el dólar canadiense y el peso mexicano")
+                    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1068375006784012288/BrazilMoney.png")
+                    .addFields(
+                        { name: "Acuñación", value: "1994" },
+                        { name: "Países donde se utiliza:", value: ":flag_br:" },
+                        { name: "Código ISO", value: "BRL", inline: true },
+                        { name: "Símbolo", value: "R$", inline: true },
+                        { name: "Billetes <:brazilianreal1:913867351210995722>", value: "R$2, R$5, R$10, R$20, R$50, R$100 y R$200" },
+                        { name: "Monedas :coin:", value: "R$0,01, R$0,05, R$0,10, R$0,25, R$0,50 y R$1" },
+                        { name: "Inflación anual :chart_with_downwards_trend:", value: "10.74% (2021)", inline: true },
+                        { name: "Emisor :bank:", value: "Banco Central do Brasil", inline: true }
+                    )
 
 
-                            const embed1 = new Discord.MessageEmbed()
-                                .setTitle("Real Brasileño  :flag_br:")
-                                .setColor("#e8ce6c")
-                                .setDescription("El real es la moneda de curso legal en Brasil y fuera de sus fronteras se le conoce como real brasileño. A partir de 2020, es la vigésima moneda más negociada en el mundo, la segunda en América Latina detrás de peso mexicano y la cuarta en el continente americano detrás del dólar estadounidense, el dólar canadiense y el peso mexicano")
-                                .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1068375006784012288/BrazilMoney.png")
-                                //Oficial
-                                .addField("Real oficial :bank: ", "Valor del real que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, además, sólo se puede retirar el equivalente a USD$200 al mes.", false)
-                                .addField("COMPRA  ", "ARS$ " + currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-                                .addField("VENTA  ", "ARS$ " + currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-
-                                //Impuestos
-                                .addField("Impuestos <:taxes:1068370368819101746>", "\n Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco  ", false)
-                                .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-                                //Blue
-                                .addField("Real blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                .addField("COMPRA  ", "ARS$ " + currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-                                .addField("VENTA ", "ARS$ " + currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-
-                            const embed2 = new Discord.MessageEmbed()
-                                .setTitle("Real Brasileño")
-                                .setColor("#e8ce6c")
-                                .setDescription("El real es la moneda de curso legal en Brasil y fuera de sus fronteras se le conoce como real brasileño. A partir de 2020, es la vigésima moneda más negociada en el mundo, la segunda en América Latina detrás de peso mexicano y la cuarta en el continente americano detrás del dólar estadounidense, el dólar canadiense y el peso mexicano")
-                                .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1068375006784012288/BrazilMoney.png")
-                                .addField("Acuñación", " 1994 ")
-                                .addField("Países donde se utiliza:", ":flag_br:")
-                                .addField("Código ISO", "BRL ", true)
-                                .addField("Símbolo", "R$ ", true)
-                                .addField("Billetes <:brazilianreal1:913867351210995722> ", "R$2, R$5, R$10, R$20, R$50, R$100 y R$200")
-                                .addField("Monedas :coin: ", "	R$0,01 , R$0,05, R$0,10, R$0,25, R$0,50 y R$ 1")
-                                .addField("Inflación anual :chart_with_downwards_trend:", "10.74% (2021)", true)
-                                .addField("Emisor :bank: ", "Banco Central do Brasil", true)
 
 
+                const row = new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                            .setCustomId("conversion")
+                            .setLabel("💸 Conversión ")
+                            .setStyle("SUCCESS")
+                    )
+                    .addComponents(
+                        new MessageButton()
+                            .setCustomId("informacion")
+                            .setLabel("📋 Información")
+                            .setStyle("PRIMARY")
+                    )
+
+                interaction.deferReply();
+                setTimeout(() => {
+                    interaction.editReply({ embeds: [embed1], components: [row] });
+                }, 3000)
 
 
-                            const row = new MessageActionRow()
-                                .addComponents(
-                                    new MessageButton()
-                                        .setCustomId("conversion")
-                                        .setLabel("💸 Conversión ")
-                                        .setStyle("SUCCESS")
-                                )
-                                .addComponents(
-                                    new MessageButton()
-                                        .setCustomId("informacion")
-                                        .setLabel("📋 Información")
-                                        .setStyle("PRIMARY")
-                                )
+                client.on('interactionCreate', interaction => {
+                    if (!interaction.isButton()) return;
+                });
 
-                                 interaction.deferReply();
-                                setTimeout(() => {
-                                    interaction.editReply({ embeds: [embed1], components: [row] });
-                                }, 3000)
+                const filter = i => i.user.id === interaction.user.id;
 
-                                
-                            client.on('interactionCreate', interaction => {
-                                if (!interaction.isButton()) return;
-                            });
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
 
-                            const filter = i => i.user.id === interaction.user.id;
+                var actual = embed1
 
-                            const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+                collector.on('collect', async i => {
+                    if (i.customId === 'conversion') {
+                        await i.deferUpdate()
+                        await i.editReply({ embeds: [embed1], components: [row] });
+                        actual = embed1
+                    }
+                    if (i.customId === 'informacion') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed2], components: [row] });
+                        actual = embed2
+                    }
+                });
 
-                            var actual = embed1
-
-                            collector.on('collect', async i => {
-                                if (i.customId === 'conversion') {
-                                    await i.deferUpdate()
-                                    await i.editReply({ embeds: [embed1], components: [row] });
-                                    actual = embed1
-                                }
-                                if (i.customId === 'informacion') {
-                                    await i.deferUpdate();
-                                    await i.editReply({ embeds: [embed2], components: [row] });
-                                    actual = embed2
-                                }
-                            });
-
-                            collector.on("end", (collected, reason) => {
-                                if (reason === "time") {
-                                    interaction.editReply({ embeds: [actual], components: [] });
-                                }
-                            })
-
-                        });
-                })
-                .catch((err) => {
-                    console.error('ERR', err)
+                collector.on("end", (collected, reason) => {
+                    if (reason === "time") {
+                        interaction.editReply({ embeds: [actual], components: [] });
+                    }
                 })
 
+            } catch (error) {
+                console.error(error);
 
+                const errorEmbed = new Discord.MessageEmbed()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos del real. Por favor, inténtalo de nuevo más tarde.");
 
-                .catch((err) => {
-                    console.error('ERR', err)
-                })
-                .catch((err) => {
-                    console.error('ERR', err)
-                })
-
+                interaction.reply({ embeds: [errorEmbed] });
+            }
         }
+
+
         let divisas: Array<
             {
                 id: string,
@@ -772,128 +737,112 @@ module.exports = {
 
             ]
 
-        divisas.forEach(divisa => {
+        divisas.forEach(async divisa => {
             if (interaction.options.getSubcommand() === divisa.id) {
-                 axios.get('https://api.exchangerate.host/latest')
-                    .then((DIVISA) => {
-                         axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
-                            .then((oficial) => {
-                                 axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
-                                    .then((blue) => {
-                                        let conversion: number = DIVISA.data['rates'][divisa.iso]
-                                        let num: number = 1
-                                        let cantidad: string = " "
-                                        if (divisa.iso === 'COP' || divisa.iso === "PYG" || divisa.iso === "KRW") {
-                                            num = 1000
-                                            cantidad = "(1000 Unidades)"
-                                        }
-                                        const embed1 = new Discord.MessageEmbed()
-                                            .setTitle(`${divisa.nombre} ${divisa.bandera}  ${cantidad} `)
-                                            .setColor(divisa.color)
-                                            .setDescription(divisa.desc)
-                                            .setThumbnail(divisa.img)
-                                            .addField(`${divisa.nombre} oficial :bank:`, `Valor de ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos`, false)
+                try {
+                    const [DIVISA, oficial, blue] = await Promise.all([
+                        axios.get('https://api.exchangerate.host/latest'),
+                        axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial'),
+                        axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
+                    ]);
+                    let conversion: number = DIVISA.data['rates'][divisa.iso]
+                    let num: number = 1
+                    let cantidad: string = " "
+                    if (divisa.iso === 'COP' || divisa.iso === "PYG" || divisa.iso === "KRW") {
+                        num = 1000
+                        cantidad = "(1000 Unidades)"
+                    }
+                    const embed1 = new Discord.MessageEmbed()
+                        .setTitle(`${divisa.nombre} ${divisa.bandera}  ${cantidad} `)
+                        .setColor(divisa.color)
+                        .setDescription(divisa.desc)
+                        .setThumbnail(divisa.img)
+                        .addFields(
+                            { name: `${divisa.nombre} oficial :bank:`, value: `Valor de ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos`, inline: false },
+                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco", inline: false },
+                            { name: "TARJETA (74%)", value: `ARS$ ${currencyFormatter.format(total74((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "TURISTA (100%)", value: `ARS$ ${currencyFormatter.format(total100((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: `${divisa.nombre} blue <:dollarblue:903149186436980767>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
+                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                        )
+                        
+                    const embed2 = new Discord.MessageEmbed()
+                        .setTitle(divisa.nombre)
+                        .setColor(divisa.color)
+                        .setDescription(divisa.desc)
+                        .setThumbnail(divisa.img)
+                        .addFields(
+                            { name: "Acuñación", value: divisa.ac },
+                            { name: "Países donde se utiliza:", value: divisa.paises },
+                            { name: "Código ISO", value: divisa.iso, inline: true },
+                            { name: "Símbolo", value: divisa.simbolo, inline: true },
+                            { name: "Billetes :money_with_wings:", value: divisa.billetes },
+                            { name: "Monedas :coin:", value: divisa.monedas },
+                            { name: "Inflación anual :chart_with_downwards_trend:", value: divisa.inflacion, inline: true },
+                            { name: "Emisor :bank:", value: divisa.emisor, inline: true }
+                        )
+                        
 
-                                            //Oficial
-                                            .addField("COMPRA  ", "ARS$ " + currencyFormatter.format(((num / conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-                                            .addField("VENTA  ", "ARS$ " + currencyFormatter.format(((num / conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-
-                                            //Impuestos
-                                            .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco  ", false)
-                                            .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                            .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                            .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-
-                                            //Blue
-                                            .addField(divisa.nombre + " blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                            .addField("COMPRA  ", "ARS$ " + currencyFormatter.format((num / conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-                                            .addField("VENTA ", "ARS$ " + currencyFormatter.format((num / conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
-
-                                        const embed2 = new Discord.MessageEmbed()
-                                            .setTitle(divisa.nombre)
-                                            .setColor(divisa.color)
-                                            .setDescription(divisa.desc)
-                                            .setThumbnail(divisa.img)
-                                            .addField("Acuñación", divisa.ac)
-                                            .addField("Países donde se utiliza:", divisa.paises)
-                                            .addField("Código ISO", divisa.iso, true)
-                                            .addField("Símbolo ", divisa.simbolo, true)
-                                            .addField("Billetes :money_with_wings:  ", divisa.billetes)
-                                            .addField("Monedas :coin:  ", divisa.monedas)
-                                            .addField("Inflación anual :chart_with_downwards_trend: ", divisa.inflacion, true)
-                                            .addField("Emisor :bank: ", divisa.emisor, true)
-
-
-                                        const row = new MessageActionRow()
-                                            .addComponents(
-                                                new MessageButton()
-                                                    .setCustomId("conversion")
-                                                    .setLabel("💸 Conversión ")
-                                                    .setStyle("SUCCESS")
-                                            )
-                                            .addComponents(
-                                                new MessageButton()
-                                                    .setCustomId("informacion")
-                                                    .setLabel("📋 Información")
-                                                    .setStyle("PRIMARY")
-                                            )
+                    const row = new MessageActionRow()
+                        .addComponents(
+                            new MessageButton()
+                                .setCustomId("conversion")
+                                .setLabel("💸 Conversión ")
+                                .setStyle("SUCCESS")
+                        )
+                        .addComponents(
+                            new MessageButton()
+                                .setCustomId("informacion")
+                                .setLabel("📋 Información")
+                                .setStyle("PRIMARY")
+                        )
 
 
-                                            interaction.deferReply();
-                                            setTimeout(() => {
-                                                interaction.editReply({ embeds: [embed1], components: [row] });
-                                            }, 3000)
+                    interaction.deferReply();
+                    setTimeout(() => {
+                        interaction.editReply({ embeds: [embed1], components: [row] });
+                    }, 3000)
 
 
-                                        client.on('interactionCreate', interaction => {
-                                            if (!interaction.isButton()) return;
-                                        });
+                    client.on('interactionCreate', interaction => {
+                        if (!interaction.isButton()) return;
+                    });
 
-                                        const filter = i => i.user.id === interaction.user.id;
+                    const filter = i => i.user.id === interaction.user.id;
 
-                                        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+                    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
 
-                                        var actual = embed1
+                    var actual = embed1
 
-                                        collector.on('collect', async i => {
-                                            if (i.customId === 'conversion') {
-                                                await i.deferUpdate()
-                                                await i.editReply({ embeds: [embed1], components: [row] });
-                                                actual = embed1
-                                            }
-                                            if (i.customId === 'informacion') {
-                                                await i.deferUpdate();
-                                                await i.editReply({ embeds: [embed2], components: [row] });
-                                                actual = embed2
-                                            }
-                                        });
+                    collector.on('collect', async i => {
+                        if (i.customId === 'conversion') {
+                            await i.deferUpdate()
+                            await i.editReply({ embeds: [embed1], components: [row] });
+                            actual = embed1
+                        }
+                        if (i.customId === 'informacion') {
+                            await i.deferUpdate();
+                            await i.editReply({ embeds: [embed2], components: [row] });
+                            actual = embed2
+                        }
+                    });
 
-                                        collector.on("end", (collected, reason) => {
-                                            if (reason === "time") {
-                                                interaction.editReply({ embeds: [actual], components: [] });
-                                            }
-                                        })
-
-                                    })
-                                    .catch((err) => {
-                                        console.error('ERR', err)
-                                    })
-                            })
-                            .catch((err) => {
-                                console.error('ERR', err)
-                            })
+                    collector.on("end", (collected, reason) => {
+                        if (reason === "time") {
+                            interaction.editReply({ embeds: [actual], components: [] });
+                        }
                     })
 
-                    .catch((err) => {
-                        console.error('ERR', err)
-                    })
-                    .catch((err) => {
-                        console.error('ERR', err)
-                    })
+                } catch (error) {
+                    console.error('Error en la petición:', error);
+                }
+
 
             }
-
         })
-
     }
 }

@@ -202,7 +202,7 @@ module.exports = {
                                                     //Monto Original
                                                     { name: `Monto original :dollar:  `, value: `USD$ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
                                                     //Oficial
-                                                    { name: "Dólar oficial :bank: ", value: `Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.`},
+                                                    { name: "Dólar oficial :bank: ", value: `Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.` },
                                                     { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                                     { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                                     //Impuestos
@@ -263,7 +263,7 @@ module.exports = {
                                     //Monto Original
                                     { name: `Monto original :euro:  `, value: `EUR€ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
                                     //Oficial
-                                    { name: "Euro oficial :bank: ", value: `Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.`},
+                                    { name: "Euro oficial :bank: ", value: `Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.` },
                                     { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                     { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                     //Impuestos
@@ -313,7 +313,7 @@ module.exports = {
                                     //Monto Original
                                     { name: `Monto original :flag_br:  `, value: `BRL R$ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
                                     //Oficial
-                                    { name: "Real oficial :flag_br: ", value: `Valor del Real Brasileño que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar el equivalente a USD$200 al mes.`},
+                                    { name: "Real oficial :flag_br: ", value: `Valor del Real Brasileño que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar el equivalente a USD$200 al mes.` },
                                     { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                     { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                     //Impuestos
@@ -555,9 +555,9 @@ module.exports = {
                                             .setThumbnail(divisa.img)
                                             .addFields(
                                                 //Monto Original
-                                                { name: `Monto original ${divisa.bandera}`, value:  `${divisa.simbolo} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
+                                                { name: `Monto original ${divisa.bandera}`, value: `${divisa.simbolo} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
                                                 //Oficial
-                                                { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos `},
+                                                { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos ` },
                                                 { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                                 { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                                 //Impuestos

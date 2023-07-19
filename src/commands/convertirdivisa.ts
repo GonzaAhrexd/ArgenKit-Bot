@@ -249,7 +249,7 @@ module.exports = {
             let convertir = interaction.options.getNumber('eur')
             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
                 .then((oficial) => {
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
+                    axios.get('https://api.bluelytics.com.ar/v2/latest')
                         .then((blue) => {
 
 
@@ -273,8 +273,8 @@ module.exports = {
                                     { name: "Turista (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                     //Blue
                                     { name: `Euro blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                                    { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                    { name: "Venta :flag_ar:", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true })
+                                    { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['blue_euro']['value_buy']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                    { name: "Venta :flag_ar:", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['blue_euro']['value_sell']), { locale: 'es-ES', code: ' ' })}`, inline: true })
 
                             interaction.deferReply();
                             setTimeout(() => {
@@ -544,9 +544,8 @@ module.exports = {
 
                         axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
                             .then((oficial) => {
-                                axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
+                                axios.get('https://api.bluelytics.com.ar/v2/latest')
                                     .then((blue) => {
-
                                         //Aquí el código
                                         const embed = new Discord.MessageEmbed()
                                             .setTitle(`${divisa.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
@@ -567,8 +566,8 @@ module.exports = {
                                                 { name: "Turista (100%) ", value: `ARS$ ${currencyFormatter.format(total100((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                                 //Blue
                                                 { name: `${divisa.nombre} Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                                                { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                                { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['blue_euro']['value_buy']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                                { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['blue_euro']['value_sell']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                             )
 
                                         interaction.deferReply();

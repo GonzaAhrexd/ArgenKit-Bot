@@ -218,7 +218,7 @@ module.exports = {
       let convertir: number = interaction.options.getNumber('ars')
       axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
         .then( (oficial) => {
-           axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/blue')
+           axios.get('https://api.bluelytics.com.ar/v2/latest')
             .then( (blue) => {
 
               const embed = new Discord.MessageEmbed()
@@ -230,8 +230,8 @@ module.exports = {
 
                 //Oficial
                 .addField("Dólar oficial :bank: ", "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.", false)
-                .addField("Compra :dollar:", 'EUR€ ' + currencyFormatter.format((convertir / oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("Venta :dollar:", 'EUR€ ' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("Compra :euro:", 'EUR€ ' + currencyFormatter.format((convertir / oficial.data['compra']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("Venta :euro:", 'EUR€ ' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                 //Impuestos
                 .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
@@ -241,8 +241,8 @@ module.exports = {
 
                 //Blue
                 .addField("Euro Blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                .addField("Compra :dollar:", 'EUR€ ' + currencyFormatter.format((convertir / blue.data['compra']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("Venta :dollar:", 'EUR€ ' + currencyFormatter.format((convertir / blue.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("Compra :euro:", 'EUR€ ' + currencyFormatter.format((convertir / blue.data['blue_euro']['value_buy']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("Venta :euro:", 'EUR€ ' + currencyFormatter.format((convertir / blue.data['blue_euro']['value_sell']), { locale: 'es-ES', code: ' ' }), true)
 
 
                interaction.deferReply();
@@ -509,7 +509,7 @@ module.exports = {
             let aconvertir = ACONVERTIR.data['rates'][divisa.iso]
             axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
               .then(async (oficial) => {
-                axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
+                axios.get('https://api.bluelytics.com.ar/v2/latest')
                   .then(async (blue) => {
                     const embed = new Discord.MessageEmbed()
                       .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${divisa.nombre}`)
@@ -529,8 +529,8 @@ module.exports = {
                       .addField("TURISTA (100%)  ", `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format(restar100((convertir * aconvertir) / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                       .addField(`${divisa.nombre} <:dollarblue:903149186436980767>`, "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                      .addField(`Compra ${divisa.bandera}`, `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) / blue.data['compra'], { locale: 'es-ES', code: ' ' }), true)
-                      .addField(`Venta ${divisa.bandera}`, `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) / blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
+                      .addField(`Compra ${divisa.bandera}`, `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) /blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' }), true)
+                      .addField(`Venta ${divisa.bandera}`, `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) / blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' }), true)
 
 
                     await interaction.deferReply();

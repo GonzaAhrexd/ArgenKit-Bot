@@ -198,7 +198,7 @@ module.exports = {
             try {
                 const [oficial, blue] = await Promise.all([
                     axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial'),
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
+                    axios.get('https://api.bluelytics.com.ar/v2/latest')
                 ]);
 
                 const embed1 = new Discord.MessageEmbed()
@@ -215,8 +215,8 @@ module.exports = {
                         { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "TURISTA (100%)", value: `ARS$ ${currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Euro blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
-                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                     );
 
                 const embed2 = new Discord.MessageEmbed()
@@ -743,7 +743,7 @@ module.exports = {
                     const [DIVISA, oficial, blue] = await Promise.all([
                         axios.get('https://api.exchangerate.host/latest'),
                         axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial'),
-                        axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/blue')
+                        axios.get('https://api.bluelytics.com.ar/v2/latest')
                     ]);
                     let conversion: number = DIVISA.data['rates'][divisa.iso]
                     let num: number = 1
@@ -766,8 +766,8 @@ module.exports = {
                             { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "TURISTA (100%)", value: `ARS$ ${currencyFormatter.format(total100((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: `${divisa.nombre} blue <:dollarblue:903149186436980767>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                         )
                         
                     const embed2 = new Discord.MessageEmbed()

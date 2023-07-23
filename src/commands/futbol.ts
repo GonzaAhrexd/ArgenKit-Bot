@@ -13,15 +13,12 @@ module.exports = {
         
       
       const embed = new Discord.MessageEmbed()
-     
-      
           .setTitle("Tiempo hasta los siguientes partidos de la selección Argentina")
           .setColor("#7eb2fa")
           .setDescription("Tiempo hasta los siguientes partidos de la selección Argentina")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929121012275093524/camiseta-de-futbol.png")
           .addField("  :flag_ar: vs :flag_au: \n(15/06/2023) ", "  2 - 0  ", true)
           .addField("  :flag_ar: vs :flag_id: \n(19/06/2023) ", "2 - 0 ", true)
-        
           return interaction.reply({ embeds: [embed] });
 
     }

@@ -109,10 +109,10 @@ module.exports = {
         .setColor('#7ad684')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903358342733389854/spotify_1.png")
         .addFields(
-          { name: "Individual:", value: "ARS$ " + currencyFormatter.format((total74(279)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Dúo:", value: "ARS$ " + currencyFormatter.format((total74(389)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Familiar:", value: "ARS$ " + currencyFormatter.format((total74(489)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Estudiantes:", value: "ARS$ " + currencyFormatter.format((total74(119)), { locale: 'es-ES', code: ' ' }), inline: true }
+          { name: "Individual:", value: "ARS$ " + currencyFormatter.format((total74(399)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Dúo:", value: "ARS$ " + currencyFormatter.format((total74(549)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Familiar:", value: "ARS$ " + currencyFormatter.format((total74(649)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Estudiantes:", value: "ARS$ " + currencyFormatter.format((total74(199)), { locale: 'es-ES', code: ' ' }), inline: true }
       )
       
       return interaction.reply({ embeds: [embed] });
@@ -141,10 +141,10 @@ module.exports = {
         .setColor('#3fa5dc')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903852192929288213/icons8-disney-plus-480.png")
         .addFields(
-          { name: "1 Mes:", value: "ARS$ 385,00", inline: true },
-          { name: "1 Año:", value: "ARS$ 3850,00", inline: true },
-          { name: "Combo con Star+ mensual:", value: "ARS$ 995,00", inline: true },
-          { name: "Combo con Star+ y StarZPlay mensual:", value: "ARS$ 1150,00", inline: true }
+          { name: "1 Mes:", value: `ARS$ ${799},00`, inline: true },
+          { name: "1 Año:", value: `ARS$ ${6699},00`, inline: true },
+          { name: "Combo con Star+ mensual:", value: `ARS$ ${1999},00`, inline: true },
+          { name: "Combo con Star+ y Lionsgate+ mensual:", value: `ARS$ ${2399},00`, inline: true }
       )
            return interaction.reply({ embeds: [embed] });
 

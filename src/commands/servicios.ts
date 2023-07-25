@@ -109,10 +109,10 @@ module.exports = {
         .setColor('#7ad684')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903358342733389854/spotify_1.png")
         .addFields(
-          { name: "Individual:", value: "ARS$ " + currencyFormatter.format((total74(399)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Dúo:", value: "ARS$ " + currencyFormatter.format((total74(549)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Familiar:", value: "ARS$ " + currencyFormatter.format((total74(649)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Estudiantes:", value: "ARS$ " + currencyFormatter.format((total74(199)), { locale: 'es-ES', code: ' ' }), inline: true }
+          { name: "Individual:", value: "ARS$ " + currencyFormatter.format((total74(599)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Dúo:", value: "ARS$ " + currencyFormatter.format((total74(799)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Familiar:", value: "ARS$ " + currencyFormatter.format((total74(999)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Estudiantes:", value: "ARS$ " + currencyFormatter.format((total74(329)), { locale: 'es-ES', code: ' ' }), inline: true }
       )
       
       return interaction.reply({ embeds: [embed] });

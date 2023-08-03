@@ -88,10 +88,10 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'dolar') {
             try {
                 const [oficial, blue, mep, ccl] = await Promise.all([
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial'),
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/blue'),
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/bolsa'),
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/contadoliqui'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui'),
                 ]);
 
                 const embed1 = new Discord.MessageEmbed()
@@ -197,7 +197,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'euro') {
             try {
                 const [oficial, blue] = await Promise.all([
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                     axios.get('https://api.bluelytics.com.ar/v2/latest')
                 ]);
 
@@ -299,8 +299,8 @@ module.exports = {
 
             try {
                 const [oficial, blue] = await Promise.all([
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/oficial'),
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/blue')
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
                 ]);
 
                 const embed1 = new Discord.MessageEmbed()
@@ -742,7 +742,7 @@ module.exports = {
                 try {
                     const [DIVISA, oficial, blue] = await Promise.all([
                         axios.get('https://api.exchangerate.host/latest'),
-                        axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial'),
+                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                         axios.get('https://api.bluelytics.com.ar/v2/latest')
                     ]);
                     let conversion: number = DIVISA.data['rates'][divisa.iso]

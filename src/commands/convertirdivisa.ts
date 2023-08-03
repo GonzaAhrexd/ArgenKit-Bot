@@ -185,10 +185,10 @@ module.exports = {
             let convertir: number = interaction.options.getNumber('usd')
             try {
                 const [oficial, blue, mep, ccl] = await Promise.all([
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial'),
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/blue'),
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/bolsa'),
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/contadoliqui'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui'),
                 ]);
                 const embed = new Discord.MessageEmbed()
 
@@ -240,7 +240,7 @@ module.exports = {
             let convertir = interaction.options.getNumber('eur')
             try {
                 const [oficial, blue] = await Promise.all([
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                     axios.get('https://api.bluelytics.com.ar/v2/latest')
                 ]);
                 const embed = new Discord.MessageEmbed()
@@ -289,8 +289,8 @@ module.exports = {
             let convertir = interaction.options.getNumber('brl')
             try {
                 const [oficial, blue] = await Promise.all([
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/oficial'),
-                    axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/blue')
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial'),
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
                 ]);
                 const embed = new Discord.MessageEmbed()
                     .setTitle("Real <:rightarrow:921907270747570247> Peso Argentino")
@@ -523,7 +523,7 @@ module.exports = {
                 try {
                     const [DIVISA, oficial, blue] = await Promise.all([
                         axios.get('https://api.exchangerate.host/latest'),
-                        axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial'),
+                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                         axios.get('https://api.bluelytics.com.ar/v2/latest')
                     ]);
                     let aconvertir = DIVISA.data['rates'][divisa.iso]

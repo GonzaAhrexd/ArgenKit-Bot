@@ -24,7 +24,7 @@ module.exports = {
         //Riesgo País
 
         if (interaction.options.getSubcommand() === 'riesgopais') {
-            axios.get('https://dolarbot-api-argenkit.up.railway.app/api/bcra/riesgopais')
+            axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/riesgopais')
               .then((RIESGO) => {
                 const embed = new Discord.MessageEmbed()
                   .setTitle("Riesgo País")
@@ -44,7 +44,7 @@ module.exports = {
           //Reservas
       
           if (interaction.options.getSubcommand() === 'reservas') {
-            axios.get('https://dolarbot-api-argenkit.up.railway.app/api/bcra/reservas')
+            axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/reservas')
               .then((RESERVAS) => {
                 const embed = new Discord.MessageEmbed()
                   .setTitle("Reservas del Banco Central de la República Argentina")
@@ -61,7 +61,7 @@ module.exports = {
           }
           //Circulante
           if (interaction.options.getSubcommand() === 'circulante') {
-            axios.get('https://dolarbot-api-argenkit.up.railway.app/api/bcra/circulante')
+            axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/circulante')
               .then((CIRCULANTE) => {
                 const embed = new Discord.MessageEmbed()
                   .setTitle("Pesos Argentinos en circulación")

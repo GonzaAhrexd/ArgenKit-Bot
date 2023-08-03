@@ -169,9 +169,9 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'dolar') {
       let convertir: number = interaction.options.getNumber('ars')
 
-      axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/oficial')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then( (oficial) => {
-           axios.get('https://dolarbot-api-argenkit.up.railway.app/api/dolar/blue')
+           axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
             .then( (blue) => {
 
               const embed = new Discord.MessageEmbed()
@@ -216,7 +216,7 @@ module.exports = {
 
     if (interaction.options.getSubcommand() === 'euro') {
       let convertir: number = interaction.options.getNumber('ars')
-      axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
         .then( (oficial) => {
            axios.get('https://api.bluelytics.com.ar/v2/latest')
             .then( (blue) => {
@@ -264,9 +264,9 @@ module.exports = {
     }
     if (interaction.options.getSubcommand() === 'real') {
       let convertir: number = interaction.options.getNumber('ars')
-      axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/oficial')
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial')
         .then(async (oficial) => {
-          await axios.get('https://dolarbot-api-argenkit.up.railway.app/api/real/blue')
+          await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
             .then(async (blue) => {
 
               const embed = new Discord.MessageEmbed()
@@ -507,7 +507,7 @@ module.exports = {
           .then((ACONVERTIR) => {
 
             let aconvertir = ACONVERTIR.data['rates'][divisa.iso]
-            axios.get('https://dolarbot-api-argenkit.up.railway.app/api/euro/oficial')
+            axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
               .then(async (oficial) => {
                 axios.get('https://api.bluelytics.com.ar/v2/latest')
                   .then(async (blue) => {

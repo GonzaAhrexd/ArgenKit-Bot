@@ -21,6 +21,7 @@
     "discord.js": "^13.2.0",
     "discordjs-button-pagination": "^1.0.7",
     "dotenv": "^16.0.1",
+    "express": "^4.18.2",
     "simply-djs": "^3.0.2",
     "translate": "^1.4.1"
   },

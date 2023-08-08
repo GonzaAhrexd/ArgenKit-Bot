@@ -155,7 +155,7 @@ module.exports = {
             {nombre: "🇨🇱 Chile", codigo: "America/Santiago"},
             {nombre: "🇧🇴 Bolivia", codigo: "America/La_Paz"},
             {nombre: "🇵🇪 Perú", codigo: "America/Lima"},
-            {nombre: "🇵🇪 Ecuador", codigo: "America/Guayaquil"},
+            {nombre: ":flag_ec: Ecuador", codigo: "America/Guayaquil"},
             {nombre: "🇨🇴 Colombia", codigo: "America/Bogota"}
         ]
     }

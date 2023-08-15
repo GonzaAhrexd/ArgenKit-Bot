@@ -4,7 +4,7 @@ import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
+const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('metal')
@@ -127,7 +127,7 @@ module.exports = {
                                             .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Precio con los  distintos impuestos en transacciones en dólares  ", false)
                                             .addField("TARJETA (74%)  ", "ARS$ " + currencyFormatter.format(total74((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
                                             .addField("SOLIDARIO (75%)  ", "ARS$ " + currencyFormatter.format(total75((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                                            .addField("TURISTA (100%)  ", "ARS$ " + currencyFormatter.format(total100((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                                            .addField("TURISTA (80%)  ", "ARS$ " + currencyFormatter.format(total80((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                                             // //Blue
 

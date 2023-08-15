@@ -125,7 +125,7 @@ module.exports = {
                                             .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
                                             .addField("TARJETA (74%)  ", `${Metal.iso} ` + currencyFormatter.format(restar74((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), true)
                                             .addField("SOLIDARIO (75%)  ",`${Metal.iso} ` + currencyFormatter.format(restar75((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), true)
-                                            .addField("TURISTA (100%)  ", `${Metal.iso} ` + currencyFormatter.format(restar100((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), true)
+                                            .addField("TURISTA (80%)  ", `${Metal.iso} ` + currencyFormatter.format(restar100((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), true)
 
                                             .addField("Dólar blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
                                             .addField("Compra :flag_ar:", `${Metal.iso} ` + currencyFormatter.format((convertir / conversion) / blue.data['compra'], { locale: 'es-ES', code: ' ',  precision: 8 }), true)

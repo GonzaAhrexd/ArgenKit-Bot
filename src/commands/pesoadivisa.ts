@@ -190,7 +190,7 @@ module.exports = {
                 .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
                 .addField("TARJETA (74%)  ", "USD$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
                 .addField("SOLIDARIO (75%)  ", "USD$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("TURISTA (100%)  ", "USD$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("TURISTA (80%)  ", "USD$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                 //Blue
                 .addField("Dólar blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
@@ -237,7 +237,7 @@ module.exports = {
                 .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
                 .addField("TARJETA (74%)  ", "EUR€ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
                 .addField("SOLIDARIO (75%)  ", "EUR€ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("TURISTA (100%)  ", "EUR€ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("TURISTA (80%)  ", "EUR€ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                 //Blue
                 .addField("Euro Blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
@@ -285,7 +285,7 @@ module.exports = {
                 .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
                 .addField("TARJETA (74%)  ", "BRL$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
                 .addField("SOLIDARIO (75%)  ", "BRL$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                .addField("TURISTA (100%)  ", "BRL$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                .addField("TURISTA (80%)  ", "BRL$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                 //Blue
                 .addField("Dólar blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
@@ -526,7 +526,7 @@ module.exports = {
                       .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
                       .addField("TARJETA (74%)  ", `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format(restar74((convertir * aconvertir) / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
                       .addField("SOLIDARIO (75%)  ", `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format(restar75((convertir * aconvertir) / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
-                      .addField("TURISTA (100%)  ", `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format(restar100((convertir * aconvertir) / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
+                      .addField("TURISTA (80%)  ", `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format(restar100((convertir * aconvertir) / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), true)
 
                       .addField(`${divisa.nombre} <:dollarblue:903149186436980767>`, "Valor del mercado paralelo establecido por la oferta y la demanda", false)
                       .addField(`Compra ${divisa.bandera}`, `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) /blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' }), true)

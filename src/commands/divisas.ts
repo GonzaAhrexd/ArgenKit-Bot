@@ -3,7 +3,7 @@ import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
+const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('divisa')
@@ -107,7 +107,7 @@ module.exports = {
                         { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco" },
                         { name: "TARJETA (74%)", value: `ARS$ ${currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "TURISTA (100%)", value: `ARS$ ${currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "TURISTA (80%)", value: `ARS$ ${currencyFormatter.format(total80(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Blue
                         { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -213,7 +213,7 @@ module.exports = {
                         { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco" },
                         { name: "TARJETA (74%)", value: `ARS$ ${currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "TURISTA (100%)", value: `ARS$ ${currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "TURISTA (80%)", value: `ARS$ ${currencyFormatter.format(total80(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Euro blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
@@ -316,7 +316,7 @@ module.exports = {
                         { name: "Impuestos <:taxes:1068370368819101746>", value: "Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco", inline: false },
                         { name: "TARJETA (74%)", value: "ARS$ " + currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
                         { name: "SOLIDARIO (75%)", value: "ARS$ " + currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                        { name: "TURISTA (100%)", value: "ARS$ " + currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                        { name: "TURISTA (80%)", value: "ARS$ " + currencyFormatter.format(total80(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
                         { name: "Real blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                         { name: "COMPRA", value: "ARS$ " + currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
                         { name: "VENTA", value: "ARS$ " + currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true }
@@ -764,7 +764,7 @@ module.exports = {
                             { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco", inline: false },
                             { name: "TARJETA (74%)", value: `ARS$ ${currencyFormatter.format(total74((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "TURISTA (100%)", value: `ARS$ ${currencyFormatter.format(total100((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "TURISTA (80%)", value: `ARS$ ${currencyFormatter.format(total80((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: `${divisa.nombre} blue <:dollarblue:903149186436980767>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                             { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }

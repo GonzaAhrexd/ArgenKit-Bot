@@ -13,7 +13,7 @@ const axios = require("axios")
 // @ts-ignore
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 // @ts-ignore
-const { total75, total74, total100 } = require("../functions/impuestos"); //Impuestos
+const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('criptomoneda')

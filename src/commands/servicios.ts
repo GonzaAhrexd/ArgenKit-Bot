@@ -77,9 +77,9 @@ module.exports = {
         .setColor('#9a0611')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903356797920894996/netflix_2.png")
         .addFields(
-          { name: "Básico:", value: "ARS$ " + currencyFormatter.format((total74(999)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Estándar:", value: "ARS$" + currencyFormatter.format((total74(1699)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Premium:", value: "ARS$" + currencyFormatter.format((total74(2399)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Básico:", value: "ARS$ " + currencyFormatter.format((total74(1649)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Estándar:", value: "ARS$" + currencyFormatter.format((total74(2799)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Premium:", value: "ARS$" + currencyFormatter.format((total74(3999)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "Casa extra:", value: "ARS$" + currencyFormatter.format((total74(699)), { locale: 'es-ES', code: ' ' }), inline: true }
           )
       

@@ -357,12 +357,12 @@ module.exports = {
         .setColor('#306fb5')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
         .addFields(
-          { name: "ARS$ 100", value: `ARS$ ${currencyFormatter.format(total74(100), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "ARS$ 160", value: `ARS$ ${currencyFormatter.format(total74(160), { locale: 'es-ES', code: ' ' })}`, inline: true },
+          { name: "ARS$ 200", value: `ARS$ ${currencyFormatter.format(total74(200), { locale: 'es-ES', code: ' ' })}`, inline: true },
           { name: "ARS$ 400", value: `ARS$ ${currencyFormatter.format(total74(400), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "ARS$ 800", value: `ARS$ ${currencyFormatter.format(total74(800), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "ARS$ 1600", value: `ARS$ ${currencyFormatter.format(total74(1600), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "ARS$ 3200", value: `ARS$ ${currencyFormatter.format(total74(3200), { locale: 'es-ES', code: ' ' })}`, inline: true }
+          { name: "ARS$ 1000", value: `ARS$ ${currencyFormatter.format(total74(1000), { locale: 'es-ES', code: ' ' })}`, inline: true },
+          { name: "ARS$ 2000", value: `ARS$ ${currencyFormatter.format(total74(2000), { locale: 'es-ES', code: ' ' })}`, inline: true },
+          { name: "ARS$ 4000", value: `ARS$ ${currencyFormatter.format(total74(4000), { locale: 'es-ES', code: ' ' })}`, inline: true },
+          { name: "ARS$ 8000", value: `ARS$ ${currencyFormatter.format(total74(8000), { locale: 'es-ES', code: ' ' })}`, inline: true }
       )
       
       return interaction.reply({ embeds: [embed] });

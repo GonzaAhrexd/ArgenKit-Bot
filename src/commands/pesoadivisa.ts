@@ -174,7 +174,7 @@ module.exports = {
            axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
             .then( (blue) => {
 
-              const embed = new Discord.MessageEmbed()
+              const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Dólar estadounidense")
                 .setColor("GREEN")
                 .setDescription("Pesos Argentinos expresados en Dólares Estadounidenses ")
@@ -221,7 +221,7 @@ module.exports = {
            axios.get('https://api.bluelytics.com.ar/v2/latest')
             .then( (blue) => {
 
-              const embed = new Discord.MessageEmbed()
+              const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Euro")
                 .setColor("#0153b4")
                 .setDescription("Pesos argentinos expresados en Euro")
@@ -269,7 +269,7 @@ module.exports = {
           await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
             .then(async (blue) => {
 
-              const embed = new Discord.MessageEmbed()
+              const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Real Brasileño")
                 .setColor("#6da545")
                 .setDescription("Pesos argentinos expresados en Reales Brasileños")
@@ -511,7 +511,7 @@ module.exports = {
               .then(async (oficial) => {
                 axios.get('https://api.bluelytics.com.ar/v2/latest')
                   .then(async (blue) => {
-                    const embed = new Discord.MessageEmbed()
+                    const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                       .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${divisa.nombre}`)
                       .setColor(divisa.color)
                       .setDescription(`Pesos argentinos expresados en ${divisa.nombre} `)

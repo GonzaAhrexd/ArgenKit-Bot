@@ -113,7 +113,7 @@ module.exports = {
       var provincia2 = provincia.toLowerCase()
     }
     if (provincia == null) {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Provincias de Argentina")
         .setURL("https://es.wikipedia.org/wiki/Provincias_de_Argentina")
         .setDescription("En Argentina se denomina provincia a cada uno de los 23 estados federados denominados así en la Constitución de la Nación Argentina, que junto a la Ciudad Autónoma de Buenos Aires constituyen las divisiones territoriales de primer orden del país. Las provincias tienen autonomía plena, forman parte de la Nación y son jurídicamente preexistentes a ella, según los principios del federalismo establecidos en la Constitución Nacional. \n  \n Para información individual de cada provincia utilice el comando `*ar provincia [Nombre de la provincia]`")
@@ -127,7 +127,7 @@ module.exports = {
 
     provincias.forEach(province => {
       if (provincia2 == province.identificacion) {
-        const embed1 = new Discord.MessageEmbed()
+        const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
           .setTitle(province.nombre)
           .setURL(province.url)
           .setDescription(province.descripcion)
@@ -143,7 +143,7 @@ module.exports = {
           .addField("Gentillicio ", province.gentillicio, true)
           .addField("Clima ", province.clima, true)
 
-        const embed2 = new Discord.MessageEmbed()
+        const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
           .setTitle("Ubicación de " + province.nombre)
           .setURL(province.ubicacion)
           .setDescription(province.ubicacionDesc)
@@ -204,7 +204,7 @@ module.exports = {
       }
     })
     if (provincia2 == "caba" || provincia2 == "ciudad autonoma de buenos aires") {
-      const embed1 = new Discord.MessageEmbed()
+      const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Ciudad Autonoma de Buenos Aires (CABA)")
         .setURL("https://es.wikipedia.org/wiki/Provincia_de_Buenos_Aires")
         .setDescription("Buenos Aires es la gran capital cosmopolita de Argentina. Su centro es la Plaza de Mayo, rodeada de imponentes edificios del siglo XIX, incluida la Casa Rosada, el icónico palacio presidencial que tiene varios balcones. Entre otras atracciones importantes, se incluyen el Teatro Colón, un lujoso teatro de ópera de 1908 con cerca de 2,500 asientos, y el moderno museo MALBA, que exhibe arte latinoamericano.  \n  La Ciudad de Buenos Aires fue cedida en 1880 por la Provincia de Buenos Aires para que fuera la capital federal del país. En virtud de la reforma constitucional de 1994 goza de un régimen de autonomía.")
@@ -221,7 +221,7 @@ module.exports = {
         .addField("Clima ", "Subtropical húmedo ", true)
         .setFooter("Para ver información de la Provincia de Buenos Aires prueba con /provinciainfo Buenos Aires")
 
-      const embed2 = new Discord.MessageEmbed()
+      const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Ubicación de la Ciudad Autonoma de Buenos Aires")
         .setURL("https://www.google.com.ar/maps/place/Buenos+Aires,+CABA/data=!4m2!3m1!1s0x95bcca3b4ef90cbd:0xa0b3812e88e88e87?sa=X&ved=2ahUKEwjsvqSxgpDxAhVPlJUCHdk6AQIQ8gEwJnoECGgQAQ")
         .setDescription("Su tejido urbano se asemeja a un abanico que limita al sur, oeste y norte con la lindante Provincia de Buenos Aires y al este con el Río de la Plata. Oficialmente la ciudad se encuentra dividida en 15 comunas que agrupan a 48 barrios.")

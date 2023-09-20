@@ -190,7 +190,7 @@ module.exports = {
                     .then((CONVERTIRLEMON) => {
 
                         if(cripto.id == "terraluna"){
-                            const embed = new Discord.MessageEmbed()
+                            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                             .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                             .setColor(cripto.color)
                             .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
@@ -203,7 +203,7 @@ module.exports = {
                                 return interaction.reply({ embeds: [embed] });
                         }
                         else{
-                      const embed = new Discord.MessageEmbed()
+                      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                         .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                         .setColor(cripto.color)
                         .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)

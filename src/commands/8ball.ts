@@ -42,7 +42,7 @@ module.exports = {
 
     Respuesta.forEach(Respuesta => {
         if (a == Respuesta.opcion) {
-        const embed = new Discord.MessageEmbed()
+        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setColor(Respuesta.color)
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
         .setDescription("Calculando...")

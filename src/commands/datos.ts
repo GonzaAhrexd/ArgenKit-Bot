@@ -26,7 +26,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'riesgopais') {
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/riesgopais')
               .then((RIESGO) => {
-                const embed = new Discord.MessageEmbed()
+                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                   .setTitle("Riesgo País")
                   .setColor("#e6306c")
                   .setDescription("El riesgo país es todo riesgo inherente a las inversiones y a las financiaciones en un país en contraste con otro.")
@@ -46,7 +46,7 @@ module.exports = {
           if (interaction.options.getSubcommand() === 'reservas') {
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/reservas')
               .then((RESERVAS) => {
-                const embed = new Discord.MessageEmbed()
+                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                   .setTitle("Reservas del Banco Central de la República Argentina")
                   .setColor("#9bcef7")
                   .setDescription("Las reservas constituyen el componente más importante de los activos del Banco Central y se utilizan para financiar los pagos al exterior o para intervenir en el mercado cambiario.")
@@ -63,7 +63,7 @@ module.exports = {
           if (interaction.options.getSubcommand() === 'circulante') {
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/circulante')
               .then((CIRCULANTE) => {
-                const embed = new Discord.MessageEmbed()
+                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                   .setTitle("Pesos Argentinos en circulación")
                   .setColor("#FAD56F")
                   .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903124593483583499/money.png")

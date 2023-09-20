@@ -111,7 +111,7 @@ module.exports = {
                                     .then( (blue) => {
 
 
-                                        const embed1 = new Discord.MessageEmbed()
+                                        const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
                                             .setTitle(`${Metal.nombre} ${Metal.emoji}`)
                                             .setColor(Metal.color)
                                             .setDescription(Metal.desc)
@@ -135,7 +135,7 @@ module.exports = {
                                             .addField("COMPRA  ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), true)
                                             .addField("VENTA ", "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), true)
 
-                                        const embed2 = new Discord.MessageEmbed()
+                                        const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
                                             .setTitle("Oro")
                                             .setColor("#fddc4d")
                                             .setDescription(Metal.desc)
@@ -193,7 +193,7 @@ module.exports = {
                                     })
                                     .catch((err) => { // Catch del axios precio en dólares
                                         console.error('Error en la API de dolar blue', err)
-                                        const embed = new Discord.MessageEmbed()
+                                        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                                         .setTitle(`Ha ocurrido un error`)
                                         .setColor(Metal.color)
                                         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
@@ -202,7 +202,7 @@ module.exports = {
                                     })
                                     .catch((err) => { // Catch del axios dólar oficial
                                         console.error('Error en la API de dolar oficial', err)
-                                        const embed = new Discord.MessageEmbed()
+                                        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                                         .setTitle(`Ha ocurrido un error`)
                                         .setColor(Metal.color)
                                         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
@@ -212,7 +212,7 @@ module.exports = {
 
                                     .catch((err) => { // Catch del axios dólar blue
                                         console.error('Error en el API de Metales', err)
-                                        const embed = new Discord.MessageEmbed()
+                                        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                                             .setTitle(`Ha ocurrido un error`)
                                             .setColor(Metal.color)
                                             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")

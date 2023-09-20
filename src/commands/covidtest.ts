@@ -9,7 +9,7 @@ module.exports = {
     async run(client, interaction) {
         let a = Math.floor(Math.random() * 2 + 1)
         if (a == 1) {
-          const embed = new Discord.MessageEmbed()
+          const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setColor("GREEN")
             .setDescription("Calculando...")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/937780157387780116/test-results_1.png")
@@ -19,7 +19,7 @@ module.exports = {
         }
     
         if (a == 2) {
-          const embed = new Discord.MessageEmbed()
+          const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setColor("RED")
             .setDescription("Calculando...")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/937781157196611644/negativotest.png")

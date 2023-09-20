@@ -8,7 +8,7 @@ module.exports = {
 
     async run(client, interaction){
 
-        const embed = new Discord.MessageEmbed()
+        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("¡Unete al servidor oficial de Argenkit Bot!")
         .setURL("https://discord.gg/68jsHeTRYa")
         .setColor('#0a9ee1')

@@ -8,7 +8,7 @@ module.exports = {
     .setDescription("Muestra información del creador del bot."),
 
     async run(client, interaction){
-        const embed = new MessageEmbed()
+        const embed:Discord.MessageEmbed = new MessageEmbed()
       .setTitle("El creador del Bot es Gonzalo Ebel")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919017432591507537/coding.png")
       .setDescription("Estas son mis redes sociales, podés darme sugerencias o ideas por Twitter o en el servidor oficial del bot!")

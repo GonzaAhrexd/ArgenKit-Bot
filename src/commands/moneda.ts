@@ -10,7 +10,7 @@ module.exports = {
         let a = Math.floor(Math.random() * 2 + 1)
         switch (a) {
           case 1:
-            const embed1 = new Discord.MessageEmbed()
+            const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
               .setColor("#27C5F5")
               .setDescription("Tirando...")
               .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/805139900768190484/bancario_1.png")
@@ -19,7 +19,7 @@ module.exports = {
             return interaction.reply({ embeds: [embed1] });
         
           case 2:
-            const embed2 = new Discord.MessageEmbed()
+            const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
               .setColor("#FCFBFB")
               .setDescription("Tirando...")
               .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/805139082417799168/BancarioEscudo.png")

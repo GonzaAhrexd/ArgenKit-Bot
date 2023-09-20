@@ -11,7 +11,7 @@ module.exports = {
 
         let escaparLatam = porcentaje()
 
-        const embed = new Discord.MessageEmbed()
+        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setColor("GREEN")
             .setDescription("Calculando...")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300000636958/escaparlatam.png")

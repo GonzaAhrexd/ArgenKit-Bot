@@ -20,7 +20,7 @@ module.exports = {
             
             let odioArg = porcentaje()
      
-            const embed = new Discord.MessageEmbed()
+            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
               .setColor("RED")
               .setDescription("Calculando...")
               .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300290027550/odioarg.png")
@@ -34,7 +34,7 @@ module.exports = {
           if (interaction.options.getSubcommand() === 'latinoamerica') {
 
             let odioLatam = porcentaje()
-            const embed = new Discord.MessageEmbed()
+            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
               .setColor("RED")
               .setDescription("Calculando...")
               .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300512329768/odiolatam.png")

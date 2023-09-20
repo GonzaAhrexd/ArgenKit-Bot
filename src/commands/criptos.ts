@@ -1,19 +1,8 @@
-// @ts-ignore
-const { SlashCommandBuilder } = require("@discordjs/builders")
-// @ts-ignore
-const { MessageEmbed } = require("discord.js")
-// @ts-ignore
-const { MessageActionRow, MessageButton, MessageSelectMenu } = require('discord.js');
-// @ts-ignore
-const paginationEmbed = require('discordjs-button-pagination'); //Botones
-// @ts-ignore
-const Discord = require("discord.js");
-// @ts-ignore
-const axios = require("axios")
-// @ts-ignore
+import { SlashCommandBuilder } from "@discordjs/builders"
+import Discord from "discord.js"
+import axios from "axios"
+import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-// @ts-ignore
-const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('criptomoneda')
@@ -51,8 +40,8 @@ module.exports = {
     async run(client, interaction, options) {
 
         let Criptomonedas: Array<{
-            id: String,
-            nombre: String,
+            id: string,
+            nombre: string,
             emoji: string,
             desc: string,
             lanzamiento: string,
@@ -60,10 +49,10 @@ module.exports = {
             simbolo: string,
             desarrollador: string,
             limitedeemision: string,
-            imagen: String
-            color: String
+            imagen: string
+            color: Discord.ColorResolvable
             apicoingecko: string
-            apilemon?: string
+            apilemon?: any
 
         }> =
             //BTC
@@ -213,44 +202,40 @@ module.exports = {
                         axios.get(cripto.apilemon)
                             .then((LEMON) => {
                                 const embed1 = new Discord.MessageEmbed()
-
+                                embed1.setTitle(cripto.nombre)
+                                .setColor(cripto.color)
+                                .setDescription(cripto.desc)
+                                .setThumbnail(cripto.imagen)
                                 if (cripto.id === "terraluna") {
-                                    embed1
-                                        .setTitle(cripto.nombre)
-                                        .setColor(cripto.color)
-                                        .setDescription(cripto.desc)
-                                        .setThumbnail(cripto.imagen)
-                                        .addField(`Precio ${cripto.emoji}`, 'USD$ ' + currencyFormatter.format(conversion, { locale: 'es-ES', code: ' ' }), true)
-                                        .addField(`Volumen ${cripto.emoji}`, 'USD$ ' + currencyFormatter.format(((CRIPTOINFO.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                                        .addField(`Capitalización ${cripto.emoji}`, 'USD$ ' + currencyFormatter.format(((CRIPTOINFO.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                                        .addField(`Compra ${cripto.emoji}`, 'ARS$ ' + currencyFormatter.format(conversion * LEMON.data['bid'], { locale: 'es-ES', code: ' ' }), true)
-                                        .addField(`Venta ${cripto.emoji}`, 'ARS$ ' + currencyFormatter.format(conversion * LEMON.data['ask'], { locale: 'es-ES', code: ' ' }), true);
-                                }
+                                    embed1.addFields(
+                                            { name: `Precio ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(conversion, { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            { name: `Volumen ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(((CRIPTOINFO.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            { name: `Capitalización ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(((CRIPTOINFO.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            { name: `Compra ${cripto.emoji}`, value: `ARS$ ${currencyFormatter.format(conversion * LEMON.data['bid'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            { name: `Venta ${cripto.emoji}`, value: `ARS$ ${currencyFormatter.format(conversion * LEMON.data['ask'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                                          )}
 
                                 else {
-                                    embed1
-                                        .setTitle(cripto.nombre)
-                                        .setColor(cripto.color)
-                                        .setDescription(cripto.desc)
-                                        .setThumbnail(cripto.imagen)
-                                        .addField(`Precio ${cripto.emoji}`, 'USD$ ' + currencyFormatter.format(conversion, { locale: 'es-ES', code: ' ' }), true)
-                                        .addField(`Volumen ${cripto.emoji}`, 'USD$ ' + currencyFormatter.format(((CRIPTOINFO.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                                        .addField(`Capitalización ${cripto.emoji}`, 'USD$ ' + currencyFormatter.format(((CRIPTOINFO.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' }), true)
-                                        .addField(`Compra ${cripto.emoji}`, 'ARS$ ' + currencyFormatter.format(LEMON.data['bid'], { locale: 'es-ES', code: ' ' }), true)
-                                        .addField(`Venta ${cripto.emoji}`, 'ARS$ ' + currencyFormatter.format(LEMON.data['ask'], { locale: 'es-ES', code: ' ' }), true);
-                                }
+                                    embed1.addFields(
+                                            { name: `Precio ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(conversion, { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            { name: `Volumen ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(((CRIPTOINFO.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            { name: `Capitalización ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(((CRIPTOINFO.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            { name: `Compra ${cripto.emoji}`, value: `ARS$ ${currencyFormatter.format(LEMON.data['bid'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            { name: `Venta ${cripto.emoji}`, value: `ARS$ ${currencyFormatter.format(LEMON.data['ask'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                                          )  }
 
                                 const embed2 = new Discord.MessageEmbed()
                                     .setTitle(cripto.nombre)
                                     .setColor(cripto.color)
                                     .setDescription(cripto.desc)
                                     .setThumbnail(cripto.imagen)
-                                    .addField("Lanzamiento inicial", cripto.lanzamiento)
-                                    .addField("Código ISO", cripto.iso, true)
-                                    .addField("Símbolo ", cripto.simbolo, true)
-                                    .addField("Desarrollador ", cripto.desarrollador)
-                                    .addField("Límite de Emisión  ", cripto.limitedeemision);
-
+                                    .addFields(
+                                        { name: "Lanzamiento inicial", value: cripto.lanzamiento },
+                                        { name: "Código ISO", value: cripto.iso, inline: true },
+                                        { name: "Símbolo ", value: cripto.simbolo, inline: true },
+                                        { name: "Desarrollador ", value: cripto.desarrollador },
+                                        { name: "Límite de Emisión  ", value: cripto.limitedeemision }
+                                      )
 
                                 const row = new MessageActionRow()
                                     .addComponents(
@@ -265,9 +250,6 @@ module.exports = {
                                             .setLabel("📋 Información")
                                             .setStyle("PRIMARY")
                                     )
-
-
-
 
                                 interaction.deferReply();
                                 setTimeout(() => {

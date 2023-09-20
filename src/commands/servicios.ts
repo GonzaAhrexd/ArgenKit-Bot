@@ -70,7 +70,7 @@ module.exports = {
     ),
   async run(client, interaction, options) {
     if (interaction.options.getSubcommand() === 'netflix') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Netflix")
         .setURL("https://www.netflix.com/ar/")
         .setDescription("Los precios de Netflix con impuestos en Argentina son los siguientes: ")
@@ -87,7 +87,7 @@ module.exports = {
       return interaction.reply({ embeds: [embed] });
     }
     if (interaction.options.getSubcommand() === 'youtube') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("YouTube Premium")
         .setURL("https://www.youtube.com/premium")
         .setDescription("Los precios de YouTube Premium en Argentina con impuestos son los siguientes:")
@@ -102,7 +102,7 @@ module.exports = {
       return interaction.reply({ embeds: [embed] });
     }
     if (interaction.options.getSubcommand() === 'spotify') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Spotify")
         .setURL("https://www.spotify.com/ar/premium/")
         .setDescription("Los precios de Spotify Premium en Argentina con impuestos son los siguientes: ")
@@ -118,7 +118,7 @@ module.exports = {
       return interaction.reply({ embeds: [embed] });
     }
     if (interaction.options.getSubcommand() === 'crunchyroll') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Crunchyroll")
         .setURL("https://www.crunchyroll.com/es")
         .setColor('#fec105')
@@ -134,7 +134,7 @@ module.exports = {
     }
 
     if (interaction.options.getSubcommand() === 'disney') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Disney+")
         .setURL("https://www.disneyplus.com/home")
         .setDescription("Debido a que Disney factura en Argentina, este no cobra impuestos internacionales.")
@@ -154,7 +154,7 @@ module.exports = {
 
 
     if (interaction.options.getSubcommand() === 'xboxgamepass') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Xbox Game Pass")
         .setURL("https://www.xbox.com/es-AR/xbox-game-pass")
         .setDescription("Los precios de Xbox Game Pass con impuestos en Argentina son los siguientes: ")
@@ -170,7 +170,7 @@ module.exports = {
 
     //Prime Video
     if (interaction.options.getSubcommand() === 'primevideo') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Prime Video")
         .setURL("https://www.primevideo.com/")
         .setDescription("El precio de  Prime Video con impuestos en Argentina es el siguiente: ")
@@ -186,7 +186,7 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'appletv') {
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
-          const embed = new Discord.MessageEmbed()
+          const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setTitle("Apple TV+")
             .setURL("https://www.apple.com/la/tv/")
             .setDescription("Los precios de Apple TV en Argentina son los siguientes: ")
@@ -212,7 +212,7 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'hbomax') {
 
 
-      const embed1 = new Discord.MessageEmbed()
+      const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("HBO Max")
         .setURL("https://www.hbomax.com/latam/es")
         .setDescription("Precio de HBO Max  en  Argentina con impuestos ")
@@ -236,7 +236,7 @@ module.exports = {
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
 
-          const embed = new Discord.MessageEmbed()
+          const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setTitle("Discord Nitro")
             .setDescription("Los precios de Discord Nitro en Argentina son los siguientes: ")
             .setColor('#8aa9fa')
@@ -264,7 +264,7 @@ module.exports = {
 
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
-          const embed1 = new Discord.MessageEmbed()
+          const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setTitle("Google One")
             .setDescription("Los precios de Google One mensual en Argentina son los siguientes: ")
             .setColor('#f1bb1a')
@@ -275,7 +275,7 @@ module.exports = {
               { name: "Plan de 1TB (USD$ 9,99)", value: `ARS$ ${currencyFormatter.format((total74(9.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true }
           )
           
-          const embed2 = new Discord.MessageEmbed()
+          const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setTitle("Google One")
             .setDescription("Los precios de Google One anual en Argentina son los siguientes:")
             .setColor('#f1bb1a')
@@ -332,7 +332,7 @@ module.exports = {
     //EA
 
     if (interaction.options.getSubcommand() === 'ea') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("EA Play")
         .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
         .setDescription("Los precios de EA Play con impuestos en Argentina son los siguientes: ")
@@ -350,7 +350,7 @@ module.exports = {
     //Steam
 
     if (interaction.options.getSubcommand() === 'steam') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Fondos de la Cartera de Steam")
         .setURL("https://store.steampowered.com/steamaccount/addfunds")
         .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: ")
@@ -371,7 +371,7 @@ module.exports = {
     //Paramount
 
     if (interaction.options.getSubcommand() === 'paramount') {
-      const embed = new Discord.MessageEmbed()
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("Paramount+")
         .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Paramount_Plus.svg/1920px-Paramount_Plus.svg.png")
         .setURL("https://www.paramountplus.com/ar/")
@@ -388,7 +388,7 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'twitch') {
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
-          const embed1 = new Discord.MessageEmbed()
+          const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setTitle("Siscripciones de Twitch")
             .setURL("https://www.twitch.tv/")
             .setDescription("Los precios de las suscripciones a Twitch en Argentina son los siguientes: ")
@@ -401,7 +401,7 @@ module.exports = {
           )
           
 
-          const embed2 = new Discord.MessageEmbed()
+          const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setTitle("Bits de Twitch")
             .setDescription("Los precios de los bits de Twitch en Argentina son los siguientes: ")
             .setColor('#9246ff')

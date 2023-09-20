@@ -190,7 +190,7 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa'),
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui'),
                 ]);
-                const embed = new Discord.MessageEmbed()
+                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
 
                     .setTitle("Dólar estadounidense <:rightarrow:921907270747570247> Peso Argentino")
                     .setColor("GREEN")
@@ -243,7 +243,7 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                     axios.get('https://api.bluelytics.com.ar/v2/latest')
                 ]);
-                const embed = new Discord.MessageEmbed()
+                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
 
                     .setTitle("Euro <:rightarrow:921907270747570247> Peso Argentino")
                     .setColor("#0153b4")
@@ -292,7 +292,7 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial'),
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
                 ]);
-                const embed = new Discord.MessageEmbed()
+                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                     .setTitle("Real <:rightarrow:921907270747570247> Peso Argentino")
                     .setColor("#6da545")
                     .setDescription("Real expresado en pesos argentinos")
@@ -528,7 +528,7 @@ module.exports = {
                     ]);
                     let aconvertir = DIVISA.data['rates'][divisa.iso]
 
-                    const embed = new Discord.MessageEmbed()
+                    const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
                         .setTitle(`${divisa.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                         .setColor(divisa.color)
                         .setDescription(`${divisa.nombre} expresado en pesos argentinos`)

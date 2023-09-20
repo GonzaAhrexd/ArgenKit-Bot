@@ -7,7 +7,7 @@ module.exports = {
     .setDescription("Muestra formas de apoyar al creador mediante donaciones."),
 
     async run(client, interaction){
-        const embed = new Discord.MessageEmbed()
+        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setTitle("DONACIONES")
         .setColor('GOLD')
         .setDescription("¡Si decidiste donarme te lo agradezco infinitamente! ¡Cada peso cuenta!")

@@ -94,7 +94,7 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui'),
                 ]);
 
-                const embed1 = new Discord.MessageEmbed()
+                const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
                     .setTitle("Dólar estadounidese :flag_us:")
                     .setColor("#a9ea98")
                     .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
@@ -117,7 +117,7 @@ module.exports = {
                         { name: "CCL", value: `ARS$ ${currencyFormatter.format(ccl.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "MEP", value: `ARS$ ${currencyFormatter.format(mep.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                     );
-                const embed2 = new Discord.MessageEmbed()
+                const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
                     .setTitle("Dólar estadounidense")
                     .setColor("#a9ea98")
                     .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
@@ -201,7 +201,7 @@ module.exports = {
                     axios.get('https://api.bluelytics.com.ar/v2/latest')
                 ]);
 
-                const embed1 = new Discord.MessageEmbed()
+                const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
                     .setTitle("Euro :flag_eu:")
                     .setColor("#0153b4")
                     .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
@@ -219,7 +219,7 @@ module.exports = {
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                     );
 
-                const embed2 = new Discord.MessageEmbed()
+                const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
                     .setTitle("Euro")
                     .setColor("#0153b4")
                     .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
@@ -303,7 +303,7 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
                 ]);
 
-                const embed1 = new Discord.MessageEmbed()
+                const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
                     .setTitle("Real Brasileño  :flag_br:")
                     .setColor("#e8ce6c")
                     .setDescription("El real es la moneda de curso legal en Brasil y fuera de sus fronteras se le conoce como real brasileño. A partir de 2020, es la vigésima moneda más negociada en el mundo, la segunda en América Latina detrás de peso mexicano y la cuarta en el continente americano detrás del dólar estadounidense, el dólar canadiense y el peso mexicano")
@@ -322,7 +322,7 @@ module.exports = {
                         { name: "VENTA", value: "ARS$ " + currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true }
                     )
 
-                const embed2 = new Discord.MessageEmbed()
+                const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
                     .setTitle("Real Brasileño")
                     .setColor("#e8ce6c")
                     .setDescription("El real es la moneda de curso legal en Brasil y fuera de sus fronteras se le conoce como real brasileño. A partir de 2020, es la vigésima moneda más negociada en el mundo, la segunda en América Latina detrás de peso mexicano y la cuarta en el continente americano detrás del dólar estadounidense, el dólar canadiense y el peso mexicano")
@@ -752,7 +752,7 @@ module.exports = {
                         num = 1000
                         cantidad = "(1000 Unidades)"
                     }
-                    const embed1 = new Discord.MessageEmbed()
+                    const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
                         .setTitle(`${divisa.nombre} ${divisa.bandera}  ${cantidad} `)
                         .setColor(divisa.color)
                         .setDescription(divisa.desc)
@@ -770,7 +770,7 @@ module.exports = {
                             { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                         )
                         
-                    const embed2 = new Discord.MessageEmbed()
+                    const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
                         .setTitle(divisa.nombre)
                         .setColor(divisa.color)
                         .setDescription(divisa.desc)

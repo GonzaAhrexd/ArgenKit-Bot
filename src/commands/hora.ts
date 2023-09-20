@@ -172,7 +172,7 @@ module.exports = {
                     zonasEmbedField.push({name: zonita.nombre, value: new Date().toLocaleTimeString("es-AR", {timeZone: zonita.codigo, hour: '2-digit', minute: '2-digit'}), inline: true})
                 })
           
-            const embed = new Discord.MessageEmbed()
+            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
             .setTitle(`Zonas horarias de ${lugar.nombre}`)
             .setDescription(`${lugar.nombre} tiene distintas zonas horarias`)
             .setColor(lugar.color)

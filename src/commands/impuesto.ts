@@ -16,40 +16,44 @@ module.exports = {
   async run(client, interaction, options) {
     let imp = interaction.options.getNumber('monto')
 
-    const embed1 = new Discord.MessageEmbed()
+    const embed1: Discord.MessageEmbed = new Discord.MessageEmbed()
       .setTitle("Impuestos a la compra al exterior (74%)")
       .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
       .setColor("#d6f2fc")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-      .addField("Monto original", "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }))
-      .addField("I.V.A (21%) ", "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("P.A.I.S (8%) ", "$" + currencyFormatter.format(impuestos.pais8(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Total (74%)", "$" + currencyFormatter.format(impuestos.total74(imp), { locale: 'es-ES', code: ' ' }))
+      .addFields(
+        { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
+        { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+        { name: "P.A.I.S (8%) ", value: "$" + currencyFormatter.format(impuestos.pais8(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+        { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+        { name: "Total (74%)", value: "$" + currencyFormatter.format(impuestos.total74(imp), { locale: 'es-ES', code: ' ' }) }
+      )
 
-    const embed2 = new Discord.MessageEmbed()
+    const embed2: Discord.MessageEmbed = new Discord.MessageEmbed()
       .setTitle("Impuesto a la compra al exterior (75%)")
       .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
       .setColor("#d6f2fc")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
       .setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
-      .addField("Monto original", "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }))
-      .addField("P.A.I.S (30%) ", "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Total (75%)", "$" + currencyFormatter.format(impuestos.total75(imp), { locale: 'es-ES', code: ' ' }))
-
-      const embed3 = new Discord.MessageEmbed()
+      .addFields(
+      { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
+      { name: "P.A.I.S (30%) ", value: "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+      { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+      { name: "Total (75%)", value: "$" + currencyFormatter.format(impuestos.total75(imp), { locale: 'es-ES', code: ' ' }) }
+    )
+    const embed3 = new Discord.MessageEmbed()
       .setTitle("Impuesto a la compra al exterior de más de 300 dólares (80%)")
       .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
       .setColor("#d6f2fc")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
       .setDescription("Cuando el monto supera los 300 dólares, se agrega 25% de Cuenta de Bienes Personales")
-      .addField("Monto original", "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }))
-      .addField("P.A.I.S (30%) ", "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Adelanto de Ganancias (45%)", "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Cuenta de Bienes Personales (5%)", "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), true)
-      .addField("Total (80%)", "$" + currencyFormatter.format(impuestos.total80(imp), { locale: 'es-ES', code: ' ' }))
-
+      .addFields(
+        { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
+        { name: "P.A.I.S (30%) ", value: "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+        { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+        { name: "Cuenta de Bienes Personales (5%)", value: "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+        { name: "Total (80%)", value: "$" + currencyFormatter.format(impuestos.total80(imp), { locale: 'es-ES', code: ' ' }) }
+      )
 
     const row = new MessageActionRow()
       .addComponents(
@@ -59,7 +63,7 @@ module.exports = {
           .setStyle("SUCCESS")
       ).addComponents(
         new MessageButton()
-        .setCustomId('solidario')
+          .setCustomId('solidario')
           .setLabel("📄75%")
           .setStyle("PRIMARY")
       )
@@ -77,7 +81,7 @@ module.exports = {
     });
 
 
-  
+
 
     const filter = i => i.user.id === interaction.user.id;
 
@@ -86,16 +90,16 @@ module.exports = {
     collector.on('collect', async i => {
       if (i.customId === 'tarjeta') {
         await i.deferUpdate()
-        await i.editReply({ embeds: [embed1] , components: [row] });
+        await i.editReply({ embeds: [embed1], components: [row] });
       }
       if (i.customId === 'solidario') {
-       
+
         await i.deferUpdate();
-        await i.editReply({ embeds: [embed2] , components: [row] });
+        await i.editReply({ embeds: [embed2], components: [row] });
       }
       if (i.customId === 'qatar') {
         await i.deferUpdate()
-        await i.editReply({ embeds: [embed3] , components: [row] });
+        await i.editReply({ embeds: [embed3], components: [row] });
       }
     });
 

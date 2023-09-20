@@ -6,13 +6,8 @@ module.exports = {
     .setName("futbol")
     .setDescription("Muestra cuántos días faltan para  los siguientes partidos de la selección"),
 
-    async run(client, interaction){
-        
- 
-      // .addField("  :flag_ar: vs :flag_pl: \n(30/11/2022) ", "Faltan " + diasHasta(new Date("2023-11-30")) + " días ", true)
-        
-      
-      const embed = new Discord.MessageEmbed()
+    async run(client, interaction){   
+      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
           .setTitle("Tiempo hasta los siguientes partidos de la selección Argentina")
           .setColor("#7eb2fa")
           .setDescription("Tiempo hasta los siguientes partidos de la selección Argentina")
@@ -66,9 +61,7 @@ module.exports = {
             { 
               name: ":flag_ar: vs :flag_br: \n(25/03/2025)", 
               value: "Faltan " + diasHasta(new Date("2025-03-25")) + " días",  inline: true 
-            })
-       
-          
+            })         
           return interaction.reply({ embeds: [embed] });
 
     }

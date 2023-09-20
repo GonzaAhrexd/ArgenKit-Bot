@@ -59,8 +59,9 @@ module.exports = {
       ubicacion: string,
       ubicacionDesc: string,
       ubicacionImg: string,
-    }>
-      = [
+    }> = [
+        //CABA
+        { identificacion: "caba", nombre: "Ciudad Autonoma de Buenos Aires (CABA)", color: "#FCFCFC", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Bandera_de_la_Ciudad_de_Buenos_Aires.svg/662px-Bandera_de_la_Ciudad_de_Buenos_Aires.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tucum%C3%A1n", descripcion: "Buenos Aires es la gran capital cosmopolita de Argentina. Su centro es la Plaza de Mayo, rodeada de imponentes edificios del siglo XIX, incluida la Casa Rosada, el icónico palacio presidencial que tiene varios balcones. Entre otras atracciones importantes, se incluyen el Teatro Colón, un lujoso teatro de ópera de 1908 con cerca de 2,500 asientos, y el moderno museo MALBA, que exhibe arte latinoamericano.  \n  La Ciudad de Buenos Aires fue cedida en 1880 por la Provincia de Buenos Aires para que fuera la capital federal del país. En virtud de la reforma constitucional de 1994 goza de un régimen de autonomía.", gobernador: "Horacio Rodríguez Larreta", capital: "Gran Buenos Aires", poblada: "15 comunas\n48 barrios", fundacion: "2 de febrero de 1536 (por Pedro de Mendoza)\n11 de junio de 1580 (por Juan de Garay)", autonomia: "Desde la Reforma Constitucional de 1994", superficie: "203 km²", poblacion: "3.075.646 hab.", gentillicio: "Porteño/a", clima: "Subtropical húmedo", ubicacion: "https://www.google.com.ar/maps/place/Buenos+Aires,+CABA/data=!4m2!3m1!1s0x95bcca3b4ef90cbd:0xa0b3812e88e88e87?sa=X&ved=2ahUKEwjsvqSxgpDxAhVPlJUCHdk6AQIQ8gEwJnoECGgQAQ", ubicacionDesc: "Su tejido urbano se asemeja a un abanico que limita al sur, oeste y norte con la lindante Provincia de Buenos Aires y al este con el Río de la Plata. Oficialmente la ciudad se encuentra dividida en 15 comunas que agrupan a 48 barrios.", ubicacionImg: "https://maps.wikimedia.org/img/osm-intl,10,-34.599722222222,-58.381944444444,300x300.png?lang=es&domain=es.wikipedia.org&title=Buenos+Aires&groups=_1f2405ce1888c1041823dcda962c8595b0609749" },
         //Buenos Aires
         { identificacion: "buenos aires", nombre: "Buenos Aires  (BA)", color: "#0b67ff", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Bandera_de_la_Provincia_de_Buenos_Aires.svg/1280px-Bandera_de_la_Provincia_de_Buenos_Aires.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Buenos_Aires", descripcion: "Buenos Aires es la provincia más grande y más poblada de Argentina. Su nombre proviene de la capital del país, la Ciudad  Autonoma de Buenos Aires,  que solía ser parte de la provincia hasta su federalización en 1880.", gobernador: "Alex Kicillof", capital: "La Plata", poblada: "La Matanza", fundacion: "2 de febrero de 1536 \n 11 de junio de 1580 (por Juan de Garay)", autonomia: "16 de febrero de 1820 ", superficie: "307.571 km²", poblacion: "18.004.120 hab.", gentillicio: "Bonaerense", clima: "Templado húmedo (clima pampeano)", ubicacion: "https://www.google.com.ar/maps/place/Provincia+de+Buenos+Aires/@-37.1243654,-62.2683371,7z/data=!3m1!4b1!4m5!3m4!1s0x95edbcb7595281d9:0x4ad309fcdcf0a144!8m2!3d-37.2017285!4d-59.8410697", ubicacionDesc: "El territorio está en la región este del país; limita al norte con las provincias de Santa Fe y Entre Ríos, al noreste con el Río de la Plata y la Ciudad Autónoma de Buenos Aires,9​ al este y sur con el mar Argentino del océano Atlántico, al suroeste con Río Negro, al oeste con la Provincia de La Pampa y al noroeste con la Provincia de Córdoba.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
         //Catamarca
@@ -106,7 +107,7 @@ module.exports = {
         //Tierra del Fuego
         { identificacion: "tierra del fuego", nombre: "PROVINCIA DE TIERRA DEL FUEGO, ANTÁRTIDA E ISLAS DEL ATLÁNTICO SUR (TF)", color: "#fd9830", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Bandera_de_la_Provincia_de_Tierra_del_Fuego.svg/320px-Bandera_de_la_Provincia_de_Tierra_del_Fuego.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tierra_del_Fuego,_Ant%C3%A1rtida_e_Islas_del_Atl%C3%A1ntico_Sur", descripcion: "Tierra del Fuego, Antártida e Islas del Atlántico Sur es una de las 23 provincias de Argentina y se ubica en el sur de Argentina, siendo el territorio más austral del país. \nCon respecto a los territorios cuya soberanía se encuentra en disputa (islas Malvinas, islas Georgias del Sur, islas Sandwich del Sur, islas Orcadas del Sur, islas Shetland del Sur, Antártida Argentina), la ley de provincialización en su artículo 2 establece que corresponden al territorio de la provincia, pero «sujeta a los tratados con potencias extranjeras que celebre el gobierno federal, para cuya ratificación no será necesario consultar al gobierno provincial», norma que habilita la secesión de dichos territorios por la sola decisión del Estado nacional en el marco de las negociaciones sobre la soberanía con otras potencias.", gobernador: "Gustavo Melella", capital: "Río Grande", poblada: "Santiago del Estero", fundacion: "1884 ", autonomia: "26 de abril de 1990", superficie: "21.571 km² (excluyendo territorio reclamado) \n  1.002.445  km² (incluyendo territorio reclamado)", poblacion: "160.720  hab.", gentillicio: "Fueguino/na", clima: "Templado frío y húmedo", ubicacion: "https://www.google.com.ar/maps/place/Tierra+del+Fuego/data=!4m2!3m1!1s0xbc4c22cfd9432921:0x80ee54358cf0d88d?sa=X&ved=2ahUKEwiqpfvA5KHxAhWlq5UCHerrDA4Q8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en la región patagónica, en el extremo sur de la Argentina, y ocupa un amplio territorio insular, marítimo y antártico, que se extiende desde la Isla Grande de Tierra del Fuego al polo Sur, incluyendo la isla de los Estados, las islas Malvinas, las islas del Atlántico Sur, la península Antártica, formando un triángulo cuyos lados son los meridianos 74°O y 25°O y su vértice el polo Sur.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Tierra_del_Fuego%2C_Antartida_e_Islas_del_Atlantico_Sur_%28de-facto_%2Bclaims_hatched%29_%28special_marker%29_%28%2BAntarctica%29.svg/641px-Tierra_del_Fuego%2C_Antartida_e_Islas_del_Atlantico_Sur_%28de-facto_%2Bclaims_hatched%29_%28special_marker%29_%28%2BAntarctica%29.svg.png" },
         //Tucuman
-        { identificacion: "tucuman", nombre: "TUCUMAN (TU)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg/700px-Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tucum%C3%A1n", descripcion: "Tucuman es una de las 23 provincias de Argentina y se ubica en el noroeste de Argentina. \n Fue escenario del Congreso de Tucumán entre los años 1816 y 1820 que, entre otras cosas, declaró la Independencia de las Provincias Unidas del Sud (primer nombre oficial del Estado soberano llamado Argentina) respecto a España y cualquier otro poder extranjero, el 9 de julio de 1816. Es la provincia de menor superficie de la Argentina y la de mayor densidad de población del país. \n \n Actualmente entre las principales actividades que se desarrollan se encuentran los complejos agroindustriales del azúcar y del limón, obteniéndose, en el caso del limón, desde fruta en fresco clasificada y empacada hasta productos industriales como jugos concentrados o aceites esenciales. También posee distintas industrias: automotriz, textil y calzado, golosinas, gaseosas y papel, cervecerías, excelentes quesillos y quesos.", gobernador: "Juan Manzur", capital: "San Miguel de Tucumán", poblada: "San Miguel de Tucumán", fundacion: "1564", autonomia: "25 de noviembre de 1825", superficie: "22.525 km²", poblacion: "1.767.500  hab.", gentillicio: "Tucumano/na", clima: "Cálido subtropical con estación seca", ubicacion: "https://www.google.com.ar/maps/place/San+Miguel+de+Tucum%C3%A1n,+Tucum%C3%A1n/data=!4m2!3m1!1s0x94223792d6c56903:0xf88d5b92b5c56527?sa=X&ved=2ahUKEwicmajl6KHxAhVLqJUCHfLRDqYQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noroeste del país, en la región del Norte Grande Argentino, limitando al norte con Salta, al este con Santiago del Estero y al sur y oeste con Catamarca.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        { identificacion: "tucuman", nombre: "TUCUMAN (TU)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg/700px-Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tucum%C3%A1n", descripcion: "Tucuman es una de las 23 provincias de Argentina y se ubica en el noroeste de Argentina. \n Fue escenario del Congreso de Tucumán entre los años 1816 y 1820 que, entre otras cosas, declaró la Independencia de las Provincias Unidas del Sud (primer nombre oficial del Estado soberano llamado Argentina) respecto a España y cualquier otro poder extranjero, el 9 de julio de 1816. Es la provincia de menor superficie de la Argentina y la de mayor densidad de población del país. \n \n Actualmente entre las principales actividades que se desarrollan se encuentran los complejos agroindustriales del azúcar y del limón, obteniéndose, en el caso del limón, desde fruta en fresco clasificada y empacada hasta productos industriales como jugos concentrados o aceites esenciales. También posee distintas industrias: automotriz, textil y calzado, golosinas, gaseosas y papel, cervecerías, excelentes quesillos y quesos.", gobernador: "Juan Manzur", capital: "San Miguel de Tucumán", poblada: "San Miguel de Tucumán", fundacion: "1564", autonomia: "25 de noviembre de 1825", superficie: "22.525 km²", poblacion: "1.767.500  hab.", gentillicio: "Tucumano/na", clima: "Cálido subtropical con estación seca", ubicacion: "https://www.google.com.ar/maps/place/San+Miguel+de+Tucum%C3%A1n,+Tucum%C3%A1n/data=!4m2!3m1!1s0x94223792d6c56903:0xf88d5b92b5c56527?sa=X&ved=2ahUKEwicmajl6KHxAhVLqJUCHfLRDqYQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noroeste del país, en la región del Norte Grande Argentino, limitando al norte con Salta, al este con Santiago del Estero y al sur y oeste con Catamarca.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg.png" }      
       ]
 
     if (provincia != null) {
@@ -119,39 +120,42 @@ module.exports = {
         .setDescription("En Argentina se denomina provincia a cada uno de los 23 estados federados denominados así en la Constitución de la Nación Argentina, que junto a la Ciudad Autónoma de Buenos Aires constituyen las divisiones territoriales de primer orden del país. Las provincias tienen autonomía plena, forman parte de la Nación y son jurídicamente preexistentes a ella, según los principios del federalismo establecidos en la Constitución Nacional. \n  \n Para información individual de cada provincia utilice el comando `*ar provincia [Nombre de la provincia]`")
         .setColor('#0b67ff')
         .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/800px-Flag_of_Argentina.svg.png")
-        .addField("Ciudad Autonoma", "Ciudad Autonoma de Buenos Aires (CABA) <:CABA:936062758422708244> ")
-        .addField("Lista de provincias", "Buenos Aires <:buenosaires:936063770684457001>  \n Catamarca <:Catamarca:936062789053726720> \n Chaco <:Chaco:936063772706107443> \n Chubut <:chubut:936063771288408094>  \n Córdoba <:cordoba:936063769233207336> \n Corrientes <:corrientes:936063765936504892> \n Entre Ríos <:entrerios:936063766087495720> \n Formosa <:formosa:936063765420597268>\n Jujuy <:jujuy:936063774031511592> \n La Pampa <:lapampa:936063767542890596> \n La Rioja <:larioja:936063771712053309> \n Mendoza <:mendoza:936063776447422495> \n Misiones <:misiones:936063766477566052> \n Neuquén <:neuquen:936063770046890055>\n Río Negro <:rionegro:936063766498537573>\n Salta <:salta:936063770709606460>\n San Juan <:sanjuan:936064424890998844>\n San Luis <:sanluis:936064423511089184>\n Santa Cruz <:santacruz:936064424144429106>\n Santa Fe <:santafe:936064421392961637>\n Santiago del Estero <:santiagodelestero:936064420231127042>\n Tierra del Fuego, Antártida e Islas del Atlántico Sur <:tierradelfuego:936064421082570762>\n Tucuman <:tucuman:936064420331782164>")
+
+        .addFields(
+          {name: "Ciudad Autonoma", value: "Ciudad Autonoma de Buenos Aires (CABA) <:CABA:936062758422708244>"},
+          {name: "Lista de provincias" , value: "Buenos Aires <:buenosaires:936063770684457001>  \n Catamarca <:Catamarca:936062789053726720> \n Chaco <:Chaco:936063772706107443> \n Chubut <:chubut:936063771288408094>  \n Córdoba <:cordoba:936063769233207336> \n Corrientes <:corrientes:936063765936504892> \n Entre Ríos <:entrerios:936063766087495720> \n Formosa <:formosa:936063765420597268>\n Jujuy <:jujuy:936063774031511592> \n La Pampa <:lapampa:936063767542890596> \n La Rioja <:larioja:936063771712053309> \n Mendoza <:mendoza:936063776447422495> \n Misiones <:misiones:936063766477566052> \n Neuquén <:neuquen:936063770046890055>\n Río Negro <:rionegro:936063766498537573>\n Salta <:salta:936063770709606460>\n San Juan <:sanjuan:936064424890998844>\n San Luis <:sanluis:936064423511089184>\n Santa Cruz <:santacruz:936064424144429106>\n Santa Fe <:santafe:936064421392961637>\n Santiago del Estero <:santiagodelestero:936064420231127042>\n Tierra del Fuego, Antártida e Islas del Atlántico Sur <:tierradelfuego:936064421082570762>\n Tucuman <:tucuman:936064420331782164>"})
+     
       return interaction.reply({ embeds: [embed] });
 
     }
 
     provincias.forEach(province => {
       if (provincia2 == province.identificacion) {
+        let isCaba:boolean = provincia2 == "caba"
         const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
           .setTitle(province.nombre)
           .setURL(province.url)
           .setDescription(province.descripcion)
           .setColor(province.color)
           .setThumbnail(province.bandera)
-          .addField("Gobernador ", province.gobernador, true)
-          .addField("Capital ", province.capital, true)
-          .addField("Ciudad más poblada ", province.poblada, true)
-          .addField("Fundación ", province.fundacion, true)
-          .addField("Declaración de autonomía ", province.autonomia, true)
-          .addField("Superficie ", province.superficie, true)
-          .addField("Población (2015) ", province.poblacion, true)
-          .addField("Gentillicio ", province.gentillicio, true)
-          .addField("Clima ", province.clima, true)
-
+          .addFields(
+            { name: isCaba ?  "Jefe de Gobierno" : "Gobernador", value: province.gobernador, inline: true },
+            { name: isCaba ? "Área metropolitana" : "Capital", value: province.capital, inline: true },
+            { name: isCaba ? "Subdivisiones" : "Ciudad más poblada", value: province.poblada, inline: true },
+            { name: "Fundación", value: province.fundacion, inline: true },
+            { name: "Declaración de autonomía", value: province.autonomia, inline: true },
+            { name: "Superficie", value: province.superficie, inline: true },
+            { name: "Población", value: province.poblacion, inline: true },
+            { name: "Gentilicio", value: province.gentillicio, inline: true },
+            { name: "Clima", value: province.clima, inline: true }
+          )
+          
         const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
           .setTitle("Ubicación de " + province.nombre)
           .setURL(province.ubicacion)
           .setDescription(province.ubicacionDesc)
           .setColor(province.color)
           .setImage(province.ubicacionImg)
-
-
-
 
         const row = new MessageActionRow()
           .addComponents(
@@ -203,80 +207,7 @@ module.exports = {
 
       }
     })
-    if (provincia2 == "caba" || provincia2 == "ciudad autonoma de buenos aires") {
-      const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
-        .setTitle("Ciudad Autonoma de Buenos Aires (CABA)")
-        .setURL("https://es.wikipedia.org/wiki/Provincia_de_Buenos_Aires")
-        .setDescription("Buenos Aires es la gran capital cosmopolita de Argentina. Su centro es la Plaza de Mayo, rodeada de imponentes edificios del siglo XIX, incluida la Casa Rosada, el icónico palacio presidencial que tiene varios balcones. Entre otras atracciones importantes, se incluyen el Teatro Colón, un lujoso teatro de ópera de 1908 con cerca de 2,500 asientos, y el moderno museo MALBA, que exhibe arte latinoamericano.  \n  La Ciudad de Buenos Aires fue cedida en 1880 por la Provincia de Buenos Aires para que fuera la capital federal del país. En virtud de la reforma constitucional de 1994 goza de un régimen de autonomía.")
-        .setColor('#FCFCFC')
-        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Bandera_de_la_Ciudad_de_Buenos_Aires.svg/662px-Bandera_de_la_Ciudad_de_Buenos_Aires.svg.png")
-        .addField("Jefe de Gobierno ", "Horacio Rodríguez Larreta  ", true)
-        .addField("Área metropolitana ", "Gran Buenos Aires ", true)
-        .addField("Subdivisiones ", "15 comunas\n48 barrios ", true)
-        .addField("Fundación ", "2 de febrero de 1536 (por Pedro de Mendoza)\n 11 de junio de 1580 (por Juan de Garay) ", true)
-        .addField("Autonomía ", "Desde la Reforma Constitucional de 1994 ", true)
-        .addField("Superficie ", "203 km² ", true)
-        .addField("Población (2010) ", "3.075.646 hab. ", true)
-        .addField("Gentillicio ", "Porteño/a ", true)
-        .addField("Clima ", "Subtropical húmedo ", true)
-        .setFooter("Para ver información de la Provincia de Buenos Aires prueba con /provinciainfo Buenos Aires")
-
-      const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
-        .setTitle("Ubicación de la Ciudad Autonoma de Buenos Aires")
-        .setURL("https://www.google.com.ar/maps/place/Buenos+Aires,+CABA/data=!4m2!3m1!1s0x95bcca3b4ef90cbd:0xa0b3812e88e88e87?sa=X&ved=2ahUKEwjsvqSxgpDxAhVPlJUCHdk6AQIQ8gEwJnoECGgQAQ")
-        .setDescription("Su tejido urbano se asemeja a un abanico que limita al sur, oeste y norte con la lindante Provincia de Buenos Aires y al este con el Río de la Plata. Oficialmente la ciudad se encuentra dividida en 15 comunas que agrupan a 48 barrios.")
-        .setColor('#FCFCFC')
-        .setImage("https://maps.wikimedia.org/img/osm-intl,10,-34.599722222222,-58.381944444444,300x300.png?lang=es&domain=es.wikipedia.org&title=Buenos+Aires&groups=_1f2405ce1888c1041823dcda962c8595b0609749")
-        .setFooter("Para ver información de la Provincia de Buenos Aires prueba con /provinciainfo Buenos Aires")
-
-
-      const row = new MessageActionRow()
-        .addComponents(
-          new MessageButton()
-            .setCustomId("informacion")
-            .setLabel("❓ Información")
-            .setStyle("SUCCESS")
-        )
-        .addComponents(
-          new MessageButton()
-            .setCustomId("ubicacion")
-            .setLabel("🗺️ Ubicación")
-            .setStyle("PRIMARY")
-        )
-        
-        interaction.reply({ embeds: [embed1], components: [row]   });
-
-
-      client.on('interactionCreate', interaction => {
-        if (!interaction.isButton()) return;
-      });
-
-      const filter = i => i.user.id === interaction.user.id;
-
-      const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
-
-      var actual = embed1
-
-      collector.on('collect', async i => {
-        if (i.customId === 'informacion') {
-          await i.deferUpdate()
-          await i.editReply({ embeds: [embed1], components: [row] });
-          actual = embed1
-        }
-        if (i.customId === 'ubicacion') {
-          await i.deferUpdate();
-          await i.editReply({ embeds: [embed2], components: [row] });
-          actual = embed2
-        }
-      });
-
-      collector.on("end", (collected, reason) => {
-        if (reason === "time") {
-          interaction.editReply({ embeds: [actual], components: [] });
-        }
-      })
-
-    }
+ 
   }
 
 }

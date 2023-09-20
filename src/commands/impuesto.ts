@@ -14,14 +14,19 @@ module.exports = {
     ),
 
   async run(client, interaction, options) {
-    let imp = interaction.options.getNumber('monto')
 
-    const embed1: Discord.MessageEmbed = new Discord.MessageEmbed()
-      .setTitle("Impuestos a la compra al exterior (74%)")
+    function defaultEmbed(embed:Discord.MessageEmbed, porcentaje:number):void{
+      embed.setTitle(`Impuestos a la compra al exterior (${porcentaje}%)`)
       .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
       .setColor("#d6f2fc")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-      .addFields(
+    }
+
+    let imp = interaction.options.getNumber('monto')
+
+    const embed1: Discord.MessageEmbed = new Discord.MessageEmbed()
+      defaultEmbed(embed1,74)
+      embed1.addFields(
         { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
         { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true },
         { name: "P.A.I.S (8%) ", value: "$" + currencyFormatter.format(impuestos.pais8(imp), { locale: 'es-ES', code: ' ' }), inline: true },
@@ -30,11 +35,8 @@ module.exports = {
       )
 
     const embed2: Discord.MessageEmbed = new Discord.MessageEmbed()
-      .setTitle("Impuesto a la compra al exterior (75%)")
-      .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-      .setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
+    defaultEmbed(embed2,75)
+      embed2.setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
       .addFields(
       { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
       { name: "P.A.I.S (30%) ", value: "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), inline: true },
@@ -42,11 +44,8 @@ module.exports = {
       { name: "Total (75%)", value: "$" + currencyFormatter.format(impuestos.total75(imp), { locale: 'es-ES', code: ' ' }) }
     )
     const embed3 = new Discord.MessageEmbed()
-      .setTitle("Impuesto a la compra al exterior de más de 300 dólares (80%)")
-      .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-      .setDescription("Cuando el monto supera los 300 dólares, se agrega 25% de Cuenta de Bienes Personales")
+      defaultEmbed(embed3, 80)
+      embed3.setDescription("Cuando el monto supera los 300 dólares, se agrega 5% de Cuenta de Bienes Personales")
       .addFields(
         { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
         { name: "P.A.I.S (30%) ", value: "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), inline: true },

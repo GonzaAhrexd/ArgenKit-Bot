@@ -13,7 +13,7 @@ module.exports = {
     async run(client, interaction, options) {
   
     let consulta:string = interaction.options.getString('consulta')
-    let a:number = Math.floor(Math.random() * 14 + 0);
+    let valorAleatorio:number = Math.floor(Math.random() * 14 + 0);
 
     let Respuesta: Array<{
         opcion: Number,
@@ -41,7 +41,7 @@ module.exports = {
     ]
 
     Respuesta.forEach(Respuesta => {
-        if (a == Respuesta.opcion) {
+        if (valorAleatorio == Respuesta.opcion) {
         const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
         .setColor(Respuesta.color)
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")

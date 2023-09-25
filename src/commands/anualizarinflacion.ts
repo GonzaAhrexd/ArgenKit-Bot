@@ -11,14 +11,14 @@ module.exports = {
               .setRequired(true)   
     ),
     async run(client, interaction, options){
-      let mes: number = (((interaction.options.getNumber('mensual') / 100) + 1) ** 12 - 1) * 100;
+      let anualizado: number = (((interaction.options.getNumber('mensual') / 100) + 1) ** 12 - 1) * 100;
       const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
           .setTitle("Inflación mensual anualizada")
           .setColor("#f82f40")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964701743504044072/loss.png")
           .addFields(
             { name: 'Inflación mensual:', value:  `${interaction.options.getNumber('mensual')}%` },
-            { name: 'Inflación anual', value: mes.toFixed(2) + "%"})
+            { name: 'Inflación anual', value: anualizado.toFixed(2) + "%"})
 
       return interaction.reply({ embeds: [embed] });
 

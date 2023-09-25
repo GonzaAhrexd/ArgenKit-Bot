@@ -1,25 +1,23 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Dependencias de node
+//Librerías de node
 import Discord = require("discord.js");
 import fs = require('fs') //fs 
-const simplydjs = require("simply-djs"); //Simplydjs 
+import express from 'express'
 require('dotenv').config() //Variables de entorno
-const express = require('express');
 
 // Crear una instancia de la aplicación Express
 const app = express();
 
-// Ruta para la página de inicio (Hola Mundo)
+//Utilizamos express para mostrar este mensaje en una página y así mantener el bot 24/7
 app.get('/', (req, res) => {
   res.send('Argenkit Bot Versión 1.5');
 });
 
-// Puerto en el que el servidor escuchará las solicitudes
+// Puerto de las solicitudes
 const port = 3000;
 
 // Iniciar el servidor
 app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
+  console.log(`Servidor escuchando en http://localhost:${port}`)
 });
 
 //Intents requeridos
@@ -74,15 +72,11 @@ client.on("ready", async () => {
   const list = await client.application.commands.fetch()  
      console.log(list) */
 
-
- 
-
   if (guild) {
     commands = guild.commands
   } else {
     commands = client.application?.commands
   }
-
 
 
 })

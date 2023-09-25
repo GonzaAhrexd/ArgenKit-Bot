@@ -1,5 +1,4 @@
-//@ts-ignore
-function diasHasta(fecha:Date):any {
+function diasHasta(fecha:Date):number {
     let hoy = new Date();
     //@ts-ignore
     return Math.ceil((fecha - hoy) / (1000 * 60 * 60 * 24));

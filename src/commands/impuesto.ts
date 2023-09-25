@@ -14,46 +14,42 @@ module.exports = {
     ),
 
   async run(client, interaction, options) {
-
-    function defaultEmbed(embed:Discord.MessageEmbed, porcentaje:number):void{
-      embed.setTitle(`Impuestos a la compra al exterior (${porcentaje}%)`)
-      .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
-      .setColor("#d6f2fc")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-    }
-
     let imp = interaction.options.getNumber('monto')
 
+    function defaultEmbed(embed: Discord.MessageEmbed, porcentaje: number): void {
+      embed.setTitle(`Impuestos a la compra al exterior (${porcentaje}%)`)
+        .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
+        .setColor("#d6f2fc")
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
+    }
+
+    function llenarEmbed(embed, variante) {
+      let arrayEmbed = [
+        { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
+        variante == 1 ? { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
+        { name: `P.A.I.S ${variante == 1 ? "(8%)" : "(30%)"}`, value: "$" + currencyFormatter.format((variante == 1 ? impuestos.pais8(imp) : impuestos.pais30(imp)), { locale: 'es-ES', code: ' ' }), inline: true },
+        { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+        variante === 3 ?   { name: "Cuenta de Bienes Personales (5%)", value: "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
+        { name: `Total ${variante === 1 ? "(74%)" : ""} ${variante === 2 ? "(75%)" : ""} ${variante === 3 ? "(80%)" : ""}`, value: "$" + currencyFormatter.format((variante == 1 && impuestos.total74(imp)) || (variante == 2 && impuestos.total75(imp)) || (variante == 3 && impuestos.total80(imp)), { locale: 'es-ES', code: ' ' }) }
+      ]
+      arrayEmbed = arrayEmbed.filter(Boolean);
+      embed.addFields(arrayEmbed);
+    }
+    //IVA + PAIS + GANANCIAS
     const embed1: Discord.MessageEmbed = new Discord.MessageEmbed()
-      defaultEmbed(embed1,74)
-      embed1.addFields(
-        { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
-        { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-        { name: "P.A.I.S (8%) ", value: "$" + currencyFormatter.format(impuestos.pais8(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-        { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-        { name: "Total (74%)", value: "$" + currencyFormatter.format(impuestos.total74(imp), { locale: 'es-ES', code: ' ' }) }
-      )
-
+    defaultEmbed(embed1, 74)
+    llenarEmbed(embed1, 1)
+    //PAIS + GANANCIAS
     const embed2: Discord.MessageEmbed = new Discord.MessageEmbed()
-    defaultEmbed(embed2,75)
-      embed2.setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
-      .addFields(
-      { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
-      { name: "P.A.I.S (30%) ", value: "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-      { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-      { name: "Total (75%)", value: "$" + currencyFormatter.format(impuestos.total75(imp), { locale: 'es-ES', code: ' ' }) }
-    )
+    defaultEmbed(embed2, 75)
+    embed2.setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
+    llenarEmbed(embed2, 2)
+    //PAIS + GANANCIA + BIENES PERSONALES
     const embed3 = new Discord.MessageEmbed()
-      defaultEmbed(embed3, 80)
-      embed3.setDescription("Cuando el monto supera los 300 dólares, se agrega 5% de Cuenta de Bienes Personales")
-      .addFields(
-        { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
-        { name: "P.A.I.S (30%) ", value: "$" + currencyFormatter.format(impuestos.pais30(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-        { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-        { name: "Cuenta de Bienes Personales (5%)", value: "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-        { name: "Total (80%)", value: "$" + currencyFormatter.format(impuestos.total80(imp), { locale: 'es-ES', code: ' ' }) }
-      )
-
+    defaultEmbed(embed3, 80)
+    embed3.setDescription("Cuando el monto supera los 300 dólares, se agrega 5% de Cuenta de Bienes Personales")
+    llenarEmbed(embed3,3)
+  
     const row = new MessageActionRow()
       .addComponents(
         new MessageButton()
@@ -78,9 +74,6 @@ module.exports = {
     client.on('interactionCreate', interaction => {
       if (!interaction.isButton()) return;
     });
-
-
-
 
     const filter = i => i.user.id === interaction.user.id;
 

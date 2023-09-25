@@ -16,39 +16,33 @@ module.exports = {
   async run(client, interaction, options) {
     let imp = interaction.options.getNumber('monto')
 
-    function defaultEmbed(embed: Discord.MessageEmbed, porcentaje: number): void {
+    function llenarEmbed(embed, porcentaje) {
+      let arrayEmbed = [
+        { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
+        porcentaje == 74 ? { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
+        { name: `P.A.I.S ${porcentaje == 74 ? "(8%)" : "(30%)"}`, value: "$" + currencyFormatter.format((porcentaje == 74 ? impuestos.pais8(imp) : impuestos.pais30(imp)), { locale: 'es-ES', code: ' ' }), inline: true },
+        { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+        porcentaje === 80 ?   { name: "Cuenta de Bienes Personales (5%)", value: "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
+        { name: `Total ${porcentaje === 74 ? "(74%)" : ""} ${porcentaje === 2 ? "(75%)" : ""} ${porcentaje === 80 ? "(80%)" : ""}`, value: "$" + currencyFormatter.format((porcentaje == 74 && impuestos.total74(imp)) || (porcentaje == 75 && impuestos.total75(imp)) || (porcentaje == 80 && impuestos.total80(imp)), { locale: 'es-ES', code: ' ' }) }
+      ]
+      arrayEmbed = arrayEmbed.filter(Boolean);
       embed.setTitle(`Impuestos a la compra al exterior (${porcentaje}%)`)
         .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
         .setColor("#d6f2fc")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
-    }
-
-    function llenarEmbed(embed, variante) {
-      let arrayEmbed = [
-        { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
-        variante == 1 ? { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
-        { name: `P.A.I.S ${variante == 1 ? "(8%)" : "(30%)"}`, value: "$" + currencyFormatter.format((variante == 1 ? impuestos.pais8(imp) : impuestos.pais30(imp)), { locale: 'es-ES', code: ' ' }), inline: true },
-        { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-        variante === 3 ?   { name: "Cuenta de Bienes Personales (5%)", value: "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
-        { name: `Total ${variante === 1 ? "(74%)" : ""} ${variante === 2 ? "(75%)" : ""} ${variante === 3 ? "(80%)" : ""}`, value: "$" + currencyFormatter.format((variante == 1 && impuestos.total74(imp)) || (variante == 2 && impuestos.total75(imp)) || (variante == 3 && impuestos.total80(imp)), { locale: 'es-ES', code: ' ' }) }
-      ]
-      arrayEmbed = arrayEmbed.filter(Boolean);
       embed.addFields(arrayEmbed);
     }
     //IVA + PAIS + GANANCIAS
     const embed1: Discord.MessageEmbed = new Discord.MessageEmbed()
-    defaultEmbed(embed1, 74)
-    llenarEmbed(embed1, 1)
+    llenarEmbed(embed1, 74)
     //PAIS + GANANCIAS
     const embed2: Discord.MessageEmbed = new Discord.MessageEmbed()
-    defaultEmbed(embed2, 75)
     embed2.setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
-    llenarEmbed(embed2, 2)
+    llenarEmbed(embed2, 75)
     //PAIS + GANANCIA + BIENES PERSONALES
     const embed3 = new Discord.MessageEmbed()
-    defaultEmbed(embed3, 80)
     embed3.setDescription("Cuando el monto supera los 300 dólares, se agrega 5% de Cuenta de Bienes Personales")
-    llenarEmbed(embed3,3)
+    llenarEmbed(embed3,80)
   
     const row = new MessageActionRow()
       .addComponents(
@@ -76,7 +70,6 @@ module.exports = {
     });
 
     const filter = i => i.user.id === interaction.user.id;
-
     const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 
     collector.on('collect', async i => {
@@ -85,7 +78,6 @@ module.exports = {
         await i.editReply({ embeds: [embed1], components: [row] });
       }
       if (i.customId === 'solidario') {
-
         await i.deferUpdate();
         await i.editReply({ embeds: [embed2], components: [row] });
       }
@@ -94,8 +86,5 @@ module.exports = {
         await i.editReply({ embeds: [embed3], components: [row] });
       }
     });
-
-
   }
-
 }

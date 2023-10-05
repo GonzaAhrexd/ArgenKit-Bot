@@ -191,7 +191,7 @@ module.exports = {
                             axios.get(cripto.apicoingecko)
                                 .then((CONVERTIRCOINGECKO) => {
                     
-                                    const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                         .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)
                                         .setColor(cripto.color)
                                         .setDescription(`Pesos argentinos expresado en ${cripto.nombre} a la cotización del mercado`)
@@ -208,7 +208,7 @@ module.exports = {
 
                         }
                         else {
-                            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                            const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                 .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)
                                 .setColor(cripto.color)
                                 .setDescription(`Pesos argentinos expresado en ${cripto.nombre} a la cotización del mercado`)

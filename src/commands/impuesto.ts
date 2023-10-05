@@ -1,8 +1,9 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
-import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 const impuestos = require("../functions/impuestos.ts")
 var currencyFormatter = require('currency-formatter') //Currency formatter
+import { ButtonStyle } from 'discord.js'
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('impuesto')
@@ -33,34 +34,34 @@ module.exports = {
       embed.addFields(arrayEmbed);
     }
     //IVA + PAIS + GANANCIAS
-    const embed1: Discord.MessageEmbed = new Discord.MessageEmbed()
+    const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
     llenarEmbed(embed1, 74)
     //PAIS + GANANCIAS
-    const embed2: Discord.MessageEmbed = new Discord.MessageEmbed()
+    const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
     embed2.setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
     llenarEmbed(embed2, 75)
     //PAIS + GANANCIA + BIENES PERSONALES
-    const embed3 = new Discord.MessageEmbed()
+    const embed3 = new Discord.EmbedBuilder()
     embed3.setDescription("Cuando el monto supera los 300 dólares, se agrega 5% de Cuenta de Bienes Personales")
     llenarEmbed(embed3,80)
   
-    const row = new MessageActionRow()
+    const row = new ActionRowBuilder()
       .addComponents(
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId('tarjeta')
           .setLabel("📄74%")
-          .setStyle("SUCCESS")
+          .setStyle(ButtonStyle.Success)
       ).addComponents(
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId('solidario')
           .setLabel("📄75%")
-          .setStyle("PRIMARY")
+          .setStyle(ButtonStyle.Primary)
       )
       .addComponents(
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId('qatar')
           .setLabel("📄80%")
-          .setStyle("DANGER")
+          .setStyle(ButtonStyle.Danger)
       )
 
     await interaction.reply({ embeds: [embed1], components: [row] });

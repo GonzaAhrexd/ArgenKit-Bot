@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
-import { MessageButton } from 'discord.js'
+import { ButtonBuilder } from 'discord.js'
+import { ButtonStyle } from 'discord.js'
 import paginationEmbed from 'discordjs-button-pagination' //Botones
 module.exports = {
   data: new SlashCommandBuilder()
@@ -8,7 +9,7 @@ module.exports = {
     .setDescription("Muestra las novedades de la actualización"),
 
   async run(client, interaction) {
-    const embed15:Discord.MessageEmbed = new Discord.MessageEmbed()
+    const embed15:Discord.EmbedBuilder = new Discord.EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.5 ¡ACTUALIZACIÓN TÉCNICA!")
       .setColor('#0a9ee1')
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
@@ -24,7 +25,7 @@ module.exports = {
         { name: ":money_with_wings: Argentina y sus 50 tipos de dólar", value: "Ahora el comando /divisa dolar viene con el dólar MEP, CCL, Solidario, Tarjeta, Qatar y Blue integrados. Las demás divisas ahora integran el Blue, Solidario, Tarjeta y Qatar" }
     )
 
-    const embed14:Discord.MessageEmbed = new Discord.MessageEmbed()
+    const embed14:Discord.EmbedBuilder = new Discord.EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.4 ¡SLASH COMMANDS UPDATE!")
       .setColor('#0a9ee1')
       .setDescription("  Fecha de lanzamiento: 16/4/2022 \n Debido al anuncio de Discord de volver los Message Content algo privilegiado para bots verificados, esta actualización es obligatoria para poder seguir usando el bot.")
@@ -36,7 +37,7 @@ module.exports = {
         { name:" :chart_with_downwards_trend:  Anualizar Inflación", value:"Nuevo comando para calcular la inflación anualizada a partir de la mensual"}
     )
 
-    const embed13:Discord.MessageEmbed = new Discord.MessageEmbed()
+    const embed13:Discord.EmbedBuilder = new Discord.EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.3 ¡LA ACTUALIZACIÓN DE ANIVERSARIO!")
       .setColor('#0a9ee1')
       .setDescription("  Fecha de lanzamiento: 1/2/2022 \n ¡Ha pasado un año desde la primera versión estable del bot (1.0), la cual fue en un principio cerrada solo a un grupo de amigos!  \n Hoy, estoy feliz de anunciar la actualización de aniversario, la versión 1.3! Que trae sobre todo un gran cambio en el diseño. Estas son las novedades: ")
@@ -55,7 +56,7 @@ module.exports = {
         { name: ":video_game: Juegos ", value: "Se ha agregado un piedra papel o tijera y un tateti con botones de discord, pruébalo con `*ar tateti @usuario` o `*ar piedrapapelotijera @usuario`" },
         { name: ":alarm_clock: Husos horarios", value:"Se ha agregado un comando para consultar distintos husos horarios, prueba `*ar husos` (Eliminado en la versión  1.4 para una futura mejora)" }
     );
-    const embed12:Discord.MessageEmbed = new Discord.MessageEmbed()
+    const embed12:Discord.EmbedBuilder = new Discord.EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.2 ¡LA ACTUALIZACIÓN DE LAS DIVISAS!")
       .setColor('#0a9ee1')
       .setDescription("  Fecha de lanzamiento: 26/6/2021 \n ¡Ya pasaron  más de 3 meses desde que el bot fue lanzado al público y alcanzó más de 150 servidores de Discord! Hoy, estoy feliz de anunciar la primera actualización grande del bot, la versión 1.2, la actualización de las divisas!  Estos son los cambios introducidos en la versión: ")
@@ -74,15 +75,15 @@ module.exports = {
         { name: ":eyes: Entre otras cosas ", value: "Se mejoró el código y se hicieron otros cambios menores" }
     )
 
-    const button1 = new MessageButton()
+    const button1 = new ButtonBuilder()
       .setCustomId("previousbtn")
       .setLabel("Más reciente")
-      .setStyle("SUCCESS");
+      .setStyle(ButtonStyle.Success);
 
-    const button2 = new MessageButton()
+    const button2 = new ButtonBuilder()
       .setCustomId("nextbtn")
       .setLabel("Anterior")
-      .setStyle("DANGER");
+      .setStyle(ButtonStyle.Danger);
 
     const pages = [
       embed15,

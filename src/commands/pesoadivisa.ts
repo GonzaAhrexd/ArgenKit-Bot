@@ -174,9 +174,9 @@ module.exports = {
            axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
             .then( (blue) => {
 
-              const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+              const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Dólar estadounidense")
-                .setColor("GREEN")
+                .setColor("Green")
                 .setDescription("Pesos Argentinos expresados en Dólares Estadounidenses ")
                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
                 .addFields(
@@ -222,7 +222,7 @@ module.exports = {
            axios.get('https://api.bluelytics.com.ar/v2/latest')
             .then( (blue) => {
 
-              const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+              const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Euro")
                 .setColor("#0153b4")
                 .setDescription("Pesos argentinos expresados en Euro")
@@ -272,7 +272,7 @@ module.exports = {
           await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
             .then(async (blue) => {
 
-              const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+              const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Real Brasileño")
                 .setColor("#6da545")
                 .setDescription("Pesos argentinos expresados en Reales Brasileños")
@@ -348,7 +348,7 @@ module.exports = {
       nombre: "Rublo",
       iso: "RUB",
       bandera: "<:rublo:913901788531417229>",
-      color: "RED",
+      color: "Red",
       img: "https://cdn.discordapp.com/attachments/802944543510495292/928344880995008602/rubloapeso.png",
       simbolo: "₽"
     },
@@ -402,7 +402,7 @@ module.exports = {
       nombre: "Peso uruguayo",
       iso: "UYU",
       bandera: ":flag_uy:",
-      color: "BLUE",
+      color: "Blue",
       img: "https://cdn.discordapp.com/attachments/802944543510495292/928350035744288878/uyuapeso.png",
       simbolo: "$",
     },
@@ -450,7 +450,7 @@ module.exports = {
       nombre: "Bolívar",
       iso: "VES",
       bandera: ":flag_ve:",
-      color: "RED",
+      color: "Red",
       img: "https://cdn.discordapp.com/attachments/802944543510495292/928354779887960105/bolivarapeso.png",
       simbolo: "Bs S",
 
@@ -514,7 +514,7 @@ module.exports = {
               .then(async (oficial) => {
                 axios.get('https://api.bluelytics.com.ar/v2/latest')
                   .then(async (blue) => {
-                    const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                       .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${divisa.nombre}`)
                       .setColor(divisa.color)
                       .setDescription(`Pesos argentinos expresados en ${divisa.nombre} `)

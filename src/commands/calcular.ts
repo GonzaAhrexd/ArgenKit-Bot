@@ -12,7 +12,7 @@ module.exports = {
     ),
     async run(client, interaction, options){
         let calcular:string = interaction.options.getString('operacion')
-        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Calcular operación")
         .setColor("#18f7ce")
         .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1071230926358581308/calculator.png')

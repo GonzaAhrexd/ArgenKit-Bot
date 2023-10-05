@@ -8,7 +8,7 @@ module.exports = {
 
     async run(client, interaction){
 
-        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("¡Invita al bot a tu servidor!")
         .setColor('#0a9ee1')
         .setURL("https://discord.com/api/oauth2/authorize?client_id=796173877981216799&permissions=414464867392&scope=bot%20applications.commands")

@@ -8,7 +8,7 @@ module.exports = {
 
     async run(client, interaction){
 
-        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("¡Apoya al bot votando en top.gg!")
         .setURL("https://top.gg/bot/796173877981216799")
         .setColor('#7289d9')

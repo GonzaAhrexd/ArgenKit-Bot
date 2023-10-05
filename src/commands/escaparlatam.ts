@@ -11,8 +11,8 @@ module.exports = {
 
         let escaparLatam = porcentaje()
 
-        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
-            .setColor("GREEN")
+        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+            .setColor("Green")
             .setDescription("Calculando...")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300000636958/escaparlatam.png")
             .addFields({ name: "Tus probabilidades de escapar de latinoamérica son de: ", value: `${escaparLatam[0]} ${escaparLatam[1]}%`})

@@ -44,7 +44,7 @@ module.exports = {
         let destino = await interaction.options.getString('destino')
         let textoTraducido = await translate(texto, { from: origen, to: destino });
 
-        const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
+        const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle("Traducción")
             .setColor("#ff9e53")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1041196755670274058/translate.png")

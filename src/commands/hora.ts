@@ -1,5 +1,5 @@
 import Discord from "discord.js"
-import { MessageActionRow, MessageButton } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js'
 // import { SlashCommandBuilder } from '@discordjs/builders'
 import { SlashCommandBuilder } from '@discordjs/builders'
 
@@ -37,7 +37,7 @@ module.exports = {
     }> = [{
         codigo: "usa",
         nombre: "Estados Unidos de América",
-        color: "RED",
+        color: "Red",
         zonas: [
             {nombre: "Nueva York", codigo: "America/New_York"},
             {nombre: "Chicago", codigo: "America/Chicago"},
@@ -49,7 +49,7 @@ module.exports = {
     {
         codigo: "canada",
         nombre: "Canadá",
-        color: "RED",
+        color: "Red",
         zonas: [
             {nombre: "Newfoundland", codigo: "America/St_Johns"},          
             {nombre: "Toronto", codigo: "America/Toronto"},
@@ -63,7 +63,7 @@ module.exports = {
     {
         codigo: "mexico",
         nombre: "México",
-        color: "GREEN",
+        color: "Green",
         zonas: [
             {nombre: "Ciudad de México", codigo: "America/Mexico_City"},          
             {nombre: "Monterrey", codigo: "America/Monterrey"},
@@ -75,7 +75,7 @@ module.exports = {
     {
         codigo: "brasil",
         nombre: "Brasil",
-        color: "YELLOW",
+        color: "Yellow",
         zonas: [
             {nombre: "Brasilia", codigo: "America/Sao_Paulo"},          
             {nombre: "São Paulo", codigo: "America/Sao_Paulo"},
@@ -88,7 +88,7 @@ module.exports = {
     {
         codigo: "europa",
         nombre: "Europa",
-        color: "BLUE",
+        color: "Blue",
         zonas: [
             {nombre: ":flag_gb: Reino Unido", codigo: "Europe/London"},          
             {nombre: ":flag_de: Alemania", codigo: "Europe/Berlin"},
@@ -101,7 +101,7 @@ module.exports = {
     {
         codigo: "asia",
         nombre: "Asia",
-        color: "YELLOW",
+        color: "Yellow",
         zonas: [
             {nombre: "🇰🇷 Corea del Sur", codigo: "Asia/Seoul"},
             {nombre: "🇯🇵 Japón", codigo: "Asia/Tokyo"},          
@@ -116,7 +116,7 @@ module.exports = {
     {
         codigo: "rusia",
         nombre: "Rusia",
-        color: "RED",
+        color: "Red",
         zonas: [
         {nombre: "Moscú", codigo: "Europe/Moscow"},
         {nombre: "Kamchatka Krai", codigo: "Asia/Kamchatka"},
@@ -133,7 +133,7 @@ module.exports = {
         {
         codigo: "centroamerica",
         nombre: "Centroamérica y el Caribe",
-        color: "BLUE",
+        color: "Blue",
         zonas: [
             {nombre: "🇩🇴 República Dominicana", codigo: "America/Santo_Domingo"},
             {nombre: "🇵🇦 Panamá", codigo: "America/Panama"},
@@ -147,7 +147,7 @@ module.exports = {
     {
         codigo: "sudamerica",
         nombre: "Sudamérica",
-        color: "GREEN",
+        color: "Green",
         zonas: [
             {nombre: "🇦🇷 Argentina", codigo: "America/Buenos_Aires"},
             {nombre: "🇺🇾 Uruguay", codigo: "America/Montevideo"},
@@ -172,7 +172,7 @@ module.exports = {
                     zonasEmbedField.push({name: zonita.nombre, value: new Date().toLocaleTimeString("es-AR", {timeZone: zonita.codigo, hour: '2-digit', minute: '2-digit'}), inline: true})
                 })
           
-            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+            const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle(`Zonas horarias de ${lugar.nombre}`)
             .setDescription(`${lugar.nombre} tiene distintas zonas horarias`)
             .setColor(lugar.color)

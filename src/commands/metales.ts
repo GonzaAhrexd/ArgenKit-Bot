@@ -1,8 +1,9 @@
 
 import { SlashCommandBuilder } from "@discordjs/builders"
-import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 import Discord from "discord.js"
 import axios from "axios"
+import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
@@ -108,7 +109,7 @@ module.exports = {
                             .then((oficial) => {
                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
                                     .then((blue) => {
-                                        const embed1: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(`${Metal.nombre} ${Metal.emoji}`)
                                             .setColor(Metal.color)
                                             .setDescription(Metal.desc)
@@ -128,7 +129,7 @@ module.exports = {
                                                 { name: "COMPRA", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
                                                 { name: "VENTA", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true })
 
-                                        const embed2: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle("Oro")
                                             .setColor("#fddc4d")
                                             .setDescription(Metal.desc)
@@ -140,18 +141,18 @@ module.exports = {
                                                 { name: "Masa atómica", value: Metal.masaatomica, inline: true }
                                               )
                                               
-                                        const row = new MessageActionRow()
+                                        const row = new ActionRowBuilder()
                                             .addComponents(
-                                                new MessageButton()
+                                                new ButtonBuilder()
                                                     .setCustomId("conversion")
                                                     .setLabel("💸 Conversión ")
-                                                    .setStyle("SUCCESS")
+                                                    .setStyle(ButtonStyle.Success)
                                             )
                                             .addComponents(
-                                                new MessageButton()
+                                                new ButtonBuilder()
                                                     .setCustomId("informacion")
                                                     .setLabel("📋 Información")
-                                                    .setStyle("PRIMARY")
+                                                    .setStyle(ButtonStyle.Primary)
                                             )
                                         interaction.deferReply();
                                         setTimeout(() => {
@@ -185,7 +186,7 @@ module.exports = {
                                     })
                                     .catch((err) => { // Catch del axios precio en dólares
                                         console.error('Error en la API de dolar blue', err)
-                                        const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(`Ha ocurrido un error`)
                                             .setColor(Metal.color)
                                             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
@@ -194,7 +195,7 @@ module.exports = {
                                     })
                                     .catch((err) => { // Catch del axios dólar oficial
                                         console.error('Error en la API de dolar oficial', err)
-                                        const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(`Ha ocurrido un error`)
                                             .setColor(Metal.color)
                                             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
@@ -204,7 +205,7 @@ module.exports = {
 
                                     .catch((err) => { // Catch del axios dólar blue
                                         console.error('Error en el API de Metales', err)
-                                        const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(`Ha ocurrido un error`)
                                             .setColor(Metal.color)
                                             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")

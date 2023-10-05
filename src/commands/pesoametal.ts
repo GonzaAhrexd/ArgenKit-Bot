@@ -113,7 +113,7 @@ module.exports = {
                
                                     .then((blue) => {
 
-                                        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(` Peso Argentino <:rightarrow:921907270747570247> ${Metal.nombre}`)
                                             .setColor(Metal.color)
                                             .setDescription(`Pesos Argentinos expresado en ${Metal.nombre} `)
@@ -149,7 +149,7 @@ module.exports = {
 
                     }).catch((err) => {
                         console.error('Error en el API de Metales', err)
-                        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`Ha ocurrido un error`)
                         .setColor(Metal.color)
                         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")

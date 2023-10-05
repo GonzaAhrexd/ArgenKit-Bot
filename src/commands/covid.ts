@@ -2,7 +2,9 @@ import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
 import axios from "axios"
 import translate from "translate"//Translate
-import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
+import { ButtonStyle } from 'discord.js'
+
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 module.exports = {
     data: new SlashCommandBuilder()
@@ -40,7 +42,7 @@ module.exports = {
 
                 .then((covidArg) => {
 
-                    const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
+                    const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(":flag_ar: Casos totales de Covid-19 en Argentina :flag_ar:")
                         .setColor("#dd5460")
                         .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
@@ -54,7 +56,7 @@ module.exports = {
                         )                    
                     
     
-                    const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
+                    const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(":flag_ar: Casos de Covid-19 del día de hoy en Argentina :flag_ar:")
                         .setColor("#dd5460")
                         .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
@@ -66,17 +68,17 @@ module.exports = {
                         )
 
 
-                    const row = new MessageActionRow()
+                    const row = new ActionRowBuilder()
                         .addComponents(
-                            new MessageButton()
+                            new ButtonBuilder()
                                 .setCustomId("previousbtn")
                                 .setLabel("😷 Total")
-                                .setStyle("DANGER")
+                                .setStyle(ButtonStyle.Danger)
                         ).addComponents(
-                            new MessageButton()
+                            new ButtonBuilder()
                                 .setCustomId("nextbtn")
                                 .setLabel("📅 Hoy")
-                                .setStyle("SUCCESS")
+                                .setStyle(ButtonStyle.Success)
                         )
 
 
@@ -118,7 +120,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'global') {
             axios.get('https://disease.sh/v3/covid-19/all')
                 .then((covidGlobal) => {
-                    const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(":earth_americas: Casos totales de Covid-19 en el mundo :earth_americas:")
                         .setColor("#dd5460")
                         .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
@@ -142,7 +144,7 @@ module.exports = {
 
         }
         if (interaction.options.getSubcommand() === 'recomendaciones') {
-            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+            const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setTitle(":mask: Recomendaciones ante el Covid-19 :mask: ")
                 .setColor("#366ef7")
                 .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2. \n Estas son algunas recomendaciones. ")
@@ -161,7 +163,7 @@ module.exports = {
 
         }
         if (interaction.options.getSubcommand() === 'sintomas') {
-            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+            const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setTitle(":sneezing_face: Síntomas del Covid-19 :mask: ")
                 .setColor("#dd5460")
                 .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.\n Estos son algunos de los síntomas de la enfermedad, si padece alguno de ellos y no está seguro si tiene el virus se recomienda hacerse un hisopado. ")
@@ -187,9 +189,9 @@ module.exports = {
 
             if (pais == null) {
 
-                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Países disponibles")
-                    .setColor("RED")
+                    .setColor("Red")
                     .setDescription("Utiliza `/covid covidpais [nombre del país]` para ver los datos de covid")
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903133714362531901/casosglobal.png")
                 return interaction.reply({ embeds: [embed] });
@@ -208,7 +210,7 @@ module.exports = {
 
                 const nombrePais = await translate(covidArg.data.country, { from: "en", to: "es" })
                
-                const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle(`:flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}: Casos totales de Covid-19 en ${nombrePais} :flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}:`)
                     .setColor("#dd5460")
                     .setDescription("El Covid19 es una enfermedad infecciosa causada por el virus SARS-CoV-2.")
@@ -220,7 +222,7 @@ module.exports = {
                         { name: 'Recuperados :green_square:', value: currencyFormatter.format(covidArg.data['recovered'], { locale: 'es-ES', code: ' ', precision: 0 }), inline: true },
                         { name: 'Activos :red_square:', value: currencyFormatter.format(covidArg.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), inline: true },
                     );
-                const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle(`:flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}: Casos totales de Covid-19 en ${nombrePais} :flag_${covidArg.data['countryInfo']['iso2'].toLowerCase()}:`)
                     .setThumbnail(covidArg.data['countryInfo']['flag'])
                     .setColor("#dd5460")
@@ -230,17 +232,17 @@ module.exports = {
                         { name: 'Muertes hoy :skull:', value: currencyFormatter.format(covidArg.data['todayDeaths'], { locale: 'es-ES', code: ' ', precision: 0 }), inline: true },
                         { name: 'Recuperados hoy :green_square:', value: currencyFormatter.format(covidArg.data['todayRecovered'], { locale: 'es-ES', code: ' ', precision: 0 }), inline: true },
                     );
-                const row = new MessageActionRow()
+                const row = new ActionRowBuilder()
                     .addComponents(
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setCustomId("previousbtn")
                             .setLabel("😷 Total")
-                            .setStyle("DANGER")
+                            .setStyle(ButtonStyle.Danger)
                     ).addComponents(
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setCustomId("nextbtn")
                             .setLabel("📅 Hoy")
-                            .setStyle("SUCCESS")
+                            .setStyle(ButtonStyle.Success)
                     )
 
 

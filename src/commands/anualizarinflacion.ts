@@ -12,7 +12,7 @@ module.exports = {
     ),
     async run(client, interaction, options){
       let anualizado: number = (((interaction.options.getNumber('mensual') / 100) + 1) ** 12 - 1) * 100;
-      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Inflación mensual anualizada")
           .setColor("#f82f40")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964701743504044072/loss.png")

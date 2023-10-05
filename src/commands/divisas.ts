@@ -741,11 +741,11 @@ module.exports = {
             if (interaction.options.getSubcommand() === divisa.id) {
                 try {
                     const [DIVISA, oficial, blue] = await Promise.all([
-                        axios.get('https://api.exchangerate.host/latest'),
-                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
+                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
+                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
                         axios.get('https://api.bluelytics.com.ar/v2/latest')
                     ]);
-                    let conversion: number = DIVISA.data['rates'][divisa.iso]
+                    let conversion: number = DIVISA.data['usd'][(divisa.iso).toLowerCase()]
                     let num: number = 1
                     let cantidad: string = " "
                     if (divisa.iso === 'COP' || divisa.iso === "PYG" || divisa.iso === "KRW") {

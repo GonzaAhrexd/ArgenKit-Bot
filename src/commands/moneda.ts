@@ -7,30 +7,16 @@ module.exports = {
         .setDescription('Tira una moneda'),
 
     async run(client, interaction) {
-        let a = Math.floor(Math.random() * 2 + 1)
-        switch (a) {
-          case 1:
-            const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
-              .setColor("#27C5F5")
+        let randomizar:number = Math.floor(Math.random() * 2 + 1)
+        
+            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+              .setColor(`${randomizar == 1 ? "#27C5F5" : "#FCFBFB" } `)
               .setDescription("Tirando...")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/805139900768190484/bancario_1.png")
-              .addFields({ name: "LA MONEDA QUEDÓ EN: ", value: `**SOL** :sun_with_face:`});
+              .setThumbnail(`${randomizar == 1 ? "https://cdn.discordapp.com/attachments/802944543510495292/805139900768190484/bancario_1.png" : "https://cdn.discordapp.com/attachments/802944543510495292/805139082417799168/BancarioEscudo.png"}`)
+              .addFields({ name: "LA MONEDA QUEDÓ EN: ", value: `${ randomizar === 1 ? "**SOL** :sun_with_face:" :"**ESCUDO** :shield:"}`});
               
-            return interaction.reply({ embeds: [embed1] });
+            return interaction.reply({ embeds: [embed] });
         
-          case 2:
-            const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
-              .setColor("#FCFBFB")
-              .setDescription("Tirando...")
-              .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/805139082417799168/BancarioEscudo.png")
-              .addFields({ name: "LA MONEDA QUEDÓ EN: ", value: `**ESCUDO** :shield:`});
-                  
-            return interaction.reply({ embeds: [embed2] });
-        
-          default:
-            // En caso de que 'a' no coincida con ningún caso
-            return interaction.reply("El valor de 'a' no es válido.");
-        }
         
     }
 }

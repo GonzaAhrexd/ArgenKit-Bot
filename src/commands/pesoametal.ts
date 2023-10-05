@@ -118,19 +118,23 @@ module.exports = {
                                             .setColor(Metal.color)
                                             .setDescription(`Pesos Argentinos expresado en ${Metal.nombre} `)
                                             .setThumbnail(Metal.imagen)
-                                            .addField(`Monto Original :flag_ar:`, `ARS$ ` + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }), false)
-                                            .addField(`Compra ${Metal.emoji} `, `${Metal.iso} ` + currencyFormatter.format(((convertir / conversion)) / oficial.data['compra'], { locale: 'es-ES', code: ' ', precision: 8 }), true)
-                                            .addField(`Venta ${Metal.emoji} `, `${Metal.iso} ` + currencyFormatter.format(((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), true)
-
-                                            .addField("IMPUESTOS <:taxes:1068370368819101746>", "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", false)
-                                            .addField("TARJETA (74%)  ", `${Metal.iso} ` + currencyFormatter.format(restar74((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), true)
-                                            .addField("SOLIDARIO (75%)  ",`${Metal.iso} ` + currencyFormatter.format(restar75((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), true)
-                                            .addField("TURISTA (80%)  ", `${Metal.iso} ` + currencyFormatter.format(restar100((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), true)
-
-                                            .addField("Dólar blue <:dollarblue:903149186436980767>", "Valor del mercado paralelo establecido por la oferta y la demanda", false)
-                                            .addField("Compra :flag_ar:", `${Metal.iso} ` + currencyFormatter.format((convertir / conversion) / blue.data['compra'], { locale: 'es-ES', code: ' ',  precision: 8 }), true)
-                                            .addField("Venta :flag_ar:", `${Metal.iso} ` + currencyFormatter.format((convertir / conversion) / blue.data['venta'], { locale: 'es-ES', code: ' ', precision: 8 }), true)
-
+                                            .addFields(
+                                                {name: `Monto Original :flag_ar:`, value: `ARS$ ` + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }), inline: false},
+                                                {name: `Compra ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir / conversion)) / oficial.data['compra'], { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
+                                                {name: `Venta ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
+                                              
+                                                //Impuestos
+                                                {name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", inline: false},
+                                                {name: "TARJETA (74%)  ", value: `${Metal.iso} ` + currencyFormatter.format(restar74((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline:true},
+                                                {name:"SOLIDARIO (75%)  ", value:`${Metal.iso} ` + currencyFormatter.format(restar75((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline:true},
+                                                {name:"TURISTA (80%)  ", value:`${Metal.iso} ` + currencyFormatter.format(restar100((convertir / conversion) / oficial.data['venta']), { locale:'es-ES', code:' ', precision:8}), inline:true},
+                                              
+                                                //Blue
+                                                {name:"Dólar blue <:dollarblue:903149186436980767>", value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},
+                                                {name:"Compra :flag_ar:", value:`${Metal.iso} ` + currencyFormatter.format((convertir / conversion) / blue.data['compra'],{locale:'es-ES',code:' ', precision:8}),inline:true},
+                                                {name:"Venta :flag_ar:", value:`${Metal.iso} ` + currencyFormatter.format((convertir / conversion) / blue.data['venta'],{locale:'es-ES',code:' ', precision:8}),inline:true}
+                                              )
+                                              
                                          interaction.deferReply();
                                         setTimeout(() => {
                                             interaction.editReply({ embeds: [embed] });

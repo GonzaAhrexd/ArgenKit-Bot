@@ -506,10 +506,9 @@ module.exports = {
     divisas.forEach(async divisa => {
       if (interaction.options.getSubcommand() === divisa.id) {
         let convertir: number = interaction.options.getNumber('ars')
-        axios.get('https://api.exchangerate.host/latest')
+        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json')
           .then((ACONVERTIR) => {
-
-            let aconvertir = ACONVERTIR.data['rates'][divisa.iso]
+            let aconvertir = ACONVERTIR.data['usd'][(divisa.iso).toLowerCase()]
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
               .then(async (oficial) => {
                 axios.get('https://api.bluelytics.com.ar/v2/latest')
@@ -535,8 +534,8 @@ module.exports = {
                       
                         //Blue
                         {name:`${divisa.nombre} <:dollarblue:903149186436980767>`, value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},
-                        {name:`Compra ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['blue_euro']['value_buy'],{locale:'es-ES',code:' '}),inline:true},
-                        {name:`Venta ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['blue_euro']['value_sell'],{locale:'es-ES',code:' '}),inline:true}
+                        {name:`Compra ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['blue']['value_buy'],{locale:'es-ES',code:' '}),inline:true},
+                        {name:`Venta ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['blue']['value_sell'],{locale:'es-ES',code:' '}),inline:true}
                       )
                       
                     await interaction.deferReply();

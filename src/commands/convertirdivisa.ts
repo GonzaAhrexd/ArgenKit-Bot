@@ -522,12 +522,12 @@ module.exports = {
                 let convertir = interaction.options.getNumber((divisa.iso).toLowerCase())
                 try {
                     const [DIVISA, oficial, blue] = await Promise.all([
-                        axios.get('https://api.exchangerate.host/latest'),
+                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                         axios.get('https://api.bluelytics.com.ar/v2/latest')
                     ]);
-                    let aconvertir = DIVISA.data['rates'][divisa.iso]
-
+                    let aconvertir = DIVISA.data['usd'][(divisa.iso).toLowerCase()]
+                    
                     const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`${divisa.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                         .setColor(divisa.color)
@@ -547,8 +547,8 @@ module.exports = {
                             { name: "Turista (80%) ", value: `ARS$ ${currencyFormatter.format(total80((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             //Blue
                             { name: `${divisa.nombre} Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['blue_euro']['value_buy']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['blue_euro']['value_sell']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['blue']['value_buy']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['blue']['value_sell']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         )
 
                     interaction.deferReply();

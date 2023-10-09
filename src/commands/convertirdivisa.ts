@@ -522,7 +522,7 @@ module.exports = {
                 let convertir = interaction.options.getNumber((divisa.iso).toLowerCase())
                 try {
                     const [DIVISA, oficial, blue] = await Promise.all([
-                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json')              
+                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),        
                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                         axios.get('https://api.bluelytics.com.ar/v2/latest')
                     ]);

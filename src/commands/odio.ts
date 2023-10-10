@@ -5,7 +5,7 @@ const { porcentaje } = require("../functions/funPorcentaje");
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('odio')
-    .setDescription('Calcula el impuesto a compras online del 74% o 75%')
+    .setDescription('Calcula tu nivel de odio')
     .addSubcommand(subcommand =>
               subcommand.setName('argentina')
               .setDescription('Muestra tu nivel de odio o bronca a Argentina') 

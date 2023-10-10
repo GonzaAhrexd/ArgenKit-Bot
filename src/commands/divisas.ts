@@ -90,7 +90,7 @@ module.exports = {
             try {
                 const [oficial, blue, mep, ccl] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
-                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa'),
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui'),
                 ]);
@@ -107,8 +107,8 @@ module.exports = {
                         { name: "IMPUESTOS (100%)", value: `ARS$ ${currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Blue
                         { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
-                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['blue']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['blue']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Financieros
                         { name: "Financieros <:finanzas:1068357650380755045>", value: "Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares." },
                         { name: "CCL", value: `ARS$ ${currencyFormatter.format(ccl.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },

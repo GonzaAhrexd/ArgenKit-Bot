@@ -171,7 +171,7 @@ module.exports = {
 
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
-          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
+          axios.get('https://api.bluelytics.com.ar/v2/latest')
             .then((blue) => {
 
               const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -192,8 +192,8 @@ module.exports = {
                 
                   //Blue
                   { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                  { name: "Compra :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir / blue.data['compra']), { locale: 'es-ES', code: ' ' }), inline: true },
-                  { name: "Venta :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir / blue.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true }
+                  { name: "Compra :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir /blue.data['blue']['value_buy']), { locale: 'es-ES', code: ' ' }), inline: true },
+                  { name: "Venta :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir / blue.data['blue']['value_sell']), { locale: 'es-ES', code: ' ' }), inline: true }
                 )
 
               interaction.deferReply();

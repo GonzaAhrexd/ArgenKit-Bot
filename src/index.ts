@@ -61,7 +61,7 @@ client.on("ready", async () => {
     status: "online",
     activities: [{
       name: 'Bot creado por GonzaAhre | Prueba /help o /update',
-      type: "PLAYING"
+      type: Discord.ActivityType.Custom
     }]
   })
 

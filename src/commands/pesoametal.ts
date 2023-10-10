@@ -113,7 +113,7 @@ module.exports = {
                
                                     .then((blue) => {
 
-                                        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(` Peso Argentino <:rightarrow:921907270747570247> ${Metal.nombre}`)
                                             .setColor(Metal.color)
                                             .setDescription(`Pesos Argentinos expresado en ${Metal.nombre} `)
@@ -124,10 +124,7 @@ module.exports = {
                                                 {name: `Venta ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
                                               
                                                 //Impuestos
-                                                {name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", inline: false},
-                                                {name: "TARJETA (74%)  ", value: `${Metal.iso} ` + currencyFormatter.format(restar74((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline:true},
-                                                {name:"SOLIDARIO (75%)  ", value:`${Metal.iso} ` + currencyFormatter.format(restar75((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline:true},
-                                                {name:"TURISTA (80%)  ", value:`${Metal.iso} ` + currencyFormatter.format(restar100((convertir / conversion) / oficial.data['venta']), { locale:'es-ES', code:' ', precision:8}), inline:true},
+                                                {name:"Impuestos (100%)  ", value:`${Metal.iso} ` + currencyFormatter.format(restar100((convertir / conversion) / oficial.data['venta']), { locale:'es-ES', code:' ', precision:8}), inline:true},
                                               
                                                 //Blue
                                                 {name:"Dólar blue <:dollarblue:903149186436980767>", value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},
@@ -149,7 +146,7 @@ module.exports = {
 
                     }).catch((err) => {
                         console.error('Error en el API de Metales', err)
-                        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`Ha ocurrido un error`)
                         .setColor(Metal.color)
                         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")

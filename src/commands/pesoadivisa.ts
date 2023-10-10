@@ -174,9 +174,9 @@ module.exports = {
           axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/blue')
             .then((blue) => {
 
-              const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+              const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Dólar estadounidense")
-                .setColor("GREEN")
+                .setColor("Green")
                 .setDescription("Pesos Argentinos expresados en Dólares Estadounidenses ")
                 .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
                 .addFields(
@@ -188,11 +188,11 @@ module.exports = {
                   { name: "Venta :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
 
                   //Impuestos
-                  { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", inline: false },
-                  { name: "TARJETA (74%)  ", value: "USD$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                  { name: "SOLIDARIO (75%)  ", value: "USD$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                  { name: "TURISTA (80%)  ", value: "USD$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-
+                  {name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", inline: false},
+                  {name: "TARJETA (74%)  ", value: "USD$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                  {name: "SOLIDARIO (75%)  ", value: "USD$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                  {name: "Impuestos (100%)  ", value: "USD$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                
                   //Blue
                   { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                   { name: "Compra :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir / blue.data['compra']), { locale: 'es-ES', code: ' ' }), inline: true },
@@ -222,7 +222,7 @@ module.exports = {
           axios.get('https://api.bluelytics.com.ar/v2/latest')
             .then((blue) => {
 
-              const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+              const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Euro")
                 .setColor("#0153b4")
                 .setDescription("Pesos argentinos expresados en Euro")
@@ -236,11 +236,11 @@ module.exports = {
                   { name: "Venta :euro:", value: 'EUR€ ' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
 
                   //Impuestos
-                  { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al euro oficial en los pagos con tarjeta o compra del banco  ", inline: false },
-                  { name: "TARJETA (74%)  ", value: "EUR€ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                  { name: "SOLIDARIO (75%)  ", value: "EUR€ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                  { name: "TURISTA (80%)  ", value: "EUR€ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-
+                  {name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al euro oficial en los pagos con tarjeta o compra del banco  ", inline: false},
+                  {name: "TARJETA (74%)  ", value: "EUR€ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                  {name: "SOLIDARIO (75%)  ", value: "EUR€ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                  {name: "Impuestos (100%)  ", value: "EUR€ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                
                   //Blue
                   { name: "Euro Blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                   { name: "Compra :euro:", value: 'EUR€ ' + currencyFormatter.format((convertir / blue.data['blue_euro']['value_buy']), { locale: 'es-ES', code: ' ' }), inline: true },
@@ -272,7 +272,7 @@ module.exports = {
           await axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
             .then(async (blue) => {
 
-              const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+              const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setTitle(" Peso Argentino  <:rightarrow:921907270747570247> Real Brasileño")
                 .setColor("#6da545")
                 .setDescription("Pesos argentinos expresados en Reales Brasileños")
@@ -285,11 +285,11 @@ module.exports = {
                   { name: "Venta :dollar:", value: 'BRL R$' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
 
                   //Impuestos
-                  { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al Real oficial en los pagos con tarjeta o compra del banco  ", inline: false },
-                  { name: "TARJETA (74%)  ", value: "BRL$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                  { name: "SOLIDARIO (75%)  ", value: "BRL$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                  { name: "TURISTA (80%)  ", value: "BRL$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-
+                  {name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al Real oficial en los pagos con tarjeta o compra del banco  ", inline: false},
+                  {name: "TARJETA (74%)  ", value: "BRL$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                  {name: "SOLIDARIO (75%)  ", value: "BRL$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                  {name: "Impuestos (100%)  ", value: "BRL$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline:true},
+                
                   //Blue
                   { name: "Real blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                   { name: "Compra :dollar:", value: 'BRL$ ' + currencyFormatter.format((convertir / blue.data['compra']), { locale: 'es-ES', code: ' ' }), inline: true },
@@ -348,7 +348,7 @@ module.exports = {
       nombre: "Rublo",
       iso: "RUB",
       bandera: "<:rublo:913901788531417229>",
-      color: "RED",
+      color: "Red",
       img: "https://cdn.discordapp.com/attachments/802944543510495292/928344880995008602/rubloapeso.png",
       simbolo: "₽"
     },
@@ -402,7 +402,7 @@ module.exports = {
       nombre: "Peso uruguayo",
       iso: "UYU",
       bandera: ":flag_uy:",
-      color: "BLUE",
+      color: "Blue",
       img: "https://cdn.discordapp.com/attachments/802944543510495292/928350035744288878/uyuapeso.png",
       simbolo: "$",
     },
@@ -450,7 +450,7 @@ module.exports = {
       nombre: "Bolívar",
       iso: "VES",
       bandera: ":flag_ve:",
-      color: "RED",
+      color: "Red",
       img: "https://cdn.discordapp.com/attachments/802944543510495292/928354779887960105/bolivarapeso.png",
       simbolo: "Bs S",
 
@@ -513,7 +513,7 @@ module.exports = {
               .then(async (oficial) => {
                 axios.get('https://api.bluelytics.com.ar/v2/latest')
                   .then(async (blue) => {
-                    const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                       .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${divisa.nombre}`)
                       .setColor(divisa.color)
                       .setDescription(`Pesos argentinos expresados en ${divisa.nombre} `)
@@ -527,15 +527,12 @@ module.exports = {
                         { name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) / oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
 
                         //Impuestos
-                        { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", inline: false },
-                        { name: "TARJETA (74%)  ", value: `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format(restar74((convertir * aconvertir) / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                        { name: "SOLIDARIO (75%)  ", value: `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format(restar75((convertir * aconvertir) / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                        { name: "TURISTA (80%)  ", value: `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format(restar100((convertir * aconvertir) / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-
+                        {name:"Impuestos (100%)  ", value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format(restar100((convertir*aconvertir)/oficial.data['venta']),{locale:'es-ES',code:' '}),inline:true},
+                      
                         //Blue
-                        { name: `${divisa.nombre} <:dollarblue:903149186436980767>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                        { name: `Compra ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) / blue.data['blue']['value_buy'], { locale: 'es-ES', code: ' ' }), inline: true },
-                        { name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) / blue.data['blue']['value_sell'], { locale: 'es-ES', code: ' ' }), inline: true }
+                        {name:`${divisa.nombre} <:dollarblue:903149186436980767>`, value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},
+                        {name:`Compra ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['blue']['value_buy'],{locale:'es-ES',code:' '}),inline:true},
+                        {name:`Venta ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['blue']['value_sell'],{locale:'es-ES',code:' '}),inline:true}
                       )
 
                     await interaction.deferReply();

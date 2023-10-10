@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
-import { MessageActionRow, MessageButton } from 'discord.js'
-
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js'
+import { ButtonStyle } from 'discord.js'
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('provinciainfo')
@@ -114,7 +114,7 @@ module.exports = {
       var provincia2 = provincia.toLowerCase()
     }
     if (provincia == null) {
-      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Provincias de Argentina")
         .setURL("https://es.wikipedia.org/wiki/Provincias_de_Argentina")
         .setDescription("En Argentina se denomina provincia a cada uno de los 23 estados federados denominados así en la Constitución de la Nación Argentina, que junto a la Ciudad Autónoma de Buenos Aires constituyen las divisiones territoriales de primer orden del país. Las provincias tienen autonomía plena, forman parte de la Nación y son jurídicamente preexistentes a ella, según los principios del federalismo establecidos en la Constitución Nacional. \n  \n Para información individual de cada provincia utilice el comando `*ar provincia [Nombre de la provincia]`")
@@ -132,7 +132,7 @@ module.exports = {
     provincias.forEach(province => {
       if (provincia2 == province.identificacion) {
         let isCaba:boolean = provincia2 == "caba"
-        const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
+        const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle(province.nombre)
           .setURL(province.url)
           .setDescription(province.descripcion)
@@ -150,25 +150,25 @@ module.exports = {
             { name: "Clima", value: province.clima, inline: true }
           )
           
-        const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
+        const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Ubicación de " + province.nombre)
           .setURL(province.ubicacion)
           .setDescription(province.ubicacionDesc)
           .setColor(province.color)
           .setImage(province.ubicacionImg)
 
-        const row = new MessageActionRow()
+        const row = new ActionRowBuilder()
           .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
               .setCustomId("informacion")
               .setLabel("❓ Información")
-              .setStyle("SUCCESS")
+              .setStyle(ButtonStyle.Success)
           )
           .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
               .setCustomId("ubicacion")
               .setLabel("🗺️ Ubicación")
-              .setStyle("PRIMARY")
+              .setStyle(ButtonStyle.Primary)
           )
 
         interaction.reply({ embeds: [embed1], components: [row]   });

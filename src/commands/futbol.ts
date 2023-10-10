@@ -7,7 +7,7 @@ module.exports = {
     .setDescription("Muestra cuántos días faltan para  los siguientes partidos de la selección"),
 
     async run(client, interaction){   
-      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Tiempo hasta los siguientes partidos de la selección Argentina")
           .setColor("#7eb2fa")
           .setDescription("Tiempo hasta los siguientes partidos de la selección Argentina")

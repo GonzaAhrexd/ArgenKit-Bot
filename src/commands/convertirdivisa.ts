@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
+const { total75, total99, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('convertirdivisa')
@@ -190,10 +190,10 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa'),
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui'),
                 ]);
-                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
 
                     .setTitle("Dólar estadounidense <:rightarrow:921907270747570247> Peso Argentino")
-                    .setColor("GREEN")
+                    .setColor("Green")
                     .setDescription("Dólares estadounidenses expresado en pesos argentinos")
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
                     .addFields(
@@ -204,10 +204,7 @@ module.exports = {
                         { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Impuestos
-                        { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
-                        { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Solidario (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Turista (80%) ", value: `ARS$ ${currencyFormatter.format(total80(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Impuestos (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Blue
                         { name: `Dólar blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                         { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -225,7 +222,7 @@ module.exports = {
             } catch (err) {
                 console.error('ERR', err);
 
-                const errorEmbed = new Discord.MessageEmbed()
+                const errorEmbed = new Discord.EmbedBuilder()
                     .setColor("#ff0000")
                     .setTitle("Error")
                     .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
@@ -243,7 +240,7 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                     axios.get('https://api.bluelytics.com.ar/v2/latest')
                 ]);
-                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
 
                     .setTitle("Euro <:rightarrow:921907270747570247> Peso Argentino")
                     .setColor("#0153b4")
@@ -257,10 +254,7 @@ module.exports = {
                         { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Impuestos
-                        { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
-                        { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Solidario (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Turista (80%) ", value: `ARS$ ${currencyFormatter.format(total80(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Impuestos (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Blue
                         { name: `Euro blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                         { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['blue_euro']['value_buy']), { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -275,7 +269,7 @@ module.exports = {
             } catch (error) {
                 console.error(error);
 
-                const errorEmbed = new Discord.MessageEmbed()
+                const errorEmbed = new Discord.EmbedBuilder()
                     .setColor("#ff0000")
                     .setTitle("Error")
                     .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
@@ -292,7 +286,7 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial'),
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
                 ]);
-                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Real <:rightarrow:921907270747570247> Peso Argentino")
                     .setColor("#6da545")
                     .setDescription("Real expresado en pesos argentinos")
@@ -304,11 +298,7 @@ module.exports = {
                         { name: "Real oficial :flag_br: ", value: `Valor del Real Brasileño que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar el equivalente a USD$200 al mes.` },
                         { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        //Impuestos
-                        { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
-                        { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Solidario (75%) ", value: `ARS$ ${currencyFormatter.format(total75(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Turista (80%) ", value: `ARS$ ${currencyFormatter.format(total80(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Impuestos (100%) ", value: `ARS$ ${currencyFormatter.format(total100(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Blue
                         { name: `Real blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                         { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -321,7 +311,7 @@ module.exports = {
 
             } catch (error) {
                 console.error(error);
-                const errorEmbed = new Discord.MessageEmbed()
+                const errorEmbed = new Discord.EmbedBuilder()
                     .setColor("#ff0000")
                     .setTitle("Error")
                     .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
@@ -363,7 +353,7 @@ module.exports = {
             nombre: "Rublo",
             iso: "RUB",
             bandera: "<:rublo:913901788531417229>",
-            color: "RED",
+            color: "Red",
             img: "https://cdn.discordapp.com/attachments/802944543510495292/928344880995008602/rubloapeso.png",
             simbolo: "₽"
         },
@@ -417,7 +407,7 @@ module.exports = {
             nombre: "Peso uruguayo",
             iso: "UYU",
             bandera: ":flag_uy:",
-            color: "BLUE",
+            color: "Blue",
             img: "https://cdn.discordapp.com/attachments/802944543510495292/928350035744288878/uyuapeso.png",
             simbolo: "$",
         },
@@ -465,7 +455,7 @@ module.exports = {
             nombre: "Bolívar",
             iso: "VES",
             bandera: ":flag_ve:",
-            color: "RED",
+            color: "Red",
             img: "https://cdn.discordapp.com/attachments/802944543510495292/928354779887960105/bolivarapeso.png",
             simbolo: "Bs S",
 
@@ -522,13 +512,13 @@ module.exports = {
                 let convertir = interaction.options.getNumber((divisa.iso).toLowerCase())
                 try {
                     const [DIVISA, oficial, blue] = await Promise.all([
-                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),        
+                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                         axios.get('https://api.bluelytics.com.ar/v2/latest')
                     ]);
-                    let aconvertir = DIVISA.data['usd'][divisa.iso]
-
-                    const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                    let aconvertir = DIVISA.data['usd'][(divisa.iso).toLowerCase()]
+                    
+                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`${divisa.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                         .setColor(divisa.color)
                         .setDescription(`${divisa.nombre} expresado en pesos argentinos`)
@@ -540,11 +530,7 @@ module.exports = {
                             { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos ` },
                             { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            //Impuestos
-                            { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
-                            { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "Solidario (75%) ", value: `ARS$ ${currencyFormatter.format(total75((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "Turista (80%) ", value: `ARS$ ${currencyFormatter.format(total80((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "Impuestos (100%) ", value: `ARS$ ${currencyFormatter.format(total100((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             //Blue
                             { name: `${divisa.nombre} Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                             { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['blue']['value_buy']), { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -557,7 +543,7 @@ module.exports = {
                     }, 4000)
                 } catch (error) {
                     console.error(error);
-                    const errorEmbed = new Discord.MessageEmbed()
+                    const errorEmbed = new Discord.EmbedBuilder()
                         .setColor("#ff0000")
                         .setTitle("Error")
                         .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");

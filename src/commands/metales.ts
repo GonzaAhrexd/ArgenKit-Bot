@@ -1,10 +1,11 @@
 
 import { SlashCommandBuilder } from "@discordjs/builders"
-import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 import Discord from "discord.js"
 import axios from "axios"
+import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
+const { total75, total99, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('metal')
@@ -108,7 +109,7 @@ module.exports = {
                             .then((oficial) => {
                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
                                     .then((blue) => {
-                                        const embed1: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(`${Metal.nombre} ${Metal.emoji}`)
                                             .setColor(Metal.color)
                                             .setDescription(Metal.desc)
@@ -119,16 +120,13 @@ module.exports = {
                                                 { name: 'Compra ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
                                                 { name: 'Venta ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
                                                 //Impuestos
-                                                { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Precio con los  distintos impuestos en transacciones en dólares  ", inline: false },
-                                                { name: "TARJETA (74%)", value: "ARS$ " + currencyFormatter.format(total74((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                                                { name: "SOLIDARIO (75%)", value: "ARS$ " + currencyFormatter.format(total75((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                                                { name: "TURISTA (80%)", value: "ARS$ " + currencyFormatter.format(total80((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                                                { name: "Impuestos (100%)", value: "ARS$ " + currencyFormatter.format(total100((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
                                                 //Blue
                                                 { name: Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                                                { name: "COMPRA", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
-                                                { name: "VENTA", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true })
+                                                { name: "Compra", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
+                                                { name: "Venta", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true })
 
-                                        const embed2: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle("Oro")
                                             .setColor("#fddc4d")
                                             .setDescription(Metal.desc)
@@ -140,18 +138,18 @@ module.exports = {
                                                 { name: "Masa atómica", value: Metal.masaatomica, inline: true }
                                               )
                                               
-                                        const row = new MessageActionRow()
+                                        const row = new ActionRowBuilder()
                                             .addComponents(
-                                                new MessageButton()
+                                                new ButtonBuilder()
                                                     .setCustomId("conversion")
                                                     .setLabel("💸 Conversión ")
-                                                    .setStyle("SUCCESS")
+                                                    .setStyle(ButtonStyle.Success)
                                             )
                                             .addComponents(
-                                                new MessageButton()
+                                                new ButtonBuilder()
                                                     .setCustomId("informacion")
                                                     .setLabel("📋 Información")
-                                                    .setStyle("PRIMARY")
+                                                    .setStyle(ButtonStyle.Primary)
                                             )
                                         interaction.deferReply();
                                         setTimeout(() => {
@@ -185,7 +183,7 @@ module.exports = {
                                     })
                                     .catch((err) => { // Catch del axios precio en dólares
                                         console.error('Error en la API de dolar blue', err)
-                                        const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(`Ha ocurrido un error`)
                                             .setColor(Metal.color)
                                             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
@@ -194,7 +192,7 @@ module.exports = {
                                     })
                                     .catch((err) => { // Catch del axios dólar oficial
                                         console.error('Error en la API de dolar oficial', err)
-                                        const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(`Ha ocurrido un error`)
                                             .setColor(Metal.color)
                                             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
@@ -204,7 +202,7 @@ module.exports = {
 
                                     .catch((err) => { // Catch del axios dólar blue
                                         console.error('Error en el API de Metales', err)
-                                        const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(`Ha ocurrido un error`)
                                             .setColor(Metal.color)
                                             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")

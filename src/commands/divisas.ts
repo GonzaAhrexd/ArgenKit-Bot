@@ -1,9 +1,10 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
-import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 import Discord from "discord.js"
 import axios from "axios"
+import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
+const { total75, total99, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('divisa')
@@ -94,7 +95,7 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui'),
                 ]);
 
-                const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Dólar estadounidese :flag_us:")
                     .setColor("#a9ea98")
                     .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
@@ -103,11 +104,7 @@ module.exports = {
                         { name: "Dólar oficial :bank:", value: "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes." },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        //Impuestos
-                        { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco" },
-                        { name: "TARJETA (74%)", value: `ARS$ ${currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "TURISTA (80%)", value: `ARS$ ${currencyFormatter.format(total80(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "IMPUESTOS (100%)", value: `ARS$ ${currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Blue
                         { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -117,7 +114,7 @@ module.exports = {
                         { name: "CCL", value: `ARS$ ${currencyFormatter.format(ccl.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "MEP", value: `ARS$ ${currencyFormatter.format(mep.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                     );
-                const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Dólar estadounidense")
                     .setColor("#a9ea98")
                     .setDescription("El dólar estadounidense es la moneda oficial de Estados Unidos y de otros países y dependencias. Tras la ruptura del patrón oro en el año 1971, la moneda se convirtió, de facto, en una moneda fiat.")
@@ -133,18 +130,18 @@ module.exports = {
                         { name: "Emisor :bank:", value: "Sistema de Reserva Federal", inline: true }
                     );
 
-                const row = new MessageActionRow()
+                const row = new ActionRowBuilder()
                     .addComponents(
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setCustomId("conversion")
                             .setLabel("💸 Conversión ")
-                            .setStyle("SUCCESS")
+                            .setStyle(ButtonStyle.Success)
                     )
                     .addComponents(
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setCustomId("informacion")
                             .setLabel("📋 Información")
-                            .setStyle("PRIMARY")
+                            .setStyle(ButtonStyle.Primary)
                     )
 
                 interaction.deferReply();
@@ -183,7 +180,7 @@ module.exports = {
             } catch (err) {
                 console.error('ERR', err);
 
-                const errorEmbed = new Discord.MessageEmbed()
+                const errorEmbed = new Discord.EmbedBuilder()
                     .setColor("#ff0000")
                     .setTitle("Error")
                     .setDescription("Ha ocurrido un error al obtener los datos del dólar. Por favor, inténtalo de nuevo más tarde.");
@@ -201,7 +198,7 @@ module.exports = {
                     axios.get('https://api.bluelytics.com.ar/v2/latest')
                 ]);
 
-                const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Euro :flag_eu:")
                     .setColor("#0153b4")
                     .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
@@ -210,16 +207,13 @@ module.exports = {
                         { name: "Euro oficial :bank:", value: "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos, además, sólo se puede retirar el equivalente a USD$200 al mes." },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco" },
-                        { name: "TARJETA (74%)", value: `ARS$ ${currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "TURISTA (80%)", value: `ARS$ ${currencyFormatter.format(total80(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "IMPUESTOS (100%)", value: `ARS$ ${currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Euro blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                     );
 
-                const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Euro")
                     .setColor("#0153b4")
                     .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
@@ -235,18 +229,18 @@ module.exports = {
                         { name: "Emisor :bank:", value: "Banco Central Europeo", inline: true }
                     );
 
-                const row = new Discord.MessageActionRow()
+                const row = new Discord.ActionRowBuilder()
                     .addComponents(
-                        new Discord.MessageButton()
+                        new Discord.ButtonBuilder()
                             .setCustomId("conversion")
                             .setLabel("💸 Conversión ")
-                            .setStyle("SUCCESS")
+                            .setStyle(ButtonStyle.Success)
                     )
                     .addComponents(
-                        new Discord.MessageButton()
+                        new Discord.ButtonBuilder()
                             .setCustomId("informacion")
                             .setLabel("📋 Información")
-                            .setStyle("PRIMARY")
+                            .setStyle(ButtonStyle.Primary)
                     );
 
                 interaction.deferReply();
@@ -285,7 +279,7 @@ module.exports = {
             } catch (error) {
                 console.error(error);
 
-                const errorEmbed = new Discord.MessageEmbed()
+                const errorEmbed = new Discord.EmbedBuilder()
                     .setColor("#ff0000")
                     .setTitle("Error")
                     .setDescription("Ha ocurrido un error al obtener los datos del euro. Por favor, inténtalo de nuevo más tarde.");
@@ -303,7 +297,7 @@ module.exports = {
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
                 ]);
 
-                const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Real Brasileño  :flag_br:")
                     .setColor("#e8ce6c")
                     .setDescription("El real es la moneda de curso legal en Brasil y fuera de sus fronteras se le conoce como real brasileño. A partir de 2020, es la vigésima moneda más negociada en el mundo, la segunda en América Latina detrás de peso mexicano y la cuarta en el continente americano detrás del dólar estadounidense, el dólar canadiense y el peso mexicano")
@@ -313,16 +307,13 @@ module.exports = {
                         { name: "Real oficial :bank:", value: "Valor del real que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, además, sólo se puede retirar el equivalente a USD$200 al mes.", inline: false },
                         { name: "COMPRA", value: "ARS$ " + currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
                         { name: "VENTA", value: "ARS$ " + currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
-                        { name: "Impuestos <:taxes:1068370368819101746>", value: "Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco", inline: false },
-                        { name: "TARJETA (74%)", value: "ARS$ " + currencyFormatter.format(total74(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                        { name: "SOLIDARIO (75%)", value: "ARS$ " + currencyFormatter.format(total75(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                        { name: "TURISTA (80%)", value: "ARS$ " + currencyFormatter.format(total80(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                        { name: "IMPUESTOS (100%)", value: "ARS$ " + currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
                         { name: "Real blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                         { name: "COMPRA", value: "ARS$ " + currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
                         { name: "VENTA", value: "ARS$ " + currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true }
                     )
 
-                const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Real Brasileño")
                     .setColor("#e8ce6c")
                     .setDescription("El real es la moneda de curso legal en Brasil y fuera de sus fronteras se le conoce como real brasileño. A partir de 2020, es la vigésima moneda más negociada en el mundo, la segunda en América Latina detrás de peso mexicano y la cuarta en el continente americano detrás del dólar estadounidense, el dólar canadiense y el peso mexicano")
@@ -341,18 +332,18 @@ module.exports = {
 
 
 
-                const row = new MessageActionRow()
+                const row = new ActionRowBuilder()
                     .addComponents(
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setCustomId("conversion")
                             .setLabel("💸 Conversión ")
-                            .setStyle("SUCCESS")
+                            .setStyle(ButtonStyle.Success)
                     )
                     .addComponents(
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setCustomId("informacion")
                             .setLabel("📋 Información")
-                            .setStyle("PRIMARY")
+                            .setStyle(ButtonStyle.Primary)
                     )
 
                 interaction.deferReply();
@@ -393,7 +384,7 @@ module.exports = {
             } catch (error) {
                 console.error(error);
 
-                const errorEmbed = new Discord.MessageEmbed()
+                const errorEmbed = new Discord.EmbedBuilder()
                     .setColor("#ff0000")
                     .setTitle("Error")
                     .setDescription("Ha ocurrido un error al obtener los datos del real. Por favor, inténtalo de nuevo más tarde.");
@@ -639,7 +630,7 @@ module.exports = {
         {
             id: "bolivar",
             nombre: "Bolivar Digital Venezolano",
-            iso: "VES",
+            iso: "VED",
             bandera: ":flag_ve:",
             desc: "El Bolivar Digital es la moneda de curso legal de la República Bolivariana de Venezuela. Esta moneda reemplazó al Bolívar Soberano (Bs. S) que circuló desde  agosto de 2018 y octubre de 2021. El valor de la nueva moneda se obtendrá quitando seis ceros a la antigua.",
             color: "#000000",
@@ -752,25 +743,23 @@ module.exports = {
                         num = 1000
                         cantidad = "(1000 Unidades)"
                     }
-                    const embed1:Discord.MessageEmbed = new Discord.MessageEmbed()
+                    const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`${divisa.nombre} ${divisa.bandera}  ${cantidad} `)
                         .setColor(divisa.color)
                         .setDescription(divisa.desc)
                         .setThumbnail(divisa.img)
                         .addFields(
+                            { name: `DÓLAR <:rightarrow:921907270747570247> ${(divisa.nombre).toUpperCase()}`, value: ` Dólar estadounidense expresado en ${divisa.nombre} \n ${divisa.simbolo + divisa.iso} ${currencyFormatter.format((( conversion)), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: `${divisa.nombre} oficial :bank:`, value: `Valor de ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos`, inline: false },
                             { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "VENTA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "Impuestos aplicados al valor oficial en los pagos con tarjeta o compra del banco", inline: false },
-                            { name: "TARJETA (74%)", value: `ARS$ ${currencyFormatter.format(total74((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "SOLIDARIO (75%)", value: `ARS$ ${currencyFormatter.format(total75((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "TURISTA (80%)", value: `ARS$ ${currencyFormatter.format(total80((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "IMPUESTOS (100%)", value: `ARS$ ${currencyFormatter.format(total100((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: `${divisa.nombre} blue <:dollarblue:903149186436980767>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                         )
                         
-                    const embed2:Discord.MessageEmbed = new Discord.MessageEmbed()
+                    const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(divisa.nombre)
                         .setColor(divisa.color)
                         .setDescription(divisa.desc)
@@ -787,18 +776,18 @@ module.exports = {
                         )
                         
 
-                    const row = new MessageActionRow()
+                    const row = new ActionRowBuilder()
                         .addComponents(
-                            new MessageButton()
+                            new ButtonBuilder()
                                 .setCustomId("conversion")
                                 .setLabel("💸 Conversión ")
-                                .setStyle("SUCCESS")
+                                .setStyle(ButtonStyle.Success)
                         )
                         .addComponents(
-                            new MessageButton()
+                            new ButtonBuilder()
                                 .setCustomId("informacion")
                                 .setLabel("📋 Información")
-                                .setStyle("PRIMARY")
+                                .setStyle(ButtonStyle.Primary)
                         )
 
 

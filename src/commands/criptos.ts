@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
 import axios from "axios"
-import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
+import { ButtonStyle } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 module.exports = {
     data: new SlashCommandBuilder()
@@ -201,7 +202,7 @@ module.exports = {
 
                         axios.get(cripto.apilemon)
                             .then((LEMON) => {
-                                const embed1 = new Discord.MessageEmbed()
+                                const embed1 = new Discord.EmbedBuilder()
                                 embed1.setTitle(cripto.nombre)
                                 .setColor(cripto.color)
                                 .setDescription(cripto.desc)
@@ -224,7 +225,7 @@ module.exports = {
                                             { name: `Venta ${cripto.emoji}`, value: `ARS$ ${currencyFormatter.format(LEMON.data['ask'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                                           )  }
 
-                                const embed2 = new Discord.MessageEmbed()
+                                const embed2 = new Discord.EmbedBuilder()
                                     .setTitle(cripto.nombre)
                                     .setColor(cripto.color)
                                     .setDescription(cripto.desc)
@@ -237,18 +238,18 @@ module.exports = {
                                         { name: "Límite de Emisión  ", value: cripto.limitedeemision }
                                       )
 
-                                const row = new MessageActionRow()
+                                const row = new ActionRowBuilder()
                                     .addComponents(
-                                        new MessageButton()
+                                        new ButtonBuilder()
                                             .setCustomId("conversion")
                                             .setLabel("💸 Conversión ")
-                                            .setStyle("SUCCESS")
+                                            .setStyle(ButtonStyle.Success)
                                     )
                                     .addComponents(
-                                        new MessageButton()
+                                        new ButtonBuilder()
                                             .setCustomId("informacion")
                                             .setLabel("📋 Información")
-                                            .setStyle("PRIMARY")
+                                            .setStyle(ButtonStyle.Primary)
                                     )
 
                                 interaction.deferReply();

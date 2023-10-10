@@ -21,11 +21,12 @@ app.listen(port, () => {
 });
 
 //Intents requeridos
-const { Client, Intents, MessageEmbed, reactions, Collection } = require('discord.js');
+const { Client, Intents, EmbedBuilder, reactions, Collection } = require('discord.js');
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS,
-  Intents.FLAGS.GUILD_MESSAGES,
-  ],
+  intents: [
+    Discord.GatewayIntentBits.Guilds,
+    Discord.GatewayIntentBits.GuildMessages,
+      ],
 });
 //Estado del bot
 // client.setMaxListeners(50);

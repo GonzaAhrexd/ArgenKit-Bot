@@ -21,7 +21,7 @@ module.exports = {
         ]
         Dado.forEach(Dado => {
             if (a == Dado.number) {
-                const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setColor("#ffe082")
                 .setThumbnail(Dado.img)
                 .setDescription("Tirando dados...")

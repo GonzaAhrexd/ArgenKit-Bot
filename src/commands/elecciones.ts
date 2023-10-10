@@ -1,14 +1,15 @@
 import {SlashCommandBuilder} from "@discordjs/builders"
 import Discord from "discord.js"
 const {diasHasta} = require('../functions/diasHasta')
-import { MessageActionRow, MessageButton } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js'
+import { ButtonStyle } from 'discord.js'
 module.exports = {
     data: new SlashCommandBuilder()
     .setName("elecciones")
     .setDescription("Muestra cuántos días faltan para las siguientes elecciones en Argentina"),
 
     async run(client, interaction){
-      const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Tiempo hasta las siguientes elecciones y cambios de gobierno")
         .setColor("#0ECFE1")
         .setDescription("Además de presidente y vice, en las elecciones generales de octubre también se elegirán diputados y senadores nacionales ")
@@ -17,7 +18,7 @@ module.exports = {
           { name: "Elecciones presidenciales 2023 (22/10/2023)" ,value:  "Faltan " + diasHasta(new Date("2023-10-22")) + " días para las siguientes elecciones ejecutivas "},
           { name: "Segunda vuelta presidencial 2023 (19/11/2023)" ,value:  "Faltan " + diasHasta(new Date("2023-11-19")) + " días para la segunda vuelta de las elecciones ejecutivas "},
           { name: "Cambio presidencial 2023 (10/12/2023)", value: "Faltan " + diasHasta(new Date("2023-12-10")) + " días para el siguiente cambio presidencial "})
-      const embed2:Discord.MessageEmbed =  new Discord.MessageEmbed()
+      const embed2:Discord.EmbedBuilder =  new Discord.EmbedBuilder()
        .setTitle("Candidatos presidenciales")
        .setColor("#0ECFE1")
        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/825432782360150047/votar_1.png")
@@ -29,18 +30,18 @@ module.exports = {
         { name: "🔴 Frente de Izquierda y de Trabajadores - Unidad", value: "Myriam Bregman/Nicolás del Caño" },
       )
 
-        const row = new MessageActionRow()
+        const row = new ActionRowBuilder()
         .addComponents(
-          new MessageButton()
+          new ButtonBuilder()
             .setCustomId("elecciones")
             .setLabel("ELECCIONES")
-            .setStyle("SUCCESS")
+            .setStyle(ButtonStyle.Success)
         )
         .addComponents(
-          new MessageButton()
+          new ButtonBuilder()
             .setCustomId("candidatos")
             .setLabel("CANDIDATOS")
-            .setStyle("PRIMARY")
+            .setStyle(ButtonStyle.Primary)
         )
 
       interaction.reply({ embeds: [embed], components: [row]   });

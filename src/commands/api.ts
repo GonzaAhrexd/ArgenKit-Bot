@@ -5,7 +5,7 @@ module.exports = {
     .setName("api")
     .setDescription("Muestra las apis utilizadas por el bot"),
     async run(client, interaction){
-        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Apis utilizadas para la creación del bot")
         .setColor('#dfe5e8')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919016293481472021/navegador.png")

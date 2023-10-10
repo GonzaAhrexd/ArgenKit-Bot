@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
+const { total75, total99, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('convertirmetal')
@@ -113,7 +113,7 @@ module.exports = {
                
                                     .then( (blue) => {
 
-                                        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                                        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(`${Metal.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                                             .setColor(Metal.color)
                                             .setDescription(`${Metal.nombre}  expresado en pesos argentinos `)
@@ -125,10 +125,7 @@ module.exports = {
                                             { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir * conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                                             { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir * conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                                             //Impuestos
-                                            { name: `Impuestos <:taxes:1068370368819101746>  `, value: `Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco` },
-                                            { name: "Tarjeta (74%) ", value: `ARS$ ${currencyFormatter.format(total74((convertir * conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: "Solidario (75%) ", value: `ARS$ ${currencyFormatter.format(total75((convertir * conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: "TURISTA (80%) ", value: `ARS$ ${currencyFormatter.format(total80((convertir * conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                                            { name: "Impuestos (100%) ", value: `ARS$ ${currencyFormatter.format(total100((convertir * conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                                             //Blue
                                             { name: `${Metal.nombre} a precio del Dólar Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                                             { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir * conversion)) * blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -148,7 +145,7 @@ module.exports = {
 
                     }).catch((err) => {
                         console.error('Error en el API de Metales', err)
-                        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`Ha ocurrido un error`)
                         .setColor(Metal.color)
                         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")

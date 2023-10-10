@@ -1,8 +1,9 @@
 import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
-import { MessageActionRow, MessageButton, MessageSelectMenu } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 const impuestos = require("../functions/impuestos.ts")
 var currencyFormatter = require('currency-formatter') //Currency formatter
+import { ButtonStyle } from 'discord.js'
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('impuesto')
@@ -19,11 +20,11 @@ module.exports = {
     function llenarEmbed(embed, porcentaje) {
       let arrayEmbed = [
         { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
-        porcentaje == 74 ? { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
-        { name: `P.A.I.S ${porcentaje == 74 ? "(8%)" : "(30%)"}`, value: "$" + currencyFormatter.format((porcentaje == 74 ? impuestos.pais8(imp) : impuestos.pais30(imp)), { locale: 'es-ES', code: ' ' }), inline: true },
+        porcentaje == 99 ? { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
+        { name: `P.A.I.S ${porcentaje == 99 ? "(8%)" : "(30%)"}`, value: "$" + currencyFormatter.format((porcentaje == 99 ? impuestos.pais8(imp) : impuestos.pais30(imp)), { locale: 'es-ES', code: ' ' }), inline: true },
         { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-        porcentaje === 80 ?   { name: "Cuenta de Bienes Personales (5%)", value: "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
-        { name: `Total ${porcentaje === 74 ? "(74%)" : ""} ${porcentaje === 2 ? "(75%)" : ""} ${porcentaje === 80 ? "(80%)" : ""}`, value: "$" + currencyFormatter.format((porcentaje == 74 && impuestos.total74(imp)) || (porcentaje == 75 && impuestos.total75(imp)) || (porcentaje == 80 && impuestos.total80(imp)), { locale: 'es-ES', code: ' ' }) }
+        porcentaje === 100 ?   { name: "Cuenta de Bienes Personales (25%)", value: "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
+        { name: `Total ${porcentaje === 99 ? "(99%)" : ""} ${porcentaje === 100 ? "(100%)" : ""} `, value: "$" + currencyFormatter.format((porcentaje == 99 && impuestos.total99(imp)) || (porcentaje == 100 && impuestos.total100(imp)), { locale: 'es-ES', code: ' ' }) }
       ]
       arrayEmbed = arrayEmbed.filter(Boolean);
       embed.setTitle(`Impuestos a la compra al exterior (${porcentaje}%)`)
@@ -32,36 +33,28 @@ module.exports = {
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
       embed.addFields(arrayEmbed);
     }
-    //IVA + PAIS + GANANCIAS
-    const embed1: Discord.MessageEmbed = new Discord.MessageEmbed()
-    llenarEmbed(embed1, 74)
-    //PAIS + GANANCIAS
-    const embed2: Discord.MessageEmbed = new Discord.MessageEmbed()
+    //IVA + PAIS + GANANCIAS + BIENES PERSONALES
+    const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    llenarEmbed(embed1, 99)
+    ////PAIS + GANANCIA + BIENES PERSONALES
+    const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
     embed2.setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
-    llenarEmbed(embed2, 75)
+    llenarEmbed(embed2, 100)
     //PAIS + GANANCIA + BIENES PERSONALES
-    const embed3 = new Discord.MessageEmbed()
-    embed3.setDescription("Cuando el monto supera los 300 dólares, se agrega 5% de Cuenta de Bienes Personales")
-    llenarEmbed(embed3,80)
-  
-    const row = new MessageActionRow()
+    
+    const row = new ActionRowBuilder()
       .addComponents(
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId('tarjeta')
-          .setLabel("📄74%")
-          .setStyle("SUCCESS")
+          .setLabel("📄99%")
+          .setStyle(ButtonStyle.Success)
       ).addComponents(
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId('solidario')
-          .setLabel("📄75%")
-          .setStyle("PRIMARY")
+          .setLabel("📄100%")
+          .setStyle(ButtonStyle.Primary)
       )
-      .addComponents(
-        new MessageButton()
-          .setCustomId('qatar')
-          .setLabel("📄80%")
-          .setStyle("DANGER")
-      )
+    
 
     await interaction.reply({ embeds: [embed1], components: [row] });
 
@@ -81,10 +74,7 @@ module.exports = {
         await i.deferUpdate();
         await i.editReply({ embeds: [embed2], components: [row] });
       }
-      if (i.customId === 'qatar') {
-        await i.deferUpdate()
-        await i.editReply({ embeds: [embed3], components: [row] });
-      }
+ 
     });
   }
 }

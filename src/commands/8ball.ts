@@ -21,28 +21,28 @@ module.exports = {
         color: Discord.ColorResolvable,
     }> = [
         //Afirmativas ✅
-        {opcion: 0, respuesta: "Ma' vale", color: "GREEN"},
-        {opcion: 1, respuesta: "Métele sí", color: "GREEN"},
-        {opcion: 2, respuesta: "Obvioo ", color: "GREEN"},
-        {opcion: 3, respuesta: "Y sí", color: "GREEN"},
-        {opcion: 4, respuesta: "Re sí amigo", color: "GREEN"},
+        {opcion: 0, respuesta: "Ma' vale", color: "Green"},
+        {opcion: 1, respuesta: "Métele sí", color: "Green"},
+        {opcion: 2, respuesta: "Obvioo ", color: "Green"},
+        {opcion: 3, respuesta: "Y sí", color: "Green"},
+        {opcion: 4, respuesta: "Re sí amigo", color: "Green"},
         //Negativas ❌
-        {opcion: 5, respuesta: "Ni empedo", color: "RED"},
-        {opcion: 6, respuesta: "Para nada", color: "RED"},
-        {opcion: 7, respuesta: "Ni loco", color: "RED"},
-        {opcion: 8, respuesta: "Ni ahí", color: "RED"},
-        {opcion: 9, respuesta: "Naa", color: "RED"},
+        {opcion: 5, respuesta: "Ni empedo", color: "Red"},
+        {opcion: 6, respuesta: "Para nada", color: "Red"},
+        {opcion: 7, respuesta: "Ni loco", color: "Red"},
+        {opcion: 8, respuesta: "Ni ahí", color: "Red"},
+        {opcion: 9, respuesta: "Naa", color: "Red"},
         //Neutras ⚠
-        {opcion: 10, respuesta: "Puede ser...", color: "RED"},
-        {opcion: 11, respuesta: "El tiempo lo dirá", color: "RED"},
-        {opcion: 12, respuesta: "Ya veremos dijo el ciego", color: "RED"},
-        {opcion: 13, respuesta: "Quizás", color: "RED"},
-        {opcion: 14, respuesta: "Ni idea amigo", color: "RED"},
+        {opcion: 10, respuesta: "Puede ser...", color: "Red"},
+        {opcion: 11, respuesta: "El tiempo lo dirá", color: "Red"},
+        {opcion: 12, respuesta: "Ya veremos dijo el ciego", color: "Red"},
+        {opcion: 13, respuesta: "Quizás", color: "Red"},
+        {opcion: 14, respuesta: "Ni idea amigo", color: "Red"},
     ]
 
     Respuesta.forEach(Respuesta => {
         if (valorAleatorio == Respuesta.opcion) {
-        const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setColor(Respuesta.color)
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921903283667353610/8ballnew.png")
         .setDescription("Calculando...")

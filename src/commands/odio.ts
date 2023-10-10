@@ -20,8 +20,8 @@ module.exports = {
             
             let odioArg = porcentaje()
      
-            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
-              .setColor("RED")
+            const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+              .setColor("Red")
               .setDescription("Calculando...")
               .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300290027550/odioarg.png")
               .addFields({ name: "Tu odio hacía Argentina es del: ", value: `${odioArg[0]} ${odioArg[1]}%`})
@@ -34,8 +34,8 @@ module.exports = {
           if (interaction.options.getSubcommand() === 'latinoamerica') {
 
             let odioLatam = porcentaje()
-            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
-              .setColor("RED")
+            const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+              .setColor("Red")
               .setDescription("Calculando...")
               .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300512329768/odiolatam.png")
               .addFields({ name: "Tu odio hacía Latinoamérica es del: ", value: `${odioLatam[0]} ${odioLatam[1]}%`})

@@ -2,7 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders"
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = ('currency-formatter'); //Currency formatter
-const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
+const { total75, total99, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('pesoacripto')
@@ -191,7 +191,7 @@ module.exports = {
                             axios.get(cripto.apicoingecko)
                                 .then((CONVERTIRCOINGECKO) => {
                     
-                                    const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                         .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)
                                         .setColor(cripto.color)
                                         .setDescription(`Pesos argentinos expresado en ${cripto.nombre} a la cotización del mercado`)
@@ -208,7 +208,7 @@ module.exports = {
 
                         }
                         else {
-                            const embed:Discord.MessageEmbed = new Discord.MessageEmbed()
+                            const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                 .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)
                                 .setColor(cripto.color)
                                 .setDescription(`Pesos argentinos expresado en ${cripto.nombre} a la cotización del mercado`)

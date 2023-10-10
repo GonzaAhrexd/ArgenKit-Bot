@@ -5,7 +5,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total74, total80 } = require("../functions/impuestos"); //Impuestos
+const { total75, total99, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('metal')
@@ -120,14 +120,11 @@ module.exports = {
                                                 { name: 'Compra ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
                                                 { name: 'Venta ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
                                                 //Impuestos
-                                                { name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Precio con los  distintos impuestos en transacciones en dólares  ", inline: false },
-                                                { name: "TARJETA (74%)", value: "ARS$ " + currencyFormatter.format(total74((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                                                { name: "SOLIDARIO (75%)", value: "ARS$ " + currencyFormatter.format(total75((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                                                { name: "TURISTA (80%)", value: "ARS$ " + currencyFormatter.format(total80((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                                                { name: "Impuestos (100%)", value: "ARS$ " + currencyFormatter.format(total100((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
                                                 //Blue
                                                 { name: Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                                                { name: "COMPRA", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
-                                                { name: "VENTA", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true })
+                                                { name: "Compra", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
+                                                { name: "Venta", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true })
 
                                         const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle("Oro")

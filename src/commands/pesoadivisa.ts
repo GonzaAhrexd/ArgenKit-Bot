@@ -191,7 +191,7 @@ module.exports = {
                   {name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", inline: false},
                   {name: "TARJETA (74%)  ", value: "USD$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
                   {name: "SOLIDARIO (75%)  ", value: "USD$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
-                  {name: "TURISTA (80%)  ", value: "USD$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                  {name: "Impuestos (100%)  ", value: "USD$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
                 
                   //Blue
                   {name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false},
@@ -239,7 +239,7 @@ module.exports = {
                   {name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al euro oficial en los pagos con tarjeta o compra del banco  ", inline: false},
                   {name: "TARJETA (74%)  ", value: "EUR€ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
                   {name: "SOLIDARIO (75%)  ", value: "EUR€ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
-                  {name: "TURISTA (80%)  ", value: "EUR€ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                  {name: "Impuestos (100%)  ", value: "EUR€ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
                 
                   //Blue
                   {name: "Euro Blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},
@@ -288,7 +288,7 @@ module.exports = {
                   {name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al Real oficial en los pagos con tarjeta o compra del banco  ", inline: false},
                   {name: "TARJETA (74%)  ", value: "BRL$ " + currencyFormatter.format(restar74(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
                   {name: "SOLIDARIO (75%)  ", value: "BRL$ " + currencyFormatter.format(restar75(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
-                  {name: "TURISTA (80%)  ", value: "BRL$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline:true},
+                  {name: "Impuestos (100%)  ", value: "BRL$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline:true},
                 
                   //Blue
                   {name:"Real blue <:dollarblue:903149186436980767>", value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},
@@ -527,10 +527,7 @@ module.exports = {
                         {name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) / oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true},
                       
                         //Impuestos
-                        {name: "IMPUESTOS <:taxes:1068370368819101746>", value: "\n Impuestos aplicados al dólar oficial en los pagos con tarjeta o compra del banco  ", inline: false},
-                        {name: "TARJETA (74%)  ", value: `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format(restar74((convertir * aconvertir) / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline:true},
-                        {name:"SOLIDARIO (75%)  ", value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format(restar75((convertir*aconvertir)/oficial.data['venta']),{locale:'es-ES',code:' '}),inline:true},
-                        {name:"TURISTA (80%)  ", value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format(restar100((convertir*aconvertir)/oficial.data['venta']),{locale:'es-ES',code:' '}),inline:true},
+                        {name:"Impuestos (100%)  ", value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format(restar100((convertir*aconvertir)/oficial.data['venta']),{locale:'es-ES',code:' '}),inline:true},
                       
                         //Blue
                         {name:`${divisa.nombre} <:dollarblue:903149186436980767>`, value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},

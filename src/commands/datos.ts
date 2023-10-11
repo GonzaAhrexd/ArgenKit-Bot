@@ -1,9 +1,9 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import  Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter') //Currency formatter
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName('datos')
         .setDescription('Muestra distintos datos de Argentina')
         .addSubcommand(subcommand =>

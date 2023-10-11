@@ -1,10 +1,10 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import { ButtonBuilder } from 'discord.js'
 import { ButtonStyle } from 'discord.js'
 import paginationEmbed from 'discordjs-button-pagination' //Botones
 module.exports = {
-  data: new SlashCommandBuilder()
+  data: new Discord.SlashCommandBuilder()
     .setName("update")
     .setDescription("Muestra las novedades de la actualización"),
 

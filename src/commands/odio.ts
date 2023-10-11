@@ -1,9 +1,9 @@
-import {SlashCommandBuilder} from "@discordjs/builders"
+
 import Discord from "discord.js"
 const { porcentaje } = require("../functions/funPorcentaje");
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
     .setName('odio')
     .setDescription('Calcula tu nivel de odio')
     .addSubcommand(subcommand =>

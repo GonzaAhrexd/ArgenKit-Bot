@@ -1,10 +1,10 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 import { ComponentType } from 'discord.js'
 
 module.exports = {
-  data: new SlashCommandBuilder()
+  data: new Discord.SlashCommandBuilder()
     .setName("help")
     .setDescription("Muestra los comandos disponibles"),
 

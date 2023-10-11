@@ -1,9 +1,9 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName('convertircripto')
         .setDescription('Convierte de Criptomonedas a Pesos Argentinos')
         .addSubcommand(subcommand =>

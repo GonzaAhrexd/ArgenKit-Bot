@@ -1,10 +1,10 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { restar74, restar75, restar100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
-  data: new SlashCommandBuilder()
+  data: new Discord.SlashCommandBuilder()
     .setName('pesoa')
     .setDescription('Convierte de pesos a otras divisas')
     .addSubcommand(subcommand =>

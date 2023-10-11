@@ -1,9 +1,9 @@
-import {SlashCommandBuilder} from "@discordjs/builders"
+
 import { EmbedBuilder } from "discord.js"
 import Discord from "discord.js"
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
     .setName("creador")
     .setDescription("Muestra información del creador del bot."),
 

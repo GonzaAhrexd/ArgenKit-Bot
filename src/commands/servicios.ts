@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import axios from "axios"
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
@@ -6,7 +6,7 @@ import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter') //Currency formatter
 const { total100, total99 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
-  data: new SlashCommandBuilder()
+  data: new Discord.SlashCommandBuilder()
     .setName('servicio')
     .setDescription('Mostrar el precio de un servicio de Streaming')
     .addSubcommand(subcommand =>

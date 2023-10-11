@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import axios from "axios"
 import translate from "translate"//Translate
@@ -7,7 +7,7 @@ import { ButtonStyle } from 'discord.js'
 
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName('covid')
         .setDescription('Muestra comandos relacionados a la infección SARS-CoV-2')
         .addSubcommand(subcommand =>

@@ -1,11 +1,11 @@
 import Discord from "discord.js"
 import { ActionRowBuilder, ButtonBuilder } from 'discord.js'
-// import { SlashCommandBuilder } from '@discordjs/builders'
-import { SlashCommandBuilder } from '@discordjs/builders'
+// 
+
 
 
 module.exports = {
-  data: new SlashCommandBuilder()
+  data: new Discord.SlashCommandBuilder()
     .setName('hora')
     .setDescription('Muestra la hora actual de distintos paises')
     .addStringOption(option =>

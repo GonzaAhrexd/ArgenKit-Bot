@@ -1,9 +1,9 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import translate from "translate" //Translate
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName('traducir')
         .setDescription('Traduce rápidamente de un idioma a otro')
         .addStringOption(option =>

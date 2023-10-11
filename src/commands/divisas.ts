@@ -1,5 +1,4 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
-import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
+import { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
@@ -147,7 +146,7 @@ module.exports = {
                 interaction.deferReply();
                 setTimeout(() => {
                     interaction.editReply({ embeds: [embed1], components: [row] });
-                }, 3000);
+                }, 5000);
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;

@@ -1,8 +1,8 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName('8ball')
         .setDescription('Pregúntale a la bola mágica 8')
         .addStringOption(option =>

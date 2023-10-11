@@ -1,10 +1,10 @@
-import {SlashCommandBuilder} from "@discordjs/builders"
+
 import Discord from "discord.js"
 const {diasHasta} = require('../functions/diasHasta')
 import { ActionRowBuilder, ButtonBuilder } from 'discord.js'
 import { ButtonStyle } from 'discord.js'
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
     .setName("elecciones")
     .setDescription("Muestra cuántos días faltan para las siguientes elecciones en Argentina"),
 

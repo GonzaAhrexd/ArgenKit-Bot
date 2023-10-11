@@ -1,8 +1,8 @@
-import {SlashCommandBuilder} from "@discordjs/builders"
+
 import Discord from "discord.js"
 const {diasHasta} = require('../functions/diasHasta')
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
     .setName("futbol")
     .setDescription("Muestra cuántos días faltan para  los siguientes partidos de la selección"),
 

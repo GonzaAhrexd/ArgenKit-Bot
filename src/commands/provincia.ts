@@ -1,9 +1,9 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import { ActionRowBuilder, ButtonBuilder } from 'discord.js'
 import { ButtonStyle } from 'discord.js'
 module.exports = {
-  data: new SlashCommandBuilder()
+  data: new Discord.SlashCommandBuilder()
     .setName('provinciainfo')
     .setDescription('Muestra información sobre las 23 provincias de Argentina y la Ciudad Autonoma de Buenos Aires')
     .addStringOption(option =>

@@ -1,11 +1,11 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 const impuestos = require("../functions/impuestos.ts")
 var currencyFormatter = require('currency-formatter') //Currency formatter
 import { ButtonStyle } from 'discord.js'
 module.exports = {
-  data: new SlashCommandBuilder()
+  data: new Discord.SlashCommandBuilder()
     .setName('impuesto')
     .setDescription('Calcula el impuesto a compras extranjeras con tarjeta')
     .addNumberOption(option =>

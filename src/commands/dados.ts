@@ -1,8 +1,8 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName("dados")
         .setDescription('Tira un dado'),
         async run(client, interaction) {

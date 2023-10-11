@@ -1,11 +1,11 @@
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName('criptomoneda')
         .setDescription('Muestra los datos de una criptomoneda y su cotización')
         .addSubcommand(subcommand =>

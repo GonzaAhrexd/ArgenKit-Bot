@@ -1,5 +1,5 @@
 
-import { SlashCommandBuilder } from "@discordjs/builders"
+
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 import Discord from "discord.js"
 import axios from "axios"
@@ -7,7 +7,7 @@ import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total75, total99, total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
-    data: new SlashCommandBuilder()
+    data: new Discord.SlashCommandBuilder()
         .setName('metal')
         .setDescription('Muestra los datos los datos de un metal')
         .addSubcommand(subcommand =>

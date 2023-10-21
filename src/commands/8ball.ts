@@ -33,11 +33,11 @@ module.exports = {
         {opcion: 8, respuesta: "Ni ahí", color: "Red"},
         {opcion: 9, respuesta: "Naa", color: "Red"},
         //Neutras ⚠
-        {opcion: 10, respuesta: "Puede ser...", color: "Red"},
-        {opcion: 11, respuesta: "El tiempo lo dirá", color: "Red"},
-        {opcion: 12, respuesta: "Ya veremos dijo el ciego", color: "Red"},
-        {opcion: 13, respuesta: "Quizás", color: "Red"},
-        {opcion: 14, respuesta: "Ni idea amigo", color: "Red"},
+        {opcion: 10, respuesta: "Puede ser...", color: "Yellow"},
+        {opcion: 11, respuesta: "El tiempo lo dirá", color: "Yellow"},
+        {opcion: 12, respuesta: "Ya veremos dijo el ciego", color: "Yellow"},
+        {opcion: 13, respuesta: "Quizás", color: "Yellow"},
+        {opcion: 14, respuesta: "Ni idea amigo", color: "Yellow"},
     ]
 
     Respuesta.forEach(Respuesta => {

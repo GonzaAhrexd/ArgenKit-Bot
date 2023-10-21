@@ -61,32 +61,249 @@ module.exports = {
       ubicacionImg: string,
     }> = [
         //CABA
-        { identificacion: "caba", nombre: "Ciudad Autonoma de Buenos Aires (CABA)", color: "#FCFCFC", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Bandera_de_la_Ciudad_de_Buenos_Aires.svg/662px-Bandera_de_la_Ciudad_de_Buenos_Aires.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tucum%C3%A1n", descripcion: "Buenos Aires es la gran capital cosmopolita de Argentina. Su centro es la Plaza de Mayo, rodeada de imponentes edificios del siglo XIX, incluida la Casa Rosada, el icónico palacio presidencial que tiene varios balcones. Entre otras atracciones importantes, se incluyen el Teatro Colón, un lujoso teatro de ópera de 1908 con cerca de 2,500 asientos, y el moderno museo MALBA, que exhibe arte latinoamericano.  \n  La Ciudad de Buenos Aires fue cedida en 1880 por la Provincia de Buenos Aires para que fuera la capital federal del país. En virtud de la reforma constitucional de 1994 goza de un régimen de autonomía.", gobernador: "Horacio Rodríguez Larreta", capital: "Gran Buenos Aires", poblada: "15 comunas\n48 barrios", fundacion: "2 de febrero de 1536 (por Pedro de Mendoza)\n11 de junio de 1580 (por Juan de Garay)", autonomia: "Desde la Reforma Constitucional de 1994", superficie: "203 km²", poblacion: "3.075.646 hab.", gentillicio: "Porteño/a", clima: "Subtropical húmedo", ubicacion: "https://www.google.com.ar/maps/place/Buenos+Aires,+CABA/data=!4m2!3m1!1s0x95bcca3b4ef90cbd:0xa0b3812e88e88e87?sa=X&ved=2ahUKEwjsvqSxgpDxAhVPlJUCHdk6AQIQ8gEwJnoECGgQAQ", ubicacionDesc: "Su tejido urbano se asemeja a un abanico que limita al sur, oeste y norte con la lindante Provincia de Buenos Aires y al este con el Río de la Plata. Oficialmente la ciudad se encuentra dividida en 15 comunas que agrupan a 48 barrios.", ubicacionImg: "https://maps.wikimedia.org/img/osm-intl,10,-34.599722222222,-58.381944444444,300x300.png?lang=es&domain=es.wikipedia.org&title=Buenos+Aires&groups=_1f2405ce1888c1041823dcda962c8595b0609749" },
+        {
+          identificacion: "caba",
+          nombre: "Ciudad Autonoma de Buenos Aires (CABA)",
+          color: "#FCFCFC",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Bandera_de_la_Ciudad_de_Buenos_Aires.svg/662px-Bandera_de_la_Ciudad_de_Buenos_Aires.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tucum%C3%A1n",
+          descripcion: "Buenos Aires es la gran capital cosmopolita de Argentina. Su centro es la Plaza de Mayo, rodeada de imponentes edificios del siglo XIX, incluida la Casa Rosada, el icónico palacio presidencial que tiene varios balcones. Entre otras atracciones importantes, se incluyen el Teatro Colón, un lujoso teatro de ópera de 1908 con cerca de 2,500 asientos, y el moderno museo MALBA, que exhibe arte latinoamericano.  \n  La Ciudad de Buenos Aires fue cedida en 1880 por la Provincia de Buenos Aires para que fuera la capital federal del país. En virtud de la reforma constitucional de 1994 goza de un régimen de autonomía.",
+          gobernador: "Horacio Rodríguez Larreta",
+          capital: "Gran Buenos Aires",
+          poblada: "15 comunas\n48 barrios",
+          fundacion: "2 de febrero de 1536 (por Pedro de Mendoza)\n11 de junio de 1580 (por Juan de Garay)",
+          autonomia: "Desde la Reforma Constitucional de 1994",
+          superficie: "203 km²",
+          poblacion: "3.075.646 hab.",
+          gentillicio: "Porteño/a",
+          clima: "Subtropical húmedo",
+          ubicacion: "https://www.google.com.ar/maps/place/Buenos+Aires,+CABA/data=!4m2!3m1!1s0x95bcca3b4ef90cbd:0xa0b3812e88e88e87?sa=X&ved=2ahUKEwjsvqSxgpDxAhVPlJUCHdk6AQIQ8gEwJnoECGgQAQ",
+          ubicacionDesc: "Su tejido urbano se asemeja a un abanico que limita al sur, oeste y norte con la lindante Provincia de Buenos Aires y al este con el Río de la Plata. Oficialmente la ciudad se encuentra dividida en 15 comunas que agrupan a 48 barrios.",
+          ubicacionImg: "https://maps.wikimedia.org/img/osm-intl,10,-34.599722222222,-58.381944444444,300x300.png?lang=es&domain=es.wikipedia.org&title=Buenos+Aires&groups=_1f2405ce1888c1041823dcda962c8595b0609749"
+        },
         //Buenos Aires
-        { identificacion: "buenos aires", nombre: "Buenos Aires  (BA)", color: "#0b67ff", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Bandera_de_la_Provincia_de_Buenos_Aires.svg/1280px-Bandera_de_la_Provincia_de_Buenos_Aires.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Buenos_Aires", descripcion: "Buenos Aires es la provincia más grande y más poblada de Argentina. Su nombre proviene de la capital del país, la Ciudad  Autonoma de Buenos Aires,  que solía ser parte de la provincia hasta su federalización en 1880.", gobernador: "Alex Kicillof", capital: "La Plata", poblada: "La Matanza", fundacion: "2 de febrero de 1536 \n 11 de junio de 1580 (por Juan de Garay)", autonomia: "16 de febrero de 1820 ", superficie: "307.571 km²", poblacion: "18.004.120 hab.", gentillicio: "Bonaerense", clima: "Templado húmedo (clima pampeano)", ubicacion: "https://www.google.com.ar/maps/place/Provincia+de+Buenos+Aires/@-37.1243654,-62.2683371,7z/data=!3m1!4b1!4m5!3m4!1s0x95edbcb7595281d9:0x4ad309fcdcf0a144!8m2!3d-37.2017285!4d-59.8410697", ubicacionDesc: "El territorio está en la región este del país; limita al norte con las provincias de Santa Fe y Entre Ríos, al noreste con el Río de la Plata y la Ciudad Autónoma de Buenos Aires,9​ al este y sur con el mar Argentino del océano Atlántico, al suroeste con Río Negro, al oeste con la Provincia de La Pampa y al noroeste con la Provincia de Córdoba.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        {
+          identificacion: "buenos aires",
+          nombre: "Buenos Aires  (BA)",
+          color: "#0b67ff",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Bandera_de_la_Provincia_de_Buenos_Aires.svg/1280px-Bandera_de_la_Provincia_de_Buenos_Aires.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_de_Buenos_Aires",
+          descripcion: "Buenos Aires es la provincia más grande y más poblada de Argentina. Su nombre proviene de la capital del país, la Ciudad  Autonoma de Buenos Aires,  que solía ser parte de la provincia hasta su federalización en 1880.",
+          gobernador: "Alex Kicillof",
+          capital: "La Plata",
+          poblada: "La Matanza",
+          fundacion: "2 de febrero de 1536 \n 11 de junio de 1580 (por Juan de Garay)",
+          autonomia: "16 de febrero de 1820 ",
+          superficie: "307.571 km²",
+          poblacion: "18.004.120 hab.",
+          gentillicio: "Bonaerense",
+          clima: "Templado húmedo (clima pampeano)",
+          ubicacion: "https://www.google.com.ar/maps/place/Provincia+de+Buenos+Aires/@-37.1243654,-62.2683371,7z/data=!3m1!4b1!4m5!3m4!1s0x95edbcb7595281d9:0x4ad309fcdcf0a144!8m2!3d-37.2017285!4d-59.8410697",
+          ubicacionDesc: "El territorio está en la región este del país; limita al norte con las provincias de Santa Fe y Entre Ríos, al noreste con el Río de la Plata y la Ciudad Autónoma de Buenos Aires,9​ al este y sur con el mar Argentino del océano Atlántico, al suroeste con Río Negro, al oeste con la Provincia de La Pampa y al noroeste con la Provincia de Córdoba.",
+          ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Buenos_Aires_Province_in_Argentina_%28%2BFalkland_hatched%29.svg.png"
+        },
         //Catamarca
-        { identificacion: "catamarca", nombre: "Catamarca  (CA)", color: "#F00505", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Bandera_de_la_Provincia_de_Catamarca.svg/800px-Bandera_de_la_Provincia_de_Catamarca.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Catamarca", descripcion: "Catamarca es una de las 23 provincias de Argentina ubicada  al noroeste del país. Su capital es San Fernando del Valle de Catamarca, y otras ciudades importantes son Andalgalá,  Tinogasta y Belén. \n Su economía es una de las más diversificadas del país, ocupándose fundamentalmente de la minería, la industria, el comercio, el turismo, la ganadería y la agricultura. Además ocupa el puesto puesto número 12 en el ranking de desarrollo humano de las jurisdicciones de primer orden​ argentinas.", gobernador: "Raúl Jalil ", capital: "San Fernando del Valle de Catamarca", poblada: "San Fernando del Valle de Catamarca", fundacion: "1554", autonomia: "25 de agosto de 1821 ", superficie: "102.602 km²", poblacion: "396 895 hab.", gentillicio: "Catamarqueño/ña", clima: "Cálido y árido", ubicacion: "https://www.google.com.ar/maps/place/Catamarca/data=!4m2!3m1!1s0x94205dc5020ad4bd:0x3257c3237d6cc2dc?sa=X&ved=2ahUKEwji1LntjpDxAhX9r5UCHV3YBqoQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada al noroeste del país, en la región del Norte Grande Argentino, limitando al norte con Salta, al este con Tucumán y Santiago del Estero, al sureste con Córdoba, al sur con La Rioja y al oeste con Chile, cuyo límite está determinado por la divisoria de agua de la cordillera de los Andes.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Catamarca_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Catamarca_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        {
+          identificacion: "catamarca",
+          nombre: "Catamarca  (CA)",
+          color: "#F00505",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Bandera_de_la_Provincia_de_Catamarca.svg/800px-Bandera_de_la_Provincia_de_Catamarca.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_de_Catamarca",
+          descripcion: "Catamarca es una de las 23 provincias de Argentina ubicada  al noroeste del país. Su capital es San Fernando del Valle de Catamarca, y otras ciudades importantes son Andalgalá,  Tinogasta y Belén. \n Su economía es una de las más diversificadas del país, ocupándose fundamentalmente de la minería, la industria, el comercio, el turismo, la ganadería y la agricultura. Además ocupa el puesto puesto número 12 en el ranking de desarrollo humano de las jurisdicciones de primer orden​ argentinas.",
+          gobernador: "Raúl Jalil ",
+          capital: "San Fernando del Valle de Catamarca",
+          poblada: "San Fernando del Valle de Catamarca",
+          fundacion: "1554",
+          autonomia: "25 de agosto de 1821 ",
+          superficie: "102.602 km²",
+          poblacion: "396 895 hab.",
+          gentillicio: "Catamarqueño/ña",
+          clima: "Cálido y árido",
+          ubicacion: "https://www.google.com.ar/maps/place/Catamarca/data=!4m2!3m1!1s0x94205dc5020ad4bd:0x3257c3237d6cc2dc?sa=X&ved=2ahUKEwji1LntjpDxAhX9r5UCHV3YBqoQ8gEwAHoECAcQAQ",
+          ubicacionDesc: "Está ubicada al noroeste del país, en la región del Norte Grande Argentino, limitando al norte con Salta, al este con Tucumán y Santiago del Estero, al sureste con Córdoba, al sur con La Rioja y al oeste con Chile, cuyo límite está determinado por la divisoria de agua de la cordillera de los Andes.",
+          ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Catamarca_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Catamarca_in_Argentina_%28%2BFalkland_hatched%29.svg.png"
+        },
         //Chaco
-        { identificacion: "chaco", nombre: "Chaco  (CH)  ", color: "#1cb062", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Bandera_de_la_Provincia_del_Chaco.svg/728px-Bandera_de_la_Provincia_del_Chaco.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_del_Chaco", descripcion: "Chaco es una de las 23 provincias de Argentina ubicada al noreste del país. Su capital y ciudad más grande es Resistencia. \nSe la considera «joven» porque fue creada luego de la Organización Nacional. Su economía se apoya en el sector primario, donde se destacan los cultivos de algodón, soja, la producción de ganado vacuno y la extracción de madera. \nCuenta con una de las mayores poblaciones originarias del país, integrada por wichís, qom y mocovíes. Además de la población de origen indígena, el territorio de la actual provincia recibió inmigrantes de otras provincias y países. Actualmente hay descendientes de búlgaros, checos, croatas, eslovacos, españoles, italianos, paraguayos y montenegrinos.", gobernador: "Jorge Capitanich", capital: "Resistencia", poblada: "Gran Resistencia", fundacion: "14 de abril de 1585 ", autonomia: "8 de agosto de 1951", superficie: "99.633 km²", poblacion: "1.192.616 hab.", gentillicio: "Chaqueño/ña", clima: "Tropical semiárido y tropical húmedo", ubicacion: "https://www.google.com.ar/maps/place/Chaco/data=!4m2!3m1!1s0x9440effae3c87247:0x4eaf96c0979eec95?sa=X&ved=2ahUKEwi_i5-2k5DxAhUfqZUCHZlCAo4Q8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noreste del país, en la región del Norte Grande Argentino, limitando al norte con los ríos Bermejo y Teuco que la separan de Formosa, al este con los ríos Paraguay y Paraná que la separan, respectivamente, de la República del Paraguay y la provincia de Corrientes, al sur con Santa Fe, al oeste con Santiago del Estero y al noroeste con la provincia de Salta.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Chaco_in_Argentina_%28%2BFalkland%29.svg/270px-Chaco_in_Argentina_%28%2BFalkland%29.svg.png" },
+        {
+          identificacion: "chaco",
+          nombre: "Chaco  (CH)  ",
+          color: "#1cb062",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Bandera_de_la_Provincia_del_Chaco.svg/728px-Bandera_de_la_Provincia_del_Chaco.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_del_Chaco",
+          descripcion: "Chaco es una de las 23 provincias de Argentina ubicada al noreste del país. Su capital y ciudad más grande es Resistencia. \nSe la considera «joven» porque fue creada luego de la Organización Nacional. Su economía se apoya en el sector primario, donde se destacan los cultivos de algodón, soja, la producción de ganado vacuno y la extracción de madera. \nCuenta con una de las mayores poblaciones originarias del país, integrada por wichís, qom y mocovíes. Además de la población de origen indígena, el territorio de la actual provincia recibió inmigrantes de otras provincias y países. Actualmente hay descendientes de búlgaros, checos, croatas, eslovacos, españoles, italianos, paraguayos y montenegrinos.",
+          gobernador: "Jorge Capitanich",
+          capital: "Resistencia",
+          poblada: "Gran Resistencia",
+          fundacion: "14 de abril de 1585 ",
+          autonomia: "8 de agosto de 1951",
+          superficie: "99.633 km²",
+          poblacion: "1.192.616 hab.",
+          gentillicio: "Chaqueño/ña",
+          clima: "Tropical semiárido y tropical húmedo",
+          ubicacion: "https://www.google.com.ar/maps/place/Chaco/data=!4m2!3m1!1s0x9440effae3c87247:0x4eaf96c0979eec95?sa=X&ved=2ahUKEwi_i5-2k5DxAhUfqZUCHZlCAo4Q8gEwAHoECAcQAQ",
+          ubicacionDesc: "Está ubicada en el noreste del país, en la región del Norte Grande Argentino, limitando al norte con los ríos Bermejo y Teuco que la separan de Formosa, al este con los ríos Paraguay y Paraná que la separan, respectivamente, de la República del Paraguay y la provincia de Corrientes, al sur con Santa Fe, al oeste con Santiago del Estero y al noroeste con la provincia de Salta.",
+          ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Chaco_in_Argentina_%28%2BFalkland%29.svg/270px-Chaco_in_Argentina_%28%2BFalkland%29.svg.png"
+        },
         //Chubut
-        { identificacion: "chubut", nombre: "Chubut  (CT)", color: "#F00505", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bandera_de_la_Provincia_del_Chubut.svg/800px-Bandera_de_la_Provincia_del_Chubut.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_del_Chubut", descripcion: "Chubut es una de las 23 provincias de Argentina ubicada al sur del país. Su capital es Rawson y su ciudad más poblada es Comodoro Rivadavia. La actividad económica más importante es la explotación de hidrocarburos fósiles no renovables (petróleo, gas butano). Chubut produce el 13 % del petróleo del país y casi el 2 % del gas. Existen minas e importantes -a nivel mundial- yacimientos de uranio, plomo, oro y plata.", gobernador: "Mariano Arcioni ", capital: "Rawson", poblada: "Comodoro Rivadavia", fundacion: "28 de julio de 1865 ", autonomia: "16 de octubre de 1884  (Territorio Nacional)\n 15 de junio de 1955(Provincialización) ", superficie: "224.686 km²", poblacion: "587.956 hab.", gentillicio: "Chubutense", clima: "Frío y húmedo ", ubicacion: "https://www.google.com.ar/maps/place/Chubut/data=!4m2!3m1!1s0xbde2a3c6a2577047:0xdad4458e4b26a228?sa=X&ved=2ahUKEwj2q4SrwJDxAhUmrpUCHUtEBmQQ8gEwAHoECAYQAQ", ubicacionDesc: "Está ubicada al centrosur de la región patagónica (entre los paralelos 42 y 46 de latitud sur), que ocupa la mitad sur del país, limitando al norte con Río Negro, al este con el mar Argentino (océano Atlántico), al sur con Santa Cruz y al oeste con Chile, cuyo límite está determinado por la divisoria de agua de la cordillera de los Andes.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Chubut_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Chubut_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        {
+          identificacion: "chubut",
+          nombre: "Chubut  (CT)",
+          color: "#F00505",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bandera_de_la_Provincia_del_Chubut.svg/800px-Bandera_de_la_Provincia_del_Chubut.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_del_Chubut",
+          descripcion: "Chubut es una de las 23 provincias de Argentina ubicada al sur del país. Su capital es Rawson y su ciudad más poblada es Comodoro Rivadavia. La actividad económica más importante es la explotación de hidrocarburos fósiles no renovables (petróleo, gas butano). Chubut produce el 13 % del petróleo del país y casi el 2 % del gas. Existen minas e importantes -a nivel mundial- yacimientos de uranio, plomo, oro y plata.",
+          gobernador: "Mariano Arcioni ",
+          capital: "Rawson",
+          poblada: "Comodoro Rivadavia",
+          fundacion: "28 de julio de 1865 ",
+          autonomia: "16 de octubre de 1884  (Territorio Nacional)\n 15 de junio de 1955(Provincialización) ",
+          superficie: "224.686 km²",
+          poblacion: "587.956 hab.",
+          gentillicio: "Chubutense",
+          clima: "Frío y húmedo ",
+          ubicacion: "https://www.google.com.ar/maps/place/Chubut/data=!4m2!3m1!1s0xbde2a3c6a2577047:0xdad4458e4b26a228?sa=X&ved=2ahUKEwj2q4SrwJDxAhUmrpUCHUtEBmQQ8gEwAHoECAYQAQ",
+          ubicacionDesc: "Está ubicada al centrosur de la región patagónica (entre los paralelos 42 y 46 de latitud sur), que ocupa la mitad sur del país, limitando al norte con Río Negro, al este con el mar Argentino (océano Atlántico), al sur con Santa Cruz y al oeste con Chile, cuyo límite está determinado por la divisoria de agua de la cordillera de los Andes.",
+          ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Chubut_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Chubut_in_Argentina_%28%2BFalkland_hatched%29.svg.png"
+        },
         //Córdoba
-        { identificacion: "cordoba", nombre: "Córdoba  (CB)", color: "#991426", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Bandera_de_la_Provincia_de_C%C3%B3rdoba_2014.svg/800px-Bandera_de_la_Provincia_de_C%C3%B3rdoba_2014.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_C%C3%B3rdoba_(Argentina)", descripcion: "órdoba es una de las 23 provincias de Argentina ubicada en el centro del país. Es la segunda provincia más poblada después de Buenos Aires. \nLa economía de la provincia de Córdoba se ve beneficiada por numerosos factores. Sus características climáticas, topográficas, edáficas y fitogeográficas favorecen varias actividades productivas como la agricultura, ganadería, explotación forestal y minería.\nEl turismo, junto con la industria y los servicios, es una de las principales actividades económicas de la provincia, por lo que las inversiones en infraestructura turística son fomentadas por la Ley de Fomento Turístico N.º 7232 y sus Decretos Reglamentarios N.º 4557/85 y N.º 1360/00. ", gobernador: "Juan Schiaretti", capital: "Córdoba ", poblada: "Gran Córdoba", fundacion: "6 de julio de 1573 ", autonomia: "5 de enero de 1820", superficie: "165.310 km² ", poblacion: "3.760.450 hab.", gentillicio: "Cordobés/sa ", clima: "Templado moderado", ubicacion: "https://www.google.com.ar/maps/place/C%C3%B3rdoba/data=!4m2!3m1!1s0x9432985f478f5b69:0xb0a24f9a5366b092?sa=X&ved=2ahUKEwj87e-HxJDxAhUbrpUCHTttBSMQ8gEwAHoECAcQAQ ", ubicacionDesc: "Está ubicada en centro geográfico del país, al oeste de la región Centro de Argentina, limitando al norte con Catamarca y Santiago del Estero, al este con Santa Fe, al sureste con la Provincia de Buenos Aires, al sur con Provincia de La Pampa y al oeste con San Luis y La Rioja", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cordoba_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Cordoba_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        {
+          identificacion: "cordoba",
+          nombre: "Córdoba  (CB)",
+          color: "#991426",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Bandera_de_la_Provincia_de_C%C3%B3rdoba_2014.svg/800px-Bandera_de_la_Provincia_de_C%C3%B3rdoba_2014.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_de_C%C3%B3rdoba_(Argentina)",
+          descripcion: "órdoba es una de las 23 provincias de Argentina ubicada en el centro del país. Es la segunda provincia más poblada después de Buenos Aires. \nLa economía de la provincia de Córdoba se ve beneficiada por numerosos factores. Sus características climáticas, topográficas, edáficas y fitogeográficas favorecen varias actividades productivas como la agricultura, ganadería, explotación forestal y minería.\nEl turismo, junto con la industria y los servicios, es una de las principales actividades económicas de la provincia, por lo que las inversiones en infraestructura turística son fomentadas por la Ley de Fomento Turístico N.º 7232 y sus Decretos Reglamentarios N.º 4557/85 y N.º 1360/00. ",
+          gobernador: "Juan Schiaretti",
+          capital: "Córdoba ",
+          poblada: "Gran Córdoba",
+          fundacion: "6 de julio de 1573 ",
+          autonomia: "5 de enero de 1820",
+          superficie: "165.310 km² ",
+          poblacion: "3.760.450 hab.",
+          gentillicio: "Cordobés/sa ",
+          clima: "Templado moderado",
+          ubicacion: "https://www.google.com.ar/maps/place/C%C3%B3rdoba/data=!4m2!3m1!1s0x9432985f478f5b69:0xb0a24f9a5366b092?sa=X&ved=2ahUKEwj87e-HxJDxAhUbrpUCHTttBSMQ8gEwAHoECAcQAQ ",
+          ubicacionDesc: "Está ubicada en centro geográfico del país, al oeste de la región Centro de Argentina, limitando al norte con Catamarca y Santiago del Estero, al este con Santa Fe, al sureste con la Provincia de Buenos Aires, al sur con Provincia de La Pampa y al oeste con San Luis y La Rioja",
+          ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Cordoba_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Cordoba_in_Argentina_%28%2BFalkland_hatched%29.svg.png"
+        },
         //Corrientes
-        { identificacion: "corrientes", nombre: "Corrientes (CR)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bandera_de_la_Provincia_de_Corrientes.svg/300px-Bandera_de_la_Provincia_de_Corrientes.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Corrientes", descripcion: "Corrientes es una de las 23 provincias de Argentina ubicada en el centro del país.\n En el aspecto histórico de la construcción del Estado Argentino, es una de las provincias más antiguas del territorio argentino y una de las catorce provincias fundadoras de la Confederación Argentina.", gobernador: "Gustavo Valdés", capital: "Corrientes", poblada: "Corrientes", fundacion: "3 de abril de 1588", autonomia: "20 de abril de 1814 ", superficie: " 88.199 km² ", poblacion: "1.111.052 hab. ", gentillicio: "Correntino/na ", clima: "Subtropical", ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada geográficamente al noreste del país, en la región del Norte Grande Argentino, limitando al oeste y norte con el río Paraná que la separa de Santa Fe, Chaco y Paraguay, al noreste con Misiones, al este con el río Uruguay que la separa de Brasil y Uruguay, y al sur con Entre Ríos.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Corrientes_in_Argentina_%28%2BFalkland%29.svg/352px-Corrientes_in_Argentina_%28%2BFalkland%29.svg.png" },
+        {
+          identificacion: "corrientes",
+          nombre: "Corrientes (CR)",
+          color: "#76abdc",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bandera_de_la_Provincia_de_Corrientes.svg/300px-Bandera_de_la_Provincia_de_Corrientes.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_de_Corrientes",
+          descripcion: "Corrientes es una de las 23 provincias de Argentina ubicada en el centro del país.\n En el aspecto histórico de la construcción del Estado Argentino, es una de las provincias más antiguas del territorio argentino y una de las catorce provincias fundadoras de la Confederación Argentina.",
+          gobernador: "Gustavo Valdés",
+          capital: "Corrientes",
+          poblada: "Corrientes",
+          fundacion: "3 de abril de 1588",
+          autonomia: "20 de abril de 1814 ",
+          superficie: " 88.199 km² ",
+          poblacion: "1.111.052 hab. ",
+          gentillicio: "Correntino/na ",
+          clima: "Subtropical",
+          ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ",
+          ubicacionDesc: "Está ubicada geográficamente al noreste del país, en la región del Norte Grande Argentino, limitando al oeste y norte con el río Paraná que la separa de Santa Fe, Chaco y Paraguay, al noreste con Misiones, al este con el río Uruguay que la separa de Brasil y Uruguay, y al sur con Entre Ríos.",
+          ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Corrientes_in_Argentina_%28%2BFalkland%29.svg/352px-Corrientes_in_Argentina_%28%2BFalkland%29.svg.png"
+        },
         //Entre Ríos
-        { identificacion: "entre ríos", nombre: "Entre Ríos (ER)", color: "#991426", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bandera_de_la_Provincia_de_Entre_R%C3%ADos.svg/800px-Bandera_de_la_Provincia_de_Entre_R%C3%ADos.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Entre_R%C3%ADos", descripcion: "Entre Ríos es una de las 23 provincias de Argentina ubicada en el centro del país localizada en la región mesopotámica del país. \nEs un componente (el más meridional) de la Mesopotamia argentina, conformada por los ríos Uruguay y Paraná en el Litoral argentino. Un 15 por ciento de su territorio está compuesto de islas y tierras anegadizas. A menudo se la considera como una provincia «insular», por estar rodeada por ríos y arroyos.\nLa actividad económica de la provincia se sustenta principalmente en la agricultura, la ganadería y el turismo y en menor medida en la minería y la industria.", gobernador: "Gustavo Bordet", capital: "Paraná", poblada: "Gran Paraná", fundacion: "3 de abril de 1588", autonomia: "20 de abril de 1814 ", superficie: " 88.199 km² ", poblacion: "1.111.052 hab. ", gentillicio: "Correntino/na ", clima: "Subtropical", ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada geográficamente al noreste del país, en la región del Norte Grande Argentino, limitando al oeste y norte con el río Paraná que la separa de Santa Fe, Chaco y Paraguay, al noreste con Misiones, al este con el río Uruguay que la separa de Brasil y Uruguay, y al sur con Entre Ríos.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Corrientes_in_Argentina_%28%2BFalkland%29.svg/352px-Corrientes_in_Argentina_%28%2BFalkland%29.svg.png" },
+        {
+          identificacion: "entre ríos",
+          nombre: "Entre Ríos (ER)",
+          color: "#991426",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bandera_de_la_Provincia_de_Entre_R%C3%ADos.svg/800px-Bandera_de_la_Provincia_de_Entre_R%C3%ADos.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_de_Entre_R%C3%ADos",
+          descripcion: "Entre Ríos es una de las 23 provincias de Argentina ubicada en el centro del país localizada en la región mesopotámica del país. \nEs un componente (el más meridional) de la Mesopotamia argentina, conformada por los ríos Uruguay y Paraná en el Litoral argentino. Un 15 por ciento de su territorio está compuesto de islas y tierras anegadizas. A menudo se la considera como una provincia «insular», por estar rodeada por ríos y arroyos.\nLa actividad económica de la provincia se sustenta principalmente en la agricultura, la ganadería y el turismo y en menor medida en la minería y la industria.",
+          gobernador: "Gustavo Bordet",
+          capital: "Paraná",
+          poblada: "Gran Paraná",
+          fundacion: "3 de abril de 1588",
+          autonomia: "20 de abril de 1814 ",
+          superficie: " 88.199 km² ",
+          poblacion: "1.111.052 hab. ",
+          gentillicio: "Correntino/na ",
+          clima: "Subtropical",
+          ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ",
+          ubicacionDesc: "Está ubicada geográficamente al noreste del país, en la región del Norte Grande Argentino, limitando al oeste y norte con el río Paraná que la separa de Santa Fe, Chaco y Paraguay, al noreste con Misiones, al este con el río Uruguay que la separa de Brasil y Uruguay, y al sur con Entre Ríos.",
+          ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Corrientes_in_Argentina_%28%2BFalkland%29.svg/352px-Corrientes_in_Argentina_%28%2BFalkland%29.svg.png"
+        },
 
         //Formosa
-        { identificacion: "formosa", nombre: "Formosa (FO)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Bandera_de_la_Provincia_de_Formosa.svg/550px-Bandera_de_la_Provincia_de_Formosa.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Formosa", descripcion: "Formosa es una de las 23 provincias de Argentina ubicada en el noreste de Argentina.\nHabitada ancestralmente por varias tribus de origen pámpido y amazónico, el primer europeo arriba al territorio en 1528. La belicosidad de los nativos obligó a todos los intentos colonizadores a postergar su intento de ocupación. Luego de la Revolución de Mayo y las guerras de la Independencia, se mantuvo aislada, solo ocasionalmente habitada por obrajeros que arribaban a su territorio en busca de maderas. La Guerra de la Triple Alianza, en la que Paraguay fue atacado por Brasil, Argentina y Uruguay, despertó el interés del gobierno de la República Argentina de ocupar el mismo hacia la década de 1870.\nLa economía privada es esencialmente primaria, estando basada en la cría de ganado y en la agricultura.", gobernador: "Gildo Insfrán", capital: "Formosa", poblada: "Formosa", fundacion: "8 de abril de 1879", autonomia: "15 de junio de 1955 ", superficie: " 72.066 km² ", poblacion: "595.280 hab. ", gentillicio: "Formoseño/ña ", clima: "Tropical", ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noreste del país, en la región del Norte Grande Argentino, limitando al norte con el río Pilcomayo que la separa de Paraguay, al este con el río Paraguay que la separa de nuevo de Paraguay, al sur con los ríos Bermejo y Teuco que la separan de Chaco, y al oeste con Salta, mediante un meridiano", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Formosa_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Formosa_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        {
+          identificacion: "formosa",
+          nombre: "Formosa (FO)",
+          color: "#76abdc",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Bandera_de_la_Provincia_de_Formosa.svg/550px-Bandera_de_la_Provincia_de_Formosa.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_de_Formosa",
+          descripcion: "Formosa es una de las 23 provincias de Argentina ubicada en el noreste de Argentina.\nHabitada ancestralmente por varias tribus de origen pámpido y amazónico, el primer europeo arriba al territorio en 1528. La belicosidad de los nativos obligó a todos los intentos colonizadores a postergar su intento de ocupación. Luego de la Revolución de Mayo y las guerras de la Independencia, se mantuvo aislada, solo ocasionalmente habitada por obrajeros que arribaban a su territorio en busca de maderas. La Guerra de la Triple Alianza, en la que Paraguay fue atacado por Brasil, Argentina y Uruguay, despertó el interés del gobierno de la República Argentina de ocupar el mismo hacia la década de 1870.\nLa economía privada es esencialmente primaria, estando basada en la cría de ganado y en la agricultura.",
+          gobernador: "Gildo Insfrán",
+          capital: "Formosa",
+          poblada: "Formosa",
+          fundacion: "8 de abril de 1879",
+          autonomia: "15 de junio de 1955 ",
+          superficie: " 72.066 km² ",
+          poblacion: "595.280 hab. ",
+          gentillicio: "Formoseño/ña ",
+          clima: "Tropical",
+          ubicacion: "https://www.google.com.ar/maps/place/Corrientes/data=!4m2!3m1!1s0x94456b79d5bed36b:0xfa999f1ef3b40646?sa=X&ved=2ahUKEwj9ko3yyJDxAhWElZUCHd26AJUQ8gEwAHoECAcQAQ",
+          ubicacionDesc: "Está ubicada en el noreste del país, en la región del Norte Grande Argentino, limitando al norte con el río Pilcomayo que la separa de Paraguay, al este con el río Paraguay que la separa de nuevo de Paraguay, al sur con los ríos Bermejo y Teuco que la separan de Chaco, y al oeste con Salta, mediante un meridiano",
+          ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Formosa_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Formosa_in_Argentina_%28%2BFalkland_hatched%29.svg.png"
+        },
         //Jujuy
-        { identificacion: "jujuy", nombre: "Jujuy (JY)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Bandera_de_la_Provincia_de_Jujuy.svg/482px-Bandera_de_la_Provincia_de_Jujuy.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Jujuy", descripcion: "Jujuy es una de las 23 provincias de Argentina ubicada en el noroeste de Argentina.\nLa estructura económica se basa en las actividades primarias. Entre los cultivos están: la caña de azúcar, banana y el tabaco, seguidos de los cítricos, mangos, papayas, chirimoyas y paltas como producciones tradicionales (aunque modernas ya que datan del siglo XX) de la provincia. A esto debe sumarse la producción de combustibles: petróleo, gas y la ancestral actividad minera: (plomo, plata, cobre, oro, salitre, potasio, bórax).", gobernador: "Gerardo Morales", capital: "San Salvador de Jujuy", poblada: "Gran San Salvador de Jujuy", fundacion: "19 de abril de 1593", autonomia: "17 de diciembre de 1836  ", superficie: " 53.219 km² ", poblacion: "727.780 hab.", gentillicio: "jujeño/ña ", clima: "Tropical", ubicacion: "https://www.google.com.ar/maps/place/Jujuy/@-23.1907048,-66.8030576,8z/data=!3m1!4b1!4m5!3m4!1s0x9404a1f6e75c0087:0x815e91b230ce4e79!8m2!3d-22.6633212!4d-66.2367172", ubicacionDesc: "Está ubicada en el extremo noroeste del país, en la región del Norte Grande Argentino, limitando al oeste con la República de Chile hasta el trifinio cerro Zapaleri, donde comienza su frontera con el Estado Plurinacional de Bolivia (hacia el norte), y al este y sur con Salta", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Jujuy_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Jujuy_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        {
+          identificacion: "jujuy",
+          nombre: "Jujuy (JY)",
+          color: "#76abdc",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Bandera_de_la_Provincia_de_Jujuy.svg/482px-Bandera_de_la_Provincia_de_Jujuy.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_de_Jujuy",
+          descripcion: "Jujuy es una de las 23 provincias de Argentina ubicada en el noroeste de Argentina.\nLa estructura económica se basa en las actividades primarias. Entre los cultivos están: la caña de azúcar, banana y el tabaco, seguidos de los cítricos, mangos, papayas, chirimoyas y paltas como producciones tradicionales (aunque modernas ya que datan del siglo XX) de la provincia. A esto debe sumarse la producción de combustibles: petróleo, gas y la ancestral actividad minera: (plomo, plata, cobre, oro, salitre, potasio, bórax).",
+          gobernador: "Gerardo Morales",
+          capital: "San Salvador de Jujuy",
+          poblada: "Gran San Salvador de Jujuy",
+          fundacion: "19 de abril de 1593",
+          autonomia: "17 de diciembre de 1836  ",
+          superficie: " 53.219 km² ",
+          poblacion: "727.780 hab.",
+          gentillicio: "jujeño/ña ",
+          clima: "Tropical",
+          ubicacion: "https://www.google.com.ar/maps/place/Jujuy/@-23.1907048,-66.8030576,8z/data=!3m1!4b1!4m5!3m4!1s0x9404a1f6e75c0087:0x815e91b230ce4e79!8m2!3d-22.6633212!4d-66.2367172",
+          ubicacionDesc: "Está ubicada en el extremo noroeste del país, en la región del Norte Grande Argentino, limitando al oeste con la República de Chile hasta el trifinio cerro Zapaleri, donde comienza su frontera con el Estado Plurinacional de Bolivia (hacia el norte), y al este y sur con Salta",
+          ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Jujuy_in_Argentina_%28%2BFalkland_hatched%29.svg/800px-Jujuy_in_Argentina_%28%2BFalkland_hatched%29.svg.png"
+        },
         //La Pampa
-        { identificacion: "la pampa", nombre: "La Pampa (LP)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Bandera_de_la_Provincia_de_La_Pampa.svg/391px-Bandera_de_la_Provincia_de_La_Pampa.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_La_Pampa", descripcion: "La Pampa es una de las 23 provincias de Argentina y se ubica en el centro de Argentina.\nCon 318 951 habitantes en 2010 es la tercera provincia menos poblada —por delante de Santa Cruz y Tierra del Fuego\nEl sector agropecuario se desarrolla fundamentalmente en la zona nordeste de la provincia, por el régimen de lluvias y la calidad de los suelos. Se cultivan cereales, oleaginosas y especies forrajeras. Sobresalen el cultivo de trigo, el maíz y el girasol. En cuanto a la ganadería, que es el sector que más aporta a la economía provincial, se desarrolla prácticamente en toda la provincia, y radica en la cría y engorde de vacunos principalmente, y en menor medida ganado ovino, caprino, equino y porcino.", gobernador: "Sergio Ziliotto", capital: "Santa Rosa", poblada: "Santa Rosa", fundacion: "22 de abril de 1892", autonomia: "8 de agosto de 1951  ", superficie: " 143.440 km² ", poblacion: "349.299 hab.", gentillicio: "Pampeano/na ", clima: "Templados y semiáridos", ubicacion: "https://www.google.com.ar/maps/place/La+Pampa/data=!4m2!3m1!1s0x95dc6d0da46936e9:0xac1677be5ff258c8?sa=X&ved=2ahUKEwir5fWa55fxAhV7r5UCHVH3DQ4Q8gEwGXoECAQQAQ", ubicacionDesc: "Se encuentra en la Región pampeana, limitando al norte con las provincias de San Luis y Córdoba, al este con la provincia de Buenos Aires, al sur con el río Colorado que la separa de Río Negro, y al noroeste con Mendoza.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/La_Pampa_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-La_Pampa_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        {
+          identificacion: "la pampa",
+          nombre: "La Pampa (LP)",
+          color: "#76abdc",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Bandera_de_la_Provincia_de_La_Pampa.svg/391px-Bandera_de_la_Provincia_de_La_Pampa.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_La_Pampa", descripcion: "La Pampa es una de las 23 provincias de Argentina y se ubica en el centro de Argentina.\nCon 318 951 habitantes en 2010 es la tercera provincia menos poblada —por delante de Santa Cruz y Tierra del Fuego\nEl sector agropecuario se desarrolla fundamentalmente en la zona nordeste de la provincia, por el régimen de lluvias y la calidad de los suelos. Se cultivan cereales, oleaginosas y especies forrajeras. Sobresalen el cultivo de trigo, el maíz y el girasol. En cuanto a la ganadería, que es el sector que más aporta a la economía provincial, se desarrolla prácticamente en toda la provincia, y radica en la cría y engorde de vacunos principalmente, y en menor medida ganado ovino, caprino, equino y porcino.", gobernador: "Sergio Ziliotto", capital: "Santa Rosa", poblada: "Santa Rosa", fundacion: "22 de abril de 1892", autonomia: "8 de agosto de 1951  ", superficie: " 143.440 km² ", poblacion: "349.299 hab.", gentillicio: "Pampeano/na ", clima: "Templados y semiáridos", ubicacion: "https://www.google.com.ar/maps/place/La+Pampa/data=!4m2!3m1!1s0x95dc6d0da46936e9:0xac1677be5ff258c8?sa=X&ved=2ahUKEwir5fWa55fxAhV7r5UCHVH3DQ4Q8gEwGXoECAQQAQ", ubicacionDesc: "Se encuentra en la Región pampeana, limitando al norte con las provincias de San Luis y Córdoba, al este con la provincia de Buenos Aires, al sur con el río Colorado que la separa de Río Negro, y al noroeste con Mendoza.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/La_Pampa_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-La_Pampa_in_Argentina_%28%2BFalkland_hatched%29.svg.png"
+        },
         //La Rioja
-        { identificacion: "la rioja", nombre: "La Rioja (LR)", color: "#007bc4", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Bandera_de_la_Provincia_de_La_Rioja.svg/700px-Bandera_de_la_Provincia_de_La_Rioja.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_La_Rioja", descripcion: "La Rioja es una de las 23 provincias de Argentina y se ubica en el noroeste de Argentina.\nEn La Rioja predomina un relieve montañoso de escasa vegetación sin la presencia de un curso de agua permanente. Su economía se sustenta a partir de la agricultura bajo riego artificial, con la producción de vid y olivos principalmente, sin embargo, también ha crecido considerablemente el turismo en los últimos años, sobresaliendo el parque nacional Talampaya como principal atractivo.", gobernador: "Ricardo Quintela", capital: "La Rioja", poblada: "La Rioja", fundacion: "20 de mayo de 1591", autonomia: "1 de marzo de 1820  ", superficie: " 89.680 km² ", poblacion: "387.728 hab.", gentillicio: "Riojano/na  ", clima: "Semiárido continental y árido de montaña", ubicacion: "https://www.google.com.ar/maps/place/La+Rioja/data=!4m2!3m1!1s0x9427d9873396f7e5:0x3e1c9c348972c7ca?sa=X&ved=2ahUKEwiys4mS7ZfxAhVvrJUCHSnXAP4Q8gEwAHoECAYQAQ", ubicacionDesc: "Está ubicada en el noroeste del país, limitando al norte con Catamarca, al este con Córdoba, al sur con San Luis, al oeste con San Juan y al noroeste con Chile, cuya frontera está determinada por la divisoria de aguas de la cordillera de los Andes.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/La_Rioja_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-La_Rioja_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        {
+          identificacion: "la rioja",
+          nombre: "La Rioja (LR)",
+          color: "#007bc4",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Bandera_de_la_Provincia_de_La_Rioja.svg/700px-Bandera_de_la_Provincia_de_La_Rioja.svg.png",
+          url: "https://es.wikipedia.org/wiki/Provincia_de_La_Rioja",
+          descripcion: "La Rioja es una de las 23 provincias de Argentina y se ubica en el noroeste de Argentina.\nEn La Rioja predomina un relieve montañoso de escasa vegetación sin la presencia de un curso de agua permanente. Su economía se sustenta a partir de la agricultura bajo riego artificial, con la producción de vid y olivos principalmente, sin embargo, también ha crecido considerablemente el turismo en los últimos años, sobresaliendo el parque nacional Talampaya como principal atractivo.",
+          gobernador: "Ricardo Quintela",
+          capital: "La Rioja",
+          poblada: "La Rioja",
+          fundacion: "20 de mayo de 1591",
+          autonomia: "1 de marzo de 1820  ",
+          superficie: " 89.680 km² ",
+          poblacion: "387.728 hab.",
+          gentillicio: "Riojano/na  ",
+          clima: "Semiárido continental y árido de montaña",
+          ubicacion: "https://www.google.com.ar/maps/place/La+Rioja/data=!4m2!3m1!1s0x9427d9873396f7e5:0x3e1c9c348972c7ca?sa=X&ved=2ahUKEwiys4mS7ZfxAhVvrJUCHSnXAP4Q8gEwAHoECAYQAQ",
+          ubicacionDesc: "Está ubicada en el noroeste del país, limitando al norte con Catamarca, al este con Córdoba, al sur con San Luis, al oeste con San Juan y al noroeste con Chile, cuya frontera está determinada por la divisoria de aguas de la cordillera de los Andes.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/La_Rioja_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-La_Rioja_in_Argentina_%28%2BFalkland_hatched%29.svg.png"
+        },
         //Mendoza
-        { identificacion: "mendoza", nombre: "Mendoza (MZ)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Bandera_de_la_Provincia_de_Mendoza.svg/603px-Bandera_de_la_Provincia_de_Mendoza.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Mendoza", descripcion: "Mendoza es una de las 23 provincias de Argentina y se ubica en el oeste de Argentina.\nLa principal actividad es la vitivinicultura, siendo la provincia más importante en la producción de Vinos Argentinos. Según el Instituto Nacional de Vitivinicultura, el cultivo de la vid en Mendoza ocupa el 68,36 % del total de la región centro-oeste, la cual representa el 94,13 % del total de la producción nacional de vides. La mitad de las explotaciones agrícolas mendocinas corresponden a dicha rama. Mendoza desarrolla esta actividad desde 1598, y se vio muy favorecida con la llegada del ferrocarril en 1885.", gobernador: "Rodolfo Suárez", capital: "Mendoza", poblada: "Gran Mendoza", fundacion: "2 de marzo de 1561", autonomia: "1 de marzo de 1820  ", superficie: " 148.827 km² ", poblacion: "2.086.000  hab. ", gentillicio: "Mendocino/na   ", clima: "Semiárido continental", ubicacion: "https://www.google.com.ar/maps/place/Mendoza/@-34.7622271,-70.7741011,7z/data=!3m1!4b1!4m5!3m4!1s0x9679745b5dd5fffd:0x902586f1d047824!8m2!3d-34.5869034!4d-68.1431414", ubicacionDesc: "Está ubicada al suroeste de la región del Nuevo Cuyo y más exactamente el Cuyo, al oeste del país, limitando al norte con San Juan, al este con el río Desaguadero, que la separa de San Luis, al sureste con la provincia de La Pampa, al sur con Neuquén (parte de su frontera la forma el río Colorado), al oeste con las regiones chilenas de Valparaíso, Metropolitana de Santiago, O'Higgins y Maule, cuyo límite está determinado por la divisoria de aguas de la cordillera de los Andes.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Mendoza_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Mendoza_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
+        {
+          identificacion: "mendoza",
+          nombre: "Mendoza (MZ)",
+          color: "#76abdc",
+          bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Bandera_de_la_Provincia_de_Mendoza.svg/603px-Bandera_de_la_Provincia_de_Mendoza.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Mendoza", descripcion: "Mendoza es una de las 23 provincias de Argentina y se ubica en el oeste de Argentina.\nLa principal actividad es la vitivinicultura, siendo la provincia más importante en la producción de Vinos Argentinos. Según el Instituto Nacional de Vitivinicultura, el cultivo de la vid en Mendoza ocupa el 68,36 % del total de la región centro-oeste, la cual representa el 94,13 % del total de la producción nacional de vides. La mitad de las explotaciones agrícolas mendocinas corresponden a dicha rama. Mendoza desarrolla esta actividad desde 1598, y se vio muy favorecida con la llegada del ferrocarril en 1885.", gobernador: "Rodolfo Suárez", capital: "Mendoza", poblada: "Gran Mendoza", fundacion: "2 de marzo de 1561", autonomia: "1 de marzo de 1820  ", superficie: " 148.827 km² ", poblacion: "2.086.000  hab. ", gentillicio: "Mendocino/na   ", clima: "Semiárido continental", ubicacion: "https://www.google.com.ar/maps/place/Mendoza/@-34.7622271,-70.7741011,7z/data=!3m1!4b1!4m5!3m4!1s0x9679745b5dd5fffd:0x902586f1d047824!8m2!3d-34.5869034!4d-68.1431414", ubicacionDesc: "Está ubicada al suroeste de la región del Nuevo Cuyo y más exactamente el Cuyo, al oeste del país, limitando al norte con San Juan, al este con el río Desaguadero, que la separa de San Luis, al sureste con la provincia de La Pampa, al sur con Neuquén (parte de su frontera la forma el río Colorado), al oeste con las regiones chilenas de Valparaíso, Metropolitana de Santiago, O'Higgins y Maule, cuyo límite está determinado por la divisoria de aguas de la cordillera de los Andes.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Mendoza_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Mendoza_in_Argentina_%28%2BFalkland_hatched%29.svg.png"
+        },
         //Misiones
         { identificacion: "misiones", nombre: "Misiones (MI)", color: "#dd0000", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Bandera_de_la_Provincia_de_Misiones.svg/800px-Bandera_de_la_Provincia_de_Misiones.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Misiones", descripcion: "Mendoza es una de las 23 provincias de Argentina y se ubica en el noreste de Argentina.\n Misiones posee tierra colorada en la totalidad de su territorio (tipo de suelo considerado como el más fértil del mundo por su alto contenido de nutrientes para plantas y árboles de gran demanda nutricional, caracterizado por ser el resultado de la descomposición de rocas de origen arenito-basáltico (derrames volcánicos). \nA nivel nacional Misiones se destaca con más del 80 % de la producción de tung, yerba mate y té, además de La agroindustria y la industria forestal y el turismo.  \n Las Cataratas del Iguazú son la principal atracción turística de la provincia, donde se pueden ver miles  de extranjeros todos los años. ", gobernador: "Oscar Herrera Ahuad ", capital: "Posadas", poblada: "Posadas", fundacion: "22 de diciembre de 1881", autonomia: "10 de diciembre de 1953  ", superficie: "29.801 km² ", poblacion: "1.233.177  hab. ", gentillicio: "Misionero/ra   ", clima: "Subtropical húmedo sin estación seca", ubicacion: "https://www.google.com.ar/maps/place/Misiones/data=!4m2!3m1!1s0x94f811245d4ce333:0xfb5d357febb15a1d?sa=X&ved=2ahUKEwiV--Ge-p3xAhWQr5UCHfDnADEQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noreste del país, en la región del Norte Grande Argentino, limitando al norte y este con los ríos Iguazú, San Antonio, Pepirí Guazú y Uruguay que la separan de Brasil, al sur con Corrientes, por medio de los arroyos Itaembé y Chimiray, y al oeste con el río Paraná que la separa de Paraguay.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Misiones_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Misiones_in_Argentina_%28%2BFalkland_hatched%29.svg.png" },
         //Neuquen
@@ -107,14 +324,14 @@ module.exports = {
         //Tierra del Fuego
         { identificacion: "tierra del fuego", nombre: "PROVINCIA DE TIERRA DEL FUEGO, ANTÁRTIDA E ISLAS DEL ATLÁNTICO SUR (TF)", color: "#fd9830", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Bandera_de_la_Provincia_de_Tierra_del_Fuego.svg/320px-Bandera_de_la_Provincia_de_Tierra_del_Fuego.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tierra_del_Fuego,_Ant%C3%A1rtida_e_Islas_del_Atl%C3%A1ntico_Sur", descripcion: "Tierra del Fuego, Antártida e Islas del Atlántico Sur es una de las 23 provincias de Argentina y se ubica en el sur de Argentina, siendo el territorio más austral del país. \nCon respecto a los territorios cuya soberanía se encuentra en disputa (islas Malvinas, islas Georgias del Sur, islas Sandwich del Sur, islas Orcadas del Sur, islas Shetland del Sur, Antártida Argentina), la ley de provincialización en su artículo 2 establece que corresponden al territorio de la provincia, pero «sujeta a los tratados con potencias extranjeras que celebre el gobierno federal, para cuya ratificación no será necesario consultar al gobierno provincial», norma que habilita la secesión de dichos territorios por la sola decisión del Estado nacional en el marco de las negociaciones sobre la soberanía con otras potencias.", gobernador: "Gustavo Melella", capital: "Río Grande", poblada: "Santiago del Estero", fundacion: "1884 ", autonomia: "26 de abril de 1990", superficie: "21.571 km² (excluyendo territorio reclamado) \n  1.002.445  km² (incluyendo territorio reclamado)", poblacion: "160.720  hab.", gentillicio: "Fueguino/na", clima: "Templado frío y húmedo", ubicacion: "https://www.google.com.ar/maps/place/Tierra+del+Fuego/data=!4m2!3m1!1s0xbc4c22cfd9432921:0x80ee54358cf0d88d?sa=X&ved=2ahUKEwiqpfvA5KHxAhWlq5UCHerrDA4Q8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en la región patagónica, en el extremo sur de la Argentina, y ocupa un amplio territorio insular, marítimo y antártico, que se extiende desde la Isla Grande de Tierra del Fuego al polo Sur, incluyendo la isla de los Estados, las islas Malvinas, las islas del Atlántico Sur, la península Antártica, formando un triángulo cuyos lados son los meridianos 74°O y 25°O y su vértice el polo Sur.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Tierra_del_Fuego%2C_Antartida_e_Islas_del_Atlantico_Sur_%28de-facto_%2Bclaims_hatched%29_%28special_marker%29_%28%2BAntarctica%29.svg/641px-Tierra_del_Fuego%2C_Antartida_e_Islas_del_Atlantico_Sur_%28de-facto_%2Bclaims_hatched%29_%28special_marker%29_%28%2BAntarctica%29.svg.png" },
         //Tucuman
-        { identificacion: "tucuman", nombre: "TUCUMAN (TU)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg/700px-Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tucum%C3%A1n", descripcion: "Tucuman es una de las 23 provincias de Argentina y se ubica en el noroeste de Argentina. \n Fue escenario del Congreso de Tucumán entre los años 1816 y 1820 que, entre otras cosas, declaró la Independencia de las Provincias Unidas del Sud (primer nombre oficial del Estado soberano llamado Argentina) respecto a España y cualquier otro poder extranjero, el 9 de julio de 1816. Es la provincia de menor superficie de la Argentina y la de mayor densidad de población del país. \n \n Actualmente entre las principales actividades que se desarrollan se encuentran los complejos agroindustriales del azúcar y del limón, obteniéndose, en el caso del limón, desde fruta en fresco clasificada y empacada hasta productos industriales como jugos concentrados o aceites esenciales. También posee distintas industrias: automotriz, textil y calzado, golosinas, gaseosas y papel, cervecerías, excelentes quesillos y quesos.", gobernador: "Juan Manzur", capital: "San Miguel de Tucumán", poblada: "San Miguel de Tucumán", fundacion: "1564", autonomia: "25 de noviembre de 1825", superficie: "22.525 km²", poblacion: "1.767.500  hab.", gentillicio: "Tucumano/na", clima: "Cálido subtropical con estación seca", ubicacion: "https://www.google.com.ar/maps/place/San+Miguel+de+Tucum%C3%A1n,+Tucum%C3%A1n/data=!4m2!3m1!1s0x94223792d6c56903:0xf88d5b92b5c56527?sa=X&ved=2ahUKEwicmajl6KHxAhVLqJUCHfLRDqYQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noroeste del país, en la región del Norte Grande Argentino, limitando al norte con Salta, al este con Santiago del Estero y al sur y oeste con Catamarca.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg.png" }      
+        { identificacion: "tucuman", nombre: "TUCUMAN (TU)", color: "#76abdc", bandera: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg/700px-Bandera_de_la_Provincia_de_Tucum%C3%A1n.svg.png", url: "https://es.wikipedia.org/wiki/Provincia_de_Tucum%C3%A1n", descripcion: "Tucuman es una de las 23 provincias de Argentina y se ubica en el noroeste de Argentina. \n Fue escenario del Congreso de Tucumán entre los años 1816 y 1820 que, entre otras cosas, declaró la Independencia de las Provincias Unidas del Sud (primer nombre oficial del Estado soberano llamado Argentina) respecto a España y cualquier otro poder extranjero, el 9 de julio de 1816. Es la provincia de menor superficie de la Argentina y la de mayor densidad de población del país. \n \n Actualmente entre las principales actividades que se desarrollan se encuentran los complejos agroindustriales del azúcar y del limón, obteniéndose, en el caso del limón, desde fruta en fresco clasificada y empacada hasta productos industriales como jugos concentrados o aceites esenciales. También posee distintas industrias: automotriz, textil y calzado, golosinas, gaseosas y papel, cervecerías, excelentes quesillos y quesos.", gobernador: "Juan Manzur", capital: "San Miguel de Tucumán", poblada: "San Miguel de Tucumán", fundacion: "1564", autonomia: "25 de noviembre de 1825", superficie: "22.525 km²", poblacion: "1.767.500  hab.", gentillicio: "Tucumano/na", clima: "Cálido subtropical con estación seca", ubicacion: "https://www.google.com.ar/maps/place/San+Miguel+de+Tucum%C3%A1n,+Tucum%C3%A1n/data=!4m2!3m1!1s0x94223792d6c56903:0xf88d5b92b5c56527?sa=X&ved=2ahUKEwicmajl6KHxAhVLqJUCHfLRDqYQ8gEwAHoECAcQAQ", ubicacionDesc: "Está ubicada en el noroeste del país, en la región del Norte Grande Argentino, limitando al norte con Salta, al este con Santiago del Estero y al sur y oeste con Catamarca.", ubicacionImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg/352px-Tucuman_in_Argentina_%28%2BFalkland_hatched%29.svg.png" }
       ]
 
     if (provincia != null) {
       var provincia2 = provincia.toLowerCase()
     }
     if (provincia == null) {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Provincias de Argentina")
         .setURL("https://es.wikipedia.org/wiki/Provincias_de_Argentina")
         .setDescription("En Argentina se denomina provincia a cada uno de los 23 estados federados denominados así en la Constitución de la Nación Argentina, que junto a la Ciudad Autónoma de Buenos Aires constituyen las divisiones territoriales de primer orden del país. Las provincias tienen autonomía plena, forman parte de la Nación y son jurídicamente preexistentes a ella, según los principios del federalismo establecidos en la Constitución Nacional. \n  \n Para información individual de cada provincia utilice el comando `*ar provincia [Nombre de la provincia]`")
@@ -122,24 +339,24 @@ module.exports = {
         .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/800px-Flag_of_Argentina.svg.png")
 
         .addFields(
-          {name: "Ciudad Autonoma", value: "Ciudad Autonoma de Buenos Aires (CABA) <:CABA:936062758422708244>"},
-          {name: "Lista de provincias" , value: "Buenos Aires <:buenosaires:936063770684457001>  \n Catamarca <:Catamarca:936062789053726720> \n Chaco <:Chaco:936063772706107443> \n Chubut <:chubut:936063771288408094>  \n Córdoba <:cordoba:936063769233207336> \n Corrientes <:corrientes:936063765936504892> \n Entre Ríos <:entrerios:936063766087495720> \n Formosa <:formosa:936063765420597268>\n Jujuy <:jujuy:936063774031511592> \n La Pampa <:lapampa:936063767542890596> \n La Rioja <:larioja:936063771712053309> \n Mendoza <:mendoza:936063776447422495> \n Misiones <:misiones:936063766477566052> \n Neuquén <:neuquen:936063770046890055>\n Río Negro <:rionegro:936063766498537573>\n Salta <:salta:936063770709606460>\n San Juan <:sanjuan:936064424890998844>\n San Luis <:sanluis:936064423511089184>\n Santa Cruz <:santacruz:936064424144429106>\n Santa Fe <:santafe:936064421392961637>\n Santiago del Estero <:santiagodelestero:936064420231127042>\n Tierra del Fuego, Antártida e Islas del Atlántico Sur <:tierradelfuego:936064421082570762>\n Tucuman <:tucuman:936064420331782164>"})
-     
+          { name: "Ciudad Autonoma", value: "Ciudad Autonoma de Buenos Aires (CABA) <:CABA:936062758422708244>" },
+          { name: "Lista de provincias", value: "Buenos Aires <:buenosaires:936063770684457001>  \n Catamarca <:Catamarca:936062789053726720> \n Chaco <:Chaco:936063772706107443> \n Chubut <:chubut:936063771288408094>  \n Córdoba <:cordoba:936063769233207336> \n Corrientes <:corrientes:936063765936504892> \n Entre Ríos <:entrerios:936063766087495720> \n Formosa <:formosa:936063765420597268>\n Jujuy <:jujuy:936063774031511592> \n La Pampa <:lapampa:936063767542890596> \n La Rioja <:larioja:936063771712053309> \n Mendoza <:mendoza:936063776447422495> \n Misiones <:misiones:936063766477566052> \n Neuquén <:neuquen:936063770046890055>\n Río Negro <:rionegro:936063766498537573>\n Salta <:salta:936063770709606460>\n San Juan <:sanjuan:936064424890998844>\n San Luis <:sanluis:936064423511089184>\n Santa Cruz <:santacruz:936064424144429106>\n Santa Fe <:santafe:936064421392961637>\n Santiago del Estero <:santiagodelestero:936064420231127042>\n Tierra del Fuego, Antártida e Islas del Atlántico Sur <:tierradelfuego:936064421082570762>\n Tucuman <:tucuman:936064420331782164>" })
+
       return interaction.reply({ embeds: [embed] });
 
     }
 
     provincias.forEach(province => {
       if (provincia2 == province.identificacion) {
-        let isCaba:boolean = provincia2 == "caba"
-        const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+        let isCaba: boolean = provincia2 == "caba"
+        const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle(province.nombre)
           .setURL(province.url)
           .setDescription(province.descripcion)
           .setColor(province.color)
           .setThumbnail(province.bandera)
           .addFields(
-            { name: isCaba ?  "Jefe de Gobierno" : "Gobernador", value: province.gobernador, inline: true },
+            { name: isCaba ? "Jefe de Gobierno" : "Gobernador", value: province.gobernador, inline: true },
             { name: isCaba ? "Área metropolitana" : "Capital", value: province.capital, inline: true },
             { name: isCaba ? "Subdivisiones" : "Ciudad más poblada", value: province.poblada, inline: true },
             { name: "Fundación", value: province.fundacion, inline: true },
@@ -149,8 +366,8 @@ module.exports = {
             { name: "Gentilicio", value: province.gentillicio, inline: true },
             { name: "Clima", value: province.clima, inline: true }
           )
-          
-        const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+
+        const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Ubicación de " + province.nombre)
           .setURL(province.ubicacion)
           .setDescription(province.ubicacionDesc)
@@ -171,7 +388,7 @@ module.exports = {
               .setStyle(ButtonStyle.Primary)
           )
 
-        interaction.reply({ embeds: [embed1], components: [row]   });
+        interaction.reply({ embeds: [embed1], components: [row] });
 
 
 
@@ -207,7 +424,7 @@ module.exports = {
 
       }
     })
- 
+
   }
 
 }

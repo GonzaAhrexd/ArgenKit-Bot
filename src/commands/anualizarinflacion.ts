@@ -18,7 +18,7 @@ module.exports = {
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964701743504044072/loss.png")
           .addFields(
             { name: 'Inflación mensual:', value:  `${interaction.options.getNumber('mensual')}%` },
-            { name: 'Inflación anual', value: anualizado.toFixed(2) + "%"})
+            { name: 'Inflación anual', value: `${anualizado.toFixed(2)}%` })
 
       return interaction.reply({ embeds: [embed] });
 

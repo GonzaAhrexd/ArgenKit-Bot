@@ -84,34 +84,16 @@ module.exports = {
             },
             ]
 
-        Metales.forEach(Metal => {
+        Metales.forEach(async Metal => {
             if (interaction.options.getSubcommand() === Metal.id) {
 
                 let convertir: number = interaction.options.getNumber('ars')
-                console.log(convertir)
-                axios.get('https://api.metals.live/v1/spot/')
-                    .then( (ACONVERTIR) => {
-
-                        var conversion: number = 0
-
-                        if (Metal.id == 'oro')
-                            conversion = ACONVERTIR.data[0].gold
-
-                        if (Metal.id == 'plata')
-                            conversion = ACONVERTIR.data[1].silver
-
-                        if (Metal.id == 'platino')
-                            conversion = ACONVERTIR.data[2].platinum
-
-                        if (Metal.id == 'paladio')
-                            conversion = ACONVERTIR.data[3].palladium
-
-                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
-
-                            .then((oficial) => {
-                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-               
-                                    .then((blue) => {
+                try {
+                    const [metal, oficial, blue] = await Promise.all([
+                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
+                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                        axios.get('https://dolarapi.com/v1/dolares/blue'),
+                    ]);
 
                                         const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                             .setTitle(` Peso Argentino <:rightarrow:921907270747570247> ${Metal.nombre}`)
@@ -120,31 +102,25 @@ module.exports = {
                                             .setThumbnail(Metal.imagen)
                                             .addFields(
                                                 {name: `Monto Original :flag_ar:`, value: `ARS$ ` + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }), inline: false},
-                                                {name: `Compra ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir / conversion)) / oficial.data['compra'], { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
-                                                {name: `Venta ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir / conversion) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
+                                                {name: `Compra ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir *  metal.data['usd'][Metal.iso])) / oficial.data['compra'], { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
+                                                {name: `Venta ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir *  metal.data['usd'][Metal.iso]) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
                                               
                                                 //Impuestos
-                                                {name:"Impuestos (100%)  ", value:`${Metal.iso} ` + currencyFormatter.format(restar100((convertir / conversion) / oficial.data['venta']), { locale:'es-ES', code:' ', precision:8}), inline:true},
+                                                {name:"Impuestos (100%)  ", value:`${Metal.iso} ` + currencyFormatter.format(restar100((convertir *  metal.data['usd'][Metal.iso]) / oficial.data['venta']), { locale:'es-ES', code:' ', precision:8}), inline:true},
                                               
                                                 //Blue
                                                 {name:"Dólar blue <:dollarblue:903149186436980767>", value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},
-                                                {name:"Compra :flag_ar:", value:`${Metal.iso} ` + currencyFormatter.format((convertir / conversion) / blue.data['compra'],{locale:'es-ES',code:' ', precision:8}),inline:true},
-                                                {name:"Venta :flag_ar:", value:`${Metal.iso} ` + currencyFormatter.format((convertir / conversion) / blue.data['venta'],{locale:'es-ES',code:' ', precision:8}),inline:true}
+                                                {name:"Compra :flag_ar:", value:`${Metal.iso} ` + currencyFormatter.format((convertir *  metal.data['usd'][Metal.iso]) / blue.data['compra'],{locale:'es-ES',code:' ', precision:8}),inline:true},
+                                                {name:"Venta :flag_ar:", value:`${Metal.iso} ` + currencyFormatter.format((convertir *  metal.data['usd'][Metal.iso]) / blue.data['venta'],{locale:'es-ES',code:' ', precision:8}),inline:true}
                                               )
                                               
-                                         interaction.deferReply();
-                                        setTimeout(() => {
-                                            interaction.editReply({ embeds: [embed] });
+                                        await interaction.deferReply();
+                                        setTimeout(async () => {
+                                            await interaction.editReply({ embeds: [embed] });
                                         }, 3000)
 
-                                    }).catch((err) => {
-                                        console.error('Error en el API de Blue', err)
-                                    })
-                            }).catch((err) => {
-                                console.error('Error en el de oficial', err)
-                            })
 
-                    }).catch((err) => {
+                    }catch(err) {
                         console.error('Error en el API de Metales', err)
                         const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`Ha ocurrido un error`)
@@ -153,7 +129,7 @@ module.exports = {
                         .setDescription("Ha ocurrido un error relacionado con el api de Metales")
                         interaction.reply({ embeds: [embed] });
 
-                    })
+                    }
 
 
             }  //Cierra if

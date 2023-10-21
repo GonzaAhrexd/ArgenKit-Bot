@@ -9,7 +9,7 @@ const app = express();
 
 //Utilizamos express para mostrar este mensaje en una página y así mantener el bot 24/7
 app.get('/', (req, res) => {
-  res.send('Argenkit Bot Versión 1.5');
+  res.send('Argenkit Bot Versión 1.5.5');
 });
 
 // Puerto de las solicitudes
@@ -17,7 +17,7 @@ const port = 3000;
 
 // Iniciar el servidor
 app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`)
+  console.log(`Servidor express conectado ✅`)
 });
 
 //Intents requeridos

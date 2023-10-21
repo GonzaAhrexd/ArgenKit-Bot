@@ -171,7 +171,7 @@ module.exports = {
 
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
-          axios.get('https://api.bluelytics.com.ar/v2/latest')
+          axios.get('https://dolarapi.com/v1/dolares/blue')
             .then((blue) => {
 
               const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -192,8 +192,8 @@ module.exports = {
                 
                   //Blue
                   { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                  { name: "Compra :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir /blue.data['blue']['value_buy']), { locale: 'es-ES', code: ' ' }), inline: true },
-                  { name: "Venta :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir / blue.data['blue']['value_sell']), { locale: 'es-ES', code: ' ' }), inline: true }
+                  { name: "Compra :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir /blue.data['compra']), { locale: 'es-ES', code: ' ' }), inline: true },
+                  { name: "Venta :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir / blue.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true }
                 )
 
               interaction.deferReply();
@@ -288,8 +288,8 @@ module.exports = {
                 )
 
               await interaction.deferReply();
-              setTimeout(() => {
-                interaction.editReply({ embeds: [embed] });
+              setTimeout(async () => {
+                await interaction.editReply({ embeds: [embed] });
               }, 3000)
 
             })
@@ -502,7 +502,7 @@ module.exports = {
             let aconvertir = ACONVERTIR.data['usd'][(divisa.iso).toLowerCase()]
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial')
               .then(async (oficial) => {
-                axios.get('https://api.bluelytics.com.ar/v2/latest')
+                axios.get('https://dolarapi.com/v1/dolares/blue')
                   .then(async (blue) => {
                     const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                       .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${divisa.nombre}`)
@@ -522,8 +522,8 @@ module.exports = {
                       
                         //Blue
                         {name:`${divisa.nombre} <:dollarblue:903149186436980767>`, value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},
-                        {name:`Compra ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['blue']['value_buy'],{locale:'es-ES',code:' '}),inline:true},
-                        {name:`Venta ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['blue']['value_sell'],{locale:'es-ES',code:' '}),inline:true}
+                        {name:`Compra ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['compra'],{locale:'es-ES',code:' '}),inline:true},
+                        {name:`Venta ${divisa.bandera}`, value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format((convertir*aconvertir)/blue.data['venta'],{locale:'es-ES',code:' '}),inline:true}
                       )
 
                     await interaction.deferReply();

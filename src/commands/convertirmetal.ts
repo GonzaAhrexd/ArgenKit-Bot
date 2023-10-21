@@ -51,7 +51,7 @@ module.exports = {
                 nombre: "Oro",
                 emoji: "<:goldingots:964717629484965938>",
                 desc: "El oro es un elemento químico cuyo número atómico es 79. Está ubicado en el grupo 11 de la tabla periódica. Es un metal precioso blando de color amarillo dorado. Su símbolo es Au (del latín aurum, ‘brillante amanecer’). Además, es uno de los metales más apreciados en joyería por sus propiedades físicas, al tener baja alterabilidad, ser muy maleable, dúctil y brillante, y valorado por su rareza, al ser un metal difícil de encontrar en la naturaleza.",
-                iso: "XAU",
+                iso: "xau",
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964738102771990648/convertiroro.png",
                 color: "#fddc4d"
             },
@@ -60,7 +60,7 @@ module.exports = {
                 nombre: "Plata",
                 emoji: "<:silver:964717593816600606>",
                 desc: "La plata es un elemento químico cuyo número atómico es 47. Está ubicado en el grupo 11 de la tabla periódica. Es un metal blanco plateado y muy valorado por sus propiedades conductoras de electricidad y termo conductoras. Además, es uno de los metales más utilizados en la fabricación de joyas y monedas. Su símbolo es Ag (del latín argentum, ‘plata’).",
-                iso: "XAG",
+                iso: "xag",
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964739866707492884/convertirplata_1.png",
                 color: "#cccccc"
             },
@@ -69,7 +69,7 @@ module.exports = {
                 nombre: "Paladio",
                 emoji: "<:paladio:964717594223456336>",
                 desc: "El paladio es un elemento químico cuyo número atómico es 46. Está ubicado en el grupo 10 de la tabla periódica y es un metal blanco plateado. Es valorado por sus propiedades catalíticas y su capacidad para absorber hidrógeno. Se utiliza en la fabricación de catalizadores, joyas y electrónica. Su símbolo es Pd.",
-                iso: "XPD",
+                iso: "xpd",
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964739251159859230/convertirpaladio.png",
                 color: "#808080"
             },
@@ -78,7 +78,7 @@ module.exports = {
                 nombre: "Platino",
                 emoji: "<:platinum:964717592923222017>",
                 desc: "El platino es un elemento químico cuyo número atómico es 78. Está ubicado en el grupo 10 de la tabla periódica y es uno de los metales más raros en la corteza terrestre. Es valorado por su alta resistencia a la corrosión y por sus propiedades catalíticas. Se utiliza en la fabricación de joyas, catalizadores y termopares. Su símbolo es Pt.",
-                iso: "XPT",
+                iso: "xpt",
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964739250899804180/convertirplatinoxd.png",
                 color: "#a9f8f7"
             },
@@ -88,77 +88,55 @@ module.exports = {
             if (interaction.options.getSubcommand() === Metal.id) {
 
                 let convertir: number = interaction.options.getNumber((Metal.iso).toLowerCase())
-              
-                axios.get('https://api.metals.live/v1/spot/')
-                    .then( (ACONVERTIR) => {
+                try {
+                    const [metal, oficial, blue] = await Promise.all([
+                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
+                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                        axios.get('https://dolarapi.com/v1/dolares/blue'),
+                    ]);
 
-                        var conversion: number = 0
 
-                        if (Metal.id == 'oro')
-                            conversion = ACONVERTIR.data[0].gold
+                    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                        .setTitle(`${Metal.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
+                        .setColor(Metal.color)
+                        .setDescription(`${Metal.nombre}  expresado en pesos argentinos `)
+                        .setThumbnail(Metal.imagen)
+                        .addFields(
+                            { name: `Monto Original ${Metal.emoji}`, value: `${Metal.iso} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
+                            //Oficial
+                            { name: `${Metal.nombre} a precio del dólar oficial :bank: `, value: `Valor del ${Metal.nombre} a precio del dólar oficial, liquidado por parte del gobierno nacional sujeto a diversos impuestos ` },
+                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            //Impuestos
+                            { name: "Impuestos (100%) ", value: `ARS$ ${currencyFormatter.format(total100((convertir / metal.data['usd'][Metal.iso]) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            //Blue
+                            { name: `${Metal.nombre} a precio del Dólar Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
+                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / metal.data['usd'][Metal.iso])) * blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / metal.data['usd'][Metal.iso])) * blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true })
 
-                        if (Metal.id == 'plata')
-                            conversion = ACONVERTIR.data[1].silver
+                    await interaction.deferReply();
+                    setTimeout(async () => {
+                        await interaction.editReply({ embeds: [embed] });
+                    }, 3000)
 
-                        if (Metal.id == 'platino')
-                            conversion = ACONVERTIR.data[2].platinum
 
-                        if (Metal.id == 'paladio')
-                            conversion = ACONVERTIR.data[3].palladium
 
-                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
-
-                            .then( (oficial) => {
-                                 axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-               
-                                    .then( (blue) => {
-
-                                        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                                            .setTitle(`${Metal.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
-                                            .setColor(Metal.color)
-                                            .setDescription(`${Metal.nombre}  expresado en pesos argentinos `)
-                                            .setThumbnail(Metal.imagen)
-                                            .addFields(
-                                            { name: `Monto Original ${Metal.emoji}`, value:  `${Metal.iso} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
-                                            //Oficial
-                                            { name: `${Metal.nombre} a precio del dólar oficial :bank: `, value: `Valor del ${Metal.nombre} a precio del dólar oficial, liquidado por parte del gobierno nacional sujeto a diversos impuestos `},
-                                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir * conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir * conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            //Impuestos
-                                            { name: "Impuestos (100%) ", value: `ARS$ ${currencyFormatter.format(total100((convertir * conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            //Blue
-                                            { name: `${Metal.nombre} a precio del Dólar Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir * conversion)) * blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir * conversion)) * blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true })
-
-                                         interaction.deferReply();
-                                        setTimeout(() => {
-                                            interaction.editReply({ embeds: [embed] });
-                                        }, 3000)
-
-                                    }).catch((err) => {
-                                        console.error('Error en el API de Blue', err)
-                                    })
-                            }).catch((err) => {
-                                console.error('Error en el de oficial', err)
-                            })
-
-                    }).catch((err) => {
-                        console.error('Error en el API de Metales', err)
-                        const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                } catch (err) {
+                    console.error('Error en el API de Metales', err)
+                    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`Ha ocurrido un error`)
                         .setColor(Metal.color)
                         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
                         .setDescription("Ha ocurrido un error relacionado con el api de Metales")
-                        interaction.reply({ embeds: [embed] });
+                    interaction.reply({ embeds: [embed] });
 
-                    })
+                }
 
 
             }  //Cierra if
         }) //Cierra forEach
 
-   
+
 
 
     } //Async run

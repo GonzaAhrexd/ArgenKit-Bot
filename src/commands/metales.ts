@@ -5,7 +5,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total99, total100 } = require("../functions/impuestos"); //Impuestos
+const { total100 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('metal')
@@ -43,7 +43,7 @@ module.exports = {
                 nombre: "Oro",
                 emoji: "<:goldingots:964717629484965938>",
                 desc: "El oro es un elemento químico cuyo número atómico es 79. Está ubicado en el grupo 11 de la tabla periódica. Es un metal precioso blando de color amarillo dorado. Su símbolo es Au (del latín aurum, ‘brillante amanecer’). Además, es uno de los metales más apreciados en joyería por sus propiedades físicas, al tener baja alterabilidad, ser muy maleable, dúctil y brillante, y valorado por su rareza, al ser un metal difícil de encontrar en la naturaleza.",
-                iso: "ARS",
+                iso: "xau",
                 numeroysimboloatomico: "79 - Au",
                 dureza: "3,0",
                 masaatomica: "196,966569(4) u",
@@ -55,7 +55,7 @@ module.exports = {
                 nombre: "Plata",
                 emoji: "<:silver:964717593816600606>",
                 desc: "La plata es un elemento químico cuyo número atómico es 47. Está ubicado en el grupo 11 de la tabla periódica. Es un metal blanco plateado y muy valorado por sus propiedades conductoras de electricidad y termo conductoras. Además, es uno de los metales más utilizados en la fabricación de joyas y monedas. Su símbolo es Ag (del latín argentum, ‘plata’).",
-                iso: "XAG",
+                iso: "xag",
                 numeroysimboloatomico: "47 - Ag",
                 dureza: "2,5",
                 masaatomica: "107,8682(2) u",
@@ -67,7 +67,7 @@ module.exports = {
                 nombre: "Paladio",
                 emoji: "<:paladio:964717594223456336>",
                 desc: "El paladio es un elemento químico cuyo número atómico es 46. Está ubicado en el grupo 10 de la tabla periódica y es un metal blanco plateado. Es valorado por sus propiedades catalíticas y su capacidad para absorber hidrógeno. Se utiliza en la fabricación de catalizadores, joyas y electrónica. Su símbolo es Pd.",
-                iso: "XPD",
+                iso: "xpd",
                 numeroysimboloatomico: "46 - Pd",
                 dureza: "4",
                 masaatomica: "106,42(1) u",
@@ -79,7 +79,7 @@ module.exports = {
                 nombre: "Platino",
                 emoji: "<:platinum:964717592923222017>",
                 desc: "El platino es un elemento químico cuyo número atómico es 78. Está ubicado en el grupo 10 de la tabla periódica y es uno de los metales más raros en la corteza terrestre. Es valorado por su alta resistencia a la corrosión y por sus propiedades catalíticas. Se utiliza en la fabricación de joyas, catalizadores y termopares. Su símbolo es Pt.",
-                iso: "XPT",
+                iso: "xpt",
                 numeroysimboloatomico: "78 - Pt",
                 dureza: "4",
                 masaatomica: "195,084(5) u",
@@ -87,139 +87,101 @@ module.exports = {
                 color: "#a9f8f7"
             },
             ]
-        Metales.forEach(Metal => {
+        Metales.forEach(async Metal => {
             if (interaction.options.getSubcommand() === Metal.id) {
-                axios.get('https://api.metals.live/v1/spot/') //Precio en dólares
-                    .then((precio) => {
-                        let conversion: number = 0
 
-                        if (Metal.id == 'oro')
-                            conversion = precio.data[0].gold
+                try {
+                    const [metal, oficial, blue] = await Promise.all([
+                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
+                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                        axios.get('https://dolarapi.com/v1/dolares/blue'),
+                    ]);
 
-                        if (Metal.id == 'plata')
-                            conversion = precio.data[1].silver
+                    const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                        .setTitle(`${Metal.nombre} ${Metal.emoji}`)
+                        .setColor(Metal.color)
+                        .setDescription(Metal.desc)
+                        .setThumbnail(Metal.imagen)
+                        .addFields(
+                            { name: 'Precio en dólares ' + Metal.emoji, value: 'USD$ ' + currencyFormatter.format((1 / metal.data['usd'][Metal.iso]), { locale: 'es-ES', code: ' ' }), inline: true },
+                            //Oficial
+                            { name: 'Compra ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((1 / metal.data['usd'][Metal.iso])) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
+                            { name: 'Venta ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((1 /  metal.data['usd'][Metal.iso])) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
+                            //Impuestos
+                            { name: "Impuestos (100%)", value: "ARS$ " + currencyFormatter.format(total100((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                            //Blue
+                            { name: Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
+                            { name: "Compra", value: "ARS$ " + currencyFormatter.format((1 / metal.data['usd'][Metal.iso]) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
+                            { name: "Venta", value: "ARS$ " + currencyFormatter.format((1 / metal.data['usd'][Metal.iso]) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true })
 
-                        if (Metal.id == 'platino')
-                            conversion = precio.data[2].platinum
+                    const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                        .setTitle("Oro")
+                        .setColor("#fddc4d")
+                        .setDescription(Metal.desc)
+                        .setThumbnail(Metal.imagen)
+                        .addFields(
+                            { name: "Código ISO", value: Metal.iso, inline: true },
+                            { name: "Número y símbolo atómico", value: Metal.numeroysimboloatomico, inline: true },
+                            { name: "Dureza", value: Metal.dureza, inline: true },
+                            { name: "Masa atómica", value: Metal.masaatomica, inline: true }
+                        )
 
-                        if (Metal.id == 'paladio')
-                            conversion = precio.data[3].palladium
-
-                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
-                            .then((oficial) => {
-                                axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/blue')
-                                    .then((blue) => {
-                                        const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                                            .setTitle(`${Metal.nombre} ${Metal.emoji}`)
-                                            .setColor(Metal.color)
-                                            .setDescription(Metal.desc)
-                                            .setThumbnail(Metal.imagen)
-                                            .addFields(
-                                                { name: 'Precio en dólares ' + Metal.emoji, value: 'USD$ ' + currencyFormatter.format((conversion), { locale: 'es-ES', code: ' ' }), inline: true },
-                                                //Oficial
-                                                { name: 'Compra ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
-                                                { name: 'Venta ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
-                                                //Impuestos
-                                                { name: "Impuestos (100%)", value: "ARS$ " + currencyFormatter.format(total100((conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
-                                                //Blue
-                                                { name: Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                                                { name: "Compra", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
-                                                { name: "Venta", value: "ARS$ " + currencyFormatter.format((conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true })
-
-                                        const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                                            .setTitle("Oro")
-                                            .setColor("#fddc4d")
-                                            .setDescription(Metal.desc)
-                                            .setThumbnail(Metal.imagen)
-                                            .addFields(
-                                                { name: "Código ISO", value: Metal.iso, inline: true },
-                                                { name: "Número y símbolo atómico", value: Metal.numeroysimboloatomico, inline: true },
-                                                { name: "Dureza", value: Metal.dureza, inline: true },
-                                                { name: "Masa atómica", value: Metal.masaatomica, inline: true }
-                                              )
-                                              
-                                        const row = new ActionRowBuilder()
-                                            .addComponents(
-                                                new ButtonBuilder()
-                                                    .setCustomId("conversion")
-                                                    .setLabel("💸 Conversión ")
-                                                    .setStyle(ButtonStyle.Success)
-                                            )
-                                            .addComponents(
-                                                new ButtonBuilder()
-                                                    .setCustomId("informacion")
-                                                    .setLabel("📋 Información")
-                                                    .setStyle(ButtonStyle.Primary)
-                                            )
-                                        interaction.deferReply();
-                                        setTimeout(() => {
-                                            interaction.editReply({ embeds: [embed1], components: [row] });
-                                        }, 3000)
+                    const row = new ActionRowBuilder()
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId("conversion")
+                                .setLabel("💸 Conversión ")
+                                .setStyle(ButtonStyle.Success)
+                        )
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId("informacion")
+                                .setLabel("📋 Información")
+                                .setStyle(ButtonStyle.Primary)
+                        )
+                    await interaction.deferReply();
+                    setTimeout(async() => {
+                        await interaction.editReply({ embeds: [embed1], components: [row] });
+                    }, 3000)
 
 
-                                        client.on('interactionCreate', interaction => {
-                                            if (!interaction.isButton()) return;
-                                        });
-                                        const filter = i => i.user.id === interaction.user.id;
-                                        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
-                                        var actual = embed1
-                                        collector.on('collect', async i => {
-                                            if (i.customId === 'conversion') {
-                                                await i.deferUpdate()
-                                                await i.editReply({ embeds: [embed1], components: [row] });
-                                                actual = embed1
-                                            }
-                                            if (i.customId === 'informacion') {
-                                                await i.deferUpdate();
-                                                await i.editReply({ embeds: [embed2], components: [row] });
-                                                actual = embed2
-                                            }
-                                        })
-                                        collector.on("end", (collected, reason) => {
-                                            if (reason === "time") {
-                                                interaction.editReply({ embeds: [actual], components: [] });
-                                            }
-                                        })
-                                    })
-                                    .catch((err) => { // Catch del axios precio en dólares
-                                        console.error('Error en la API de dolar blue', err)
-                                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                                            .setTitle(`Ha ocurrido un error`)
-                                            .setColor(Metal.color)
-                                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
-                                            .setDescription("Ha ocurrido un error relacionado con el api de Metales")
-                                        interaction.reply({ embeds: [embed] });
-                                    })
-                                    .catch((err) => { // Catch del axios dólar oficial
-                                        console.error('Error en la API de dolar oficial', err)
-                                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                                            .setTitle(`Ha ocurrido un error`)
-                                            .setColor(Metal.color)
-                                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
-                                            .setDescription("Ha ocurrido un error relacionado con el api de Metales")
-                                        interaction.reply({ embeds: [embed] });
-                                    })
+                    client.on('interactionCreate', interaction => {
+                        if (!interaction.isButton()) return;
+                    });
+                    const filter = i => i.user.id === interaction.user.id;
+                    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+                    var actual = embed1
+                    collector.on('collect', async i => {
+                        if (i.customId === 'conversion') {
+                            await i.deferUpdate()
+                            await i.editReply({ embeds: [embed1], components: [row] });
+                            actual = embed1
+                        }
+                        if (i.customId === 'informacion') {
+                            await i.deferUpdate();
+                            await i.editReply({ embeds: [embed2], components: [row] });
+                            actual = embed2
+                        }
+                    })
+                    collector.on("end", (collected, reason) => {
+                        if (reason === "time") {
+                            interaction.editReply({ embeds: [actual], components: [] });
+                        }
+                    })
+                } catch (err) { // Catch del axios dólar blue
+                    console.error('Error en el API de Metales', err)
+                    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                        .setTitle(`Ha ocurrido un error`)
+                        .setColor(Metal.color)
+                        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
+                        .setDescription("Ha ocurrido un error relacionado con el api de Metales")
+                    interaction.reply({ embeds: [embed] });
+                }
 
-                                    .catch((err) => { // Catch del axios dólar blue
-                                        console.error('Error en el API de Metales', err)
-                                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                                            .setTitle(`Ha ocurrido un error`)
-                                            .setColor(Metal.color)
-                                            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
-                                            .setDescription("Ha ocurrido un error relacionado con el api de Metales")
-                                        interaction.reply({ embeds: [embed] });
-
-                                    })
-                            }) //Cierra Precio en  dólares
-
-
-                    }) //Cierra if == id
             }
-        }) //Cierra Async Run del inicio
-
-
+        })
     }
-
-
-
 }
+
+
+

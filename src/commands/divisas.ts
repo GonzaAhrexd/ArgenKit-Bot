@@ -89,11 +89,13 @@ module.exports = {
             try {
                 const [oficial, blue, mep, ccl] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
-                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
+                    axios.get('https://dolarapi.com/v1/dolares/blue'),
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa'),
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui'),
                 ]);
-
+                
+                const blue_venta = blue.data['venta']
+                console.log(blue_venta) 
                 const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Dólar estadounidese :flag_us:")
                     .setColor("#a9ea98")
@@ -106,8 +108,8 @@ module.exports = {
                         { name: "IMPUESTOS (100%)", value: `ARS$ ${currencyFormatter.format(total100(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Blue
                         { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
-                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['blue']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['blue']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Financieros
                         { name: "Financieros <:finanzas:1068357650380755045>", value: "Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares." },
                         { name: "CCL", value: `ARS$ ${currencyFormatter.format(ccl.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -143,10 +145,10 @@ module.exports = {
                             .setStyle(ButtonStyle.Primary)
                     )
 
-                interaction.deferReply();
-                setTimeout(() => {
-                    interaction.editReply({ embeds: [embed1], components: [row] });
-                }, 5000);
+                await interaction.deferReply();
+                setTimeout(async() => {
+                    await interaction.editReply({ embeds: [embed1], components: [row] });
+                }, 3000);
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;
@@ -200,7 +202,7 @@ module.exports = {
                 const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Euro :flag_eu:")
                     .setColor("#0153b4")
-                    .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda")
+                    .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda  \nDebido al surgimiento de un nuevo tipo de cambio (Dólar blue blue o Dólar deep blue) el precio manejado por el API está atrasado y no es real")
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png")
                     .addFields(
                         { name: "Euro oficial :bank:", value: "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos, además, sólo se puede retirar el equivalente a USD$200 al mes." },
@@ -242,10 +244,11 @@ module.exports = {
                             .setStyle(ButtonStyle.Primary)
                     );
 
-                interaction.deferReply();
-                setTimeout(() => {
-                    interaction.editReply({ embeds: [embed1], components: [row] });
-                }, 3000);
+            
+                    await interaction.deferReply();
+                    setTimeout(async() => {
+                        await interaction.editReply({ embeds: [embed1], components: [row] });
+                    }, 3000);
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;
@@ -345,10 +348,11 @@ module.exports = {
                             .setStyle(ButtonStyle.Primary)
                     )
 
-                interaction.deferReply();
-                setTimeout(() => {
-                    interaction.editReply({ embeds: [embed1], components: [row] });
-                }, 3000)
+              
+                    await interaction.deferReply();
+                    setTimeout(async() => {
+                        await interaction.editReply({ embeds: [embed1], components: [row] });
+                    }, 3000);
 
 
                 client.on('interactionCreate', interaction => {
@@ -733,7 +737,7 @@ module.exports = {
                     const [DIVISA, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
-                        axios.get('https://api.bluelytics.com.ar/v2/latest')
+                        axios.get('https://dolarapi.com/v1/dolares/blue')
                     ]);
                     let conversion: number = DIVISA.data['usd'][(divisa.iso).toLowerCase()]
                     let num: number = 1
@@ -754,8 +758,8 @@ module.exports = {
                             { name: "VENTA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "IMPUESTOS (100%)", value: `ARS$ ${currencyFormatter.format(total100((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: `${divisa.nombre} blue <:dollarblue:903149186436980767>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                         )
                         
                     const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -790,9 +794,9 @@ module.exports = {
                         )
 
 
-                    interaction.deferReply();
-                    setTimeout(() => {
-                        interaction.editReply({ embeds: [embed1], components: [row] });
+                    await interaction.deferReply();
+                    setTimeout(async() => {
+                        await interaction.editReply({ embeds: [embed1], components: [row] });
                     }, 3000)
 
 

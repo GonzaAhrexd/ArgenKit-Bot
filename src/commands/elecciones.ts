@@ -15,7 +15,6 @@ module.exports = {
         .setDescription("Además de presidente y vice, en las elecciones generales de octubre también se elegirán diputados y senadores nacionales ")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/825432782360150047/votar_1.png")
         .addFields(
-          { name: "Elecciones presidenciales 2023 (22/10/2023)" ,value:  "Faltan " + diasHasta(new Date("2023-10-22")) + " días para las siguientes elecciones ejecutivas "},
           { name: "Segunda vuelta presidencial 2023 (19/11/2023)" ,value:  "Faltan " + diasHasta(new Date("2023-11-19")) + " días para la segunda vuelta de las elecciones ejecutivas "},
           { name: "Cambio presidencial 2023 (10/12/2023)", value: "Faltan " + diasHasta(new Date("2023-12-10")) + " días para el siguiente cambio presidencial "})
       const embed2:Discord.EmbedBuilder =  new Discord.EmbedBuilder()
@@ -24,10 +23,7 @@ module.exports = {
        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/825432782360150047/votar_1.png")
        .addFields(
         { name: "🟣 La Libertad Avanza", value: "Javier Milei/Victoria Villaruel"},
-        { name: "🟡 Juntos por el Cambio", value: "Patricia Bullrich/Luis Petri" },
         { name: "🔵 Unión por la Patria", value: "Sergio Massa/Agustin Rossi" },
-        { name: "⚫ Hacemos por Nuestro País", value: "Juan Schiareti/Florencio Randazzo"},
-        { name: "🔴 Frente de Izquierda y de Trabajadores - Unidad", value: "Myriam Bregman/Nicolás del Caño" },
       )
 
         const row = new ActionRowBuilder()

@@ -31,7 +31,7 @@ module.exports = {
                   .setColor("#e6306c")
                   .setDescription("El riesgo país es todo riesgo inherente a las inversiones y a las financiaciones en un país en contraste con otro.")
                   .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903121332810690570/RiesgoPais.png")
-                  .addFields({ name: "Valor :chart_with_upwards_trend: ", value: currencyFormatter.format(RIESGO.data['valor'], { locale: 'es-ES', code: ' ', precision: 0 }) })
+                  .addFields({ name: "Valor :chart_with_upwards_trend: ", value: RIESGO.data['valor']})
             
                 return await interaction.reply({ embeds: [embed] });
       

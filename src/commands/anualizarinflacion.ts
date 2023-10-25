@@ -19,8 +19,7 @@ module.exports = {
           .addFields(
             { name: 'Inflación mensual:', value:  `${interaction.options.getNumber('mensual')}%` },
             { name: 'Inflación anual', value: anualizado.toFixed(2) + "%"})
-
-      return interaction.reply({ embeds: [embed] });
+      return await interaction.reply({ embeds: [embed] });
 
   
     }

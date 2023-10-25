@@ -129,7 +129,7 @@ module.exports = {
 
     }
 
-    provincias.forEach(province => {
+    provincias.forEach(async province => {
       if (provincia2 == province.identificacion) {
         let isCaba:boolean = provincia2 == "caba"
         const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -171,7 +171,7 @@ module.exports = {
               .setStyle(ButtonStyle.Primary)
           )
 
-        interaction.reply({ embeds: [embed1], components: [row]   });
+        await interaction.reply({ embeds: [embed1], components: [row]   });
 
 
 

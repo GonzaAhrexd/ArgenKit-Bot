@@ -25,7 +25,7 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'riesgopais') {
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/riesgopais')
-              .then((RIESGO) => {
+              .then(async(RIESGO) => {
                 const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                   .setTitle("Riesgo País")
                   .setColor("#e6306c")
@@ -33,7 +33,7 @@ module.exports = {
                   .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903121332810690570/RiesgoPais.png")
                   .addFields({ name: "Valor :chart_with_upwards_trend: ", value: currencyFormatter.format(RIESGO.data['valor'], { locale: 'es-ES', code: ' ', precision: 0 }) })
             
-                return interaction.reply({ embeds: [embed] });
+                return await interaction.reply({ embeds: [embed] });
       
               })
               .catch((err) => {
@@ -45,7 +45,7 @@ module.exports = {
       
           if (interaction.options.getSubcommand() === 'reservas') {
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/reservas')
-              .then((RESERVAS) => {
+              .then(async (RESERVAS) => {
                 const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                   .setTitle("Reservas del Banco Central de la República Argentina")
                   .setColor("#9bcef7")
@@ -53,7 +53,7 @@ module.exports = {
                   .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903122250708963358/bank.png")
                   .addFields({ name: "Valor  :bank: ", value: 'USD ' + currencyFormatter.format(RESERVAS.data['valor'], { locale: 'es-ES', code: ' ', precision: 0 }) })
             
-                return interaction.reply({ embeds: [embed] });
+                return await interaction.reply({ embeds: [embed] });
               })
               .catch((err) => {
                 console.error('ERR', err)
@@ -62,14 +62,14 @@ module.exports = {
           //Circulante
           if (interaction.options.getSubcommand() === 'circulante') {
             axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/circulante')
-              .then((CIRCULANTE) => {
+              .then(async (CIRCULANTE) => {
                 const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                   .setTitle("Pesos Argentinos en circulación")
                   .setColor("#FAD56F")
                   .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903124593483583499/money.png")
                   .addFields({ name: "Cantidad :money_with_wings:  ", value: currencyFormatter.format(CIRCULANTE.data['valor'], { locale: 'es-ES', code: ' ', precision: 0 }) })
             
-                return interaction.reply({ embeds: [embed] });
+                return await interaction.reply({ embeds: [embed] });
               })
               .catch((err) => {
                 console.error('ERR', err)

@@ -15,7 +15,7 @@ module.exports = {
               .setThumbnail(`${randomizar == 1 ? "https://cdn.discordapp.com/attachments/802944543510495292/805139900768190484/bancario_1.png" : "https://cdn.discordapp.com/attachments/802944543510495292/805139082417799168/BancarioEscudo.png"}`)
               .addFields({ name: "LA MONEDA QUEDÓ EN: ", value: `${ randomizar === 1 ? "**SOL** :sun_with_face:" :"**ESCUDO** :shield:"}`});
               
-            return interaction.reply({ embeds: [embed] });
+            return await interaction.reply({ embeds: [embed] });
         
         
     }

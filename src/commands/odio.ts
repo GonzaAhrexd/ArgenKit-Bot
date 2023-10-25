@@ -39,7 +39,7 @@ module.exports = {
               .setDescription("Calculando...")
               .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929069300512329768/odiolatam.png")
               .addFields({ name: "Tu odio hacía Latinoamérica es del: ", value: `${odioLatam[0]} ${odioLatam[1]}%`})
-              return interaction.reply({ embeds: [embed] });
+              return await interaction.reply({ embeds: [embed] });
       
           }
       

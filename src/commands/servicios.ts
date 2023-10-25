@@ -355,7 +355,7 @@ module.exports = {
       const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Fondos de la Cartera de Steam")
         .setURL("https://store.steampowered.com/steamaccount/addfunds")
-        .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: ")
+        .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: \nA partir del 20 de noviembre, los precios y la cartera de Steam pasaran a estar en dólares.")
         .setColor('#306fb5')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
         .addFields(

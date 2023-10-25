@@ -142,7 +142,7 @@ module.exports = {
 
     })
 
-    interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
+    await interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
 
 
 

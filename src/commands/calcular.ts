@@ -19,6 +19,6 @@ module.exports = {
         .addFields(
             { name: 'Operación', value: calcular },
             { name: 'Resultado', value: (eval(calcular)).toString()})
-            return interaction.reply({ embeds: [embed] });
+            return await interaction.reply({ embeds: [embed] });
     }
 }

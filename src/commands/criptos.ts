@@ -201,7 +201,7 @@ module.exports = {
                         let conversion: number = CRIPTOINFO.data['prices'][0][1];
 
                         axios.get(cripto.apilemon)
-                            .then((LEMON) => {
+                            .then(async (LEMON) => {
                                 const embed1 = new Discord.EmbedBuilder()
                                 embed1.setTitle(cripto.nombre)
                                 .setColor(cripto.color)
@@ -252,9 +252,9 @@ module.exports = {
                                             .setStyle(ButtonStyle.Primary)
                                     )
 
-                                interaction.deferReply();
-                                setTimeout(() => {
-                                    interaction.editReply({ embeds: [embed1], components: [row] });
+                                await interaction.deferReply();
+                                setTimeout(async () => {
+                                    await interaction.editReply({ embeds: [embed1], components: [row] });
                                 }, 3000)
                                 client.on('interactionCreate', interaction => {
                                     if (!interaction.isButton()) return;

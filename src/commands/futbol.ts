@@ -14,15 +14,6 @@ module.exports = {
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/929121012275093524/camiseta-de-futbol.png")
           .addFields(
             { 
-              name: ":flag_ar: vs :flag_py: \n(12/10/2023)", 
-              value: "Faltan " + diasHasta(new Date("2023-10-12")) + " días", 
-              inline: true 
-            },
-            { 
-              name: ":flag_ar: vs :flag_pe: \n(17/10/2023)", 
-              value: "Faltan " + diasHasta(new Date("2023-10-17")) + " días",  inline: true 
-            },
-            { 
               name: ":flag_ar: vs :flag_uy: \n(16/11/2023)", 
               value: "Faltan " + diasHasta(new Date("2023-11-16")) + " días",  inline: true 
             },

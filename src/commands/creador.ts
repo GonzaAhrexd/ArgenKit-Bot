@@ -19,7 +19,7 @@ module.exports = {
         { name: "Twitter <:twitter:919018371406762024>", value: `https://twitter.com/GonzaloEbel`},
         { name: "GitHub <:github:1069752922121961513>", value: `https://github.com/GonzaAhrexd`},
         { name: "Reddit <:reddit:919018377740177418>", value: `https://www.reddit.com/user/GonzaAhre`})
-    interaction.reply({embeds: [embed] })
+    await interaction.reply({embeds: [embed] })
     }
 
 }

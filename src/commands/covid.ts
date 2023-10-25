@@ -40,7 +40,7 @@ module.exports = {
 
             axios.get('https://disease.sh/v3/covid-19/countries/argentina')
 
-                .then((covidArg) => {
+                .then(async (covidArg) => {
 
                     const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(":flag_ar: Casos totales de Covid-19 en Argentina :flag_ar:")
@@ -82,7 +82,7 @@ module.exports = {
                         )
 
 
-                    interaction.reply({ embeds: [embed1], components: [row] });
+                    await interaction.reply({ embeds: [embed1], components: [row] });
 
                     client.on('interactionCreate', interaction => {
                         if (!interaction.isButton()) return;
@@ -119,7 +119,7 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'global') {
             axios.get('https://disease.sh/v3/covid-19/all')
-                .then((covidGlobal) => {
+                .then(async (covidGlobal) => {
                     const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(":earth_americas: Casos totales de Covid-19 en el mundo :earth_americas:")
                         .setColor("#dd5460")
@@ -133,7 +133,7 @@ module.exports = {
                             { name: 'Activos :red_square:', value: currencyFormatter.format(covidGlobal.data['active'], { locale: 'es-ES', code: ' ', precision: 0 }), inline: true },
                         );
                                        
-                    return interaction.reply({ embeds: [embed] });
+                    return await interaction.reply({ embeds: [embed] });
 
                 })
                 .catch((err) => {
@@ -158,7 +158,7 @@ module.exports = {
                     { name: ' :house: Quedate en casa ', value: 'Si no te encuentras bien, quédate en casa.' },
                     { name: ' :ambulance: En caso de síntomas ', value: 'En caso de que tengas fiebre, tos o dificultad para respirar, busca atención médica.' }
                 );
-            return interaction.reply({ embeds: [embed] });
+            return await interaction.reply({ embeds: [embed] });
 
 
         }
@@ -173,7 +173,7 @@ module.exports = {
                     { name: ' :yellow_circle: Síntomas menos comunes', value: ' - Molestias y dolores \n - Dolor de garganta \n - Diarrea \n - Conjuntivitis \n - Dolor de cabeza \n - Pérdida del sentido del olfato o del gusto \n - Erupciones cutáneas o pérdida del color en los dedos de las manos o de los pies', inline: true },
                     { name: ' :red_circle: Síntomas más graves', value: ' - Dificultad para respirar o sensación de falta de aire \n - Dolor o presión en el pecho \n - Incapacidad para hablar o moverse ', inline: true },
                 )            
-            return interaction.reply({ embeds: [embed] });
+            return await interaction.reply({ embeds: [embed] });
         }
 
 
@@ -194,7 +194,7 @@ module.exports = {
                     .setColor("Red")
                     .setDescription("Utiliza `/covid covidpais [nombre del país]` para ver los datos de covid")
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903133714362531901/casosglobal.png")
-                return interaction.reply({ embeds: [embed] });
+                return await interaction.reply({ embeds: [embed] });
             }
 
 
@@ -246,7 +246,7 @@ module.exports = {
                     )
 
 
-                interaction.reply({ embeds: [embed1], components: [row] });
+                await interaction.reply({ embeds: [embed1], components: [row] });
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;

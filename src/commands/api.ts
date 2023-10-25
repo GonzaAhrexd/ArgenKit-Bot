@@ -18,7 +18,7 @@ module.exports = {
           { name: 'Cotizaciones de criptomonedas', value: "https://criptoya.com/api" },
           { name: 'Cotizaciones de metales', value: "https://api.metals.live/"})
               
-      interaction.reply({ embeds: [embed]})
+      await interaction.reply({ embeds: [embed]})
     }
 
 }

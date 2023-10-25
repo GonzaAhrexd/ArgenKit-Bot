@@ -19,7 +19,7 @@ module.exports = {
             {number: 5, img: 'https://cdn.discordapp.com/attachments/802944543510495292/921904011479769180/dado_3.png', emoji: "five"}, //4
             {number: 6, img: 'https://cdn.discordapp.com/attachments/802944543510495292/921904011244871730/dado_4.png', emoji: "six"} //5
         ]
-        Dado.forEach(Dado => {
+        Dado.forEach(async Dado => {
             if (a == Dado.number) {
                 const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setColor("#ffe082")
@@ -27,7 +27,7 @@ module.exports = {
                 .setDescription("Tirando dados...")
                 .addFields({ name: "El dado cayó en...  ", value: ` Número :${Dado.emoji}:` })
             
-              return interaction.reply({ embeds: [embed] });
+              return await interaction.reply({ embeds: [embed] });
             
         }
     })

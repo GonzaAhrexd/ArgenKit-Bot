@@ -51,6 +51,6 @@ module.exports = {
             .addFields(
                 { name: "Texto Original", value: texto},
                 { name: "Texto traducido", value: textoTraducido})
-        return interaction.reply({ embeds: [embed1] });
+        return await interaction.reply({ embeds: [embed1] });
     }
 }

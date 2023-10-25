@@ -14,7 +14,7 @@ module.exports = {
         .setColor('#7289d9')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919023182269280266/logoinverted.png")
         .setDescription("¡Votar al bot en top.gg es otra forma de mostrar tu apoyo al bot!")
-      interaction.reply({ embeds: [embed] })
+      return await interaction.reply({ embeds: [embed] })
     }
 
 }

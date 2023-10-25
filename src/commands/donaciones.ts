@@ -12,10 +12,7 @@ module.exports = {
         .setColor('Gold')
         .setDescription("¡Si decidiste donarme te lo agradezco infinitamente! ¡Cada peso cuenta!")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919022487377961040/piggy-bank.png")
-        .addFields(
-          { name: "PAYPAL ", value: "http://paypal.me/GonzaAhre"},
-          { name: "LEMONCASH ", value: " LemonTag: $gonzaahre \n  CVU: 0000168300000008383352 \n Alias: gonzaahre.LEMON"} )
-      interaction.reply({ embeds: [embed]})
+       await interaction.reply({ embeds: [embed]})
     }
 
 }

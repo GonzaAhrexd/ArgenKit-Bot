@@ -161,7 +161,7 @@ module.exports = {
     }
 ]
 
-    zonas.forEach(lugar => {
+    zonas.forEach(async lugar => {
       
      
         if(zona == lugar.codigo){
@@ -178,7 +178,7 @@ module.exports = {
             .setColor(lugar.color)
             .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1071523614265970849/clock.png')
             .addFields(zonasEmbedField)
-            return interaction.reply({ embeds: [embed] });
+            return await interaction.reply({ embeds: [embed] });
         }
         
     })

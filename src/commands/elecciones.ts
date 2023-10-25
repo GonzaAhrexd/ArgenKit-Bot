@@ -40,7 +40,7 @@ module.exports = {
             .setStyle(ButtonStyle.Primary)
         )
 
-      interaction.reply({ embeds: [embed], components: [row]   });
+      await interaction.reply({ embeds: [embed], components: [row]   });
 
 
 

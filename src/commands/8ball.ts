@@ -14,12 +14,7 @@ module.exports = {
   
     let consulta:string = interaction.options.getString('consulta')
     let valorAleatorio:number = Math.floor(Math.random() * 14 + 0);
-
-    let Respuesta: Array<{
-        opcion: Number,
-        respuesta: string,
-        color: Discord.ColorResolvable,
-    }> = [
+    let Respuesta: Array<{opcion: Number,respuesta: string, color: Discord.ColorResolvable}> = [
         //Afirmativas ✅
         {opcion: 0, respuesta: "Ma' vale", color: "Green"},
         {opcion: 1, respuesta: "Métele sí", color: "Green"},
@@ -40,7 +35,7 @@ module.exports = {
         {opcion: 14, respuesta: "Ni idea amigo", color: "Red"},
     ]
 
-    Respuesta.forEach(Respuesta => {
+    Respuesta.forEach(async Respuesta =>  {
         if (valorAleatorio == Respuesta.opcion) {
         const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setColor(Respuesta.color)
@@ -49,7 +44,7 @@ module.exports = {
         .addFields(
             { name: 'Consulta:', value: consulta },
             { name: 'La bola 8 mágica dice...', value: Respuesta.respuesta})
-      return interaction.reply({ embeds: [embed] });
+      return await interaction.reply({ embeds: [embed] });
         }
     });
 }

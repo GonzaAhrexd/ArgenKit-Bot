@@ -185,11 +185,11 @@ module.exports = {
                 let convertir: number = interaction.options.getNumber('ars')
 
                 axios.get(cripto.apilemon)
-                    .then((CONVERTIRLEMON) => {
+                    .then(async (CONVERTIRLEMON) => {
                         if (cripto.id == "terraluna") {
 
                             axios.get(cripto.apicoingecko)
-                                .then((CONVERTIRCOINGECKO) => {
+                                .then(async (CONVERTIRCOINGECKO) => {
                     
                                     const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                                         .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)
@@ -200,7 +200,7 @@ module.exports = {
                                             { name: `Monto original :flag_ar: `, value: `ARS$ ${convertir} `},
                                             { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + ' ' + ((convertir / CONVERTIRCOINGECKO.data['prices'][0][1]) / CONVERTIRLEMON.data['bid']).toFixed(8), inline: true},
                                             { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + ' ' + ((convertir / CONVERTIRCOINGECKO.data['prices'][0][1]) / CONVERTIRLEMON.data['ask']).toFixed(8), inline: true})
-                                    return interaction.reply({ embeds: [embed] });
+                                    return await interaction.reply({ embeds: [embed] });
 
                                 }).catch((err) => {
                                     console.error('ERR', err)
@@ -217,7 +217,7 @@ module.exports = {
                                     { name: `Monto original :flag_ar: `, value: `ARS$ ${convertir} `},
                                     { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + ' ' + (convertir / CONVERTIRLEMON.data['bid']).toFixed(8), inline: true},
                                     { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + ' '  + (convertir / CONVERTIRLEMON.data['ask']).toFixed(8), inline: true})
-                                    return interaction.reply({ embeds: [embed] });
+                                    return await interaction.reply({ embeds: [embed] });
                         }
                     })
 

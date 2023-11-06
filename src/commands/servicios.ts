@@ -95,9 +95,9 @@ module.exports = {
         .setColor('#ff0000')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903357207310127185/youtube.png")
         .addFields(
-          { name: "YouTube Music:", value: "ARS$ " + currencyFormatter.format((total100(299)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "YouTube Premium Individual:", value: "ARS$ " + currencyFormatter.format((total100(389)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "YouTube Premium Familiar:", value: "ARS$ " + currencyFormatter.format((total100(699)), { locale: 'es-ES', code: ' ' }), inline: true }
+          { name: "YouTube Music:", value: "ARS$ " + currencyFormatter.format((total100(599   )), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "YouTube Premium Individual:", value: "ARS$ " + currencyFormatter.format((total100(869)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "YouTube Premium Familiar:", value: "ARS$ " + currencyFormatter.format((total100(1569)), { locale: 'es-ES', code: ' ' }), inline: true }
       )
       
       return interaction.reply({ embeds: [embed] });
@@ -162,10 +162,11 @@ module.exports = {
         .setColor('#a6ed75')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903853195443445770/xbox.png")
         .addFields(
-          { name: "Xbox Game Pass primer mes", value: "ARS$ " + currencyFormatter.format((total99(39)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Xbox Game Pass para PC", value: "ARS$ " + currencyFormatter.format((total99(599)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Xbox Game Pass Ultimate", value: "ARS$ " + currencyFormatter.format((total99(899)), { locale: 'es-ES', code: ' ' }), inline: true }
-      )
+          { name: "Xbox Game Pass Core", value: "ARS$ " + currencyFormatter.format((total99(1899)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Xbox Game Pass para PC / Consola", value: "ARS$ " + currencyFormatter.format((total99(2399)), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "Xbox Game Pass Ultimate", value: "ARS$ " + currencyFormatter.format((total99(2999)), { locale: 'es-ES', code: ' ' }), inline: true }
+      
+          )
            return interaction.reply({ embeds: [embed] });
     }
 

@@ -71,7 +71,7 @@ module.exports = {
     ),
   async run(client, interaction, options) {
     if (interaction.options.getSubcommand() === 'netflix') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Netflix")
         .setURL("https://www.netflix.com/ar/")
         .setDescription("Los precios de Netflix con impuestos en Argentina son los siguientes: ")
@@ -82,28 +82,28 @@ module.exports = {
           { name: "Estándar:", value: "ARS$" + currencyFormatter.format((total99(2799)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "Premium:", value: "ARS$" + currencyFormatter.format((total99(3999)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "Casa extra:", value: "ARS$" + currencyFormatter.format((total99(699)), { locale: 'es-ES', code: ' ' }), inline: true }
-          )
-      
-      
+        )
+
+
       return interaction.reply({ embeds: [embed] });
     }
     if (interaction.options.getSubcommand() === 'youtube') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("YouTube Premium")
         .setURL("https://www.youtube.com/premium")
         .setDescription("Los precios de YouTube Premium en Argentina con impuestos son los siguientes:")
         .setColor('#ff0000')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903357207310127185/youtube.png")
         .addFields(
-          { name: "YouTube Music:", value: "ARS$ " + currencyFormatter.format((total100(599   )), { locale: 'es-ES', code: ' ' }), inline: true },
+          { name: "YouTube Music:", value: "ARS$ " + currencyFormatter.format((total100(599)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "YouTube Premium Individual:", value: "ARS$ " + currencyFormatter.format((total100(869)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "YouTube Premium Familiar:", value: "ARS$ " + currencyFormatter.format((total100(1569)), { locale: 'es-ES', code: ' ' }), inline: true }
-      )
-      
+        )
+
       return interaction.reply({ embeds: [embed] });
     }
     if (interaction.options.getSubcommand() === 'spotify') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Spotify")
         .setURL("https://www.spotify.com/ar/premium/")
         .setDescription("Los precios de Spotify Premium en Argentina con impuestos son los siguientes: ")
@@ -114,12 +114,12 @@ module.exports = {
           { name: "Dúo:", value: "ARS$ " + currencyFormatter.format((total99(799)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "Familiar:", value: "ARS$ " + currencyFormatter.format((total99(999)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "Estudiantes:", value: "ARS$ " + currencyFormatter.format((total99(329)), { locale: 'es-ES', code: ' ' }), inline: true }
-      )
-      
+        )
+
       return interaction.reply({ embeds: [embed] });
     }
     if (interaction.options.getSubcommand() === 'crunchyroll') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Crunchyroll")
         .setURL("https://www.crunchyroll.com/es")
         .setColor('#fec105')
@@ -129,13 +129,13 @@ module.exports = {
           { name: "Fan (1 MES):", value: "ARS$ " + currencyFormatter.format((total99(299)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "Mega Fan (1 Mes):", value: "ARS$ " + currencyFormatter.format((total99(379)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "Mega Fan (1 Año):", value: "ARS$ " + currencyFormatter.format((total99(3799)), { locale: 'es-ES', code: ' ' }), inline: true }
-      )
-      
+        )
+
       return interaction.reply({ embeds: [embed] });
     }
 
     if (interaction.options.getSubcommand() === 'disney') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Disney+")
         .setURL("https://www.disneyplus.com/home")
         .setDescription("Debido a que Disney factura en Argentina, este no cobra impuestos internacionales.")
@@ -146,8 +146,8 @@ module.exports = {
           { name: "1 Año:", value: `ARS$ ${6699},00`, inline: true },
           { name: "Combo con Star+ mensual:", value: `ARS$ ${1999},00`, inline: true },
           { name: "Combo con Star+ y Lionsgate+ mensual:", value: `ARS$ ${2399},00`, inline: true }
-      )
-           return interaction.reply({ embeds: [embed] });
+        )
+      return interaction.reply({ embeds: [embed] });
 
     }
 
@@ -155,7 +155,7 @@ module.exports = {
 
 
     if (interaction.options.getSubcommand() === 'xboxgamepass') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Xbox Game Pass")
         .setURL("https://www.xbox.com/es-AR/xbox-game-pass")
         .setDescription("Los precios de Xbox Game Pass con impuestos en Argentina son los siguientes: ")
@@ -165,21 +165,21 @@ module.exports = {
           { name: "Xbox Game Pass Core", value: "ARS$ " + currencyFormatter.format((total99(1899)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "Xbox Game Pass para PC / Consola", value: "ARS$ " + currencyFormatter.format((total99(2399)), { locale: 'es-ES', code: ' ' }), inline: true },
           { name: "Xbox Game Pass Ultimate", value: "ARS$ " + currencyFormatter.format((total99(2999)), { locale: 'es-ES', code: ' ' }), inline: true }
-      
-          )
-           return interaction.reply({ embeds: [embed] });
+
+        )
+      return interaction.reply({ embeds: [embed] });
     }
 
     //Prime Video
     if (interaction.options.getSubcommand() === 'primevideo') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Prime Video")
         .setURL("https://www.primevideo.com/")
         .setDescription("El precio de  Prime Video con impuestos en Argentina es el siguiente: ")
         .setColor('#1aa6e0')
         .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
         .addFields(
-          {name: "Costo mensual", value: "ARS$ " + currencyFormatter.format((total99(1149)), { locale: 'es-ES', code: ' ' } )})
+          { name: "Costo mensual", value: "ARS$ " + currencyFormatter.format((total99(1149)), { locale: 'es-ES', code: ' ' }) })
       return interaction.reply({ embeds: [embed] });
 
     }
@@ -189,7 +189,7 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'appletv') {
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
-          const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle("Apple TV+")
             .setURL("https://www.apple.com/la/tv/")
             .setDescription("Los precios de Apple TV en Argentina son los siguientes: ")
@@ -198,8 +198,8 @@ module.exports = {
             .addFields(
               { name: "Plan individual", value: `ARS$ ${currencyFormatter.format(total99(9.95 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "Plan familiar", value: `ARS$ ${currencyFormatter.format(total99(13.95 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true }
-          )
-              return interaction.reply({ embeds: [embed] });
+            )
+          return interaction.reply({ embeds: [embed] });
 
         })
         .catch((err) => {
@@ -215,7 +215,7 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'hbomax') {
 
 
-      const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("HBO Max")
         .setURL("https://www.hbomax.com/latam/es")
         .setDescription("Precio de HBO Max  en  Argentina con impuestos ")
@@ -228,8 +228,8 @@ module.exports = {
           { name: "Suscripción trimestral estándar", value: `ARS$ ${currencyFormatter.format(1089 * 1.74, { locale: 'es-ES', code: ' ' })}`, inline: true },
           { name: "Suscripción anual móvil", value: `ARS$ ${currencyFormatter.format(2279 * 1.74, { locale: 'es-ES', code: ' ' })}`, inline: true },
           { name: "Suscripción anual estándar", value: `ARS$ ${currencyFormatter.format(3499 * 1.74, { locale: 'es-ES', code: ' ' })}`, inline: true }
-      )
-        return interaction.reply({ embeds: [embed1] });
+        )
+      return interaction.reply({ embeds: [embed1] });
 
     }
     //Nitro
@@ -239,7 +239,7 @@ module.exports = {
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
 
-          const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle("Discord Nitro")
             .setDescription("Los precios de Discord Nitro en Argentina son los siguientes: ")
             .setColor('#8aa9fa')
@@ -249,8 +249,8 @@ module.exports = {
               { name: "Discord Nitro Mensual", value: `ARS$ ${currencyFormatter.format(total99(584.99), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "Discord Nitro Classic Anual", value: `ARS$ ${currencyFormatter.format(total99(2169.99), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "Discord Nitro Anual", value: `ARS$ ${currencyFormatter.format(total99(5849.99), { locale: 'es-ES', code: ' ' })}`, inline: true }
-          )
-          
+            )
+
           return interaction.reply({ embeds: [embed] });
 
         })
@@ -267,7 +267,7 @@ module.exports = {
 
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
-          const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle("Google One")
             .setDescription("Los precios de Google One mensual en Argentina son los siguientes: ")
             .setColor('#f1bb1a')
@@ -276,9 +276,9 @@ module.exports = {
               { name: "Plan de 100GB (USD$ 1,99)", value: `ARS$ ${currencyFormatter.format((total99(1.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "Plan de 200GB (USD$ 2,99)", value: `ARS$ ${currencyFormatter.format((total99(2.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "Plan de 1TB (USD$ 9,99)", value: `ARS$ ${currencyFormatter.format((total99(9.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true }
-          )
-          
-          const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+            )
+
+          const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle("Google One")
             .setDescription("Los precios de Google One anual en Argentina son los siguientes:")
             .setColor('#f1bb1a')
@@ -287,8 +287,8 @@ module.exports = {
               { name: "Plan de 100GB (USD$ 19,99)", value: `ARS$ ${currencyFormatter.format((total99(19.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "Plan de 200GB (USD$ 29,99)", value: `ARS$ ${currencyFormatter.format((total99(29.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "Plan de 1TB (USD$ 99,99)", value: `ARS$ ${currencyFormatter.format((total99(99.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true }
-          )
-          
+            )
+
 
           const row = new ActionRowBuilder()
             .addComponents(
@@ -335,7 +335,7 @@ module.exports = {
     //EA
 
     if (interaction.options.getSubcommand() === 'ea') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("EA Play")
         .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
         .setDescription("Los precios de EA Play con impuestos en Argentina son los siguientes: ")
@@ -344,8 +344,8 @@ module.exports = {
         .addFields(
           { name: "EA Play Mensual", value: `ARS$ ${currencyFormatter.format(total99(499), { locale: 'es-ES', code: ' ' })}`, inline: true },
           { name: "EA Play Anual:", value: `ARS$ ${currencyFormatter.format(total99(3099), { locale: 'es-ES', code: ' ' })}`, inline: true }
-      )
-      
+        )
+
       return interaction.reply({ embeds: [embed] });
 
     }
@@ -353,35 +353,42 @@ module.exports = {
     //Steam
 
     if (interaction.options.getSubcommand() === 'steam') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
-        .setTitle("Fondos de la Cartera de Steam")
-        .setURL("https://store.steampowered.com/steamaccount/addfunds")
-        .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: \nA partir del 20 de noviembre, los precios y la cartera de Steam pasaran a estar en dólares.")
-        .setColor('#306fb5')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
-        .addFields(
-          { name: "ARS$ 200", value: `ARS$ ${currencyFormatter.format(total99(200), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "ARS$ 400", value: `ARS$ ${currencyFormatter.format(total99(400), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "ARS$ 1000", value: `ARS$ ${currencyFormatter.format(total99(1000), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "ARS$ 2000", value: `ARS$ ${currencyFormatter.format(total99(2000), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "ARS$ 4000", value: `ARS$ ${currencyFormatter.format(total99(4000), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "ARS$ 8000", value: `ARS$ ${currencyFormatter.format(total99(8000), { locale: 'es-ES', code: ' ' })}`, inline: true }
-      )
-      
-      return interaction.reply({ embeds: [embed] });
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+        .then((oficial) => {
+
+          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+            .setTitle("Fondos de la Cartera de Steam")
+            .setURL("https://store.steampowered.com/steamaccount/addfunds")
+            .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: \n")
+            .setColor('#306fb5')
+            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
+            .addFields(
+              { name: "USD$ 5.00", value: `ARS$ ${currencyFormatter.format(total99(5 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+              { name: "USD$ 10.00", value: `ARS$ ${currencyFormatter.format(total99(10 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+              { name: "USD$ 25.00", value: `ARS$ ${currencyFormatter.format(total99(25 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+              { name: "USD$ 50.00", value: `ARS$ ${currencyFormatter.format(total99(50 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+              { name: "USD$ 100.00", value: `ARS$ ${currencyFormatter.format(total99(100 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+            )
+
+          return interaction.reply({ embeds: [embed] });
+        })
+        .catch((err) => {
+          console.error('ERR', err)
+        })
+
     }
 
     //Paramount
 
     if (interaction.options.getSubcommand() === 'paramount') {
-      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Paramount+")
         .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Paramount_Plus.svg/1920px-Paramount_Plus.svg.png")
         .setURL("https://www.paramountplus.com/ar/")
         .setDescription("Los precios de Paramount+ en Argentina con impuestos son los siguientes: ")
         .setColor('#0b67ff')
         .addFields(
-          {name: "Plan  mensual ", value:`ARS$ ${599}`})
+          { name: "Plan  mensual ", value: `ARS$ ${599}` })
 
       return interaction.reply({ embeds: [embed] });
 
@@ -392,7 +399,7 @@ module.exports = {
     if (interaction.options.getSubcommand() === 'twitch') {
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
         .then((oficial) => {
-          const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle("Siscripciones de Twitch")
             .setURL("https://www.twitch.tv/")
             .setDescription("Los precios de las suscripciones a Twitch en Argentina son los siguientes: ")
@@ -402,10 +409,10 @@ module.exports = {
               { name: "Suscripción de nivel 1", value: `ARS$ ${currencyFormatter.format((total99(1.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "Suscripción de nivel 2", value: `ARS$ ${currencyFormatter.format((total99(3.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "Suscripción de nivel 3", value: `ARS$ ${currencyFormatter.format((total99(9.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true }
-          )
-          
+            )
 
-          const embed2:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+
+          const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle("Bits de Twitch")
             .setDescription("Los precios de los bits de Twitch en Argentina son los siguientes: ")
             .setColor('#9246ff')
@@ -419,11 +426,11 @@ module.exports = {
               { name: "5.000 bits", value: `ARS$ ${currencyFormatter.format(total99(64.40 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "10.000 bits", value: `ARS$ ${currencyFormatter.format(total99(126.00 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
               { name: "25.000 bits", value: `ARS$ ${currencyFormatter.format(total99(308.00 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true }
-          )
-          
+            )
 
-       
-            const row = new ActionRowBuilder()
+
+
+          const row = new ActionRowBuilder()
             .addComponents(
               new ButtonBuilder()
                 .setCustomId('suscripciones')

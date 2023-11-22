@@ -14,6 +14,7 @@ module.exports = {
       let anualizado: number = (((interaction.options.getNumber('mensual') / 100) + 1) ** 12 - 1) * 100;
       const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Inflación mensual anualizada")
+          .setDescription("La economía tiene un atraso de 18 a 24 meses luego de realizada una acción")
           .setColor("#f82f40")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/964701743504044072/loss.png")
           .addFields(

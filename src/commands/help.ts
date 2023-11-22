@@ -28,33 +28,27 @@ module.exports = {
               emoji: "<:Divisas:903096313061724190>"
             },
             {
-              label: 'Información  del Covid19',
-              description: 'Información con respecto a la pandemia del covid19',
-              value: 'third',
-              emoji: "<:Covid:903096313439219762>"
-            },
-            {
               label: 'Datos',
               description: 'Datos variados acerca del país',
-              value: 'fourth',
+              value: 'third',
               emoji: "<:Datos2:903096311102988378>"
             },
             {
               label: 'Servicios',
               description: 'Precio de servicios de streaming y variados',
-              value: 'fifth',
+              value: 'fourth',
               emoji: "<:Servicios2:903097132683239474>"
             },
             {
               label: 'Diversión',
               description: 'Comandos de diversión',
-              value: 'sixth',
+              value: 'fifth',
               emoji: "<:Diversin:903096312289955860>"
             },
             {
               label: 'Información',
               description: 'Información del bot y su creador',
-              value: 'seventh',
+              value: 'sixth',
               emoji: "<:Informacindelbot:903096312713609246>"
             }
           ]
@@ -66,7 +60,7 @@ module.exports = {
       .setTitle(":desktop: COMANDOS DE ARGENKIT BOT :desktop: ")
       .setColor('#fdcb68')
       .addFields(
-        { name: "» Comandos disponibles", value: "¡Tenemos `7` categorías distintas llenas de comandos y subcomandos! \n Para ver las novedades más recientes del bot utiliza `/update`" },
+        { name: "» Comandos disponibles", value: "¡Tenemos `6` categorías distintas llenas de comandos y subcomandos! \n Para ver las novedades más recientes del bot utiliza `/update`" },
         { name: "» Comandos populares", value: "`impuesto`  `calcuar`  `convertir dolar`  `divisa dolar`  `divisa blue`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `moneda`  `invite`" },
         { name: "» Comandos nuevos", value: "`calcular`  `hora`" }
       ).setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903001307554652160/buscando.png")
@@ -96,13 +90,7 @@ module.exports = {
         { name: "» `criptomoneda` ", value: "» Subcomandos bitcoin ethereum tether axieinfinity terraluna decentraland solana dai dogecoin" },
         { name: "» `metal`", value: "» Subcomandos oro plata paladio platino" }
       )
-    let embed4 = new Discord.EmbedBuilder()
-      .setTitle(":mask:  Covid19 :mask: ")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903019853202468884/nueva-normalidad.png")
-      .setDescription("Estos comandos contienen información sobre la pandemia del covid19")
-      .addFields(
-        {name:"» `covid`", value: "» Subcomandos `casos`  `global`  `covidpais`  `sintomas`  `recomendaciones`"})
+   
 
     let embed5 = new Discord.EmbedBuilder()
       .setTitle(":bar_chart: Datos :bar_chart:")
@@ -127,7 +115,7 @@ module.exports = {
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094465747648552/Diversion.png")
       .setDescription("Estos son comandos con cosas divertidas mayormente basadas en aleatoridad")
       .addFields(
-        {name:"» Comandos", value: "`odio argentina`  `odio latinoamerica`  `covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`"})
+        {name:"» Comandos", value: "`covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`"})
 
     let embed8 = new Discord.EmbedBuilder()
       .setTitle(":open_file_folder: Información del bot :open_file_folder:")
@@ -142,7 +130,7 @@ module.exports = {
 
     })
 
-    await interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
+    interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
 
 
 
@@ -155,9 +143,6 @@ module.exports = {
       }
       if (value === "second") {
         await interaction.editReply({ embeds: [embed3], ephemeral: false })
-      }
-      if (value === "third") {
-        await interaction.editReply({ embeds: [embed4], ephemeral: false })
       }
       if (value === "fourth") {
         await interaction.editReply({ embeds: [embed5], ephemeral: false })

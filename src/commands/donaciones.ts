@@ -11,8 +11,12 @@ module.exports = {
         .setTitle("DONACIONES")
         .setColor('Gold')
         .setDescription("¡Si decidiste donarme te lo agradezco infinitamente! ¡Cada peso cuenta!")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919022487377961040/piggy-bank.png")
-       await interaction.reply({ embeds: [embed]})
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1177084481941819463/donation.png?ex=65713859&is=655ec359&hm=3b3b29bd93898b5b38e44b00909be4bdfa5bfb46ce59248f75b50ea7e78d833b&")
+        .addFields(
+            { name: "PAYPAL ", value: "http://paypal.me/GonzaAhre"},
+            { name: "LEMONCASH ", value: " LemonTag: $gonzaahre \n  CVU: 0000168300000008383352 \n Alias: gonzaahre.LEMON"} )
+       
+        await interaction.reply({ embeds: [embed]})
     }
 
 }

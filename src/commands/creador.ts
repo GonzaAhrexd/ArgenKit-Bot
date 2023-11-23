@@ -10,9 +10,9 @@ module.exports = {
     async run(client, interaction){
         const embed:Discord.EmbedBuilder = new EmbedBuilder()
       .setTitle("El creador del Bot es Gonzalo Ebel")
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/919017432591507537/coding.png")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1177068140140707950/coding.png?ex=65712921&is=655eb421&hm=d7444a3c3d4e1fa2b025c7904de09389416160811f862ed5c99b0b56cdf71bb8&")
       .setDescription("Estas son mis redes sociales, podés darme sugerencias o ideas por Twitter o en el servidor oficial del bot!")
-      .setColor('#dfe5e8')
+      .setColor('#2D4D83')
       .addFields(
         { name: "YouTube <:yt:919017871886123120>", value: `https://www.youtube.com/c/GonzaAhrexd`},
         { name: "Twitch  <:twitch:919018371134140466>", value: `https://www.twitch.tv/gonzaahre`},

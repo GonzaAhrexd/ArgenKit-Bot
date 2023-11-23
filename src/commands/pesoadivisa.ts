@@ -2,7 +2,7 @@
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { restar74, restar75, restar100 } = require("../functions/impuestos"); //Impuestos
+const { restar74, restar75, restar155 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName('pesoa')
@@ -188,7 +188,7 @@ module.exports = {
                   { name: "Venta :dollar:", value: 'USD$ ' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
 
                   //Impuestos
-                  {name: "Impuestos (100%)  ", value: "USD$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                  {name: "Impuestos (100%)  ", value: "USD$ " + currencyFormatter.format(restar155(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
                 
                   //Blue
                   { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
@@ -233,7 +233,7 @@ module.exports = {
                   { name: "Venta :euro:", value: 'EUR€ ' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
 
                   //Impuestos
-                   {name: "Impuestos (100%)  ", value: "EUR€ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
+                   {name: "Impuestos (100%)  ", value: "EUR€ " + currencyFormatter.format(restar155(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true},
                 
                   //Blue
                   { name: "Euro Blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
@@ -279,7 +279,7 @@ module.exports = {
                   { name: "Venta :dollar:", value: 'BRL R$' + currencyFormatter.format((convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
 
                   //Impuestos
-                  {name: "Impuestos (100%)  ", value: "BRL$ " + currencyFormatter.format(restar100(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline:true},
+                  {name: "Impuestos (100%)  ", value: "BRL$ " + currencyFormatter.format(restar155(convertir / oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline:true},
                 
                   //Blue
                   { name: "Real blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
@@ -518,7 +518,7 @@ module.exports = {
                         { name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + currencyFormatter.format((convertir * aconvertir) / oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
 
                         //Impuestos
-                        {name:"Impuestos (100%)  ", value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format(restar100((convertir*aconvertir)/oficial.data['venta']),{locale:'es-ES',code:' '}),inline:true},
+                        {name:"Impuestos (100%)  ", value:`${divisa.iso} ${divisa.simbolo}`+currencyFormatter.format(restar155((convertir*aconvertir)/oficial.data['venta']),{locale:'es-ES',code:' '}),inline:true},
                       
                         //Blue
                         {name:`${divisa.nombre} <:dollarblue:903149186436980767>`, value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},

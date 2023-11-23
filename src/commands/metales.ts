@@ -5,7 +5,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total100 } = require("../functions/impuestos"); //Impuestos
+const { total155 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('metal')
@@ -108,7 +108,7 @@ module.exports = {
                             { name: 'Compra ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((1 / metal.data['usd'][Metal.iso])) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
                             { name: 'Venta ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((1 /  metal.data['usd'][Metal.iso])) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
                             //Impuestos
-                            { name: "Impuestos (100%)", value: "ARS$ " + currencyFormatter.format(total100((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                            { name: "Impuestos (100%)", value: "ARS$ " + currencyFormatter.format(total155((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
                             //Blue
                             { name: Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                             { name: "Compra", value: "ARS$ " + currencyFormatter.format((1 / metal.data['usd'][Metal.iso]) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },

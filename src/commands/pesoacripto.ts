@@ -2,7 +2,7 @@
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = ('currency-formatter'); //Currency formatter
-const { total75, total99, total100 } = require("../functions/impuestos"); //Impuestos
+const { total75, total154, total155 } = require("../functions/impuestos"); //Impuestos
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('pesoacripto')

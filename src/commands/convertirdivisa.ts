@@ -187,8 +187,8 @@ module.exports = {
                 const [oficial, blue, mep, ccl] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
                     axios.get('https://dolarapi.com/v1/dolares/blue'),
-                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/bolsa'),
-                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/contadoliqui'),
+                    axios.get('https://dolarapi.com/v1/dolares/bolsa'),
+                    axios.get('https://dolarapi.com/v1/dolares/contadoconliqui'),
                 ]);
                 const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
 

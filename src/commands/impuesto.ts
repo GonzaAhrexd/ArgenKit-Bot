@@ -20,38 +20,38 @@ module.exports = {
     function llenarEmbed(embed, porcentaje) {
       let arrayEmbed = [
         { name: "Monto original", value: "$" + currencyFormatter.format(imp, { locale: 'es-ES', code: ' ' }) },
-        porcentaje == 99 ? { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
-        { name: `P.A.I.S ${porcentaje == 99 ? "(8%)" : "(30%)"}`, value: "$" + currencyFormatter.format((porcentaje == 99 ? impuestos.pais8(imp) : impuestos.pais30(imp)), { locale: 'es-ES', code: ' ' }), inline: true },
-        { name: "Adelanto de Ganancias (45%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
-        porcentaje === 100 ?   { name: "Cuenta de Bienes Personales (25%)", value: "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
-        { name: `Total ${porcentaje === 99 ? "(99%)" : ""} ${porcentaje === 100 ? "(100%)" : ""} `, value: "$" + currencyFormatter.format((porcentaje == 99 && impuestos.total99(imp)) || (porcentaje == 100 && impuestos.total100(imp)), { locale: 'es-ES', code: ' ' }) }
+        porcentaje == 154 ? { name: "I.V.A (21%) ", value: "$" + currencyFormatter.format(impuestos.iva(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
+        { name: `P.A.I.S ${porcentaje == 154 ? "(8%)" : "(30%)"}`, value: "$" + currencyFormatter.format((porcentaje == 154 ? impuestos.pais8(imp) : impuestos.pais30(imp)), { locale: 'es-ES', code: ' ' }), inline: true },
+        { name: "Adelanto de Ganancias (100%)", value: "$" + currencyFormatter.format(impuestos.ganancias(imp), { locale: 'es-ES', code: ' ' }), inline: true },
+        porcentaje === 155 ?   { name: "Cuenta de Bienes Personales (25%)", value: "$" + currencyFormatter.format(impuestos.bienes(imp), { locale: 'es-ES', code: ' ' }), inline: true } : null,
+        { name: `Total ${porcentaje === 154 ? "(154%)" : ""} ${porcentaje === 155 ? "(155%)" : ""} `, value: "$" + currencyFormatter.format((porcentaje == 154 && impuestos.total154(imp)) || (porcentaje == 155 && impuestos.total155(imp)), { locale: 'es-ES', code: ' ' }) }
       ]
       arrayEmbed = arrayEmbed.filter(Boolean);
       embed.setTitle(`Impuestos a la compra al exterior (${porcentaje}%)`)
         .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
         .setColor("#d6f2fc")
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903113482835197972/taxes.png")
+        .setThumbnail("https://cdn.discordapp.com/attachments/8029410043510495292/903113482835197972/taxes.png")
       embed.addFields(arrayEmbed);
     }
     //IVA + PAIS + GANANCIAS + BIENES PERSONALES
     const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-    llenarEmbed(embed1, 99)
+    llenarEmbed(embed1, 154)
     ////PAIS + GANANCIA + BIENES PERSONALES
     const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
     embed2.setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
-    llenarEmbed(embed2, 100)
+    llenarEmbed(embed2, 155)
     //PAIS + GANANCIA + BIENES PERSONALES
     
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
           .setCustomId('tarjeta')
-          .setLabel("📄99%")
+          .setLabel("📄154%")
           .setStyle(ButtonStyle.Success)
       ).addComponents(
         new ButtonBuilder()
           .setCustomId('solidario')
-          .setLabel("📄100%")
+          .setLabel("📄155%")
           .setStyle(ButtonStyle.Primary)
       )
     

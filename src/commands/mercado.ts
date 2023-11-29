@@ -3,7 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
-const {formatoPrecio} = require('../functions/formatoPrecio')
+const { formatoPrecio } = require('../functions/formatoPrecio')
 const apiKEY = process.env.apiKeyFinnhub
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -15,10 +15,6 @@ module.exports = {
         ).addSubcommand(subcommand =>
             subcommand.setName('acciones')
                 .setDescription('Muestra el precio de algunas acciones')
-                .addBooleanOption(option =>
-                    option.setName('argentinas')
-                        .setDescription('Consultar acciones argentinas?')
-                )
         ).addSubcommand(subcommand =>
             subcommand.setName('consultar')
                 .setDescription('Consulta los valores de un activo del mercado')
@@ -28,145 +24,189 @@ module.exports = {
                         .setRequired(true)
                 )
         ),
-        async run(client, interaction, options){
-            if (interaction.options.getSubcommand() === 'estado') {
-                try {
-                    const [estadoMercado] = await Promise.all([
-                        axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
-                    ]);
-                    console.log(estadoMercado.data['isOpen'])
-                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    async run(client, interaction, options) {
+        if (interaction.options.getSubcommand() === 'estado') {
+            try {
+                const [estadoMercado] = await Promise.all([
+                    axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
+                ]);
+                console.log(estadoMercado.data['isOpen'])
+                const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Estado del mercado actual")
                     .setColor(estadoMercado.data['isOpen'] ? "Green" : "Red")
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1178904578763280456/stock.png?ex=6577d772&is=65656272&hm=d31896e4060b95d263afb323da2c5d36687da9f95998a024ab814dcfecb5d04b&")
                     .setDescription(`El mercado se encuentra  ${estadoMercado.data['isOpen'] ? "abierto" : "cerrado"}`)
                     .addFields(
-                        {name: 'Feriado ', value: ` ${estadoMercado.data['holiday']  == null ? "Ninguno" : estadoMercado.data['holiday']}`},
-                        {name: "Estado",   value: estadoMercado.data['isOpen'] ? "Abierto" : "Cerrado"},
-                        {name: "Sesión",   value: `${estadoMercado.data['session'] == null ? "Ninguno" : estadoMercado.data['session']}`},
-                        )
-                        return await interaction.reply({ embeds: [embed] });
+                        { name: 'Feriado ', value: ` ${estadoMercado.data['holiday'] == null ? "Ninguno" : estadoMercado.data['holiday']}` },
+                        { name: "Estado", value: estadoMercado.data['isOpen'] ? "Abierto" : "Cerrado" },
+                        { name: "Sesión", value: `${estadoMercado.data['session'] == null ? "Ninguno" : estadoMercado.data['session']}` },
+                    )
+                return await interaction.reply({ embeds: [embed] });
 
 
-                }catch(err){
-                    console.error('ERR', err);
+            } catch (err) {
+                console.error('ERR', err);
 
-                    const errorEmbed = new Discord.EmbedBuilder()
-                        .setColor("#ff0000")
-                        .setTitle("Error")
-                        .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-    
-                    interaction.reply({ embeds: [errorEmbed] });
-                }
-            
-            
+                const errorEmbed = new Discord.EmbedBuilder()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
+
+                interaction.reply({ embeds: [errorEmbed] });
             }
-            if (interaction.options.getSubcommand() === 'acciones') {
-                let argentinas:boolean = interaction.options.getBoolean('argentinas')
 
-                console.log(argentinas)
-                interface Accion {
-                    symbol: string; // el símbolo de la acción, como AAPL o MSFT
-                    name: string; // el nombre de la empresa, como Apple o Microsoft
-                    price: number; // el precio actual de la acción
-                    previousPrice:  number;
-                    porcentaje:  number;
-                    ratio: number;
-                  }
-                  let acciones: Accion[] = [
-                    { symbol: "AAPL", name: "Apple", price: 0, previousPrice:0, porcentaje:0, ratio: 10 },
-                    { symbol: "MSFT", name: "Microsoft", price: 0, previousPrice:0 , porcentaje:0, ratio: 30 },
-                    { symbol: "GOOG", name: "Alphabet", price: 0, previousPrice:0, porcentaje:0, ratio: 58  },
-
-                    { symbol: "TSLA", name: "Tesla.inc", price: 0, previousPrice:0, porcentaje:0, ratio:  15 },
-                    { symbol: "AMZN", name: "Amazon", price: 0, previousPrice:0, porcentaje:0, ratio: 144  },
-                    
-
-                    { symbol: "INTC", name: "Intel", price: 0, previousPrice:0, porcentaje:0, ratio:  5 },
-                    { symbol: "AMD", name: "AMD", price: 0, previousPrice:0, porcentaje:0, ratio:  10 },
-                    { symbol: "NVDA", name: "Nvidia", price: 0, previousPrice:0, porcentaje:0, ratio:  24 },
-                    { symbol: "MELI", name: "Mercado Libre", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
-
-                    // { symbol: "BBAR", name: "BANCO FRANCES", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
-                    // { symbol: "BMA", name: "BANCO MACRO", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
-                    // { symbol: "SUPV", name: "BANCO SUPERVIELLE", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
-                  
-
-                    // { symbol: "YPF", name: "YPF", price: 0, previousPrice:0, porcentaje:0, ratio: 1 },
-                    
-                //    { symbol: "EDN", name: "Edenor", price: 0, previousPrice:0, porcentaje:0, ratio: 1 },
-                //    { symbol: "GGAL", name: "Galicia", price: 0, previousPrice:0, porcentaje:0, ratio: 1 },
-                  
-                ];
-
-                  for (let accion of acciones) {
-                    await axios.get(
-                        `https://finnhub.io/api/v1/quote?symbol=${accion.symbol}&token=${apiKEY}`
-                      )
-
-                       .then((response) => {
-                        // actualizar el precio de la acción con el valor devuelto por la API
-                        accion.price = response.data.c;
-                        accion.previousPrice = response.data.pc
-                        accion.porcentaje = response.data.dp
-                      })
-                      .catch((error) => {
-                        // manejar el error
-                        console.error(error);
-                      });
-                  }
-
-                  console.log(acciones)
-
-                try {
-                    const [estadoMercado, dolarMEP ] = await Promise.all([
-                        axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
-                        axios.get(`https://dolarapi.com/v1/dolares/contadoconliqui`),
-
-                    ]);
-                   
-                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                    .setTitle("Acciones de empresas")
-                    .setColor(estadoMercado.data['isOpen'] ? "Green" : "Red")
-                    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1178904578763280456/stock.png?ex=6577d772&is=65656272&hm=d31896e4060b95d263afb323da2c5d36687da9f95998a024ab814dcfecb5d04b&")
-                    .setDescription(`Estas son algunas acciones del mercado. Los valores en pesos son una estimación tomando de referencia el dólar CCL`)
-                    for (let accion of acciones) {
-                        // crear un objeto con los campos name, value e inline
-                        let field = {
-                          name: `${accion.name} ${subioPrecio(accion)} ${(accion.porcentaje).toFixed(2)}%`,
-                          value: `${ formatoPrecio(accion.price,"USD")} (NYC)\nARS ${ formatoPrecio(((accion.price / accion.ratio) * dolarMEP.data['venta']),"ARS") } (CEDEAR ${accion.ratio}:1) `,
-                          inline: true,
-                        };
-                       
-                        // agregar el objeto al método .addFields()
-                        embed.addFields(field);
-                      }
-                    
-                      interaction.deferReply();
-                      setTimeout(() => {
-                          interaction.editReply({ embeds: [embed]});
-                      }, 3000)
-  
-
-                }catch(err){
-                    console.error('ERR', err);
-
-                    const errorEmbed = new Discord.EmbedBuilder()
-                        .setColor("#ff0000")
-                        .setTitle("Error")
-                        .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-    
-                    interaction.reply({ embeds: [errorEmbed] });
-                }
-            
-            
-            }
-         
-            function subioPrecio(activo):String{
-                return activo.price > activo.previousPrice ?  "<:triangleup:1178914601799270450>" :  "🔻"
-            }
 
         }
+        if (interaction.options.getSubcommand() === 'acciones') {
+            let argentinas: boolean = interaction.options.getBoolean('argentinas')
+
+            console.log(argentinas)
+            interface Accion {
+                symbol: string; // el símbolo de la acción, como AAPL o MSFT
+                name: string; // el nombre de la empresa, como Apple o Microsoft
+                price: number; // el precio actual de la acción
+                previousPrice: number;
+                porcentaje: number;
+                ratio: number;
+            }
+            const populares: String[] = ["Apple", "Coca Cola", "Mercado Libre", "S"]
+            const tecnologia: String[] = ["Apple", "Microsoft", "Alphabet", "Amazon", "Intel", "AMD", "Nvidia", "Tesla.inc", "Qualcom"]
+            const nacionales: String[] = ["YPF", "Mercado Libre", "Globant", "Despegar.com", "Banco Francés", "Banco Supervielle", "Banco Macro", "Edenor", "Galicia"]         
+            let acciones: Accion[] = [
+                { symbol: "AAPL", name: "Apple", price: 0, previousPrice: 0, porcentaje: 0, ratio: 10 },
+                { symbol: "MSFT", name: "Microsoft", price: 0, previousPrice: 0, porcentaje: 0, ratio: 30 },
+                { symbol: "GOOG", name: "Alphabet", price: 0, previousPrice: 0, porcentaje: 0, ratio: 58 },
+
+                { symbol: "TSLA", name: "Tesla.inc", price: 0, previousPrice: 0, porcentaje: 0, ratio: 15 },
+                { symbol: "AMZN", name: "Amazon", price: 0, previousPrice: 0, porcentaje: 0, ratio: 144 },
+                { symbol: "QCOM", name: "Qualcom", price: 0, previousPrice: 0, porcentaje: 0, ratio: 11 },
+             
+                { symbol: "INTC", name: "Intel", price: 0, previousPrice: 0, porcentaje: 0, ratio: 5 },
+                { symbol: "AMD", name: "AMD", price: 0, previousPrice: 0, porcentaje: 0, ratio: 10 },
+                { symbol: "NVDA", name: "Nvidia", price: 0, previousPrice: 0, porcentaje: 0, ratio: 24 },
+
+                { symbol: "YPF", name: "YPF", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
+                { symbol: "MELI", name: "Mercado Libre", price: 0, previousPrice: 0, porcentaje: 0, ratio: 60 },
+                { symbol: "GLOB", name: "Globant", price: 0, previousPrice: 0, porcentaje: 0, ratio: 18 },
+                { symbol: "DESP", name: "Despegar.com", price: 0, previousPrice: 0, porcentaje: 0, ratio: 18 },
+               
+                { symbol: "BBAR", name: "Banco Francés", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
+                { symbol: "BMA", name: "Banco Macro", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
+
+                { symbol: "SUPV", name: "Banco Supervielle", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
+                { symbol: "EDN", name: "Edenor", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
+                { symbol: "GGAL", name: "Galicia", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
+            ]
+
+
+            try {
+                const apiRequests = acciones.map(accion =>
+                    axios.get(`https://finnhub.io/api/v1/quote?symbol=${accion.symbol}&token=${apiKEY}`)
+                );
+
+                const responses = await Promise.all(apiRequests);
+
+                responses.forEach((response, index) => {
+                    acciones[index].price = response.data.c;
+                    acciones[index].previousPrice = response.data.pc;
+                    acciones[index].porcentaje = response.data.dp;
+                });
+
+                const [estadoMercado, dolarMEP] = await Promise.all([
+                    axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
+                    axios.get(`https://dolarapi.com/v1/dolares/contadoconliqui`),
+
+                ]);
+
+
+                const llenarEmbed = (embedRellenar, tipoAcciones: String[]) => {
+                    embedRellenar.setTitle("Acciones de empresas")
+                        .setColor(estadoMercado.data['isOpen'] ? "Green" : "Red")
+                        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1178904578763280456/stock.png?ex=6577d772&is=65656272&hm=d31896e4060b95d263afb323da2c5d36687da9f95998a024ab814dcfecb5d04b&")
+                        .setDescription(`Estas son algunas acciones del mercado. Los valores en pesos son una estimación tomando de referencia el dólar CCL`)
+                    for (let accion of acciones) {
+                        // crear un objeto con los campos name, value e inline
+                        if (tipoAcciones.includes(accion.name)) {
+                            let field = {
+                                name: `${accion.name} ${subioPrecio(accion)} ${(accion.porcentaje).toFixed(2)}%`,
+                                value: `${formatoPrecio(accion.price, "USD")} (NYC)\nARS ${formatoPrecio(((accion.price / accion.ratio) * dolarMEP.data['venta']), "ARS")} (CEDEAR ${accion.ratio}:1) `,
+                                inline: true,
+                            };
+
+                            // agregar el objeto al método .addFields()
+                            embedRellenar.addFields(field);
+                        }
+                    }
+                }
+
+                const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embed, tecnologia)
+
+                const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embed2, nacionales)
+
+
+                const row = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('tecnologia')
+                            .setLabel("Populares")
+                            .setStyle(ButtonStyle.Success)
+                    ).addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('nacionales')
+                            .setLabel("Nacionales")
+                            .setStyle(ButtonStyle.Primary)
+                    )
+
+                interaction.deferReply();
+                setTimeout(() => {
+                    interaction.editReply({ embeds: [embed], components: [row] });
+                }, 3000)
+
+                client.on('interactionCreate', interaction => {
+                    if (!interaction.isButton()) return;
+                });
+
+                const filter = i => i.user.id === interaction.user.id;
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+
+                collector.on('collect', async i => {
+                    if (i.customId === 'tecnologia') {
+                        await i.deferUpdate()
+                        await i.editReply({ embeds: [embed], components: [row] });
+                    }
+                    if (i.customId === 'nacionales') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed2], components: [row] });
+                    }
+
+
+
+                    })
+                 
+                    
+
+            } catch (err) {
+                console.error('ERR', err);
+
+                const errorEmbed = new Discord.EmbedBuilder()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
+
+                interaction.reply({ embeds: [errorEmbed] });
+            }
+
+
+        }
+
+
+        function subioPrecio(activo): String {
+            return activo.price > activo.previousPrice ? "<:triangleup:1178914601799270450>" : "🔻"
+        }
+
+    }
 
 
 }

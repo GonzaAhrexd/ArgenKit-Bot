@@ -113,7 +113,7 @@ module.exports = {
                         //Financieros
                         { name: "Financieros <:finanzas:1068357650380755045>", value: "Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares." },
                         { name: "CCL", value: `ARS$ ${currencyFormatter.format(ccl.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "MEP", value: `ARS$ ${currencyFormatter.format(mep.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                        { name: "MEP", value: `ARS$ ${currencyFormatter.format(mep.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                     );
                 const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Dólar estadounidense")

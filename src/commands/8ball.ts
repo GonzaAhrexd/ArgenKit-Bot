@@ -1,6 +1,5 @@
 
 import Discord from "discord.js"
-
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('8ball')
@@ -11,7 +10,6 @@ module.exports = {
                 .setRequired(true)
         ),
     async run(client, interaction, options) {
-
     let consulta:string = interaction.options.getString('consulta')
     let valorAleatorio:number = Math.floor(Math.random() * 29 + 0);
     let Respuesta: Array<{opcion: Number,respuesta: string, color: Discord.ColorResolvable}> = [

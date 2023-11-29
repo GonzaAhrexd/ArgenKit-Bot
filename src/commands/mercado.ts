@@ -58,20 +58,21 @@ module.exports = {
 
         }
         if (interaction.options.getSubcommand() === 'acciones') {
-            let argentinas: boolean = interaction.options.getBoolean('argentinas')
-
-            console.log(argentinas)
             interface Accion {
                 symbol: string; // el símbolo de la acción, como AAPL o MSFT
                 name: string; // el nombre de la empresa, como Apple o Microsoft
                 price: number; // el precio actual de la acción
-                previousPrice: number;
-                porcentaje: number;
-                ratio: number;
+                previousPrice: number; // el precio anterior de la acción
+                porcentaje: number; // el porcentaje que cambió la acción
+                ratio: number; // el ratio entre acción y cedear
             }
-            const populares: String[] = ["Apple", "Coca Cola", "Mercado Libre", "S"]
+            const populares: String[] = ["Apple", "Coca Cola", "Mercado Libre", "SPDR S&P 500",  "Tesla.inc"]
             const tecnologia: String[] = ["Apple", "Microsoft", "Alphabet", "Amazon", "Intel", "AMD", "Nvidia", "Tesla.inc", "Qualcom"]
             const nacionales: String[] = ["YPF", "Mercado Libre", "Globant", "Despegar.com", "Banco Francés", "Banco Supervielle", "Banco Macro", "Edenor", "Galicia"]         
+            const gaming: String[] = ["Electronic Arts", "Intel", "Microsoft", "Nvidia", "Qualcom", "Roblox Corp", "Sony"]         
+            const travel: String[] = ["Airbnb", "American Airlines", "Despegar.com", "Mastercard", "Visa"]         
+            const automotriz: String[] = ["Tesla.inc", "Ford", "General Motors", "Toyota Motor"]         
+          
             let acciones: Accion[] = [
                 { symbol: "AAPL", name: "Apple", price: 0, previousPrice: 0, porcentaje: 0, ratio: 10 },
                 { symbol: "MSFT", name: "Microsoft", price: 0, previousPrice: 0, porcentaje: 0, ratio: 30 },
@@ -96,6 +97,22 @@ module.exports = {
                 { symbol: "SUPV", name: "Banco Supervielle", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
                 { symbol: "EDN", name: "Edenor", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
                 { symbol: "GGAL", name: "Galicia", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
+                
+                { symbol: "KO", name: "Coca Cola", price: 0, previousPrice: 0, porcentaje: 0, ratio: 5 },
+                { symbol: "SPY", name: "SPDR S&P 500", price: 0, previousPrice: 0, porcentaje: 0, ratio: 20},
+                { symbol: "RBLX", name: "Roblox Corp", price: 0, previousPrice: 0, porcentaje: 0, ratio: 2},
+
+                
+                { symbol: "SONY", name: "Sony", price: 0, previousPrice: 0, porcentaje: 0, ratio: 4},
+                { symbol: "ABNB", name: "Airbnb", price: 0, previousPrice: 0, porcentaje: 0, ratio: 15},
+                { symbol: "AAL", name: "American Airlines", price: 0, previousPrice: 0, porcentaje: 0, ratio: 2},
+                { symbol: "MA", name: "Mastercard", price: 0, previousPrice: 0, porcentaje: 0, ratio: 33},
+                { symbol: "V", name: "Visa", price: 0, previousPrice: 0, porcentaje: 0, ratio: 18},
+
+                { symbol: "F", name: "Ford", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1},
+                { symbol: "GM", name: "General  Motors", price: 0, previousPrice: 0, porcentaje: 0, ratio: 18},
+                { symbol: "TM", name: "Toyota Motor", price: 0, previousPrice: 0, porcentaje: 0, ratio: 5},
+
             ]
 
 
@@ -103,7 +120,6 @@ module.exports = {
                 const apiRequests = acciones.map(accion =>
                     axios.get(`https://finnhub.io/api/v1/quote?symbol=${accion.symbol}&token=${apiKEY}`)
                 );
-
                 const responses = await Promise.all(apiRequests);
 
                 responses.forEach((response, index) => {
@@ -140,24 +156,58 @@ module.exports = {
                 }
 
                 const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                llenarEmbed(embed, tecnologia)
+                llenarEmbed(embed, populares)
 
                 const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embed2, nacionales)
+
+                const embed3: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embed3, tecnologia)
+
+                const embed4: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embed4, gaming)
+                
+                const embed5: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embed5, travel)
+                 
+                // const embed6: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                // llenarEmbed(embed6, automotriz)
+
 
 
                 const row = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
-                            .setCustomId('tecnologia')
+                            .setCustomId('populares')
                             .setLabel("Populares")
                             .setStyle(ButtonStyle.Success)
                     ).addComponents(
                         new ButtonBuilder()
                             .setCustomId('nacionales')
                             .setLabel("Nacionales")
-                            .setStyle(ButtonStyle.Primary)
+                            .setStyle(ButtonStyle.Success)
+                    ).addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('tecnologia')
+                            .setLabel("Tecnologia")
+                            .setStyle(ButtonStyle.Success)
+                    ).addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('gaming')
+                            .setLabel("Gaming")
+                            .setStyle(ButtonStyle.Success)
+                    ).addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('travel')
+                            .setLabel("Travel")
+                            .setStyle(ButtonStyle.Success)
                     )
+                    // .addComponents(
+                    //     new ButtonBuilder()
+                    //         .setCustomId('automotriz')
+                    //         .setLabel("Automotriz")
+                    //         .setStyle(ButtonStyle.Success)
+                    // )
 
                 interaction.deferReply();
                 setTimeout(() => {
@@ -169,10 +219,10 @@ module.exports = {
                 });
 
                 const filter = i => i.user.id === interaction.user.id;
-                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 });
 
                 collector.on('collect', async i => {
-                    if (i.customId === 'tecnologia') {
+                    if (i.customId === 'populares') {
                         await i.deferUpdate()
                         await i.editReply({ embeds: [embed], components: [row] });
                     }
@@ -180,6 +230,24 @@ module.exports = {
                         await i.deferUpdate();
                         await i.editReply({ embeds: [embed2], components: [row] });
                     }
+                    if (i.customId === 'tecnologia') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed3], components: [row] });
+                    }
+                    
+                    if (i.customId === 'gaming') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed4], components: [row] });
+                    }
+                    if (i.customId === 'travel') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embed5], components: [row] });
+                    }
+                    // if (i.customId === 'automotriz') {
+                    //     await i.deferUpdate();
+                    //     await i.editReply({ embeds: [embed6], components: [row] });
+                    // }
+
 
 
 

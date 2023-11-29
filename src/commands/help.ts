@@ -62,7 +62,7 @@ module.exports = {
       .addFields(
         { name: "» Comandos disponibles", value: "¡Tenemos `6` categorías distintas llenas de comandos y subcomandos! \n Para ver las novedades más recientes del bot utiliza `/update`" },
         { name: "» Comandos populares", value: "`impuesto`  `calcular`  `convertirdivisa dolar`  `divisa dolar`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `moneda`  `invite`" },
-        { name: "» Comandos nuevos", value: "`calcular`  `hora`" }
+        { name: "» Comandos nuevos", value: "`mercado`  `hora`" }
       ).setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1176889247215648829/search_1.png?ex=65708286&is=655e0d86&hm=c0193aa9ccd9a045905e83e990940c81897d4c355da14866de45efd48a4a7e72&")
 
     let embed2 = new Discord.EmbedBuilder()

@@ -15,6 +15,10 @@ module.exports = {
         ).addSubcommand(subcommand =>
             subcommand.setName('acciones')
                 .setDescription('Muestra el precio de algunas acciones')
+                .addBooleanOption(option =>
+                    option.setName('argentinas')
+                        .setDescription('Consultar acciones argentinas?')
+                )
         ).addSubcommand(subcommand =>
             subcommand.setName('consultar')
                 .setDescription('Consulta los valores de un activo del mercado')
@@ -58,6 +62,9 @@ module.exports = {
             
             }
             if (interaction.options.getSubcommand() === 'acciones') {
+                let argentinas:boolean = interaction.options.getBoolean('argentinas')
+
+                console.log(argentinas)
                 interface Accion {
                     symbol: string; // el símbolo de la acción, como AAPL o MSFT
                     name: string; // el nombre de la empresa, como Apple o Microsoft
@@ -69,7 +76,7 @@ module.exports = {
                   let acciones: Accion[] = [
                     { symbol: "AAPL", name: "Apple", price: 0, previousPrice:0, porcentaje:0, ratio: 10 },
                     { symbol: "MSFT", name: "Microsoft", price: 0, previousPrice:0 , porcentaje:0, ratio: 30 },
-                    { symbol: "GOOG", name: "Alphabet (Google)", price: 0, previousPrice:0, porcentaje:0, ratio: 58  },
+                    { symbol: "GOOG", name: "Alphabet", price: 0, previousPrice:0, porcentaje:0, ratio: 58  },
 
                     { symbol: "TSLA", name: "Tesla.inc", price: 0, previousPrice:0, porcentaje:0, ratio:  15 },
                     { symbol: "AMZN", name: "Amazon", price: 0, previousPrice:0, porcentaje:0, ratio: 144  },
@@ -80,14 +87,15 @@ module.exports = {
                     { symbol: "NVDA", name: "Nvidia", price: 0, previousPrice:0, porcentaje:0, ratio:  24 },
                     { symbol: "MELI", name: "Mercado Libre", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
 
-                    { symbol: "BBAR", name: "BANCO FRANCES", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
-                    { symbol: "BMA", name: "BANCO MACRO", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
-                    { symbol: "SUPV", name: "BANCO SUPERVIELLE", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
+                    // { symbol: "BBAR", name: "BANCO FRANCES", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
+                    // { symbol: "BMA", name: "BANCO MACRO", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
+                    // { symbol: "SUPV", name: "BANCO SUPERVIELLE", price: 0, previousPrice:0, porcentaje:0, ratio:  60 },
                   
 
-                    { symbol: "YPF", name: "YPF", price: 0, previousPrice:0, porcentaje:0, ratio: 1 },
-                   { symbol: "EDN", name: "Edenor", price: 0, previousPrice:0, porcentaje:0, ratio: 1 },
-                   { symbol: "GGAL", name: "Galicia", price: 0, previousPrice:0, porcentaje:0, ratio: 1 },
+                    // { symbol: "YPF", name: "YPF", price: 0, previousPrice:0, porcentaje:0, ratio: 1 },
+                    
+                //    { symbol: "EDN", name: "Edenor", price: 0, previousPrice:0, porcentaje:0, ratio: 1 },
+                //    { symbol: "GGAL", name: "Galicia", price: 0, previousPrice:0, porcentaje:0, ratio: 1 },
                   
                 ];
 
@@ -113,7 +121,7 @@ module.exports = {
                 try {
                     const [estadoMercado, dolarMEP ] = await Promise.all([
                         axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
-                        axios.get(`https://dolarapi.com/v1/dolares/blue`),
+                        axios.get(`https://dolarapi.com/v1/dolares/contadoconliqui`),
 
                     ]);
                    
@@ -133,12 +141,12 @@ module.exports = {
                         // agregar el objeto al método .addFields()
                         embed.addFields(field);
                       }
-                      
-                      await interaction.deferReply();
-                      setTimeout(async () => {
-                          await interaction.editReply({ embeds: [embed] });
-                      }, 3000);
-
+                    
+                      interaction.deferReply();
+                      setTimeout(() => {
+                          interaction.editReply({ embeds: [embed]});
+                      }, 3000)
+  
 
                 }catch(err){
                     console.error('ERR', err);

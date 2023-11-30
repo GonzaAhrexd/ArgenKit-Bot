@@ -94,11 +94,11 @@ module.exports = {
 
     ];
 
-    const buttonList = [button1, button2];
-    const timeout = 120000;
-    paginationEmbed(interaction, pages, buttonList, timeout);
+    // const buttonList = [button1, button2];
+    // const timeout = 120000;
+    // paginationEmbed(interaction, pages, buttonList, timeout);
 
-    return await interaction.reply({ content: ' ‎  ' });
+    return await interaction.reply({ content: 'Testing' });
 
   }
 

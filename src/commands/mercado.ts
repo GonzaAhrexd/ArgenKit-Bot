@@ -72,7 +72,7 @@ module.exports = {
             const gaming: String[] = ["Electronic Arts", "Intel", "Microsoft", "Nvidia", "Qualcom", "Roblox Corp", "Sony"]
             const travel: String[] = ["Airbnb", "American Airlines", "Despegar.com", "Mastercard", "Visa"]
             const automotriz: String[] = ["Tesla.inc", "Ford", "General Motors", "Toyota Motor"]
-
+            const consumo: String[] = ["Coca Cola", "Jonhson & Johnson", "Mcdonald's", "Nike Inc", "Pepsico", "Starbucks Corporation"]
             let acciones: Accion[] = [
                 { symbol: "AAPL", name: "Apple", price: 0, previousPrice: 0, porcentaje: 0, ratio: 10 },
                 { symbol: "MSFT", name: "Microsoft", price: 0, previousPrice: 0, porcentaje: 0, ratio: 30 },
@@ -99,6 +99,12 @@ module.exports = {
                 { symbol: "GGAL", name: "Galicia", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
 
                 { symbol: "KO", name: "Coca Cola", price: 0, previousPrice: 0, porcentaje: 0, ratio: 5 },
+                { symbol: "JNJ", name: "Jonhson & Johnson", price: 0, previousPrice: 0, porcentaje: 0, ratio: 15 },
+                { symbol: "MCD", name: "Mcdonald's", price: 0, previousPrice: 0, porcentaje: 0, ratio: 24 },
+                { symbol: "NKE", name: "Nike Inc", price: 0, previousPrice: 0, porcentaje: 0, ratio: 12 },
+                { symbol: "PEP", name: "Pepsico", price: 0, previousPrice: 0, porcentaje: 0, ratio: 6 },
+                { symbol: "SBUX", name: "Starbucks Corporation", price: 0, previousPrice: 0, porcentaje: 0, ratio: 4 },
+
                 { symbol: "SPY", name: "SPDR S&P 500", price: 0, previousPrice: 0, porcentaje: 0, ratio: 20 },
                 { symbol: "RBLX", name: "Roblox Corp", price: 0, previousPrice: 0, porcentaje: 0, ratio: 2 },
 
@@ -173,6 +179,9 @@ module.exports = {
                 const embed6: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embed6, automotriz)
 
+                const embed7: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embed7, consumo)
+
 
                 const row = new ActionRowBuilder()
                     .addComponents(
@@ -215,44 +224,17 @@ module.exports = {
                                     description: 'Acciones sobre empresas del sector automotriz',
                                     value: 'automotriz',
                                     emoji: '🚗'
+                                },
+                                {
+                                    label: 'Consumo',
+                                    description: 'Acciones sobre empresas de consumo',
+                                    value: 'consumo',
+                                    emoji: '🥤'
                                 }
                             ]
                             )
 
                     )
-                // const row = new ActionRowBuilder()
-                //     .addComponents(
-                //         new ButtonBuilder()
-                //             .setCustomId('populares')
-                //             .setLabel("Populares")
-                //             .setStyle(ButtonStyle.Success)
-                //     ).addComponents(
-                //         new ButtonBuilder()
-                //             .setCustomId('nacionales')
-                //             .setLabel("Nacionales")
-                //             .setStyle(ButtonStyle.Success)
-                //     ).addComponents(
-                //         new ButtonBuilder()
-                //             .setCustomId('tecnologia')
-                //             .setLabel("Tecnologia")
-                //             .setStyle(ButtonStyle.Success)
-                //     ).addComponents(
-                //         new ButtonBuilder()
-                //             .setCustomId('gaming')
-                //             .setLabel("Gaming")
-                //             .setStyle(ButtonStyle.Success)
-                //     ).addComponents(
-                //         new ButtonBuilder()
-                //             .setCustomId('travel')
-                //             .setLabel("Travel")
-                //             .setStyle(ButtonStyle.Success)
-                //     )
-                // .addComponents(
-                //     new ButtonBuilder()
-                //         .setCustomId('automotriz')
-                //         .setLabel("Automotriz")
-                //         .setStyle(ButtonStyle.Success)
-                // )
 
 
                 const collector = interaction.channel.createMessageComponentCollector({
@@ -265,67 +247,36 @@ module.exports = {
                     interaction.editReply({ embeds: [embed], components: [row] });
                 }, 3000)
 
-                // client.on('interactionCreate', interaction => {
-                //     if (!interaction.isButton()) return;
-                // });
 
-                // const filter = i => i.user.id === interaction.user.id;
-                // const collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 });
 
-                // collector.on('collect', async i => {
-                //     if (i.customId === 'populares') {
-                //         await i.deferUpdate()
-                //         await i.editReply({ embeds: [embed], components: [row] });
-                //     }
-                //     if (i.customId === 'nacionales') {
-                //         await i.deferUpdate();
-                //         await i.editReply({ embeds: [embed2], components: [row] });
-                //     }
-                //     if (i.customId === 'tecnologia') {
-                //         await i.deferUpdate();
-                //         await i.editReply({ embeds: [embed3], components: [row] });
-                //     }
+                collector.on("collect", async (collected) => {
 
-                //     if (i.customId === 'gaming') {
-                //         await i.deferUpdate();
-                //         await i.editReply({ embeds: [embed4], components: [row] });
-                //     }
-                //     if (i.customId === 'travel') {
-                //         await i.deferUpdate();
-                //         await i.editReply({ embeds: [embed5], components: [row] });
-                //     }
-                //     if (i.customId === 'automotriz') {
-                //         await i.deferUpdate();
-                //         await i.editReply({ embeds: [embed6], components: [row] });
-                //     }
-                // })
+                    const value = collected.values[0]
 
-                
-    collector.on("collect", async (collected) => {
+                    if (value === "populares") {
+                        return interaction.editReply({ embeds: [embed], ephemeral: false });
+                    }
+                    if (value === "nacionales") {
+                        return interaction.editReply({ embeds: [embed2], ephemeral: false });
+                    }
+                    if (value === "tecnologia") {
+                        await interaction.editReply({ embeds: [embed3], ephemeral: false })
+                    }
+                    if (value === "gaming") {
+                        await interaction.editReply({ embeds: [embed4], ephemeral: false })
+                    }
+                    if (value === "travel") {
+                        await interaction.editReply({ embeds: [embed5], ephemeral: false })
+                    }
+                    if (value === "automotriz") {
+                        await interaction.editReply({ embeds: [embed6], ephemeral: false })
+                    }
+                    if (value === "consumo") {
+                        await interaction.editReply({ embeds: [embed7], ephemeral: false })
+                    }
 
-      const value = collected.values[0]
 
-      if (value === "populares") {
-        return interaction.editReply({ embeds: [embed], ephemeral: false });
-      }
-      if (value === "nacionales") {
-        return interaction.editReply({ embeds: [embed2], ephemeral: false });
-      }
-      if (value === "tecnologia") {
-        await interaction.editReply({ embeds: [embed3], ephemeral: false })
-      }
-      if (value === "gaming") {
-        await interaction.editReply({ embeds: [embed4], ephemeral: false })
-      }
-      if (value === "travel") {
-        await interaction.editReply({ embeds: [embed5], ephemeral: false })
-      }
-      if (value === "automotriz") {
-        await interaction.editReply({ embeds: [embed6], ephemeral: false })
-      }
- 
-
-    })
+                })
 
 
 

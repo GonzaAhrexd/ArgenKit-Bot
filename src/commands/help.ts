@@ -126,7 +126,7 @@ module.exports = {
         {name:"» Comandos", value: "`creador`  `api`  `invitar`  `servidor`  `votar`  `donaciones`  `update`"})
 
     const collector = interaction.channel.createMessageComponentCollector({
-      componentType: ComponentType.StringSelect, time: 20000
+      componentType: ComponentType.StringSelect, time: 30000
 
     })
 

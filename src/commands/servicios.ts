@@ -5,6 +5,8 @@ import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discor
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter') //Currency formatter
 const { total155, total154 } = require("../functions/impuestos"); //Impuestos
+const { formatoPrecio } = require('../functions/formatoPrecio')
+
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName('servicio')
@@ -78,10 +80,10 @@ module.exports = {
         .setColor('#9a0611')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903356797920894996/netflix_2.png")
         .addFields(
-          { name: "Básico:", value: "ARS$ " + currencyFormatter.format((total154(1649)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Estándar:", value: "ARS$" + currencyFormatter.format((total154(2799)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Premium:", value: "ARS$" + currencyFormatter.format((total154(3999)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Casa extra:", value: "ARS$" + currencyFormatter.format((total154(699)), { locale: 'es-ES', code: ' ' }), inline: true }
+          { name: "Básico:", value: "ARS" + formatoPrecio(total154(2499),"ARS"), inline: true },
+          { name: "Estándar:", value: "ARS" + formatoPrecio(total154(4199),"ARS"), inline: true },
+          { name: "Premium:", value: "ARS" + formatoPrecio(total154(5799),"ARS"), inline: true },
+          { name: "Casa extra:", value: "ARS" + formatoPrecio(total154(1399),"ARS"), inline: true }
         )
 
 
@@ -95,9 +97,9 @@ module.exports = {
         .setColor('#ff0000')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903357207310127185/youtube.png")
         .addFields(
-          { name: "YouTube Music:", value: "ARS$ " + currencyFormatter.format((total155(599)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "YouTube Premium Individual:", value: "ARS$ " + currencyFormatter.format((total155(869)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "YouTube Premium Familiar:", value: "ARS$ " + currencyFormatter.format((total155(1569)), { locale: 'es-ES', code: ' ' }), inline: true }
+          { name: "YouTube Music:", value: "ARS" + formatoPrecio(total155(599),"ARS"), inline: true },
+          { name: "YouTube Premium Individual:", value: "ARS" + formatoPrecio(total155(869),"ARS"), inline: true },
+          { name: "YouTube Premium Familiar:", value: "ARS" + formatoPrecio(total155(1569),"ARS"), inline: true }
         )
 
       return interaction.reply({ embeds: [embed] });

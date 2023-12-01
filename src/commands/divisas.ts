@@ -3,7 +3,9 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total154, total155 } = require("../functions/impuestos"); //Impuestos
+const { total155 } = require("../functions/impuestos"); //Impuestos
+const { formatoPrecio } = require('../functions/formatoPrecio')
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('divisa')
@@ -184,7 +186,7 @@ module.exports = {
                 const errorEmbed = new Discord.EmbedBuilder()
                     .setColor("#ff0000")
                     .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del dólar. Por favor, inténtalo de nuevo más tarde.");
+                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
 
                 interaction.reply({ embeds: [errorEmbed] });
 
@@ -194,18 +196,22 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'euro') {
             try {
-                const [oficial, blue] = await Promise.all([
+                const [oficial, blue, valorUSD] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
-                    axios.get('https://api.bluelytics.com.ar/v2/latest')
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
+                    axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json')
                 ]);
-
+                let conversion: number = valorUSD.data['usd']['eur']
                 const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Euro :flag_eu:")
                     .setColor("#0153b4")
-                    .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda  \nDebido al surgimiento de un nuevo tipo de cambio (Dólar blue blue o Dólar deep blue) el precio manejado por el API está atrasado y no es real")
+                    .setDescription("El euro (€) es la moneda usada por las instituciones de la Unión Europea (UE), así como la moneda oficial de la eurozona, formada por 19 de los 27 Estados miembros de la UE. Además, 4 micro-Estados europeos tienen acuerdos con la Unión Europea para el uso del euro como moneda ")
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png")
                     .addFields(
-                        { name: "Euro oficial :bank:", value: "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos, además, sólo se puede retirar el equivalente a USD$200 al mes." },
+                        { name: `Valor en dólares 💸`, value: `Valor del euro en relación al dólar estadounidense.`, inline: false },
+                        { name: `1 DÓLAR <:rightarrow:921907270747570247> EURO`, value: ` ${formatoPrecio(conversion, "EUR")} `, inline: true },
+                        { name: `1 EURO <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(1 /conversion , "USD")} `, inline: true },
+                        { name: "Euro oficial :bank:", value: "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, además, sólo se puede retirar el equivalente a USD$200 al mes." },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -284,7 +290,7 @@ module.exports = {
                 const errorEmbed = new Discord.EmbedBuilder()
                     .setColor("#ff0000")
                     .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del euro. Por favor, inténtalo de nuevo más tarde.");
+                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
 
                 interaction.reply({ embeds: [errorEmbed] });
             }
@@ -327,7 +333,7 @@ module.exports = {
                     nombre: "Yen Japonés",
                     iso: "JPY",
                     bandera: ":flag_jp:",
-                    desc: "El yen es la unidad monetaria utilizada en Japón​ y la tercera moneda más valorada en el mercado de divisas después del dólar estadounidense y el euro. También es usada como moneda de reserva junto al dólar, el euro y la libra esterlina. Como es común en la numeración japonesa, las cantidades grandes del yen se cuentan en múltiplos de 10 000 (man, 万).",
+                    desc: "El yen es la moneda de Japón, muy valiosa en el mercado global, la tercera más importante tras el dólar y el euro. También se usa como reserva junto con otras monedas como el dólar y el euro, y en la numeración japonesa, las grandes cantidades se expresan en múltiplos de 10,000 (man, 万).",
                     color: "#FDFD0D",
                     img: "https://cdn.discordapp.com/attachments/802944543510495292/913893648876331048/yenjapones3.png",
                     ac: "10 de mayo de 1871",
@@ -660,7 +666,9 @@ module.exports = {
                         .setDescription(divisa.desc)
                         .setThumbnail(divisa.img)
                         .addFields(
-                            { name: `DÓLAR <:rightarrow:921907270747570247> ${(divisa.nombre).toUpperCase()}`, value: ` Dólar estadounidense expresado en ${divisa.nombre} \n ${divisa.simbolo + divisa.iso} ${currencyFormatter.format(((conversion)), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: `Valor en dólares 💸`, value: `Valor del ${divisa.nombre} en relación al dólar estadounidense.`, inline: false },
+                            { name: `1 DÓLAR <:rightarrow:921907270747570247> ${(divisa.nombre).toUpperCase()}`, value: ` ${formatoPrecio(conversion, divisa.iso)} `, inline: true },
+                            { name: `1 ${divisa.nombre} <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(1 /conversion , "USD")} `, inline: true },
                             { name: `${divisa.nombre} oficial :bank:`, value: `Valor de ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos`, inline: false },
                             { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "VENTA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },

@@ -3,6 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total75, total154, total155 } = require("../functions/impuestos"); //Impuestos
+const { formatoPrecio } = require('../functions/formatoPrecio')
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('convertirdivisa')
@@ -236,9 +237,11 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'euro') {
             let convertir = interaction.options.getNumber('eur')
             try {
-                const [oficial, blue] = await Promise.all([
+                const [oficial, blue, valorUSD] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
-                    axios.get('https://api.bluelytics.com.ar/v2/latest')
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
+                    axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json')
+           
                 ]);
                 const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
 
@@ -250,6 +253,8 @@ module.exports = {
                         //Monto Original
                         { name: `Monto original :euro:  `, value: `EUR€ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
                         //Oficial
+                        { name: `Valor en dólares 💸`, value: `Valor del euro en relación al dólar estadounidense.`, inline: false },
+                        { name: `EURO <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(convertir / valorUSD.data['usd']['eur'], "USD")} `, inline: true },
                         { name: "Euro oficial :bank: ", value: `Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.` },
                         { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -526,7 +531,11 @@ module.exports = {
                         .addFields(
                             //Monto Original
                             { name: `Monto original ${divisa.bandera}`, value: `${divisa.simbolo} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
+                            //Dólares
+                            { name: `Valor en dólares 💸`, value: `Valor del ${divisa.nombre} en relación al dólar estadounidense.`, inline: false },
+                            { name: `${divisa.nombre.toUpperCase()} <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(convertir / aconvertir , "USD")} `, inline: true },
                             //Oficial
+                           
                             { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos ` },
                             { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },

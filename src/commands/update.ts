@@ -18,9 +18,8 @@ module.exports = {
         { name: "<:djs:928800848996352041> Discord.js 14 ", value: "Se ha actualizado el bot a Discord.js 14" },
         { name: "💵  Precio en USD ", value: "Ahora todas las divisas también muestran su valor en USD, de cara a una futura dolarización" },
         { name: ":chart_with_upwards_trend:  Mercado de capitales ", value: "Ahora es posible visualizar acciones del mercado de capitales con los comandos `mercado`" },
-        { name: "🦠 Removido comandos de covid19 ", value: "Han sido removidos los comandos  referidos al covid19 ya que ya pasaron 4 años desde el mismo" },
-       
-        { name: "🦠 Removido comandos de covid19 ", value: "Han sido removidos los comandos  referidos al covid19 ya que ya pasaron 4 años desde el mismo" },
+        { name: "🦠 Removido comandos de covid19 ", value: "Han sido removidos los comandos referidos al covid19 ya que pasaron 4 años desde el mismo.  " },
+        { name: "🎱 Nuevas respuestas a 8ball ", value: "Se han agregado nuevas respuestas al comando de 8ball, sumando un total de 30." },
        
         )
 

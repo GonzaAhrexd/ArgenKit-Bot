@@ -83,13 +83,15 @@ module.exports = {
     let embed3 = new Discord.EmbedBuilder()
       .setTitle(":dollar:  Cotizaciones :dollar: ")
       .setColor('#385E7F')
-      .setDescription("Estos comandos contienen las distintas cotizaciones disponibles con su precio a pesos argentinos e informacion adicional")
+      .setDescription("Estos comandos contienen distintas cotizaciones de divisas, criptomonedas, metales, o acciones financieras")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/90301281.759495484/dollars.png")
       .addFields(
         { name: "» `divisa` ", value: "» Subcomandos `dolar`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`" },
         { name: "» `criptomoneda` ", value: "» Subcomandos `bitcoin` `ethereum` `tether` `axieinfinity` `terraluna` `decentraland` `solana` `dai` `dogecoin`" },
-        { name: "» `metal`", value: "» Subcomandos `oro` `plata` `paladio` `platino`" }
-      )
+        { name: "» `metal`", value: "» Subcomandos `oro` `plata` `paladio` `platino`" },
+        { name: "» `mercado`", value: "» Subcomandos `estado` `acciones` `consultar`" }
+   
+        )
    
 
     let embed4 = new Discord.EmbedBuilder()

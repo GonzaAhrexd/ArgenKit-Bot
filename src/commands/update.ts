@@ -2,13 +2,29 @@
 import Discord from "discord.js"
 import { ButtonBuilder } from 'discord.js'
 import { ButtonStyle } from 'discord.js'
-import paginationEmbed from 'discordjs-button-pagination' //Botones
+const {pagination, ButtonTypes, ButtonStyles} = require('@devraelfreeze/discordjs-pagination');
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName("update")
     .setDescription("Muestra las novedades de la actualización"),
 
   async run(client, interaction) {
+
+    const embed20:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      .setTitle("ARGENKIT BOT VERSIÓN 2.0: NUEVA ERA")
+      .setColor('#0a9ee1')
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+      .addFields(
+        { name: "<:djs:928800848996352041> Discord.js 14 ", value: "Se ha actualizado el bot a Discord.js 14" },
+        { name: "💵  Precio en USD ", value: "Ahora todas las divisas también muestran su valor en USD, de cara a una futura dolarización" },
+        { name: ":chart_with_upwards_trend:  Mercado de capitales ", value: "Ahora es posible visualizar acciones del mercado de capitales con los comandos `mercado`" },
+        { name: "🦠 Removido comandos de covid19 ", value: "Han sido removidos los comandos  referidos al covid19 ya que ya pasaron 4 años desde el mismo" },
+       
+        { name: "🦠 Removido comandos de covid19 ", value: "Han sido removidos los comandos  referidos al covid19 ya que ya pasaron 4 años desde el mismo" },
+       
+        )
+
+
     const embed15:Discord.EmbedBuilder = new Discord.EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.5 ¡ACTUALIZACIÓN TÉCNICA!")
       .setColor('#0a9ee1')
@@ -86,6 +102,7 @@ module.exports = {
       .setStyle(ButtonStyle.Danger);
 
     const pages = [
+      embed20,
       embed15,
       embed14,
       embed13,
@@ -96,9 +113,29 @@ module.exports = {
 
     const buttonList = [button1, button2];
     const timeout = 120000;
-    paginationEmbed(interaction, pages, buttonList, timeout);
+    await pagination({
+      embeds: pages, /** Array of embeds objects */
+      author: interaction.member.user,
+      interaction: interaction,
+      ephemeral: false,
+      time: 40000, /** 40 seconds */
+      disableButtons: false, /** Remove buttons after timeout */
+      fastSkip: false,
+      pageTravel: false,
+      buttons: [
+        {
+          type: ButtonTypes.previous,
+          label: 'Más reciente',
+          style: ButtonStyles.Primary
+        },
+        {
+          type: ButtonTypes.next,
+          label: 'Más antigua',
+          style: ButtonStyles.Success
+        }
+      ]
+    });
 
-    // return await interaction.reply({ embeds: [embed15] });
 
   }
 

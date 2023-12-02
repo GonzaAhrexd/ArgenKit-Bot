@@ -1,5 +1,6 @@
 
 import Discord from "discord.js"
+const {generarRandom} = require('../functions/numeroRandom')
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('8ball')
@@ -11,7 +12,7 @@ module.exports = {
         ),
     async run(client, interaction, options) {
     let consulta:string = interaction.options.getString('consulta')
-    let valorAleatorio:number = Math.floor(Math.random() * 29 + 0);
+    let valorAleatorio:number = generarRandom(0, 29)
     let Respuesta: Array<{opcion: Number,respuesta: string, color: Discord.ColorResolvable}> = [
         //Afirmativas ✅
         {opcion: 0, respuesta: "Ma' vale", color: "Green"},
@@ -45,7 +46,7 @@ module.exports = {
         {opcion: 26, respuesta: "El tiempo va a decir, che", color: "Yellow"},
         {opcion: 27, respuesta: "Veremos qué onda, dijo el tuerto", color: "Yellow"},
         {opcion: 28, respuesta: "Tal vez, boludo", color: "Yellow"},
-        {opcion: 29, respuesta: "Ni idea, compañero", color: "Yellow"},
+        {opcion: 29, respuesta: "Ni idea, compañero", color: "Yellow"},     
     ]
 
     Respuesta.forEach(async Respuesta =>  {

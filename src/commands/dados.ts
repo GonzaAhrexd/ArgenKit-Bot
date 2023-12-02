@@ -1,12 +1,12 @@
 
 import Discord from "discord.js"
-
+const {generarRandom} = require('../functions/numeroRandom')
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName("dados")
         .setDescription('Tira un dado'),
         async run(client, interaction) {
-        let a = Math.floor(Math.random() * 6 + 1);
+        let numeroRandom:number = generarRandom(1,7)
         let Dado:Array<{
             number: Number,
             img: string,
@@ -20,7 +20,7 @@ module.exports = {
             {number: 6, img: 'https://cdn.discordapp.com/attachments/802944543510495292/1177073367753429063/dice_6.png?ex=65712dff&is=655eb8ff&hm=96060661ad2289289c503bebc4fa7ddb49e352002244da745ff014ed42c43abe&', emoji: "six"} //5
         ]
         Dado.forEach(async Dado => {
-            if (a == Dado.number) {
+            if (numeroRandom == Dado.number) {
                 const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 .setColor("#F7F5FB")
                 .setThumbnail(Dado.img)

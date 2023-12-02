@@ -20,7 +20,7 @@ module.exports = {
         { name: ":chart_with_upwards_trend:  Mercado de capitales ", value: "Ahora es posible visualizar acciones del mercado de capitales con los comandos `mercado`" },
         { name: "🦠 Removido comandos de covid19 ", value: "Han sido removidos los comandos referidos al covid19 ya que pasaron 4 años desde el mismo.  " },
         { name: "🎱 Nuevas respuestas a 8ball ", value: "Se han agregado nuevas respuestas al comando de 8ball, sumando un total de 30." },
-       
+        
         )
 
 

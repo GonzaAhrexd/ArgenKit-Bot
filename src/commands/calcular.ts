@@ -9,7 +9,8 @@ module.exports = {
               option.setName('operacion')
               .setDescription('Calculo a realizar')
               .setRequired(true)   
-    ),
+    )
+    ,
     async run(client, interaction, options){
         let calcular:string = interaction.options.getString('operacion')
         const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()

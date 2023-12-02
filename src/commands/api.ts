@@ -14,8 +14,9 @@ module.exports = {
           {name: 'Cotizaciones dólar y euro blue', value: "https://api.bluelytics.com.ar/v2/latest"},
           {name: 'Cotizaciones otras monedas', value: 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'},
           { name: 'Cotizaciones de criptomonedas',  value: "https://www.coingecko.com/es" },
-          { name: 'Cotizaciones de criptomonedas', value: "https://criptoya.com/api" })
-              
+          { name: 'Cotizaciones de criptomonedas', value: "https://criptoya.com/api" },
+          { name: 'Cotizaciones de acciones', value: "https://finnhub.io/" })
+            
       await interaction.reply({ embeds: [embed]})
     }
 

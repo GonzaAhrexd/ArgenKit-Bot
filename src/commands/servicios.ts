@@ -3,6 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 import { ButtonStyle } from 'discord.js'
+import { format } from "path"
 var currencyFormatter = require('currency-formatter') //Currency formatter
 const { total155, total154 } = require("../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require('../functions/formatoPrecio')
@@ -78,12 +79,12 @@ module.exports = {
         .setURL("https://www.netflix.com/ar/")
         .setDescription("Los precios de Netflix con impuestos en Argentina son los siguientes: ")
         .setColor('#9a0611')
-        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903356797920894996/netflix_2.png")
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1180334885953609810/netflix.png?ex=657d0b86&is=656a9686&hm=711e7fc4fb8376b9efed01f54bc53c131331ae4d611e773840537a3f0d8925d3&")
         .addFields(
-          { name: "Básico:", value: "ARS" + formatoPrecio(total154(2499),"ARS"), inline: true },
-          { name: "Estándar:", value: "ARS" + formatoPrecio(total154(4199),"ARS"), inline: true },
-          { name: "Premium:", value: "ARS" + formatoPrecio(total154(5799),"ARS"), inline: true },
-          { name: "Casa extra:", value: "ARS" + formatoPrecio(total154(1399),"ARS"), inline: true }
+          { name: "Básico:", value: "ARS" + formatoPrecio(total154(2499), "ARS"), inline: true },
+          { name: "Estándar:", value: "ARS" + formatoPrecio(total154(4199), "ARS"), inline: true },
+          { name: "Premium:", value: "ARS" + formatoPrecio(total154(5799), "ARS"), inline: true },
+          { name: "Casa extra:", value: "ARS" + formatoPrecio(total154(1399), "ARS"), inline: true }
         )
 
 
@@ -97,9 +98,9 @@ module.exports = {
         .setColor('#ff0000')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903357207310127185/youtube.png")
         .addFields(
-          { name: "YouTube Music:", value: "ARS" + formatoPrecio(total155(599),"ARS"), inline: true },
-          { name: "YouTube Premium Individual:", value: "ARS" + formatoPrecio(total155(869),"ARS"), inline: true },
-          { name: "YouTube Premium Familiar:", value: "ARS" + formatoPrecio(total155(1569),"ARS"), inline: true }
+          { name: "YouTube Music:", value: "ARS" + formatoPrecio(total155(599), "ARS"), inline: true },
+          { name: "YouTube Premium Individual:", value: "ARS" + formatoPrecio(total155(869), "ARS"), inline: true },
+          { name: "YouTube Premium Familiar:", value: "ARS" + formatoPrecio(total155(1569), "ARS"), inline: true }
         )
 
       return interaction.reply({ embeds: [embed] });
@@ -112,10 +113,10 @@ module.exports = {
         .setColor('#7ad684')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903358342733389854/spotify_1.png")
         .addFields(
-          { name: "Individual:", value: "ARS$ " + currencyFormatter.format((total154(599)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Dúo:", value: "ARS$ " + currencyFormatter.format((total154(799)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Familiar:", value: "ARS$ " + currencyFormatter.format((total154(999)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Estudiantes:", value: "ARS$ " + currencyFormatter.format((total154(329)), { locale: 'es-ES', code: ' ' }), inline: true }
+          { name: "Individual:", value: "ARS" + formatoPrecio((total154(599)), "ARS"), inline: true },
+          { name: "Dúo:", value: "ARS" + formatoPrecio((total154(799)), "ARS"), inline: true },
+          { name: "Familiar:", value: "ARS" + formatoPrecio((total154(999)), "ARS"), inline: true },
+          { name: "Estudiantes:", value: "ARS" + formatoPrecio((total154(329)), "ARS"), inline: true }
         )
 
       return interaction.reply({ embeds: [embed] });
@@ -128,9 +129,9 @@ module.exports = {
         .setDescription("Precio  de Crunchyroll  con impuestos en Argentina ")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903849721699913778/crunchyroll.png")
         .addFields(
-          { name: "Fan (1 MES):", value: "ARS$ " + currencyFormatter.format((total154(299)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Mega Fan (1 Mes):", value: "ARS$ " + currencyFormatter.format((total154(379)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Mega Fan (1 Año):", value: "ARS$ " + currencyFormatter.format((total154(3799)), { locale: 'es-ES', code: ' ' }), inline: true }
+          { name: "Fan (1 MES):", value: "ARS " + formatoPrecio(total154(299), "ARS"), inline: true },
+          { name: "Mega Fan (1 Mes):", value: "ARS " + formatoPrecio(total154(379), "ARS"), inline: true },
+          { name: "Mega Fan (1 Año):", value: "ARS " + formatoPrecio(total154(3799), "ARS"), inline: true }
         )
 
       return interaction.reply({ embeds: [embed] });
@@ -144,10 +145,10 @@ module.exports = {
         .setColor('#3fa5dc')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903852192929288213/icons8-disney-plus-480.png")
         .addFields(
-          { name: "1 Mes:", value: `ARS$ ${799},00`, inline: true },
-          { name: "1 Año:", value: `ARS$ ${6699},00`, inline: true },
-          { name: "Combo con Star+ mensual:", value: `ARS$ ${1999},00`, inline: true },
-          { name: "Combo con Star+ y Lionsgate+ mensual:", value: `ARS$ ${2399},00`, inline: true }
+          { name: "1 Mes:", value: `ARS ${formatoPrecio(799, "ARS")}`, inline: true },
+          { name: "1 Año:", value: `ARS ${formatoPrecio(6699, "ARS")}`, inline: true },
+          { name: "Combo con Star+ mensual:", value: `ARS ${formatoPrecio(1999, "ARS")}`, inline: true },
+          { name: "Combo con Star+ y Lionsgate+ mensual:", value: `ARS ${formatoPrecio(2399, "ARS")}`, inline: true }
         )
       return interaction.reply({ embeds: [embed] });
 
@@ -164,9 +165,9 @@ module.exports = {
         .setColor('#a6ed75')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903853195443445770/xbox.png")
         .addFields(
-          { name: "Xbox Game Pass Core", value: "ARS$ " + currencyFormatter.format((total154(1899)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Xbox Game Pass para PC / Consola", value: "ARS$ " + currencyFormatter.format((total154(2399)), { locale: 'es-ES', code: ' ' }), inline: true },
-          { name: "Xbox Game Pass Ultimate", value: "ARS$ " + currencyFormatter.format((total154(2999)), { locale: 'es-ES', code: ' ' }), inline: true }
+          { name: "Xbox Game Pass Core", value: "ARS" + formatoPrecio((total154(1899)), "ARS"), inline: true },
+          { name: "Xbox Game Pass para PC / Consola", value: "ARS" + formatoPrecio((total154(2399)), "ARS"), inline: true },
+          { name: "Xbox Game Pass Ultimate", value: "ARS" + formatoPrecio((total154(2999)), "ARS"), inline: true }
 
         )
       return interaction.reply({ embeds: [embed] });
@@ -181,7 +182,7 @@ module.exports = {
         .setColor('#1aa6e0')
         .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
         .addFields(
-          { name: "Costo mensual", value: "ARS$ " + currencyFormatter.format((total154(1149)), { locale: 'es-ES', code: ' ' }) })
+          { name: "Costo mensual", value: "ARS" + formatoPrecio(total154(1149), "ARS") })
       return interaction.reply({ embeds: [embed] });
 
     }
@@ -198,8 +199,7 @@ module.exports = {
             .setColor('#eeeeee')
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913852356771319928/televisor_1.png")
             .addFields(
-              { name: "Plan individual", value: `ARS$ ${currencyFormatter.format(total154(9.95 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Plan familiar", value: `ARS$ ${currencyFormatter.format(total154(13.95 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true }
+              { name: "Costo mensual", value: `ARS${formatoPrecio(total154(6.99 * oficial.data['venta']), "ARS")}`, inline: true },
             )
           return interaction.reply({ embeds: [embed] });
 
@@ -224,12 +224,9 @@ module.exports = {
         .setColor('#970899')
         .setThumbnail("https://hbomax-images.warnermediacdn.com/2020-05/square%20social%20logo%20400%20x%20400_0.png")
         .addFields(
-          { name: "Suscripción mensual móvil", value: `ARS$ ${currencyFormatter.format(279 * 1.74, { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "Suscripción mensual estándar", value: `ARS$ ${currencyFormatter.format(399 * 1.74, { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "Suscripción trimestral móvil", value: `ARS$ ${currencyFormatter.format(739 * 1.74, { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "Suscripción trimestral estándar", value: `ARS$ ${currencyFormatter.format(1089 * 1.74, { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "Suscripción anual móvil", value: `ARS$ ${currencyFormatter.format(2279 * 1.74, { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "Suscripción anual estándar", value: `ARS$ ${currencyFormatter.format(3499 * 1.74, { locale: 'es-ES', code: ' ' })}`, inline: true }
+          { name: "Suscripción mensual estándar", value: `ARS${formatoPrecio(total154(1590), "ARS")}`, inline: true },
+          { name: "Suscripción trimestral estándar", value: `ARS${formatoPrecio(total154(4290), "ARS")}`, inline: true },
+          { name: "Suscripción anual estándar", value: `ARS${formatoPrecio(total154(12990), "ARS")}`, inline: true }
         )
       return interaction.reply({ embeds: [embed1] });
 
@@ -247,10 +244,10 @@ module.exports = {
             .setColor('#8aa9fa')
             .setThumbnail("https://gitdab.com/distok/apkfuckery/raw/commit/ceffadc1723d227e61ee1001a624979fd9c783bb/com.discord/res/drawable-xxxhdpi/img_wumpus_jetpack.png")
             .addFields(
-              { name: "Discord Nitro Classic Mensual", value: `ARS$ ${currencyFormatter.format(total154(216.99), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Discord Nitro Mensual", value: `ARS$ ${currencyFormatter.format(total154(584.99), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Discord Nitro Classic Anual", value: `ARS$ ${currencyFormatter.format(total154(2169.99), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Discord Nitro Anual", value: `ARS$ ${currencyFormatter.format(total154(5849.99), { locale: 'es-ES', code: ' ' })}`, inline: true }
+              { name: "Discord Nitro Basic Mensual", value: `ARS${formatoPrecio(total154(216.99), "ARS")}`, inline: true },
+              { name: "Discord Nitro Mensual", value: `ARS${formatoPrecio(total154(584.99), "ARS")}`, inline: true },
+              { name: "Discord Nitro Basic Anual", value: `ARS${formatoPrecio(total154(2169.99), "ARS")}`, inline: true },
+              { name: "Discord Nitro Anual", value: `ARS${formatoPrecio(total154(5849.99), "ARS")}`, inline: true }
             )
 
           return interaction.reply({ embeds: [embed] });
@@ -275,9 +272,9 @@ module.exports = {
             .setColor('#f1bb1a')
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
             .addFields(
-              { name: "Plan de 100GB (USD$ 1,99)", value: `ARS$ ${currencyFormatter.format((total154(1.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Plan de 200GB (USD$ 2,99)", value: `ARS$ ${currencyFormatter.format((total154(2.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Plan de 1TB (USD$ 9,99)", value: `ARS$ ${currencyFormatter.format((total154(9.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true }
+              { name: "Plan de 100GB (USD$ 1,99)", value: `ARS${formatoPrecio(total154(1.99 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "Plan de 200GB (USD$ 2,99)", value: `ARS${formatoPrecio(total154(2.99 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "Plan de 1TB (USD$ 9,99)", value: `ARS${formatoPrecio(total154(9.99 * oficial.data['venta']), "ARS")}`, inline: true }
             )
 
           const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -286,9 +283,9 @@ module.exports = {
             .setColor('#f1bb1a')
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
             .addFields(
-              { name: "Plan de 100GB (USD$ 19,99)", value: `ARS$ ${currencyFormatter.format((total154(19.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Plan de 200GB (USD$ 29,99)", value: `ARS$ ${currencyFormatter.format((total154(29.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Plan de 1TB (USD$ 99,99)", value: `ARS$ ${currencyFormatter.format((total154(99.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true }
+              { name: "Plan de 100GB (USD$ 19,99)", value: `ARS${formatoPrecio(total154(19.99 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "Plan de 200GB (USD$ 29,99)", value: `ARS${formatoPrecio(total154(29.99 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "Plan de 1TB (USD$ 99,99)", value: `ARS${formatoPrecio(total154(99.99 * oficial.data['venta']), "ARS")}`, inline: true }
             )
 
 
@@ -330,25 +327,46 @@ module.exports = {
           });
         })
         .catch((err) => {
-          console.error('ERR', err)
+          console.error('ERR', err);
+
+          const errorEmbed = new Discord.EmbedBuilder()
+            .setColor("#ff0000")
+            .setTitle("Error")
+            .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+          interaction.reply({ embeds: [errorEmbed] });
         })
     }
 
     //EA
 
     if (interaction.options.getSubcommand() === 'ea') {
-      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-        .setTitle("EA Play")
-        .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
-        .setDescription("Los precios de EA Play con impuestos en Argentina son los siguientes: ")
-        .setColor('#fe4747')
-        .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
-        .addFields(
-          { name: "EA Play Mensual", value: `ARS$ ${currencyFormatter.format(total154(499), { locale: 'es-ES', code: ' ' })}`, inline: true },
-          { name: "EA Play Anual:", value: `ARS$ ${currencyFormatter.format(total154(3099), { locale: 'es-ES', code: ' ' })}`, inline: true }
-        )
 
-      return interaction.reply({ embeds: [embed] });
+      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
+        .then((oficial) => {
+
+          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+            .setTitle("EA Play")
+            .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
+            .setDescription("Los precios de EA Play con impuestos en Argentina son los siguientes: ")
+            .setColor('#fe4747')
+            .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
+            .addFields(
+              { name: "EA Play Mensual", value: `ARS${formatoPrecio(total154(4.99 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "EA Play Anual:", value: `ARS${formatoPrecio(total154(29.99 * oficial.data['venta']), "ARS")}`, inline: true }
+            )
+          return interaction.reply({ embeds: [embed] });
+        })
+        .catch((err) => {
+          console.error('ERR', err);
+
+          const errorEmbed = new Discord.EmbedBuilder()
+            .setColor("#ff0000")
+            .setTitle("Error")
+            .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+          interaction.reply({ embeds: [errorEmbed] });
+        })
 
     }
 
@@ -365,17 +383,24 @@ module.exports = {
             .setColor('#306fb5')
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
             .addFields(
-              { name: "USD$ 5.00", value: `ARS$ ${currencyFormatter.format(total154(5 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "USD$ 10.00", value: `ARS$ ${currencyFormatter.format(total154(10 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "USD$ 25.00", value: `ARS$ ${currencyFormatter.format(total154(25 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "USD$ 50.00", value: `ARS$ ${currencyFormatter.format(total154(50 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "USD$ 100.00", value: `ARS$ ${currencyFormatter.format(total154(100 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+              { name: "USD$ 5.00", value: `ARS${formatoPrecio(total154(5 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "USD$ 10.00", value: `ARS${formatoPrecio(total154(10 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "USD$ 25.00", value: `ARS${formatoPrecio(total154(25 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "USD$ 50.00", value: `ARS${formatoPrecio(total154(50 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "USD$ 100.00", value: `ARS${formatoPrecio(total154(100 * oficial.data['venta']), "ARS")}`, inline: true },
             )
 
           return interaction.reply({ embeds: [embed] });
         })
         .catch((err) => {
-          console.error('ERR', err)
+          console.error('ERR', err);
+
+          const errorEmbed = new Discord.EmbedBuilder()
+            .setColor("#ff0000")
+            .setTitle("Error")
+            .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+          interaction.reply({ embeds: [errorEmbed] });
         })
 
     }
@@ -390,7 +415,7 @@ module.exports = {
         .setDescription("Los precios de Paramount+ en Argentina con impuestos son los siguientes: ")
         .setColor('#0b67ff')
         .addFields(
-          { name: "Plan  mensual ", value: `ARS$ ${599}` })
+          { name: "Plan  mensual ", value: `ARS${formatoPrecio(599, "ARS")}` })
 
       return interaction.reply({ embeds: [embed] });
 
@@ -408,9 +433,9 @@ module.exports = {
             .setColor('#9246ff')
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
             .addFields(
-              { name: "Suscripción de nivel 1", value: `ARS$ ${currencyFormatter.format((total154(1.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Suscripción de nivel 2", value: `ARS$ ${currencyFormatter.format((total154(3.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "Suscripción de nivel 3", value: `ARS$ ${currencyFormatter.format((total154(9.99 * oficial.data['venta'])), { locale: 'es-ES', code: ' ' })}`, inline: true }
+              { name: "Suscripción de nivel 1", value: `ARS$ ${formatoPrecio(total154(1.99 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "Suscripción de nivel 2", value: `ARS$ ${formatoPrecio(total154(3.99 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "Suscripción de nivel 3", value: `ARS$ ${formatoPrecio(total154(9.99 * oficial.data['venta']), "ARS")}`, inline: true }
             )
 
 
@@ -421,13 +446,13 @@ module.exports = {
             .setURL("https://www.twitch.tv/")
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
             .addFields(
-              { name: "100 bits", value: `ARS$ ${currencyFormatter.format(total154(1.40 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "300 bits", value: `ARS$ ${currencyFormatter.format(total154(3.00 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "500 bits", value: `ARS$ ${currencyFormatter.format(total154(7.00 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "1.500 bits", value: `ARS$ ${currencyFormatter.format(total154(19.95 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "5.000 bits", value: `ARS$ ${currencyFormatter.format(total154(64.40 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "10.000 bits", value: `ARS$ ${currencyFormatter.format(total154(126.00 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-              { name: "25.000 bits", value: `ARS$ ${currencyFormatter.format(total154(308.00 * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true }
+              { name: "100 bits", value: `ARS$ ${formatoPrecio(total154(1.40 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "300 bits", value: `ARS$ ${formatoPrecio(total154(3.00 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "500 bits", value: `ARS$ ${formatoPrecio(total154(7.00 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "1.500 bits", value: `ARS$ ${formatoPrecio(total154(19.95 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "5.000 bits", value: `ARS$ ${formatoPrecio(total154(64.40 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "10.000 bits", value: `ARS$ ${formatoPrecio(total154(126.00 * oficial.data['venta']), "ARS")}`, inline: true },
+              { name: "25.000 bits", value: `ARS$ ${formatoPrecio(total154(308.00 * oficial.data['venta']), "ARS")}`, inline: true }
             )
 
 
@@ -472,7 +497,14 @@ module.exports = {
 
         })
         .catch((err) => {
-          console.error('ERR', err)
+          console.error('ERR', err);
+
+          const errorEmbed = new Discord.EmbedBuilder()
+            .setColor("#ff0000")
+            .setTitle("Error")
+            .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+          interaction.reply({ embeds: [errorEmbed] });
 
 
         })

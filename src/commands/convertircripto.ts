@@ -1,7 +1,7 @@
 
 import Discord from "discord.js"
 import axios from "axios"
-var currencyFormatter = require('currency-formatter'); //Currency 
+const { formatoPrecio } = require('../functions/formato')
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('convertircripto')
@@ -61,7 +61,7 @@ module.exports = {
                     option.setName('luna').setDescription('Monto en Terra Luna 2.0.').setRequired(true)
                 )),
 
- 
+
     async run(client, interaction, options) {
         let Criptomonedas: Array<{
             id: string,
@@ -79,7 +79,7 @@ module.exports = {
             [{
                 id: "bitcoin",
                 nombre: "Bitcoin",
-                emoji: "<:bitcoin:929073179262074960>", 
+                emoji: "<:bitcoin:929073179262074960>",
                 iso: "BTC",
                 simbolo: "₿",
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/929076353079328868/bitcoinapeso.png",
@@ -91,10 +91,10 @@ module.exports = {
                 id: "ethereum",
                 nombre: "Ethereum",
                 emoji: "<:ethereum:963619533271232532>",
-            
+
                 iso: "ETH",
                 simbolo: "Ξ",
-               
+
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/963885915619610714/convethereum.png",
                 color: "#7be0ff",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=0",
@@ -137,7 +137,7 @@ module.exports = {
                 id: "decentraland",
                 nombre: "Decentraland",
                 emoji: "<:decentraland:964349085089931324>",
-                 iso: "MANA",
+                iso: "MANA",
                 simbolo: "MANA",
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964380633042419722/convertirdecentraland.png",
                 color: "#ffa6b7",
@@ -181,56 +181,57 @@ module.exports = {
 
         Criptomonedas.forEach(async cripto => {
             if (interaction.options.getSubcommand() === cripto.id) {
-             let convertir:number = interaction.options.getNumber((cripto.iso).toLowerCase())
+                let convertir: number = interaction.options.getNumber((cripto.iso).toLowerCase())
 
-              axios.get(cripto.apicoingecko)
-                .then((ACONVERTIR) => {
-                    let criptodolar:  number =  ACONVERTIR.data['prices'][0][1]
-                  axios.get(cripto.apilemon)
-                    .then((CONVERTIRLEMON) => {
+                try {
+                    const [apiCoingecko, apiLemon] = await Promise.all([
+                        axios.get(cripto.apicoingecko),
+                        axios.get(cripto.apilemon),
+                    ]);
 
-                        if(cripto.id == "terraluna"){
-                            const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                    let criptodolar: number = apiCoingecko.data['prices'][0][1]
+
+
+                    if (cripto.id == "terraluna") {
+                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                             .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                             .setColor(cripto.color)
                             .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
                             .setThumbnail(cripto.imagen)
                             .addFields(
-                                { name: `Monto original ${cripto.emoji} `, value: `${cripto.simbolo} ${convertir} `},
-                                { name: "Dólares :dollar: ", value:  'USD$ ' + currencyFormatter.format(((convertir * criptodolar)), { locale: 'es-ES', code: ' ' }), inline: true} ,
-                                { name: "Compra :flag_ar: ", value: 'ARS$ ' + currencyFormatter.format((( (convertir * criptodolar) * CONVERTIRLEMON.data['bid'])), { locale: 'es-ES', code: ' ' }), inline: true},
-                                { name: "Venta :flag_ar: ", value: 'ARS$ ' + currencyFormatter.format((((convertir * criptodolar) * CONVERTIRLEMON.data['ask'])), { locale: 'es-ES', code: ' ' }), inline: true})
-                                return interaction.reply({ embeds: [embed] });
-                        }
-                        else{
-                      const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                        .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
-                        .setColor(cripto.color)
-                        .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
-                        .setThumbnail(cripto.imagen)
-                        .addFields(
-                            { name: `Monto original ${cripto.emoji} `, value: `${cripto.simbolo} ${convertir} `},
-                            { name: "Dólares :dollar: ", value:  'USD$ ' + currencyFormatter.format(((convertir * criptodolar)), { locale: 'es-ES', code: ' ' }), inline: true} ,
-                            { name: "Compra :flag_ar: ", value: 'ARS$ ' + currencyFormatter.format(((convertir * CONVERTIRLEMON.data['bid'])), { locale: 'es-ES', code: ' ' }), inline: true},
-                            { name: "Venta :flag_ar: ", value: 'ARS$ ' + currencyFormatter.format(((convertir * CONVERTIRLEMON.data['ask'])), { locale: 'es-ES', code: ' ' }), inline: true})
-                            return interaction.reply({ embeds: [embed] });
-                        }
-                    })
-                    .catch((err) => {
-                      console.error('ERR', err)
-      
-      
-                    })
-                })
-                .catch((err) => {
-                  console.error('ERR', err)
-      
-      
-                })
-      
+                                { name: `Monto original ${cripto.emoji} `, value: `${cripto.simbolo} ${convertir} ` },
+                                { name: "Dólares :dollar: ", value: formatoPrecio(((convertir * criptodolar)), "USD"), inline: true },
+                                { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio((((convertir * criptodolar) * apiLemon.data['bid'])), "ARS"), inline: true },
+                                { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio((((convertir * criptodolar) * apiLemon.data['ask'])), "ARS"), inline: true })
+                        return interaction.reply({ embeds: [embed] });
+                    }
+                    else {
+                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                            .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
+                            .setColor(cripto.color)
+                            .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
+                            .setThumbnail(cripto.imagen)
+                            .addFields(
+                                { name: `Monto original ${cripto.emoji} `, value: `${cripto.simbolo} ${convertir} ` },
+                                { name: "Dólares :dollar: ", value: formatoPrecio(((convertir * criptodolar)), "USD"), inline: true },
+                                { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio(((convertir * apiLemon.data['bid'])), "ARS"), inline: true },
+                                { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio(((convertir * apiLemon.data['ask'])), "ARS"), inline: true })
+                        return interaction.reply({ embeds: [embed] });
+                    }
+                } catch (error) {
+
+                    console.error(error);
+                    const errorEmbed = new Discord.EmbedBuilder()
+                        .setColor("#ff0000")
+                        .setTitle("Error")
+                        .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+                    interaction.reply({ embeds: [errorEmbed] });
+                }
+
             }
-      
-            })
-        
+
+        })
+
     } //Async run
 } //Module export

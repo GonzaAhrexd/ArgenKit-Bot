@@ -3,7 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
-var currencyFormatter = require('currency-formatter'); //Currency formatter
+const { formatoPrecio } = require('../functions/formato')
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('criptomoneda')
@@ -194,14 +194,15 @@ module.exports = {
             }
             ]
 
-        Criptomonedas.forEach(cripto => {
+        Criptomonedas.forEach(async cripto => {
             if (interaction.options.getSubcommand() === cripto.id) {
-                axios.get(cripto.apicoingecko)
-                    .then((CRIPTOINFO) => {
-                        let conversion: number = CRIPTOINFO.data['prices'][0][1];
 
-                        axios.get(cripto.apilemon)
-                            .then(async (LEMON) => {
+                try {
+                    const [apiCoingecko, apiLemon] = await Promise.all([
+                        axios.get(cripto.apicoingecko),
+                        axios.get(cripto.apilemon),
+                    ]);
+                    let criptodolar: number = apiCoingecko.data['prices'][0][1]
                                 const embed1 = new Discord.EmbedBuilder()
                                 embed1.setTitle(cripto.nombre)
                                 .setColor(cripto.color)
@@ -209,20 +210,20 @@ module.exports = {
                                 .setThumbnail(cripto.imagen)
                                 if (cripto.id === "terraluna") {
                                     embed1.addFields(
-                                            { name: `Precio ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(conversion, { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: `Volumen ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(((CRIPTOINFO.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: `Capitalización ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(((CRIPTOINFO.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: `Compra ${cripto.emoji}`, value: `ARS$ ${currencyFormatter.format(conversion * LEMON.data['bid'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: `Venta ${cripto.emoji}`, value: `ARS$ ${currencyFormatter.format(conversion * LEMON.data['ask'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                                            { name: `Precio ${cripto.emoji}`, value: `${formatoPrecio(criptodolar,"USD")}`, inline: true },
+                                            { name: `Volumen ${cripto.emoji}`, value: `${formatoPrecio(((apiCoingecko.data['total_volumes'][0][1])),"USD")}`, inline: true },
+                                            { name: `Capitalización ${cripto.emoji}`, value: `${formatoPrecio(((apiCoingecko.data['market_caps'][0][1])),"USD")}`, inline: true },
+                                            { name: `Compra ${cripto.emoji}`, value: `ARS${formatoPrecio(criptodolar * apiLemon.data['bid'], "ARS")}`, inline: true },
+                                            { name: `Venta ${cripto.emoji}`, value: `ARS${formatoPrecio(criptodolar * apiLemon.data['ask'], "ARS")}`, inline: true }
                                           )}
 
                                 else {
                                     embed1.addFields(
-                                            { name: `Precio ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(conversion, { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: `Volumen ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(((CRIPTOINFO.data['total_volumes'][0][1])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: `Capitalización ${cripto.emoji}`, value: `USD$ ${currencyFormatter.format(((CRIPTOINFO.data['market_caps'][0][1])), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: `Compra ${cripto.emoji}`, value: `ARS$ ${currencyFormatter.format(LEMON.data['bid'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                                            { name: `Venta ${cripto.emoji}`, value: `ARS$ ${currencyFormatter.format(LEMON.data['ask'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                                            { name: `Precio ${cripto.emoji}`, value: `${formatoPrecio(criptodolar, "USD")}`, inline: true },
+                                            { name: `Volumen ${cripto.emoji}`, value: `${formatoPrecio(((apiCoingecko.data['total_volumes'][0][1])), "USD")}`, inline: true },
+                                            { name: `Capitalización ${cripto.emoji}`, value: `${formatoPrecio(((apiCoingecko.data['market_caps'][0][1])), "USD")}`, inline: true },
+                                            { name: `Compra ${cripto.emoji}`, value: `ARS${formatoPrecio(apiLemon.data['bid'], "ARS")}`, inline: true },
+                                            { name: `Venta ${cripto.emoji}`, value: `ARS${formatoPrecio(apiLemon.data['ask'], "ARS")}`, inline: true }
                                           )  }
 
                                 const embed2 = new Discord.EmbedBuilder()
@@ -241,7 +242,7 @@ module.exports = {
                                 const row = new ActionRowBuilder()
                                     .addComponents(
                                         new ButtonBuilder()
-                                            .setCustomId("conversion")
+                                            .setCustomId("criptodolar")
                                             .setLabel("💸 Conversión ")
                                             .setStyle(ButtonStyle.Success)
                                     )
@@ -266,7 +267,7 @@ module.exports = {
                                 var actual = embed1
 
                                 collector.on('collect', async i => {
-                                    if (i.customId === 'conversion') {
+                                    if (i.customId === 'criptodolar') {
                                         await i.deferUpdate()
                                         await i.editReply({ embeds: [embed1], components: [row] });
                                         actual = embed1
@@ -284,14 +285,17 @@ module.exports = {
                                     }
                                 })
 
-                            })
-                            .catch((err) => {
-                                console.error('ERR', err);
-                            });
-                    })
-                    .catch((err) => {
-                        console.error('ERR', err);
-                    });
+                            
+                        } catch (error) {
+
+                            console.error(error);
+                            const errorEmbed = new Discord.EmbedBuilder()
+                                .setColor("#ff0000")
+                                .setTitle("Error")
+                                .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+        
+                            interaction.reply({ embeds: [errorEmbed] });
+                        }
 
             }
         })

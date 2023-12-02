@@ -105,14 +105,14 @@ module.exports = {
                             { name: `Monto Original ${Metal.emoji}`, value: `${Metal.iso} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
                             //Oficial
                             { name: `${Metal.nombre} a precio del dólar oficial :bank: `, value: `Valor del ${Metal.nombre} a precio del dólar oficial, liquidado por parte del gobierno nacional sujeto a diversos impuestos ` },
-                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['compra'], "ARS")}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['venta'], "ARS")}`, inline: true },
                             //Impuestos
-                            { name: "Impuestos (155%) ", value: `ARS$ ${currencyFormatter.format(total155((convertir / metal.data['usd'][Metal.iso]) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "Impuestos (155%) ", value: `ARS${formatoPrecio(total155((convertir / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS")}`, inline: true },
                             //Blue
                             { name: `${Metal.nombre} a precio del Dólar Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / metal.data['usd'][Metal.iso])) * blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / metal.data['usd'][Metal.iso])) * blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true })
+                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * blue.data['compra'], "ARS")}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * blue.data['venta'], "ARS")}`, inline: true })
 
                     await interaction.deferReply();
                     setTimeout(async () => {

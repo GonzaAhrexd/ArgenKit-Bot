@@ -7,8 +7,8 @@ module.exports = {
         .setDescription('Te hace un test de covid'),
 
     async run(client, interaction) {
-        let a = Math.floor(Math.random() * 2 + 1)
-        if (a == 1) {
+        let numeroRandom:number = Math.floor(Math.random() * 2 + 1)
+        if (numeroRandom == 1) {
           const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setColor("Green")
             .setDescription("Calculando...")
@@ -18,7 +18,7 @@ module.exports = {
           return interaction.reply({ embeds: [embed] });
         }
     
-        if (a == 2) {
+        if (numeroRandom == 2) {
           const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setColor("Red")
             .setDescription("Calculando...")

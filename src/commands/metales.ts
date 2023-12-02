@@ -6,7 +6,7 @@ import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total155 } = require("../functions/impuestos"); //Impuestos
-const { formatoPrecio } = require('../functions/formatoPrecio')
+const { formatoPrecio } = require('../functions/formato')
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()

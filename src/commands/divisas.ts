@@ -4,7 +4,7 @@ import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total155 } = require("../functions/impuestos"); //Impuestos
-const { formatoPrecio } = require('../functions/formatoPrecio')
+const { formatoPrecio } = require('../functions/formato')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -746,7 +746,13 @@ module.exports = {
                     })
 
                 } catch (error) {
-                    console.error('Error en la petición:', error);
+                    console.error(error);
+                    const errorEmbed = new Discord.EmbedBuilder()
+                        .setColor("#ff0000")
+                        .setTitle("Error")
+                        .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+                    interaction.reply({ embeds: [errorEmbed] });
                 }
 
 

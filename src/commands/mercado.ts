@@ -3,8 +3,16 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
-const { formatoPrecio } = require('../functions/formatoPrecio')
+const { formatoPrecio, formatoNum } = require('../functions/formato')
 const apiKEY = process.env.apiKeyFinnhub
+interface Accion {
+    symbol: string; // el símbolo de la acción, como AAPL o MSFT
+    name: string; // el nombre de la empresa, como Apple o Microsoft
+    price: number; // el precio actual de la acción
+    previousPrice: number; // el precio anterior de la acción
+    porcentaje: number; // el porcentaje que cambió la acción
+    ratio: number; // el ratio entre acción y cedear
+}
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('mercado')
@@ -58,14 +66,7 @@ module.exports = {
 
         }
         if (interaction.options.getSubcommand() === 'acciones') {
-            interface Accion {
-                symbol: string; // el símbolo de la acción, como AAPL o MSFT
-                name: string; // el nombre de la empresa, como Apple o Microsoft
-                price: number; // el precio actual de la acción
-                previousPrice: number; // el precio anterior de la acción
-                porcentaje: number; // el porcentaje que cambió la acción
-                ratio: number; // el ratio entre acción y cedear
-            }
+         
             const populares: String[] = ["Apple", "Coca Cola", "Mercado Libre", "SPDR S&P 500", "Tesla.inc"]
             const tecnologia: String[] = ["Apple", "Microsoft", "Alphabet", "Amazon", "Intel", "AMD", "Nvidia", "Tesla.inc", "Qualcom"]
             const nacionales: String[] = ["YPF", "Mercado Libre", "Globant", "Despegar.com", "Banco Francés", "Banco Supervielle", "Banco Macro", "Edenor", "Galicia"]
@@ -134,7 +135,7 @@ module.exports = {
                     acciones[index].porcentaje = response.data.dp;
                 });
 
-                const [estadoMercado, dolarMEP] = await Promise.all([
+                const [estadoMercado, dolarCCL] = await Promise.all([
                     axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
                     axios.get(`https://dolarapi.com/v1/dolares/contadoconliqui`),
 
@@ -151,7 +152,7 @@ module.exports = {
                         if (tipoAcciones.includes(accion.name)) {
                             let field = {
                                 name: `${accion.name} ${subioPrecio(accion)} ${(accion.porcentaje).toFixed(2)}%`,
-                                value: `${formatoPrecio(accion.price, "USD")} (NYC)\nARS ${formatoPrecio(((accion.price / accion.ratio) * dolarMEP.data['venta']), "ARS")} (CEDEAR ${accion.ratio}:1) `,
+                                value: `${formatoPrecio(accion.price, "USD")} (NYC)\nARS ${formatoPrecio(((accion.price / accion.ratio) * dolarCCL.data['venta']), "ARS")} (CEDEAR ${accion.ratio}:1) `,
                                 inline: true,
                             };
 
@@ -295,11 +296,52 @@ module.exports = {
         }
 
 
+        if (interaction.options.getSubcommand() === 'consultar') {
+            let activo = interaction.options.getString('activo')
+            try {
+                const [estadoMercado, activoValores, dolarCCL] = await Promise.all([
+                    axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
+                    axios.get(`https://finnhub.io/api/v1/quote?symbol=${activo.toUpperCase()}&token=${apiKEY}`),
+                    axios.get(`https://dolarapi.com/v1/dolares/contadoconliqui`),
+                ]);
+                let accion = {symbol: activo, price: activoValores.data['c'],previousPrice: activoValores.data['pc'], lowPrice: activoValores.data['l'], openPrice: activoValores.data['o'], highPrice: activoValores.data['h'], porcentaje: activoValores.data['dp'] }
+                const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                    .setTitle(`Acciones de ${accion.symbol}`)
+                    .setColor(estadoMercado.data['isOpen'] ? "Green" : "Red")
+                    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1178904578763280456/stock.png?ex=6577d772&is=65656272&hm=d31896e4060b95d263afb323da2c5d36687da9f95998a024ab814dcfecb5d04b&")
+                    .setDescription(`Valores de ${accion.symbol} en la bolsa de Nueva York. \nLos valores en pesos son una estimación utilizando el dólar CCL`)
+                    .addFields(
+                        { name: "Precio actual", value: `${formatoPrecio(accion.price,"USD")}\nARS${formatoPrecio(accion.price*dolarCCL.data['venta'],"ARS")}`, inline: true },
+                        { name: "Precio anterior", value: `${formatoPrecio(accion.previousPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolarCCL.data['venta'],"ARS")}`, inline: true },
+                        { name: "Variación anterior", value: `${formatoNum(accion.porcentaje.toFixed(2))}% ${subioPrecio(accion)}`, inline: true },
+                        { name: "Precio de apertura", value: `${formatoPrecio(accion.openPrice,"USD")}\nARS${formatoPrecio(accion.price*dolarCCL.data['venta'],"ARS")}`, inline: true },
+                        { name: "Precio más bajo del día", value: `${formatoPrecio(accion.lowPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolarCCL.data['venta'],"ARS")}`, inline: true },
+                        { name: "Precio más alto del día", value: `${formatoPrecio(accion.highPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolarCCL.data['venta'],"ARS")}`, inline: true },
+                        )
+                return await interaction.reply({ embeds: [embed] });
+
+            } catch (err) {
+                console.error('ERR', err);
+
+                const errorEmbed = new Discord.EmbedBuilder()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
+
+                interaction.reply({ embeds: [errorEmbed] });
+            }
+        }
+
+
+       
         function subioPrecio(activo): String {
             return activo.price > activo.previousPrice ? "<:triangleup:1178914601799270450>" : "🔻"
         }
-
     }
+
+
+
+
 
 
 }

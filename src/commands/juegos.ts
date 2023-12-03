@@ -2,9 +2,9 @@
 
 import axios from "axios";
 import Discord from "discord.js"
-import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
-import { ComponentType } from 'discord.js'
-
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
+const { total154 } = require('../functions/impuestos')
+const { formatoPrecio } = require('../functions/formato')
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName("juegos")
@@ -59,13 +59,128 @@ module.exports = {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
                 ]);
+                let valorDolar = oficial.data['venta']
 
-            const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-            .setTitle("Minecraft")
-            .setURL("https://www.minecraft.net/es-es/")
-            .setDescription("Los precios de Minecraft en Argentina son los siguientes:")
-            .setColor("#00ff00")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903103605313351936/Minecraft.png") 
+                const llenarEmbed = (embed, juego) => {
+                    embed.setTitle(juego)
+                    embed.setURL("https://www.minecraft.net/es-es/")
+                    embed.setDescription(`Los precios de ${juego} en Argentina son los siguientes:`)
+                    embed.setColor("#00ff00")
+                    embed.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1180944033753866350/juego.png?ex=657f42d6&is=656ccdd6&hm=6f2387887ec9d78b7d53397cad2cd39cd8d3b029384d96afebd3bf946c83aa67&")
+                }
+                const embedJava: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embedJava, "Minecraft Java Edition")
+                embedJava.addFields(
+                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total154(5995), "ARS"), inline: true },
+                    { name: "Minecraft Realms (Java)", value: "ARS" + formatoPrecio(total154(valorDolar * 7.99), "ARS"), inline: true },
+                )
+
+                const embedBedrock: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embedBedrock, "Minecraft Bedrock Edition")
+                embedBedrock.addFields(
+                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total154(5995), "ARS"), inline: true },
+                    { name: "Minecraft Bedrock (Android/iOS)", value: "ARS" + formatoPrecio(total154(valorDolar * 7.99), "ARS"), inline: true },
+                    { name: "Minecraft Bedrock (Xbox)", value: "ARS" + formatoPrecio(total154(3999), "ARS"), inline: true },
+                    { name: "Minecraft Bedrock (PlayStation)", value: "ARS" + formatoPrecio(total154(valorDolar * 19.99), "ARS"), inline: true },
+                    { name: "Minecraft Bedrock (Nintendo Switch)", value: "ARS" + formatoPrecio(total154(5999), "ARS"), inline: true },
+                    { name: "Minecraft Realms Plus (Bedrock)", value: "ARS" + formatoPrecio(total154(115), "ARS"), inline: true },
+                    { name: "320 minecoin", value: "ARS" + formatoPrecio(total154(397), "ARS"), inline: true },
+                    { name: "960 + 60 minecoin", value: "ARS" + formatoPrecio(total154(1206), "ARS"), inline: true },
+                    { name: "1600 + 120 minecoin", value: "ARS" + formatoPrecio(total154(1986), "ARS"), inline: true },
+                    { name: "3200 + 300 minecoin", value: "ARS" + formatoPrecio(total154(4008), "ARS"), inline: true },
+                    { name: "8000 + 800 minecoin", value: "ARS" + formatoPrecio(total154(9999), "ARS"), inline: true },
+                )
+
+                const embedDungeons: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embedDungeons, "Minecraft Dungeons")
+                embedDungeons.addFields(
+                    { name: "Minecraft Dungeons(M/X/S)", value: "ARS" + formatoPrecio(total154(3999), "ARS"), inline: true },
+                    { name: "Minecraft Dungeons Edición Definitiva (MXS)", value: "ARS" + formatoPrecio(total154(7999), "ARS"), inline: true },
+                    { name: "Minecraft Dungeons(SP)", value: `ARS${formatoPrecio(total154(valorDolar * 19.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Dungeons Edición Definitiva(SP)", value: `ARS${formatoPrecio(total154(valorDolar * 39.99), "ARS")}`, inline: true },
+                )
+
+                const embedLegends: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embedLegends, "Minecraft Legends")
+                embedLegends.addFields(
+                    { name: "Minecraft Legends", value: `ARS${formatoPrecio(total154(7999), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends Definitive Edition", value: `ARS${formatoPrecio(total154(9999), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends (SP)", value: `ARS${formatoPrecio(total154(valorDolar * 39.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends Definitive Edition (SP)", value: `ARS${formatoPrecio(total154(valorDolar * 49.99), "ARS")}`, inline: true },
+
+                )
+
+
+                const row = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId("java")
+                            .setLabel("Minecraft Java ")
+                            .setStyle(ButtonStyle.Success)
+                    )
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId("bedrock")
+                            .setLabel("Minecraft Bedrock")
+                            .setStyle(ButtonStyle.Success)
+                    )
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId("dungeons")
+                            .setLabel("Minecraft Dungeons")
+                            .setStyle(ButtonStyle.Danger)
+                    )
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId("legends")
+                            .setLabel("Minecraft Legends")
+                            .setStyle(ButtonStyle.Secondary)
+                    )
+
+                await interaction.deferReply();
+                setTimeout(async () => {
+                    await interaction.editReply({ embeds: [embedJava], components: [row] });
+                }, 3000);
+
+                client.on('interactionCreate', interaction => {
+                    if (!interaction.isButton()) return;
+                });
+
+                const filter = i => i.user.id === interaction.user.id;
+
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 20000 });
+
+                var actual = embedJava;
+
+                collector.on('collect', async i => {
+                    if (i.customId === 'java') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embedJava], components: [row] });
+                        actual = embedJava;
+                    }
+                    if (i.customId === 'bedrock') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embedBedrock], components: [row] });
+                        actual = embedBedrock;
+                    }
+                    if (i.customId === 'dungeons') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embedDungeons], components: [row] });
+                        actual = embedDungeons;
+                    }
+                    if (i.customId === 'legends') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embedLegends], components: [row] });
+                        actual = embedLegends;
+                    }
+                });
+
+                collector.on("end", (collected, reason) => {
+                    if (reason === "time") {
+                        interaction.editReply({ embeds: [actual], components: [] });
+                    }
+                });
+
 
             } catch (error) {
                 console.log(error);
@@ -77,6 +192,318 @@ module.exports = {
 
                 interaction.reply({ embeds: [errorEmbed] });
             }
+        }
+        //Roblox
+        if (interaction.options.getSubcommand() === 'roblox') {
+
+            try {
+                const [oficial] = await Promise.all([
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                ]);
+                let valorDolar = oficial.data['venta']
+
+                const llenarEmbed = (embed, juego) => {
+                    embed.setTitle(juego)
+                    embed.setURL("https://www.roblox.com/")
+                    embed.setDescription(`Los precios de Roblox en Argentina son los siguientes:`)
+                    embed.setColor("#ff0000")
+                    embed.setThumbnail("https://upload.wikimedia.org/wikipedia/commons/7/7e/Roblox_Logo_2022.jpg")
+                }
+                const embedPremium: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embedPremium, "Roblox Premium")
+                embedPremium.addFields(
+                    { name: "Roblox Premium 450", value: "ARS" + formatoPrecio(total154(valorDolar * 4.99), "ARS"), inline: true },
+                    { name: "Roblox Premium 1000", value: "ARS" + formatoPrecio(total154(valorDolar * 9.99), "ARS"), inline: true },
+                    { name: "Roblox Premium 2200", value: "ARS" + formatoPrecio(total154(valorDolar * 19.99), "ARS"), inline: true },
+                )
+
+                const embedRobux: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embedRobux, "Robux")
+                embedRobux.addFields(
+                    { name: "Robux 400", value: "ARS" + formatoPrecio(total154(valorDolar * 4.99), "ARS"), inline: true },
+                    { name: "Robux 800", value: "ARS" + formatoPrecio(total154(valorDolar * 9.99), "ARS"), inline: true },
+                    { name: "Robux 1700", value: "ARS" + formatoPrecio(total154(valorDolar * 19.99), "ARS"), inline: true },
+                    { name: "Robux 4500", value: "ARS" + formatoPrecio(total154(valorDolar * 49.99), "ARS"), inline: true },
+                    { name: "Robux 10000", value: "ARS" + formatoPrecio(total154(valorDolar * 99.99), "ARS"), inline: true },
+                    { name: "Robux 22500", value: "ARS" + formatoPrecio(total154(valorDolar * 199.99), "ARS"), inline: true },
+                )
+
+                const row = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId("premium")
+                            .setLabel("Roblox Premium")
+                            .setStyle(ButtonStyle.Success)
+                    )
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId("robux")
+                            .setLabel("Robux")
+                            .setStyle(ButtonStyle.Success)
+                    )
+
+                await interaction.deferReply();
+                setTimeout(async () => {
+                    await interaction.editReply({ embeds: [embedPremium], components: [row] });
+                }, 3000);
+
+                client.on('interactionCreate', interaction => {
+                    if (!interaction.isButton()) return;
+                });
+
+                const filter = i => i.user.id === interaction.user.id;
+
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 20000 });
+
+                var actual = embedPremium;
+
+                collector.on('collect', async i => {
+                    if (i.customId === 'premium') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embedPremium], components: [row] });
+                        actual = embedPremium;
+                    }
+                    if (i.customId === 'robux') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embedRobux], components: [row] });
+                        actual = embedRobux;
+                    }
+                });
+
+                collector.on("end", (collected, reason) => {
+                    if (reason === "time") {
+                        interaction.editReply({ embeds: [actual], components: [] });
+                    }
+                });
+
+
+            } catch (error) {
+                console.log(error);
+
+                const errorEmbed = new Discord.EmbedBuilder()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+                interaction.reply({ embeds: [errorEmbed] });
+            }
+        }
+
+        //Fortnite
+
+        if (interaction.options.getSubcommand() === 'fortnite') {
+
+            try {
+                const [oficial] = await Promise.all([
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                ]);
+                let valorDolar = oficial.data['venta']
+
+                const embedVbucks: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                embedVbucks.setTitle("Fortnite")
+                embedVbucks.setURL("https://www.epicgames.com/fortnite/es-ES/home")
+                embedVbucks.setDescription(`Los precios de V-Bucks en Fortnite en Argentina son los siguientes:`)
+                embedVbucks.setColor("#000082")
+                embedVbucks.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1180944033753866350/juego.png?ex=657f42d6&is=656ccdd6&hm=6f2387887ec9d78b7d53397cad2cd39cd8d3b029384d96afebd3bf946c83aa67&")
+                //Completar
+                embedVbucks.addFields(
+                    { name: "1000 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 8.99), "ARS"), inline: true },
+                    { name: "2800 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 25.00), "ARS"), inline: true },
+                    { name: "5000 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 40.00), "ARS"), inline: true },
+                    { name: "13500 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 100.00), "ARS"), inline: true },
+                    )
+
+
+                    await interaction.deferReply();
+                    setTimeout(async () => {
+                        await interaction.editReply({ embeds: [embedVbucks] });
+                    }, 3000);
+
+            }
+            catch (error) {
+                console.log(error)
+
+                const errorEmbed = new Discord.EmbedBuilder()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+                interaction.reply({ embeds: [errorEmbed] });
+
+            }
+
+        }
+
+        //League of Legends
+
+        if (interaction.options.getSubcommand() === 'leagueoflegends') {
+            try {
+                const [oficial] = await Promise.all([
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                ]);
+                let valorDolar = oficial.data['venta']
+                
+                const llenarEmbed = (embed, forma:String) => {
+                    embed.setTitle("League of Legends")
+                    embed.setURL("https://lan.leagueoflegends.com/es-ar/")
+                    embed.setDescription(`Los precios de RP en League of Legends con ${forma} en Argentina son los siguientes:`)
+                    embed.setColor("#000082")
+                    embed.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1180944033753866350/juego.png?ex=657f42d6&is=656ccdd6&hm=6f2387887ec9d78b7d53397cad2cd39cd8d3b029384d96afebd3bf946c83aa67&")
+                   
+                }
+
+                const embedTJ: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embedTJ, "tarjeta de crédito/debito")
+                embedTJ.addFields(
+                    { name: "235 RP + 0 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 3.99), "ARS"), inline: true },
+                    { name: "645 RP + 45 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 10.99), "ARS"), inline: true },
+                    { name: "1235 RP + 130 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 20.99), "ARS"), inline: true },
+                    { name: "2060 RP + 315 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 34.99), "ARS"), inline: true },
+                    { name: "3535 RP + 715 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 59.99), "ARS"), inline: true },
+                    { name: "5300 RP + 1450 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 89.99), "ARS"), inline: true },
+                )
+                const embedPP: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embedPP, "pago a plazos")
+                embedPP.addFields(
+                    { name: "1175 RP + 125 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 19.99), "ARS"), inline: true },
+                    { name: "2060 RP + 315 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 34.99), "ARS"), inline: true },
+                    { name: "3535 RP + 715 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 59.99), "ARS"), inline: true },
+                    { name: "7360 RP + 2540 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 124.99), "ARS"), inline: true },
+                )  
+                
+                const embedPPal: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                llenarEmbed(embedPPal, "PayPal")
+                embedPPal.addFields(
+                  {name: "475 RP + 0 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 3.99), "ARS"), inline: true},
+                  {name: "1300 RP + 80 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 10.99), "ARS"), inline: true},
+                  {name: "2375 RP + 225 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 19.99), "ARS"), inline: true},
+                  {name: "4175 RP + 575 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 34.99), "ARS"), inline: true},
+                  {name: "7150 RP + 1350 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 59.99), "ARS"), inline: true},
+                  {name: "10725 RP + 2775 RP", value: "ARS" + formatoPrecio(total154(valorDolar * 89.99), "ARS"), inline: true},
+                  
+                  )  
+
+                const row = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId("tarjeta")
+                            .setLabel("Tarjeta de crédito/debito")
+                            .setStyle(ButtonStyle.Success)
+                    )
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId("plazos")
+                            .setLabel("Pago a plazos")
+                            .setStyle(ButtonStyle.Success)
+                    )
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId("paypal")
+                            .setLabel("PayPal")
+                            .setStyle(ButtonStyle.Success)
+                    )
+
+                await interaction.deferReply();
+                setTimeout(async () => {
+                    await interaction.editReply({ embeds: [embedTJ], components: [row] });
+                }, 3000);
+
+                client.on('interactionCreate', interaction => {
+                    if (!interaction.isButton()) return;
+                });
+
+                const filter = i => i.user.id === interaction.user.id;
+
+                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 20000 });
+
+                var actual = embedTJ;
+
+                collector.on('collect', async i => {
+                    if (i.customId === 'tarjeta') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embedTJ], components: [row] });
+                        actual = embedTJ;
+                    }
+                    if (i.customId === 'plazos') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embedPP], components: [row] });
+                        actual = embedPP;
+                    }
+                    if (i.customId === 'paypal') {
+                        await i.deferUpdate();
+                        await i.editReply({ embeds: [embedPPal], components: [row] });
+                        actual = embedPPal;
+                    }
+                });
+
+
+                collector.on("end", (collected, reason) => {
+                    if (reason === "time") {
+                        interaction.editReply({ embeds: [actual], components: [] });
+                    }
+                });
+
+                }
+            catch (error) {
+                console.log(error)
+
+                const errorEmbed = new Discord.EmbedBuilder()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+                interaction.reply({ embeds: [errorEmbed] });
+
+            }
+
+        }
+        
+        //Genshin Impact
+        if (interaction.options.getSubcommand() === 'genshinimpact') {
+            try {
+                const [oficial] = await Promise.all([
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                ]);
+                let valorDolar = oficial.data['venta']
+                
+                const embedGenesis: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                embedGenesis.setTitle("Genshin Impact")
+                embedGenesis.setURL("https://genshin.mihoyo.com/es/home")
+                embedGenesis.setDescription(`Los precios en Genshin Impact en Argentina son los siguientes:`)
+                embedGenesis.setColor("#000082")
+                embedGenesis.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1180944033753866350/juego.png?ex=657f42d6&is=656ccdd6&hm=6f2387887ec9d78b7d53397cad2cd39cd8d3b029384d96afebd3bf946c83aa67&")
+                   
+                embedGenesis.addFields(
+                    {name: "Bendición de la Luna", value: "ARS" + formatoPrecio(total154(valorDolar * 4.99), "ARS"), inline: true},
+                    { name: "60 Cristales ", value: "ARS" + formatoPrecio(total154(valorDolar * 0.99), "ARS"), inline: true },
+                    { name: "300 Cristales ", value: "ARS" + formatoPrecio(total154(valorDolar * 4.99), "ARS"), inline: true },
+                    { name: "980 Cristales ", value: "ARS" + formatoPrecio(total154(valorDolar * 14.99), "ARS"), inline: true },
+                    { name: "1980 Cristales ", value: "ARS" + formatoPrecio(total154(valorDolar * 29.99), "ARS"), inline: true },
+                    { name: "3280 Cristales ", value: "ARS" + formatoPrecio(total154(valorDolar * 49.99), "ARS"), inline: true },
+                    { name: "6480 Cristales ", value: "ARS" + formatoPrecio(total154(valorDolar * 99.99), "ARS"), inline: true },
+                )
+                    
+                await interaction.deferReply();
+                    setTimeout(async () => {
+                        await interaction.editReply({ embeds: [embedGenesis] });
+                    }, 3000);
+
+              
+            }
+            catch(error) {
+                console.log(error)
+
+                const errorEmbed = new Discord.EmbedBuilder()
+                    .setColor("#ff0000")
+                    .setTitle("Error")
+                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+
+                interaction.reply({ embeds: [errorEmbed] });    
+
+        
+
+            }
+ 
         }
     }
 }

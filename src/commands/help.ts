@@ -22,8 +22,8 @@ module.exports = {
               emoji: "<:Utilidadyconversin:903096312919126107>",
             },
             {
-              label: 'Divisas',
-              description: 'Fiat y Criptomonedas disponibles',
+              label: 'Cotizaciones',
+              description: 'Fiat, Criptomonedas, Metales y mercado de capitales.',
               value: 'second',
               emoji: "<:Divisas:903096313061724190>"
             },
@@ -89,8 +89,7 @@ module.exports = {
         { name: "» `divisa` ", value: "» Subcomandos `dolar`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`" },
         { name: "» `criptomoneda` ", value: "» Subcomandos `bitcoin` `ethereum` `tether` `axieinfinity` `terraluna` `decentraland` `solana` `dai` `dogecoin`" },
         { name: "» `metal`", value: "» Subcomandos `oro` `plata` `paladio` `platino`" },
-        { name: "» `mercado`", value: "» Subcomandos `estado` `acciones` `consultar`" }
-   
+        { name: "» `mercado`", value: "» Subcomandos `estado` `acciones` `consultar`" },
         )
    
 
@@ -109,8 +108,9 @@ module.exports = {
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903093667911315557/Servicios.png")
       .setDescription("Estos subcomandos te dan el precio de distintos servicios digitales en Argentina con impuestos")
       .addFields(
-        {name:"» `servicio`", value: "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`"})
-
+        {name:"» `servicio`", value: "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`"},
+        {name: "» `juegos`", value: "`minecraft`  `roblox`  `fortnite`  `leagueoflegends`  `valorant`  `csgo`  `clashroyale`  `clashofclans`  `genshinimpact`  `freefire`  `pubg`  `gta`"} 
+        )
     let embed6 = new Discord.EmbedBuilder()
       .setTitle(":rofl: Diversión :rofl:")
       .setColor('#385E7F')

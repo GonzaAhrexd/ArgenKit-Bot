@@ -35,7 +35,7 @@ module.exports = {
             },
             {
               label: 'Servicios',
-              description: 'Precio de servicios de streaming y variados',
+              description: 'Precio de servicios de streaming y videojuegos',
               value: 'fourth',
               emoji: "<:Servicios2:903097132683239474>"
             },
@@ -117,7 +117,7 @@ module.exports = {
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094465747648552/Diversion.png")
       .setDescription("Estos son comandos con cosas divertidas mayormente basadas en aleatoridad")
       .addFields(
-        {name:"» Comandos", value: "`covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`"})
+        {name:"» Comandos", value: "`covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`  `frase`"})
 
     let embed7 = new Discord.EmbedBuilder()
       .setTitle(":open_file_folder: Información del bot :open_file_folder:")

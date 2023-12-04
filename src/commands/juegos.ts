@@ -46,12 +46,13 @@ module.exports = {
         )
         .addSubcommand(subcommand =>
             subcommand.setName('genshinimpact')
-                .setDescription('Muestra el precio de microtransacciones de Gensin Impact')
+                .setDescription('Muestra el precio de microtransacciones de Genshin Impact')
         )
         .addSubcommand(subcommand =>
-            subcommand.setName('gta')
-                .setDescription('Muestra el precio de microtransacciones de Grand theft Auto V')
-        ),
+            subcommand.setName('counterstrike')
+                .setDescription('Muestra el precio de microtransacciones de Counter Strike 2')
+        )
+        ,
     async run(client, interaction) {
         if (interaction.options.getSubcommand() === 'minecraft') {
 
@@ -303,14 +304,13 @@ module.exports = {
                 embedVbucks.setTitle("Fortnite")
                 embedVbucks.setURL("https://www.epicgames.com/fortnite/es-ES/home")
                 embedVbucks.setDescription(`Los precios de V-Bucks en Fortnite en Argentina son los siguientes:`)
-                embedVbucks.setColor("#000082")
-                embedVbucks.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1180944033753866350/juego.png?ex=657f42d6&is=656ccdd6&hm=6f2387887ec9d78b7d53397cad2cd39cd8d3b029384d96afebd3bf946c83aa67&")
-                //Completar
+                embedVbucks.setColor("#77DBF7")
+                embedVbucks.setThumbnail("https://static.wikia.nocookie.net/depredador-avp/images/4/4f/Fortnite_F.png/revision/latest?cb=20231126072405&path-prefix=es")
                 embedVbucks.addFields(
                     { name: "1000 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 8.99), "ARS"), inline: true },
-                    { name: "2800 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 25.00), "ARS"), inline: true },
-                    { name: "5000 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 40.00), "ARS"), inline: true },
-                    { name: "13500 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 100.00), "ARS"), inline: true },
+                    { name: "2800 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 22.99), "ARS"), inline: true },
+                    { name: "5000 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 36.99), "ARS"), inline: true },
+                    { name: "13500 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 89.99), "ARS"), inline: true },
                     )
 
 
@@ -348,7 +348,7 @@ module.exports = {
                     embed.setURL("https://lan.leagueoflegends.com/es-ar/")
                     embed.setDescription(`Los precios de RP en League of Legends con ${forma} en Argentina son los siguientes:`)
                     embed.setColor("#000082")
-                    embed.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1180944033753866350/juego.png?ex=657f42d6&is=656ccdd6&hm=6f2387887ec9d78b7d53397cad2cd39cd8d3b029384d96afebd3bf946c83aa67&")
+                    embed.setThumbnail("https://static.wikia.nocookie.net/leagueoflegendsoficial/images/8/8c/LOL_Logo.png/revision/latest?cb=20180119195439&path-prefix=es")
                    
                 }
 
@@ -470,10 +470,12 @@ module.exports = {
                 embedGenesis.setTitle("Genshin Impact")
                 embedGenesis.setURL("https://genshin.mihoyo.com/es/home")
                 embedGenesis.setDescription(`Los precios en Genshin Impact en Argentina son los siguientes:`)
-                embedGenesis.setColor("#000082")
-                embedGenesis.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1180944033753866350/juego.png?ex=657f42d6&is=656ccdd6&hm=6f2387887ec9d78b7d53397cad2cd39cd8d3b029384d96afebd3bf946c83aa67&")
+                embedGenesis.setColor("#7997D3")
+                embedGenesis.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181053245804773386/image.png?ex=657fa88c&is=656d338c&hm=ec2dcfd2f9ad4898c65d3b344684da67cdf324916f13c2fabaa5308663a1b4b0&")
                    
                 embedGenesis.addFields(
+                    { name: "Pase de Batalla", value: "ARS" + formatoPrecio(total154(valorDolar * 9.99), "ARS"), inline: true },
+                    { name: "Pase de Batalla + 10 niveles", value: "ARS" + formatoPrecio(total154(valorDolar * 19.99), "ARS"), inline: true },
                     {name: "Bendición de la Luna", value: "ARS" + formatoPrecio(total154(valorDolar * 4.99), "ARS"), inline: true},
                     { name: "60 Cristales ", value: "ARS" + formatoPrecio(total154(valorDolar * 0.99), "ARS"), inline: true },
                     { name: "300 Cristales ", value: "ARS" + formatoPrecio(total154(valorDolar * 4.99), "ARS"), inline: true },
@@ -505,5 +507,117 @@ module.exports = {
             }
  
         }
+
+        //Clash Royale
+        if (interaction.options.getSubcommand() === 'clashroyale') {
+            try {
+                const [oficial] = await Promise.all([
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                ]);
+                let valorDolar = oficial.data['venta']
+                
+                const embedClashRoyale: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                embedClashRoyale.setTitle("Clash Royale")
+                embedClashRoyale.setURL("https://clashroyale.com/es")
+                embedClashRoyale.setDescription(`Los precios en Clash Royale en Argentina son los siguientes:`)
+                embedClashRoyale.setColor("#57EAFF")
+                embedClashRoyale.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181063385966723112/image.png?ex=657fb1fe&is=656d3cfe&hm=77fa2f583d85f9c4b6290adfa300c6fc4d49af6b199d7fe141c1b3c44bbde4a4&")
+                   
+                embedClashRoyale.addFields(
+                 {name: "Pass Royale Oro", value: "ARS" + formatoPrecio(total154(valorDolar * 6.52),"ARS"), inline:true},
+                 {name: "Pass Royale Diamante", value: "ARS" + formatoPrecio(total154(valorDolar * 13.05),"ARS"), inline:true},
+                 {name: "80 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 1.08), "ARS"), inline: true},
+                 {name: "500 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 5.43), "ARS"), inline: true},
+                 {name: "1200 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 10.87), "ARS"), inline: true},
+                 {name: "2500 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 21.76), "ARS"), inline: true},
+                 {name: "6500 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 54.41), "ARS"), inline: true},
+                 {name: "14000 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 108.83), "ARS"), inline: true},
+                )
+
+                return await interaction.reply({ embeds: [embedClashRoyale] });
+
+                }
+                catch(error) {
+                    console.log(error)
+    
+                    const errorEmbed = new Discord.EmbedBuilder()
+                        .setColor("#ff0000")
+                        .setTitle("Error")
+                        .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+    
+                    interaction.reply({ embeds: [errorEmbed] });    
+    
+                }
+            }
+        //Clash of Clans
+        if (interaction.options.getSubcommand() === 'clashofclans') {
+            try {
+                const [oficial] = await Promise.all([
+                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                ]);
+                let valorDolar = oficial.data['venta']
+                
+                const embedClashOfClans: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                embedClashOfClans.setTitle("Clash of Clans")
+                embedClashOfClans.setURL("https://clashofclans.com/es")
+                embedClashOfClans.setDescription(`Los precios en Clash of Clans en Argentina son los siguientes:`)
+                embedClashOfClans.setColor("#FFF956")
+                embedClashOfClans.setThumbnail("https://play-lh.googleusercontent.com/LByrur1mTmPeNr0ljI-uAUcct1rzmTve5Esau1SwoAzjBXQUby6uHIfHbF9TAT51mgHm=w240-h480-rw")
+                embedClashOfClans.addFields(
+                    {name: "80 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 1.08), "ARS"), inline: true},
+                    {name: "500 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 5.43), "ARS"), inline: true},
+                    {name: "1200 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 10.87), "ARS"), inline: true},
+                    {name: "2500 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 21.76), "ARS"), inline: true},
+                    {name: "6500 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 54.41), "ARS"), inline: true},
+                    {name: "14000 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 108.83), "ARS"), inline: true},
+                   )
+                return await interaction.reply({ embeds: [embedClashOfClans] });
+
+                }
+                catch(error) {
+                    console.log(error)
+    
+                    const errorEmbed = new Discord.EmbedBuilder()
+                        .setColor("#ff0000")
+                        .setTitle("Error")
+                        .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+    
+                    interaction.reply({ embeds: [errorEmbed] });    
+    
+                }
+            }
+            //Counter Strike 2
+            if (interaction.options.getSubcommand() === 'counterstrike') {
+                try {
+                    const [oficial] = await Promise.all([
+                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                    ]);
+                    let valorDolar = oficial.data['venta']
+                    
+                    const embedCounterStrike: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                    embedCounterStrike.setTitle("Counter Strike 2")
+                    embedCounterStrike.setURL("https://www.counter-strike.net/")
+                    embedCounterStrike.setDescription(`Los precios en Counter Strike 2 en Argentina son los siguientes:`)
+                    embedCounterStrike.setColor("#FBAC18")
+                    embedCounterStrike.setThumbnail("https://static.wikia.nocookie.net/logopedia/images/4/49/Counter-Strike_2_%28Icon%29.png/revision/latest/scale-to-width-down/150?cb=20230330015359")
+                    embedCounterStrike.addFields(
+                        {name: "Counter Strike 2 Status Prime", value: "ARS" + formatoPrecio(total154(valorDolar * 14.99), "ARS"), inline: true},
+                        {name: "Llaves para abrir cajas", value: "ARS" + formatoPrecio(total154(valorDolar * 2.49), "ARS"), inline: true},
+                    )
+                        return await interaction.reply({ embeds: [embedCounterStrike] });
+                }
+                catch(error){
+                    console.log(error)
+    
+                    const errorEmbed = new Discord.EmbedBuilder()
+                        .setColor("#ff0000")
+                        .setTitle("Error")
+                        .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
+    
+                    interaction.reply({ embeds: [errorEmbed] });    
+                }
+            }
+
+        
     }
 }

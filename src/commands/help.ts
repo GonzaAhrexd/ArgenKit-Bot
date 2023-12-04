@@ -109,7 +109,7 @@ module.exports = {
       .setDescription("Estos subcomandos te dan el precio de distintos servicios digitales en Argentina con impuestos")
       .addFields(
         {name:"» `servicio`", value: "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`"},
-        {name: "» `juegos`", value: "`minecraft`  `roblox`  `fortnite`  `leagueoflegends`  `valorant`  `csgo`  `clashroyale`  `clashofclans`  `genshinimpact`  `freefire`  `pubg`  `gta`"} 
+        {name: "» `juegos`", value: "`minecraft`  `roblox`  `fortnite`  `leagueoflegends`  `valorant`  `counterstrike`  `clashroyale`  `clashofclans`  `genshinimpact`  `freefire`"} 
         )
     let embed6 = new Discord.EmbedBuilder()
       .setTitle(":rofl: Diversión :rofl:")

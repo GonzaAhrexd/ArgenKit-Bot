@@ -2,7 +2,9 @@
 import Discord from "discord.js"
 import axios from "axios"
 const { total155 } = require("../functions/impuestos"); //Impuestos
-const { formatoPrecio } = require('../functions/formato')
+import { formatoPrecio } from '../functions/formato'
+import { embedError } from "../functions/embedError"
+
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('convertirdivisa')
@@ -206,7 +208,7 @@ module.exports = {
                         //Impuestos
                         { name: "Impuestos (155%) ", value: `ARS${formatoPrecio(total155(convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Blue
-                        { name: `Dólar blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
+                        { name: `Dólar blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                         { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio((convertir * blue.data['compra']), "ARS")}`, inline: true },
                         { name: "Venta :flag_ar:", value: `ARS${formatoPrecio((convertir * blue.data['venta']), "ARS")}`, inline: true },
                         //Financieros
@@ -219,15 +221,9 @@ module.exports = {
                     await interaction.editReply({ embeds: [embed] });
                 }, 3000)
 
-            } catch (err) {
-                console.error('ERR', err);
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+            } catch (error) {
+                
+                embedError(interaction,  error)
 
             }
 
@@ -260,7 +256,7 @@ module.exports = {
                         //Impuestos
                         { name: "Impuestos (155%) ", value: `ARS$ ${formatoPrecio(total155(convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Blue
-                        { name: `Euro blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
+                        { name: `Euro blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                         { name: "Compra :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * blue.data['blue_euro']['value_buy']), "ARS")}`, inline: true },
                         { name: "Venta :flag_ar:", value: `ARS$ ${formatoPrecio((convertir * blue.data['blue_euro']['value_sell']), "ARS")}`, inline: true })
 
@@ -271,14 +267,8 @@ module.exports = {
 
 
             } catch (error) {
-                console.error(error);
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+           
+                embedError(interaction, error)
             }
 
         }
@@ -510,7 +500,7 @@ module.exports = {
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
                             { name: "Impuestos (155%) ", value: `ARS${formatoPrecio(total155((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
                             //Blue
-                            { name: `${divisa.nombre} Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
+                            { name: `${divisa.nombre} Blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * blue.data['compra']), "ARS")}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * blue.data['venta']), "ARS")}`, inline: true },
                         )
@@ -520,12 +510,7 @@ module.exports = {
                         await interaction.editReply({ embeds: [embed] });
                     }, 4000)
                 } catch (error) {
-                    console.error(error);
-                    const errorEmbed = new Discord.EmbedBuilder()
-                        .setColor("#ff0000")
-                        .setTitle("Error")
-                        .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-                    interaction.reply({ embeds: [errorEmbed] });
+                    embedError(interaction, error)
                 }
 
             }

@@ -3,7 +3,8 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
-const { formatoPrecio, formatoNum } = require('../functions/formato')
+import { embedError } from "../functions/embedError"
+import { formatoPrecio, formatoNum } from '../functions/formato'
 const apiKEY = process.env.apiKeyFinnhub
 interface Accion {
     symbol: string; // el símbolo de la acción, como AAPL o MSFT
@@ -53,14 +54,7 @@ module.exports = {
 
 
             } catch (err) {
-                console.error('ERR', err);
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, err)
             }
 
 
@@ -281,15 +275,8 @@ module.exports = {
 
 
 
-            } catch (err) {
-                console.error('ERR', err);
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+            } catch (error) {
+                embedError(interaction, error)
             }
 
 
@@ -320,15 +307,8 @@ module.exports = {
                         )
                 return await interaction.reply({ embeds: [embed] });
 
-            } catch (err) {
-                console.error('ERR', err);
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+            } catch (error) {
+                embedError(interaction, error)
             }
         }
 

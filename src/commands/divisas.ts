@@ -4,8 +4,8 @@ import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total155 } = require("../functions/impuestos"); //Impuestos
-const { formatoPrecio } = require('../functions/formato')
-
+import { formatoPrecio } from '../functions/formato'
+import { embedError } from "../functions/embedError"
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('divisa')
@@ -109,7 +109,7 @@ module.exports = {
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Blue
-                        { name: "Dólar blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
+                        { name: "Dólar blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         //Financieros
@@ -181,15 +181,7 @@ module.exports = {
                     }
                 });
             } catch (err) {
-                console.error('ERR', err);
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
-
+                embedError(interaction, err)
             }
         }
         //Euro
@@ -215,7 +207,7 @@ module.exports = {
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Euro blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
+                        { name: "Euro blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                     );
@@ -285,14 +277,7 @@ module.exports = {
                     }
                 });
             } catch (error) {
-                console.error(error);
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+               embedError(interaction, error)
             }
         }
         let divisas: Array<
@@ -673,7 +658,7 @@ module.exports = {
                             { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "VENTA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: `${divisa.nombre} blue <:dollarblue:903149186436980767>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
+                            { name: `${divisa.nombre} blue <:dolarblue:1181095026432938034>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                             { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                         )
@@ -746,13 +731,7 @@ module.exports = {
                     })
 
                 } catch (error) {
-                    console.error(error);
-                    const errorEmbed = new Discord.EmbedBuilder()
-                        .setColor("#ff0000")
-                        .setTitle("Error")
-                        .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                    interaction.reply({ embeds: [errorEmbed] });
+                  embedError(interaction, error)
                 }
 
 

@@ -3,7 +3,8 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
-const { formatoPrecio } = require('../functions/formato')
+import { formatoPrecio } from '../functions/formato'
+import { embedError } from "../functions/embedError"
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('criptomoneda')
@@ -288,13 +289,7 @@ module.exports = {
                             
                         } catch (error) {
 
-                            console.error(error);
-                            const errorEmbed = new Discord.EmbedBuilder()
-                                .setColor("#ff0000")
-                                .setTitle("Error")
-                                .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-        
-                            interaction.reply({ embeds: [errorEmbed] });
+                       embedError(interaction, error)
                         }
 
             }

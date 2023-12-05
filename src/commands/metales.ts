@@ -112,7 +112,7 @@ module.exports = {
                             //Impuestos
                             { name: "Impuestos (155%)", value: "ARS" + formatoPrecio(total155((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS"), inline: true },
                             //Blue
-                            { name: Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
+                            { name: Metal.nombre + " a precio blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                             { name: "Compra", value: "ARS" + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * blue.data['compra'], "ARS"), inline: true },
                             { name: "Venta", value: "ARS" + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * blue.data['venta'], "ARS"), inline: true })
 

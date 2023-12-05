@@ -4,7 +4,7 @@ import axios from "axios"
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 const { total155, total154 } = require("../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require('../functions/formato')
-
+import { embedError } from "../functions/embedError"
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName('servicio')
@@ -201,10 +201,8 @@ module.exports = {
           return interaction.reply({ embeds: [embed] });
 
         })
-        .catch((err) => {
-          console.error('ERR', err)
-
-
+        .catch((error) => {
+          embedError(interaction, error)
         })
 
     }
@@ -232,9 +230,7 @@ module.exports = {
 
 
     if (interaction.options.getSubcommand() === 'discordnitro') {
-      axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial')
-        .then((oficial) => {
-
+    
           const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle("Discord Nitro")
             .setDescription("Los precios de Discord Nitro en Argentina son los siguientes: ")
@@ -249,11 +245,6 @@ module.exports = {
 
           return interaction.reply({ embeds: [embed] });
 
-        })
-        .catch((err) => {
-          console.error('ERR', err)
-
-        })
 
     }
 
@@ -323,15 +314,8 @@ module.exports = {
 
           });
         })
-        .catch((err) => {
-          console.error('ERR', err);
-
-          const errorEmbed = new Discord.EmbedBuilder()
-            .setColor("#ff0000")
-            .setTitle("Error")
-            .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-          interaction.reply({ embeds: [errorEmbed] });
+        .catch((error) => {
+          embedError(interaction, error)
         })
     }
 
@@ -354,15 +338,8 @@ module.exports = {
             )
           return interaction.reply({ embeds: [embed] });
         })
-        .catch((err) => {
-          console.error('ERR', err);
-
-          const errorEmbed = new Discord.EmbedBuilder()
-            .setColor("#ff0000")
-            .setTitle("Error")
-            .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-          interaction.reply({ embeds: [errorEmbed] });
+        .catch((error) => {
+          embedError(interaction, error)
         })
 
     }
@@ -389,15 +366,8 @@ module.exports = {
 
           return interaction.reply({ embeds: [embed] });
         })
-        .catch((err) => {
-          console.error('ERR', err);
-
-          const errorEmbed = new Discord.EmbedBuilder()
-            .setColor("#ff0000")
-            .setTitle("Error")
-            .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-          interaction.reply({ embeds: [errorEmbed] });
+        .catch((error) => {
+          embedError(interaction, error)
         })
 
     }
@@ -494,15 +464,7 @@ module.exports = {
 
         })
         .catch((err) => {
-          console.error('ERR', err);
-
-          const errorEmbed = new Discord.EmbedBuilder()
-            .setColor("#ff0000")
-            .setTitle("Error")
-            .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-          interaction.reply({ embeds: [errorEmbed] });
-
+            embedError(interaction, err)
 
         })
 

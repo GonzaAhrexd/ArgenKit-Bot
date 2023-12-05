@@ -1,7 +1,8 @@
 
 import Discord from "discord.js"
 import axios from "axios"
-const { formatoPrecio, formatoNum } = require('../functions/formato')
+import { formatoPrecio, formatoNum } from '../functions/formato'
+import { embedError } from "../functions/embedError"
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName('datos')
@@ -36,8 +37,8 @@ module.exports = {
           return await interaction.reply({ embeds: [embed] });
 
         })
-        .catch((err) => {
-          console.error('ERR', err)
+        .catch((error) => {
+          embedError(interaction, error)
         })
     }
 

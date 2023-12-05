@@ -1,7 +1,8 @@
 
 import Discord from "discord.js"
 import axios from "axios"
-const { formatoPrecio } = require('../functions/formato')
+import { formatoPrecio } from '../functions/formato'
+import { embedError } from "../functions/embedError"
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('convertircripto')
@@ -91,10 +92,8 @@ module.exports = {
                 id: "ethereum",
                 nombre: "Ethereum",
                 emoji: "<:ethereum:963619533271232532>",
-
                 iso: "ETH",
                 simbolo: "Ξ",
-
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/963885915619610714/convethereum.png",
                 color: "#7be0ff",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=0",
@@ -218,15 +217,9 @@ module.exports = {
                                 { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio(((convertir * apiLemon.data['ask'])), "ARS"), inline: true })
                         return interaction.reply({ embeds: [embed] });
                     }
-                } catch (error) {
-
-                    console.error(error);
-                    const errorEmbed = new Discord.EmbedBuilder()
-                        .setColor("#ff0000")
-                        .setTitle("Error")
-                        .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                    interaction.reply({ embeds: [errorEmbed] });
+                } catch (error:any) {
+                  
+                    embedError(interaction, error)
                 }
 
             }

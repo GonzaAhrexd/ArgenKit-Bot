@@ -2,7 +2,9 @@
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total154, total155 } = require("../functions/impuestos"); //Impuestos
+const { total155 } = require("../functions/impuestos"); //Impuestos
+import { formatoPrecio } from '../functions/formato'
+import { embedError } from "../functions/embedError"
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('convertirmetal')
@@ -110,7 +112,7 @@ module.exports = {
                             //Impuestos
                             { name: "Impuestos (155%) ", value: `ARS${formatoPrecio(total155((convertir / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS")}`, inline: true },
                             //Blue
-                            { name: `${Metal.nombre} a precio del Dólar Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
+                            { name: `${Metal.nombre} a precio del Dólar Blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * blue.data['compra'], "ARS")}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * blue.data['venta'], "ARS")}`, inline: true })
 
@@ -121,23 +123,10 @@ module.exports = {
 
 
 
-                } catch (err) {
-                    console.error('Error en el API de Metales', err)
-                    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                        .setTitle(`Ha ocurrido un error`)
-                        .setColor(Metal.color)
-                        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1070117134497235005/backup-copy.png")
-                        .setDescription("Ha ocurrido un error relacionado con el api de Metales")
-                    interaction.reply({ embeds: [embed] });
-
+                } catch (error) {
+                    embedError(interaction, error)
                 }
-
-
-            }  //Cierra if
-        }) //Cierra forEach
-
-
-
-
-    } //Async run
-} //Module export
+            }  
+        }) 
+    } 
+} 

@@ -20,6 +20,9 @@ module.exports = {
         { name: ":chart_with_upwards_trend:  Mercado de capitales ", value: "Ahora es posible visualizar acciones del mercado de capitales con los comandos `mercado`" },
         { name: "🦠 Removido comandos de covid19 ", value: "Han sido removidos los comandos referidos al covid19 ya que pasaron 4 años desde el mismo.  " },
         { name: "🎱 Nuevas respuestas a 8ball ", value: "Se han agregado nuevas respuestas al comando de 8ball, sumando un total de 30." },
+        {name: "🎮 Microtransacciones en juegos", value: "Se ha agregado un nuevo comando para  consultar el precio de microtransacciones de juegos en Argentina, con el comando `juego`"},
+        { name: "💬 Frases celebres ", value: "Se han agregado frases celebres de famosos argentinos con el comando `frase`." },
+        { name: "📷 Imagenes actualizadas", value: "Se han actualizado algunas de las imagenes del bot" },
         
         )
 

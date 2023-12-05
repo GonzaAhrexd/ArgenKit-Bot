@@ -3,8 +3,9 @@
 import axios from "axios";
 import Discord from "discord.js"
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
+import { embedError } from "../functions/embedError";
 const { total154 } = require('../functions/impuestos')
-const { formatoPrecio } = require('../functions/formato')
+import { formatoPrecio } from '../functions/formato'
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName("juegos")
@@ -184,14 +185,7 @@ module.exports = {
 
 
             } catch (error) {
-                console.log(error);
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, error)
             }
         }
         //Roblox
@@ -279,14 +273,7 @@ module.exports = {
 
 
             } catch (error) {
-                console.log(error);
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, error)
             }
         }
 
@@ -321,14 +308,7 @@ module.exports = {
 
             }
             catch (error) {
-                console.log(error)
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, error)
 
             }
 
@@ -445,15 +425,7 @@ module.exports = {
 
             }
             catch (error) {
-                console.log(error)
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
-
+                embedError(interaction, error)
             }
 
         }
@@ -493,17 +465,7 @@ module.exports = {
 
             }
             catch (error) {
-                console.log(error)
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
-
-
-
+                embedError(interaction, error)
             }
 
         }
@@ -538,15 +500,7 @@ module.exports = {
 
             }
             catch (error) {
-                console.log(error)
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
-
+                embedError(interaction, error)
             }
         }
         //Clash of Clans
@@ -575,15 +529,7 @@ module.exports = {
 
             }
             catch (error) {
-                console.log(error)
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
-
+                embedError(interaction, error)
             }
         }
         //Counter Strike 2
@@ -607,14 +553,7 @@ module.exports = {
                 return await interaction.reply({ embeds: [embedCounterStrike] });
             }
             catch (error) {
-                console.log(error)
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, error)
             }
         }
 
@@ -644,14 +583,7 @@ module.exports = {
                 return await interaction.reply({ embeds: [embedBrawlStars] });
             }
             catch (error) {
-                console.log(error)
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, error)
             }
         }
         if (interaction.options.getSubcommand() === 'valorant') {
@@ -679,14 +611,7 @@ module.exports = {
                 return await interaction.reply({ embeds: [embedValorant] });
             }
             catch (error) {
-                console.log(error)
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, error)
             }
         }
 
@@ -717,14 +642,7 @@ module.exports = {
                 return await interaction.reply({ embeds: [embedFreeFire] });
             }
             catch (error) {
-                console.log(error)
-
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, error)
             }
         }
 

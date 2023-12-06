@@ -19,6 +19,14 @@ module.exports = {
       subcommand.setName('circulante')
         .setDescription('Muestra la cantidad de pesos circulantes en la economía')
     )
+    .addSubcommand(subcommand =>
+      subcommand.setName('pbi')
+      .setDescription('Muestra el Producto Bruto Interno de Argentina')
+      )
+      .addSubcommand(subcommand =>
+        subcommand.setName('gabinete')
+        .setDescription('Muestra los integrantes actuales del gabinete de ministros')
+        )
   ,
   async run(client, interaction, options) {
 
@@ -64,6 +72,9 @@ module.exports = {
     }
     //Circulante
     if (interaction.options.getSubcommand() === 'circulante') {
+
+  
+
       axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/circulante')
         .then(async (circulante) => {
           const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -79,5 +90,51 @@ module.exports = {
 
         })
     }
+
+    if(interaction.options.getSubcommand() === 'pbi'){
+      try{
+        const [PBIArg, PBIPerCapita] = await Promise.all([
+          axios.get(`http://api.worldbank.org/v2/country/AR/indicator/NY.GDP.MKTP.CD?date=2022&format=json`),
+          axios.get(`http://api.worldbank.org/v2/country/AR/indicator/NY.GDP.PCAP.CD?date=2022&format=json`)
+      ]);
+
+      let PBI = PBIArg.data[1][0].value
+      let PBIPC = PBIPerCapita.data[1][0].value
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      .setTitle("Producto Bruto Interno")
+      .setColor("#FAD56F")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181792127617867886/gdp.png?ex=658258af&is=656fe3af&hm=978b0f1d092f87d2b881cff2a8eb53a7b85cff4af8ce7cfaa350d083d527e2c0&")
+      .addFields(
+        { name: "Valor nominal :money_with_wings:  ", value:  formatoPrecio(PBI, "USD") },
+        { name: "Valor Per Capita :money_with_wings:  ", value: formatoPrecio(PBIPC, "USD") }
+        )
+      
+
+      return await interaction.reply({ embeds: [embed] });
+
+      }catch(Error){
+        embedError(interaction, Error)
+      }
+    } 
+    if(interaction.options.getSubcommand() === 'gabinete'){
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      .setTitle("Gabinete de Ministros")
+      .setColor("#B18BC8")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181795170207924244/networking.png?ex=65825b85&is=656fe685&hm=ef7217d1c75f8aea833ff9cb977cc177eb45c395467a82d082a5dc068ef4fdb7&")
+      .addFields(
+        {name: "Presidente", value: "Javier Gerardo Milei (LLA 🟣)", inline: true },
+        {name: "Vicepresidente", value: "Victoria Villaruel (LLA 🟣)", inline: true},
+        {name: "Jefatura de Gabinete", value: "Nicolás Posse (LLA 🟣)", inline: true },
+        {name: "Ministerio de Capital Humano", value: "Sandra Pettovello (UCEDE 🔵)", inline: true },
+        {name: "Ministerio de Defensa", value: "Luis Petri (UCR 🔴)", inline: true },
+        {name: "Ministerio de Economía", value: "Luis Caputo (PRO 🟡)", inline: true },
+        {name: "Ministerio de Infraestructura", value: "Guillermo Ferraro (LLA 🟣)", inline: true },
+        {name: "Ministerio del Interior", value: "Guillermo Francos (LLA 🟣)", inline: true },
+        {name: "Ministerio de Justicia", value: "Mariano Cúneo Libarona (LLA 🟣)", inline: true },
+        {name: "Ministerio de Relaciones Exteriores", value: "Diana Mondino (LLA 🟣)", inline: true },
+        {name: "Ministerio de Seguridad", value: "Patricia Bullrich (PRO 🟡)", inline: true },
+      )
+      return await interaction.reply({ embeds: [embed] });
+} 
   }
 }

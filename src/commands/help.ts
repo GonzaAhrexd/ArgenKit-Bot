@@ -71,7 +71,7 @@ module.exports = {
       .setDescription("Estos comandos contienen utilidades y conversión de divisa")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903010091756814356/money-exchange.png")
       .addFields(
-        { name: "» Utilidad ", value: "`impuesto`  `calcular`  `anualizarinflacion`  `traductor`  `hora`" },
+        { name: "» Utilidad ", value: "`impuesto`  `calcular`  `anualizarinflacion`  `traductor`  `hora`  `clima`" },
         { name: "» `convertirdivisa`", value: "Subcomandos `dolar`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`" },
         { name: "» `pesoa` ", value: "» Subcomandos `dolar`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`" },
         { name: "» `convertircripto` ", value: "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `decentraland`  `solana`  `dai`  `dogecoin" },
@@ -99,7 +99,7 @@ module.exports = {
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094616071483392/unknown.png")
       .setDescription("Estos comandos tienen distintos datos sobre Argentina")
       .addFields(
-        { name: "» Comando `datos`", value: "subcomandos `riesgopais`  `reservas`  `circulante`" },
+        { name: "» Comando `datos`", value: "subcomandos `riesgopais`  `reservas`  `circulante`  `pbi`  `gabinete`" },
         { name: "» Otros Comandos ", value: "`elecciones`  `futbol`  `provinciainfo`" }
       )
     let embed5 = new Discord.EmbedBuilder()

@@ -96,19 +96,19 @@ module.exports = {
                 const embedDungeons: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedDungeons, "Minecraft Dungeons")
                 embedDungeons.addFields(
-                    { name: "Minecraft Dungeons(M/X/S)", value: "ARS" + formatoPrecio(total154(3999), "ARS"), inline: true },
-                    { name: "Minecraft Dungeons Edición Definitiva (MXS)", value: "ARS" + formatoPrecio(total154(7999), "ARS"), inline: true },
-                    { name: "Minecraft Dungeons(SP)", value: `ARS${formatoPrecio(total154(valorDolar * 19.99), "ARS")}`, inline: true },
-                    { name: "Minecraft Dungeons Edición Definitiva(SP)", value: `ARS${formatoPrecio(total154(valorDolar * 39.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Dungeons(<:MSTore:1181093660272635914><:Xbox:1181092947949801492><:Switch:1181093657491816528>)", value: "ARS" + formatoPrecio(total154(3999), "ARS"), inline: true },
+                    { name: "Minecraft Dungeons Edición Definitiva (<:MSTore:1181093660272635914><:Xbox:1181092947949801492>/<:Switch:1181093657491816528>)", value: "ARS" + formatoPrecio(total154(7999), "ARS"), inline: true },
+                    { name: "Minecraft Dungeons(<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total154(valorDolar * 19.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Dungeons Edición Definitiva(<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total154(valorDolar * 39.99), "ARS")}`, inline: true },
                 )
 
                 const embedLegends: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedLegends, "Minecraft Legends")
                 embedLegends.addFields(
-                    { name: "Minecraft Legends", value: `ARS${formatoPrecio(total154(7999), "ARS")}`, inline: true },
-                    { name: "Minecraft Legends Definitive Edition", value: `ARS${formatoPrecio(total154(9999), "ARS")}`, inline: true },
-                    { name: "Minecraft Legends (SP)", value: `ARS${formatoPrecio(total154(valorDolar * 39.99), "ARS")}`, inline: true },
-                    { name: "Minecraft Legends Definitive Edition (SP)", value: `ARS${formatoPrecio(total154(valorDolar * 49.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends (<:MSTore:1181093660272635914><:Xbox:1181092947949801492><:Switch:1181093657491816528>)", value: `ARS${formatoPrecio(total154(7999), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends Definitive Edition (<:MSTore:1181093660272635914><:Xbox:1181092947949801492>/<:Switch:1181093657491816528>)", value: `ARS${formatoPrecio(total154(9999), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends (<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total154(valorDolar * 39.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends Definitive Edition (<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total154(valorDolar * 49.99), "ARS")}`, inline: true },
 
                 )
 
@@ -142,7 +142,7 @@ module.exports = {
                 await interaction.deferReply();
                 setTimeout(async () => {
                     await interaction.editReply({ embeds: [embedJava], components: [row] });
-                }, 3000);
+                }, 6000);
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;

@@ -15,8 +15,9 @@ module.exports = {
           {name: 'Cotizaciones otras monedas', value: 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'},
           { name: 'Cotizaciones de criptomonedas',  value: "https://www.coingecko.com/es" },
           { name: 'Cotizaciones de criptomonedas', value: "https://criptoya.com/api" },
-          { name: 'Cotizaciones de acciones', value: "https://finnhub.io/" })
-            
+          { name: 'Cotizaciones de acciones', value: "https://finnhub.io/" },
+          {name: 'Clima', value: 'https://openweathermap.org/'})
+        
       await interaction.reply({ embeds: [embed]})
     }
 

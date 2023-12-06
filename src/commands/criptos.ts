@@ -277,7 +277,7 @@ module.exports = {
                 limitedeemision: "720,000,000",
                 imagen: "https://cryptologos.cc/logos/avalanche-avax-logo.png",
                 color: "#e84142",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/avalanche/market_chart?vs_currency=usd&days=0",
+                apicoingecko: "https://api.coingecko.com/api/v3/coins/avalanche-2/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/avax"
             },
             {
@@ -319,7 +319,7 @@ module.exports = {
                 limitedeemision: "10,000,000,000",
                 imagen: "https://altcoinsbox.com/wp-content/uploads/2023/03/matic-logo.webp",
                 color: "#8247e5",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/polygon/market_chart?vs_currency=usd&days=0",
+                apicoingecko: "https://api.coingecko.com/api/v3/coins/aave-polygon-wmatic/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/matic"
             },
             {
@@ -334,7 +334,7 @@ module.exports = {
                 imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1181813633110507531/tron-trx-logo.png?ex=65826cb7&is=656ff7b7&hm=3bc8731686026cbf5cc32024c62b6d58d1d6bda5ce710bd2ea0fe246537ee5e2&",
                 color: "#d9012c",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/tron/market_chart?vs_currency=usd&days=0",
-                apilemon: "https://criptoya.com/api/lemoncash/trx"
+                apilemon: "https://criptoya.com/api/bybit/trx/ars"
             },
             ]
 

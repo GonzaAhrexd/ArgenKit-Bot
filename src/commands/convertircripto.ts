@@ -60,7 +60,14 @@ module.exports = {
                 .setDescription('Convierte de Terraluna 2.0 a Pesos Argentinos')
                 .addNumberOption(option =>
                     option.setName('luna').setDescription('Monto en Terra Luna 2.0.').setRequired(true)
-                )),
+                ))
+        .addSubcommand(subcommand =>
+            subcommand.setName('litecoin')
+                .setDescription('Convierte de Litecoin a Pesos Argentinos')
+                .addNumberOption(option =>
+                    option.setName('ltc').setDescription('Monto en Litecoin.').setRequired(true)
+                ))        
+                ,
 
 
     async run(client, interaction, options) {
@@ -175,7 +182,18 @@ module.exports = {
                 color: "#f5a431",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/dogecoin/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/bitso/doge"
-            }
+            },
+            {
+                id: "litecoin",
+                nombre: "Litecoin",
+                emoji: "<:litecoin:964686144530939904>",
+                iso: "LTC",
+                simbolo: "Ł",
+                imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/LTC-400.png/2048px-LTC-400.png",
+                color: "#f5a431",
+                apicoingecko: "https://api.coingecko.com/api/v3/coins/litecoin/market_chart?vs_currency=usd&days=0",
+                apilemon: "https://criptoya.com/api/bitso/ltc"
+            },
             ]
 
         Criptomonedas.forEach(async cripto => {
@@ -198,7 +216,7 @@ module.exports = {
                             .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
                             .setThumbnail(cripto.imagen)
                             .addFields(
-                                { name: `Monto original ${cripto.emoji} `, value: `${cripto.simbolo} ${convertir} ` },
+                                { name: `Monto original  `, value: `${cripto.simbolo} ${convertir} ` },
                                 { name: "Dólares :dollar: ", value: formatoPrecio(((convertir * criptodolar)), "USD"), inline: true },
                                 { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio((((convertir * criptodolar) * apiLemon.data['bid'])), "ARS"), inline: true },
                                 { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio((((convertir * criptodolar) * apiLemon.data['ask'])), "ARS"), inline: true })
@@ -211,7 +229,7 @@ module.exports = {
                             .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
                             .setThumbnail(cripto.imagen)
                             .addFields(
-                                { name: `Monto original ${cripto.emoji} `, value: `${cripto.simbolo} ${convertir} ` },
+                                { name: `Monto original  `, value: `${cripto.simbolo} ${convertir} ` },
                                 { name: "Dólares :dollar: ", value: formatoPrecio(((convertir * criptodolar)), "USD"), inline: true },
                                 { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio(((convertir * apiLemon.data['bid'])), "ARS"), inline: true },
                                 { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio(((convertir * apiLemon.data['ask'])), "ARS"), inline: true })

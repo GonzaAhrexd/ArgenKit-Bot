@@ -23,7 +23,10 @@ module.exports = {
         {name: "🎮 Microtransacciones en juegos", value: "Se ha agregado un nuevo comando para  consultar el precio de microtransacciones de juegos en Argentina, con el comando `juego`"},
         { name: "💬 Frases celebres ", value: "Se han agregado frases celebres de famosos argentinos con el comando `frase`." },
         { name: "📷 Imagenes actualizadas", value: "Se han actualizado algunas de las imagenes del bot" },
-        
+        {name: "🌧️ Tiempo meteorológico", value: "Se ha agregado un comando para consultar el tiempo en las capitales argentinas o en cualquier parte del mundo con `tiempo`"},
+        { name: " <:calculator:1071233126656917624> Calculadora mejorada ", value: "Se ha mejorado el comando `calcular` agregando varios subcomandos con distintas funciones como conversión de base, raíz cuadrada, potencia y logaritmo " },
+     
+      
         )
 
 

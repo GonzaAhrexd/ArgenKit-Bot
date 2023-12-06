@@ -16,8 +16,9 @@ module.exports = {
           { name: 'Cotizaciones de criptomonedas',  value: "https://www.coingecko.com/es" },
           { name: 'Cotizaciones de criptomonedas', value: "https://criptoya.com/api" },
           { name: 'Cotizaciones de acciones', value: "https://finnhub.io/" },
-          {name: 'Clima', value: 'https://openweathermap.org/'})
-        
+          {name: 'Clima', value: 'https://openweathermap.org/'},
+          {name: 'PBI y otros datos', value: 'https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information'}
+        )
       await interaction.reply({ embeds: [embed]})
     }
 

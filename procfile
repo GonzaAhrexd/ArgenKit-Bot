@@ -1,0 +1,2 @@
+npm install typescript ts-node --save-dev
+npm run start

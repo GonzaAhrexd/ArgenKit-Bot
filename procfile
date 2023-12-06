@@ -1,2 +1,1 @@
-npm install typescript ts-node --save-dev
-npx ts-node -- src/index.ts
+worker: npx ts-node -- src/index.ts

@@ -81,8 +81,8 @@ module.exports = {
 
         const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Calcular raíz")
-        .setColor("#18f7ce")
-        .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1071230926358581308/calculator.png')
+        .setColor("#F77E65")
+        .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1181801185171226644/square-root_1.png?ex=6582611f&is=656fec1f&hm=9cef6afd7501112ba7f4fe16bff7e76c5bd3d5afb3746e1698970feaa810fd6d&')
         .addFields(
             { name: 'Raíz', value: `${indice}√${radicando}` },
             { name: 'Resultado', value: resultado.toString()})
@@ -95,8 +95,8 @@ module.exports = {
 
         const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Calcular potencia")
-        .setColor("#18f7ce")
-        .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1071230926358581308/calculator.png')
+        .setColor("#FF801F")
+        .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1181801185427075152/power_1.png?ex=6582611f&is=656fec1f&hm=8d103dcea6e8333d5b48c7bb773eb54409e6b2ee4afcf405b12ffd7300a4ce2d&')
         .addFields(
             { name: 'Potencia', value: `${base}^${exponente}` },
             { name: 'Resultado', value: resultado.toString()})
@@ -109,8 +109,8 @@ module.exports = {
 
         const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Calcular logaritmo")
-        .setColor("#18f7ce")
-        .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1071230926358581308/calculator.png')
+        .setColor("#97E4F9")
+        .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1181801184957300757/logarithm.png?ex=6582611f&is=656fec1f&hm=6158f0933a0f954db8abfae6376a603435c1ba931234923a62d8701d2f0b2b3f&')
         .addFields(
             { name: 'Logaritmo', value: `log${base}(${numero})` },
             { name: 'Resultado', value: resultado.toString()})
@@ -124,8 +124,8 @@ module.exports = {
 
         const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Convertir base")
-        .setColor("#18f7ce")
-        .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1071230926358581308/calculator.png')
+        .setColor("#02E885")
+        .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1181801184705654845/binary-code.png?ex=6582611f&is=656fec1f&hm=7664f5b2998b3a1f95696c2899b74368f3dc76e5d2b09ad5782dd5a9d0c6afd6&')
         .addFields(
             { name: 'Número', value: `${numero} base ${basedelnumero}` },
             { name: 'Resultado', value: resultado.toString()})

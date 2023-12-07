@@ -217,10 +217,8 @@ module.exports = {
                         { name: "Contado con Liqui.", value: `ARS${formatoPrecio((convertir * ccl.data['venta']), "ARS")}`, inline: true })
 
                 await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embed] });
-                }, 3000)
-
+                await interaction.editReply({ embeds: [embed] });
+               
             } catch (error) {
                 
                 embedError(interaction,  error)

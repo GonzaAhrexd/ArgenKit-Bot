@@ -6,6 +6,7 @@ import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discor
 import { embedError } from "../functions/embedError"
 import { formatoPrecio, formatoNum } from '../functions/formato'
 const apiKEY = process.env.apiKeyFinnhub
+const wait = require('node:timers/promises').setTimeout
 interface Accion {
     symbol: string; // el símbolo de la acción, como AAPL o MSFT
     name: string; // el nombre de la empresa, como Apple o Microsoft
@@ -39,7 +40,6 @@ module.exports = {
                 const [estadoMercado] = await Promise.all([
                     axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
                 ]);
-                console.log(estadoMercado.data['isOpen'])
                 const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Estado del mercado actual")
                     .setColor(estadoMercado.data['isOpen'] ? "Green" : "Red")
@@ -50,7 +50,9 @@ module.exports = {
                         { name: "Estado", value: estadoMercado.data['isOpen'] ? "Abierto" : "Cerrado" },
                         { name: "Sesión", value: `${estadoMercado.data['session'] == null ? "Ninguno" : estadoMercado.data['session']}` },
                     )
-                return await interaction.reply({ embeds: [embed] });
+                    await interaction.deferReply()
+                    await wait(3000)
+                    await interaction.editReply({ embeds: [embed] });
 
 
             } catch (err) {
@@ -237,10 +239,10 @@ module.exports = {
 
                 })
 
-                interaction.deferReply();
-                setTimeout(() => {
-                    interaction.editReply({ embeds: [embed], components: [row] });
-                }, 3000)
+                await interaction.deferReply()
+                await wait(3000)
+                await interaction.editReply({ embeds: [embed], components: [row] });
+                
 
 
 

@@ -1,6 +1,7 @@
 import Discord from 'discord.js'
 import axios from 'axios'
 import { embedError } from '../functions/embedError'
+const wait = require('node:timers/promises').setTimeout
 const API_KEY = process.env.apiKeyOpenWeather
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -66,23 +67,19 @@ module.exports = {
                     .setColor('#0099ff')
                     .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1181661137020928091/weather-forecast.png?ex=6581deb1&is=656f69b1&hm=3bda713d56232a12d23a36b56a25c021f7eff2b43bccb618913389f9c441bc71&')
                     .setTimestamp()
+             
+
                     for (let capital of capitales) {
-                            let field = {
-                                name: `${capital.nombre}`,
-                                value: `Temperatura: ${capital.temperatura}°C\nSensación térmica: ${capital.sensacion}°C\nEstado: ${capital.estado}`,
-                                inline: true,
-                            };    
-                            embedClimaCapitales.addFields(field);
-                        }
-                
-                
-                        interaction.deferReply();
-                        setTimeout(() => {
-                            interaction.editReply({ embeds: [embedClimaCapitales] });
-                        }, 6000)
-        
-                
-            
+                        let field = {
+                            name: `${capital.nombre}`,
+                            value: `Temperatura: ${capital.temperatura}°C\nSensación térmica: ${capital.sensacion}°C\nEstado: ${capital.estado}`,
+                            inline: true,
+                        };    
+                        embedClimaCapitales.addFields(field);
+                    }
+                    await interaction.deferReply()
+                    await wait(3000)
+                    await interaction.editReply({ embeds: [embedClimaCapitales] });
             } catch (Error) {
                 embedError(interaction, Error)
             }
@@ -113,7 +110,9 @@ module.exports = {
                         { name: 'Atardecer :city_sunset:', value: `${new Date(response.data.sys.sunset * 1000).toLocaleTimeString()}`, inline: true },
                         { name: 'Zona horaria :timer:', value: `${response.data.timezone / 3600}hs`, inline: true },
                     )
-                interaction.reply({ embeds: [embedClimaCiudad] })
+                    await interaction.deferReply()
+                    await wait(3000)
+                    await interaction.editReply({ embeds: [embedClimaCiudad] })
             } catch (Error) {
                 embedError(interaction, Error)
             }

@@ -6,6 +6,7 @@ var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total155 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('divisa')
@@ -90,14 +91,12 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'dolar') {
             try {
                 const [oficial, blue, mep, ccl] = await Promise.all([
-                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
                     axios.get('https://dolarapi.com/v1/dolares/blue'),
                     axios.get('https://dolarapi.com/v1/dolares/bolsa'),
                     axios.get('https://dolarapi.com/v1/dolares/contadoconliqui'),
                 ]);
 
-                const blue_venta = blue.data['venta']
-                console.log(blue_venta)
                 const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Dólar estadounidese :flag_us:")
                     .setColor("#a9ea98")
@@ -148,9 +147,9 @@ module.exports = {
                     )
 
                 await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embed1], components: [row] });
-                }, 3000);
+                await wait(4000)
+                await interaction.editReply({ embeds: [embed1], components: [row] });
+
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;
@@ -188,8 +187,7 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'euro') {
             try {
-                const [oficial, blue, valorUSD] = await Promise.all([
-                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
+                const [euro, valorUSD] = await Promise.all([
                     axios.get('https://api.bluelytics.com.ar/v2/latest'),
                     axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json')
                 ]);
@@ -202,14 +200,14 @@ module.exports = {
                     .addFields(
                         { name: `Valor en dólares 💸`, value: `Valor del euro en relación al dólar estadounidense.`, inline: false },
                         { name: `1 DÓLAR <:rightarrow:921907270747570247> EURO`, value: ` ${formatoPrecio(conversion, "EUR")} `, inline: true },
-                        { name: `1 EURO <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(1 /conversion , "USD")} `, inline: true },
+                        { name: `1 EURO <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(1 / conversion, "USD")} `, inline: true },
                         { name: "Euro oficial :bank:", value: "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, además, sólo se puede retirar el equivalente a USD$200 al mes." },
-                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(euro.data['oficial_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(euro.data['oficial_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155(euro.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Euro blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
-                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(euro.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(euro.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
                     );
 
                 const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -243,10 +241,10 @@ module.exports = {
                     );
 
 
-                await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embed1], components: [row] });
-                }, 3000);
+                await interaction.deferReply()
+                await wait(3000)
+                await interaction.editReply({ embeds: [embed1], components: [row] });
+
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;
@@ -277,7 +275,7 @@ module.exports = {
                     }
                 });
             } catch (error) {
-               embedError(interaction, error)
+                embedError(interaction, error)
             }
         }
         let divisas: Array<
@@ -653,7 +651,7 @@ module.exports = {
                         .addFields(
                             { name: `Valor en dólares 💸`, value: `Valor del ${divisa.nombre} en relación al dólar estadounidense.`, inline: false },
                             { name: `1 DÓLAR <:rightarrow:921907270747570247> ${(divisa.nombre).toUpperCase()}`, value: ` ${formatoPrecio(conversion, divisa.iso)} `, inline: true },
-                            { name: `1 ${divisa.nombre} <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(1 /conversion , "USD")} `, inline: true },
+                            { name: `1 ${divisa.nombre} <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(1 / conversion, "USD")} `, inline: true },
                             { name: `${divisa.nombre} oficial :bank:`, value: `Valor de ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos`, inline: false },
                             { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                             { name: "VENTA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
@@ -695,10 +693,10 @@ module.exports = {
                         )
 
 
-                    interaction.deferReply();
-                    setTimeout(() => {
-                        interaction.editReply({ embeds: [embed1], components: [row] });
-                    }, 5000)
+                    await interaction.deferReply()
+                    await wait(3000)
+                    await interaction.editReply({ embeds: [embed1], components: [row] });
+
 
 
                     client.on('interactionCreate', interaction => {
@@ -731,7 +729,7 @@ module.exports = {
                     })
 
                 } catch (error) {
-                  embedError(interaction, error)
+                    embedError(interaction, error)
                 }
 
 

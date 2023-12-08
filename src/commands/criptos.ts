@@ -5,6 +5,7 @@ import { ButtonStyle } from 'discord.js'
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('criptomoneda')
@@ -347,93 +348,95 @@ module.exports = {
                         axios.get(cripto.apilemon),
                     ]);
                     let criptodolar: number = apiCoingecko.data['prices'][0][1]
-                                const embed1 = new Discord.EmbedBuilder()
-                                embed1.setTitle(cripto.nombre)
-                                .setColor(cripto.color)
-                                .setDescription(cripto.desc)
-                                .setThumbnail(cripto.imagen)
-                                if (cripto.id === "terraluna") {
-                                    embed1.addFields(
-                                            { name: `Precio `, value: `${formatoPrecio(criptodolar,"USD")}`, inline: true },
-                                            { name: `Volumen `, value: `${formatoPrecio(((apiCoingecko.data['total_volumes'][0][1])),"USD")}`, inline: true },
-                                            { name: `Capitalización `, value: `${formatoPrecio(((apiCoingecko.data['market_caps'][0][1])),"USD")}`, inline: true },
-                                            { name: `Compra `, value: `ARS${formatoPrecio(criptodolar * apiLemon.data['bid'], "ARS")}`, inline: true },
-                                            { name: `Venta `, value: `ARS${formatoPrecio(criptodolar * apiLemon.data['ask'], "ARS")}`, inline: true }
-                                          )}
+                    const embed1 = new Discord.EmbedBuilder()
+                    embed1.setTitle(cripto.nombre)
+                        .setColor(cripto.color)
+                        .setDescription(cripto.desc)
+                        .setThumbnail(cripto.imagen)
+                    if (cripto.id === "terraluna") {
+                        embed1.addFields(
+                            { name: `Precio `, value: `${formatoPrecio(criptodolar, "USD")}`, inline: true },
+                            { name: `Volumen `, value: `${formatoPrecio(((apiCoingecko.data['total_volumes'][0][1])), "USD")}`, inline: true },
+                            { name: `Capitalización `, value: `${formatoPrecio(((apiCoingecko.data['market_caps'][0][1])), "USD")}`, inline: true },
+                            { name: `Compra `, value: `ARS${formatoPrecio(criptodolar * apiLemon.data['bid'], "ARS")}`, inline: true },
+                            { name: `Venta `, value: `ARS${formatoPrecio(criptodolar * apiLemon.data['ask'], "ARS")}`, inline: true }
+                        )
+                    }
 
-                                else {
-                                    embed1.addFields(
-                                            { name: `Precio `, value: `${formatoPrecio(criptodolar, "USD")}`, inline: true },
-                                            { name: `Volumen `, value: `${formatoPrecio(((apiCoingecko.data['total_volumes'][0][1])), "USD")}`, inline: true },
-                                            { name: `Capitalización `, value: `${formatoPrecio(((apiCoingecko.data['market_caps'][0][1])), "USD")}`, inline: true },
-                                            { name: `Compra `, value: `ARS${formatoPrecio(apiLemon.data['bid'], "ARS")}`, inline: true },
-                                            { name: `Venta `, value: `ARS${formatoPrecio(apiLemon.data['ask'], "ARS")}`, inline: true }
-                                          )  }
+                    else {
+                        embed1.addFields(
+                            { name: `Precio `, value: `${formatoPrecio(criptodolar, "USD")}`, inline: true },
+                            { name: `Volumen `, value: `${formatoPrecio(((apiCoingecko.data['total_volumes'][0][1])), "USD")}`, inline: true },
+                            { name: `Capitalización `, value: `${formatoPrecio(((apiCoingecko.data['market_caps'][0][1])), "USD")}`, inline: true },
+                            { name: `Compra `, value: `ARS${formatoPrecio(apiLemon.data['bid'], "ARS")}`, inline: true },
+                            { name: `Venta `, value: `ARS${formatoPrecio(apiLemon.data['ask'], "ARS")}`, inline: true }
+                        )
+                    }
 
-                                const embed2 = new Discord.EmbedBuilder()
-                                    .setTitle(cripto.nombre)
-                                    .setColor(cripto.color)
-                                    .setDescription(cripto.desc)
-                                    .setThumbnail(cripto.imagen)
-                                    .addFields(
-                                        { name: "Lanzamiento inicial", value: cripto.lanzamiento },
-                                        { name: "Código ISO", value: cripto.iso, inline: true },
-                                        { name: "Símbolo ", value: cripto.simbolo, inline: true },
-                                        { name: "Desarrollador ", value: cripto.desarrollador },
-                                        { name: "Límite de Emisión  ", value: cripto.limitedeemision }
-                                      )
+                    const embed2 = new Discord.EmbedBuilder()
+                        .setTitle(cripto.nombre)
+                        .setColor(cripto.color)
+                        .setDescription(cripto.desc)
+                        .setThumbnail(cripto.imagen)
+                        .addFields(
+                            { name: "Lanzamiento inicial", value: cripto.lanzamiento },
+                            { name: "Código ISO", value: cripto.iso, inline: true },
+                            { name: "Símbolo ", value: cripto.simbolo, inline: true },
+                            { name: "Desarrollador ", value: cripto.desarrollador },
+                            { name: "Límite de Emisión  ", value: cripto.limitedeemision }
+                        )
 
-                                const row = new ActionRowBuilder()
-                                    .addComponents(
-                                        new ButtonBuilder()
-                                            .setCustomId("criptodolar")
-                                            .setLabel("💸 Conversión ")
-                                            .setStyle(ButtonStyle.Success)
-                                    )
-                                    .addComponents(
-                                        new ButtonBuilder()
-                                            .setCustomId("informacion")
-                                            .setLabel("📋 Información")
-                                            .setStyle(ButtonStyle.Primary)
-                                    )
+                    const row = new ActionRowBuilder()
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId("criptodolar")
+                                .setLabel("💸 Conversión ")
+                                .setStyle(ButtonStyle.Success)
+                        )
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId("informacion")
+                                .setLabel("📋 Información")
+                                .setStyle(ButtonStyle.Primary)
+                        )
 
-                                await interaction.deferReply();
-                                setTimeout(async () => {
-                                    await interaction.editReply({ embeds: [embed1], components: [row] });
-                                }, 3000)
-                                client.on('interactionCreate', interaction => {
-                                    if (!interaction.isButton()) return;
-                                });
-                                const filter = i => i.user.id === interaction.user.id;
+                    await interaction.deferReply();
+                    await wait(4000)
+                    await interaction.editReply({ embeds: [embed1], components: [row] });
 
-                                const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
+                    client.on('interactionCreate', interaction => {
+                        if (!interaction.isButton()) return;
+                    });
+                    const filter = i => i.user.id === interaction.user.id;
 
-                                var actual = embed1
+                    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 8000 });
 
-                                collector.on('collect', async i => {
-                                    if (i.customId === 'criptodolar') {
-                                        await i.deferUpdate()
-                                        await i.editReply({ embeds: [embed1], components: [row] });
-                                        actual = embed1
-                                    }
-                                    if (i.customId === 'informacion') {
-                                        await i.deferUpdate();
-                                        await i.editReply({ embeds: [embed2], components: [row] });
-                                        actual = embed2
-                                    }
-                                });
+                    var actual = embed1
 
-                                collector.on("end", (collected, reason) => {
-                                    if (reason === "time") {
-                                        interaction.editReply({ embeds: [actual], components: [] });
-                                    }
-                                })
-
-                            
-                        } catch (error) {
-
-                       embedError(interaction, error)
+                    collector.on('collect', async i => {
+                        if (i.customId === 'criptodolar') {
+                            await i.deferUpdate()
+                            await i.editReply({ embeds: [embed1], components: [row] });
+                            actual = embed1
                         }
+                        if (i.customId === 'informacion') {
+                            await i.deferUpdate();
+                            await i.editReply({ embeds: [embed2], components: [row] });
+                            actual = embed2
+                        }
+                    });
+
+                    collector.on("end", (collected, reason) => {
+                        if (reason === "time") {
+                            interaction.editReply({ embeds: [actual], components: [] });
+                        }
+                    })
+
+
+                } catch (error) {
+
+                    embedError(interaction, error)
+                }
 
             }
         })

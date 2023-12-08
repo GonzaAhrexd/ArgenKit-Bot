@@ -4,7 +4,7 @@ import axios from "axios"
 const { total155 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
-
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('convertirdivisa')
@@ -204,7 +204,7 @@ module.exports = {
                         //Oficial
                         { name: "Dólar oficial :bank: ", value: `Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.` },
                         { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio((convertir * oficial.data['compra']), "ARS")}`, inline: true },
-                        { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio((convertir * oficial.data['compra']), "ARS")}`, inline: true },
+                        { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio((convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Impuestos
                         { name: "Impuestos (155%) ", value: `ARS${formatoPrecio(total155(convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Blue
@@ -217,6 +217,7 @@ module.exports = {
                         { name: "Contado con Liqui.", value: `ARS${formatoPrecio((convertir * ccl.data['venta']), "ARS")}`, inline: true })
 
                 await interaction.deferReply();
+                await wait(3000)
                 await interaction.editReply({ embeds: [embed] });
                
             } catch (error) {
@@ -250,7 +251,7 @@ module.exports = {
                         { name: `EURO <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(convertir / valorUSD.data['usd']['eur'], "USD")} `, inline: true },
                         { name: "Euro oficial :bank: ", value: `Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.` },
                         { name: "Compra :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * oficial.data['compra']), "ARS")}`, inline: true },
-                        { name: "Venta :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * oficial.data['compra']), "ARS")}`, inline: true },
+                        { name: "Venta :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Impuestos
                         { name: "Impuestos (155%) ", value: `ARS$ ${formatoPrecio(total155(convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Blue

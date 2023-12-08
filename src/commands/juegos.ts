@@ -6,6 +6,7 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import { embedError } from "../functions/embedError";
 const { total154 } = require('../functions/impuestos')
 import { formatoPrecio } from '../functions/formato'
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName("juegos")
@@ -140,9 +141,9 @@ module.exports = {
                     )
 
                 await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embedJava], components: [row] });
-                }, 6000);
+                await wait(4000)
+                await interaction.editReply({ embeds: [embedJava] });
+
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;
@@ -238,9 +239,9 @@ module.exports = {
                     )
 
                 await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embedPremium], components: [row] });
-                }, 3000);
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedPremium], components: [row] });
+             
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;
@@ -301,10 +302,10 @@ module.exports = {
                 )
 
 
-                await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embedVbucks] });
-                }, 3000);
+                await interaction.deferReply()
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedVbucks] });
+        
 
             }
             catch (error) {
@@ -384,9 +385,9 @@ module.exports = {
                     )
 
                 await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embedTJ], components: [row] });
-                }, 3000);
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedTJ], components: [row] });
+              
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;
@@ -458,9 +459,9 @@ module.exports = {
                 )
 
                 await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embedGenesis] });
-                }, 3000);
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedGenesis] });
+               
 
 
             }
@@ -495,8 +496,10 @@ module.exports = {
                     { name: "6500 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 54.41), "ARS"), inline: true },
                     { name: "14000 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 108.83), "ARS"), inline: true },
                 )
-
-                return await interaction.reply({ embeds: [embedClashRoyale] });
+  
+                await interaction.deferReply()
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedClashRoyale] });
 
             }
             catch (error) {
@@ -525,7 +528,10 @@ module.exports = {
                     { name: "6500 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 54.41), "ARS"), inline: true },
                     { name: "14000 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 108.83), "ARS"), inline: true },
                 )
-                return await interaction.reply({ embeds: [embedClashOfClans] });
+                
+                await interaction.deferReply()
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedClashOfClans] });
 
             }
             catch (error) {
@@ -550,7 +556,9 @@ module.exports = {
                     { name: "Counter Strike 2 Status Prime", value: "ARS" + formatoPrecio(total154(valorDolar * 14.99), "ARS"), inline: true },
                     { name: "Llaves para abrir cajas", value: "ARS" + formatoPrecio(total154(valorDolar * 2.49), "ARS"), inline: true },
                 )
-                return await interaction.reply({ embeds: [embedCounterStrike] });
+                await interaction.deferReply()
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedCounterStrike] });
             }
             catch (error) {
                 embedError(interaction, error)
@@ -580,7 +588,9 @@ module.exports = {
                     { name: "2000 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 99.99), "ARS"), inline: true },
                 )
 
-                return await interaction.reply({ embeds: [embedBrawlStars] });
+                await interaction.deferReply()
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedBrawlStars] });
             }
             catch (error) {
                 embedError(interaction, error)
@@ -608,7 +618,9 @@ module.exports = {
                     { name: "11000 VP", value: "ARS" + formatoPrecio(total154(valorDolar * 99.99), "ARS"), inline: true },
                 )
 
-                return await interaction.reply({ embeds: [embedValorant] });
+                await interaction.deferReply()
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedValorant] });
             }
             catch (error) {
                 embedError(interaction, error)
@@ -629,17 +641,19 @@ module.exports = {
                 embedFreeFire.setColor("#E87914")
                 embedFreeFire.setThumbnail("https://upload.wikimedia.org/wikipedia/en/c/c5/Logo_of_Garena_Free_Fire.png")
                 embedFreeFire.addFields(
-                    {name: "Membresia semanal", value: "ARS" + formatoPrecio(total154(valorDolar * 2.16), "ARS"), inline: true },
-                    {name: "Membresia mensual", value: "ARS" + formatoPrecio(total154(valorDolar * 10.86), "ARS"), inline: true },
-                    {name: "100 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 1.11), "ARS"), inline: true },
-                    {name: "310 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 3.36), "ARS"), inline: true },
-                    {name: "520 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 5.23), "ARS"), inline: true },
-                    {name: "1060 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 11.22), "ARS"), inline: true },
-                    {name: "2180 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 21.71), "ARS"), inline: true },
-                    {name: "5600 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 51.68), "ARS"), inline: true },
+                    { name: "Membresia semanal", value: "ARS" + formatoPrecio(total154(valorDolar * 2.16), "ARS"), inline: true },
+                    { name: "Membresia mensual", value: "ARS" + formatoPrecio(total154(valorDolar * 10.86), "ARS"), inline: true },
+                    { name: "100 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 1.11), "ARS"), inline: true },
+                    { name: "310 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 3.36), "ARS"), inline: true },
+                    { name: "520 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 5.23), "ARS"), inline: true },
+                    { name: "1060 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 11.22), "ARS"), inline: true },
+                    { name: "2180 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 21.71), "ARS"), inline: true },
+                    { name: "5600 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 51.68), "ARS"), inline: true },
                 )
 
-                return await interaction.reply({ embeds: [embedFreeFire] });
+                await interaction.deferReply()
+                await wait(3000)
+                await interaction.editReply({ embeds: [embedFreeFire] });
             }
             catch (error) {
                 embedError(interaction, error)

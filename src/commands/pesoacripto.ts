@@ -4,89 +4,6 @@ import axios from "axios"
 import { embedError } from "../functions/embedError";
 var currencyFormatter = ('currency-formatter'); //Currency formatter
 const { total75, total154, total155 } = require("../functions/impuestos"); //Impuestos
-
-/*
-  {
-                id: "cardano",
-                nombre: "Cardano",
-                iso: "ADA",
-                simbolo: "₳",
-                imagen: "https://s3.coinmarketcap.com/static-gravity/image/4aec70f6f1254e4f89650cc68ae49f3c.png",
-                color: "#0033AD",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/cardano/market_chart?vs_currency=usd&days=0",
-                apilemon: "https://criptoya.com/api/lemoncash/ada"
-            },
-            {
-                id: "bnb",
-                nombre: "Binance Coin",
-                iso: "BNB",
-                simbolo: "BNB",
-                imagen: "https://cryptologos.cc/logos/bnb-bnb-logo.png",
-                color: "#f3ba2f",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/binancecoin/market_chart?vs_currency=usd&days=0",
-                apilemon: "https://criptoya.com/api/lemoncash/bnb"
-            },
-            {
-                id: "usdcoin",
-                nombre: "USD Coin",
-                iso: "USDC",
-                simbolo: "USDC",
-                imagen: "https://cryptologos.cc/logos/usd-coin-usdc-logo.png",
-                color: "#2775CA",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/usd-coin/market_chart?vs_currency=usd&days=0",
-                apilemon: "https://criptoya.com/api/lemoncash/usdc"
-            },
-            {
-                id: "avalanche",
-                nombre: "Avalanche",
-                iso: "AVAX",
-                simbolo: "AVAX",
-                imagen: "https://cryptologos.cc/logos/avalanche-avax-logo.png",
-                color: "#e84142",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/avalanche-2/market_chart?vs_currency=usd&days=0",
-                apilemon: "https://criptoya.com/api/lemoncash/avax"
-            },
-            {
-                id: "polkadot",
-                nombre: "Polkadot",
-                iso: "DOT",
-                simbolo: "DOT",
-                imagen: "https://cryptologos.cc/logos/polkadot-new-dot-logo.png",
-                color: "#e6007a",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/polkadot/market_chart?vs_currency=usd&days=0",
-                apilemon: "https://criptoya.com/api/lemoncash/dot"
-            },
-            {
-                id: "uniswap",
-                nombre: "Uniswap",
-                iso: "UNI",
-                simbolo: "UNI",
-                imagen: "https://s2.coinmarketcap.com/static/img/coins/200x200/7083.png",
-                color: "#ff007a",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/uniswap/market_chart?vs_currency=usd&days=0",
-                apilemon: "https://criptoya.com/api/lemoncash/uni"
-            },
-            {
-                id: "polygon",
-                nombre: "Polygon",
-                iso: "MATIC",
-                simbolo: "MATIC",
-                imagen: "https://altcoinsbox.com/wp-content/uploads/2023/03/matic-logo.webp",
-                color: "#8247e5",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/aave-polygon-wmatic/market_chart?vs_currency=usd&days=0",
-                apilemon: "https://criptoya.com/api/lemoncash/matic"
-            },
-            {
-                id: "tron",
-                nombre: "Tron",
-                iso: "TRX",
-                simbolo: "TRX",
-                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1181813633110507531/tron-trx-logo.png?ex=65826cb7&is=656ff7b7&hm=3bc8731686026cbf5cc32024c62b6d58d1d6bda5ce710bd2ea0fe246537ee5e2&",
-                color: "#d9012c",
-                apicoingecko: "https://api.coingecko.com/api/v3/coins/tron/market_chart?vs_currency=usd&days=0",
-                apilemon: "https://criptoya.com/api/bybit/trx/ars"
-            },
-*/
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('pesoacripto')
@@ -426,5 +343,5 @@ module.exports = {
             }
         });
 
-    } //Async run
-} //Module export
+    } 
+}

@@ -3,6 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { formatoPrecio, formatoNum } from '../functions/formato'
 import { embedError } from "../functions/embedError"
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName('datos')
@@ -42,7 +43,9 @@ module.exports = {
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1177075689195835422/benchmarking.png?ex=65713029&is=655ebb29&hm=eb99e3c29ae5f5c67de55ede357d6e7501752bb2a5a08f577f4e4395fa6259ee&")
             .addFields({ name: "Valor :chart_with_upwards_trend: ", value: formatoNum(riesgo.data['valor']) + " puntos"})
       
-          return await interaction.reply({ embeds: [embed] });
+            await interaction.deferReply()
+            await wait(3000)
+            await interaction.editReply
 
         })
         .catch((error) => {
@@ -64,7 +67,9 @@ module.exports = {
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903122250708963358/bank.png")
             .addFields({ name: "Valor  :bank: ", value: formatoPrecio(reservas.data['valor'],"USD") })
 
-          return await interaction.reply({ embeds: [embed] });
+            await interaction.deferReply()
+            await wait(3000)
+            await interaction.editReply
         })
         .catch((err) => {
           console.error('ERR', err)
@@ -83,7 +88,9 @@ module.exports = {
             .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1177083051579293696/profits.png?ex=65713704&is=655ec204&hm=7e73a87fbc7549b29a236a1b60cb97a45f421eb3ca79d284109a5694d902a7df&")
             .addFields({ name: "Cantidad :money_with_wings:  ", value: "ARS" + formatoPrecio(circulante.data['valor'], "ARS") })
 
-          return await interaction.reply({ embeds: [embed] });
+            await interaction.deferReply()
+            await wait(3000)
+            await interaction.editReply
         })
         .catch((err) => {
           console.error('ERR', err)
@@ -110,7 +117,9 @@ module.exports = {
         )
       
 
-      return await interaction.reply({ embeds: [embed] });
+        await interaction.deferReply()
+        await wait(3000)
+        await interaction.editReply
 
       }catch(Error){
         embedError(interaction, Error)

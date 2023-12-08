@@ -5,6 +5,7 @@ var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total155 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('convertirmetal')
@@ -117,11 +118,9 @@ module.exports = {
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * blue.data['venta'], "ARS")}`, inline: true })
 
                     await interaction.deferReply();
-                    setTimeout(async () => {
-                        await interaction.editReply({ embeds: [embed] });
-                    }, 3000)
-
-
+                    await wait(4000)
+                    await interaction.editReply({ embeds: [embed] });
+               
 
                 } catch (error) {
                     embedError(interaction, error)

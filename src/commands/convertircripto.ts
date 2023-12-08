@@ -306,7 +306,7 @@ module.exports = {
                 nombre: "Tron",
                 iso: "TRX",
                 simbolo: "TRX",
-                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1182465400949198878/convertirtron.png?ex=6584cbb8&is=657256b8&hm=cd46d4af0b9698a9f33b26b570ed99cc07a38dd7086d187b611757c50c947672&",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1181813633110507531/tron-trx-logo.png?ex=65826cb7&is=656ff7b7&hm=3bc8731686026cbf5cc32024c62b6d58d1d6bda5ce710bd2ea0fe246537ee5e2&",
                 color: "#d9012c",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/tron/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/bybit/trx/ars"
@@ -326,7 +326,6 @@ module.exports = {
                     let criptodolar: number = apiCoingecko.data['prices'][0][1]
 
 
-                    if (cripto.id == "terraluna") {
                         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                             .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                             .setColor(cripto.color)
@@ -335,25 +334,12 @@ module.exports = {
                             .addFields(
                                 { name: `Monto original  `, value: `${cripto.simbolo} ${convertir} ` },
                                 { name: "Dólares :dollar: ", value: formatoPrecio(((convertir * criptodolar)), "USD"), inline: true },
-                                { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio((((convertir * criptodolar) * apiLemon.data['bid'])), "ARS"), inline: true },
-                                { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio((((convertir * criptodolar) * apiLemon.data['ask'])), "ARS"), inline: true })
+                                { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio(((cripto.id === "terraluna" ? ((convertir * criptodolar) * apiLemon.data['bid']) : convertir * apiLemon.data['bid'])), "ARS"), inline: true },
+                                { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio(((cripto.id === "terraluna" ? ((convertir * criptodolar) * apiLemon.data['bid']) : convertir * apiLemon.data['ask'])), "ARS"), inline: true })
+                           
                                 await interaction.deferReply();
                                 await interaction.editReply({ embeds: [embed] });
-                    }
-                    else {
-                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                            .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
-                            .setColor(cripto.color)
-                            .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
-                            .setThumbnail(cripto.imagen)
-                            .addFields(
-                                { name: `Monto original  `, value: `${cripto.simbolo} ${convertir} ` },
-                                { name: "Dólares :dollar: ", value: formatoPrecio(((convertir * criptodolar)), "USD"), inline: true },
-                                { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio(((convertir * apiLemon.data['bid'])), "ARS"), inline: true },
-                                { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio(((convertir * apiLemon.data['ask'])), "ARS"), inline: true })
-                                await interaction.deferReply();
-                                await interaction.editReply({ embeds: [embed] });
-                    }
+                    
                 } catch (error:any) {
                   
                     embedError(interaction, error)

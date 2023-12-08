@@ -61,6 +61,15 @@
         <li>Solana</li>
         <li>Dai</li>
         <li>Dogecoin</li>
+        <li>Litecoin</li>
+        <li>cardano</li>
+        <li>bnb</li>
+        <li>usdcoin</li>
+        <li>avalanche</li>
+        <li>polkadot</li>
+        <li>uniswap</li>
+        <li>polygon</li>
+        <li>tron</li>
 </ul>
 <h2>Metales</h2>
 <ul>

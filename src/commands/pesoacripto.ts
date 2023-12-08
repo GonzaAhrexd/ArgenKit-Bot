@@ -318,7 +318,7 @@ module.exports = {
                 nombre: "Cardano",
                 iso: "ADA",
                 simbolo: "₳",
-                imagen: "https://s3.coinmarketcap.com/static-gravity/image/4aec70f6f1254e4f89650cc68ae49f3c.png",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1182469012098125834/convertircardano_1.png?ex=6584cf15&is=65725a15&hm=225917d9c21578fd8ec144a81ee4d4e5a62b96ecb59d5349a7254538d78f9db7&",
                 color: "#0033AD",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/cardano/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/ada"
@@ -328,7 +328,7 @@ module.exports = {
                 nombre: "Binance Coin",
                 iso: "BNB",
                 simbolo: "BNB",
-                imagen: "https://cryptologos.cc/logos/bnb-bnb-logo.png",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1182469007719288832/convertirbnb_1.png?ex=6584cf14&is=65725a14&hm=4f93e7726734236a2727c119d2028f3d255aac192bd01e24dc792658369b9d7f&",
                 color: "#f3ba2f",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/binancecoin/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/bnb"
@@ -338,7 +338,7 @@ module.exports = {
                 nombre: "USD Coin",
                 iso: "USDC",
                 simbolo: "USDC",
-                imagen: "https://cryptologos.cc/logos/usd-coin-usdc-logo.png",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1182470960696283189/convertirusdc_1.png?ex=6584d0e6&is=65725be6&hm=7d702acc5e4311b67d3cce6a312318b2531c8ee8f0ba3022f0c2b40d15596972&",
                 color: "#2775CA",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/usd-coin/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/usdc"
@@ -348,7 +348,7 @@ module.exports = {
                 nombre: "Avalanche",
                 iso: "AVAX",
                 simbolo: "AVAX",
-                imagen: "https://cryptologos.cc/logos/avalanche-avax-logo.png",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1182471870201741393/convertiravalanche_1.png?ex=6584d1bf&is=65725cbf&hm=3a964b34fed1e32532dc16c336c1efc2482c0d7fb92be37682eb64a674f430de&",
                 color: "#e84142",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/avalanche-2/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/avax"
@@ -358,7 +358,7 @@ module.exports = {
                 nombre: "Polkadot",
                 iso: "DOT",
                 simbolo: "DOT",
-                imagen: "https://cryptologos.cc/logos/polkadot-new-dot-logo.png",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1182473466901975080/convertirpolkadot_1.png?ex=6584d33b&is=65725e3b&hm=ddd13f467fbb3e9e62083bd5f4fd48ad1c46345c8819e51213b3f9b092098fc2&",
                 color: "#e6007a",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/polkadot/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/dot"
@@ -368,7 +368,7 @@ module.exports = {
                 nombre: "Uniswap",
                 iso: "UNI",
                 simbolo: "UNI",
-                imagen: "https://s2.coinmarketcap.com/static/img/coins/200x200/7083.png",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1182473462615375922/convertiruniswap_1.png?ex=6584d33a&is=65725e3a&hm=52cc5b44d1eeb7992bc0420186a16e7d579ba0eaa8366cdae61dd304ff87b7d4&",
                 color: "#ff007a",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/uniswap/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/uni"
@@ -378,7 +378,7 @@ module.exports = {
                 nombre: "Polygon",
                 iso: "MATIC",
                 simbolo: "MATIC",
-                imagen: "https://altcoinsbox.com/wp-content/uploads/2023/03/matic-logo.webp",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1182465401523814441/convertirmatic.png?ex=6584cbb8&is=657256b8&hm=deaf5a155b244c9b43a8a6e6f8228d1cfd40e0c25285842480b658c6513b4d74&",
                 color: "#8247e5",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/aave-polygon-wmatic/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/lemoncash/matic"
@@ -388,7 +388,7 @@ module.exports = {
                 nombre: "Tron",
                 iso: "TRX",
                 simbolo: "TRX",
-                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1181813633110507531/tron-trx-logo.png?ex=65826cb7&is=656ff7b7&hm=3bc8731686026cbf5cc32024c62b6d58d1d6bda5ce710bd2ea0fe246537ee5e2&",
+                imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1182465400949198878/convertirtron.png?ex=6584cbb8&is=657256b8&hm=cd46d4af0b9698a9f33b26b570ed99cc07a38dd7086d187b611757c50c947672&",
                 color: "#d9012c",
                 apicoingecko: "https://api.coingecko.com/api/v3/coins/tron/market_chart?vs_currency=usd&days=0",
                 apilemon: "https://criptoya.com/api/bybit/trx/ars"

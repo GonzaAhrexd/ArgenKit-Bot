@@ -1,6 +1,6 @@
 {
   "name": "bot_argento",
-  "version": "1.5.0",
+  "version": "2.0",
   "description": "Bot creado por GonzaAhre con funciones útiles  para usuarios de Argentina.",
   "main": "src/index.ts",
   "scripts": {
@@ -19,7 +19,6 @@
     "currency-formatter": "^1.5.6",
     "discord.js": "^14.13.0",
     "dotenv": "^16.0.1",
-    "express": "^4.18.2",
     "translate": "^1.4.1"
   },
   "devDependencies": {

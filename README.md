@@ -15,7 +15,8 @@
         
  <h2>APIs Utilizadas</h2>
     <ul>
-        <li> <a href="https://github.com/guidospadavecchia/DolarBot-Api">Api Dolar Argentina</a> </li>
+        <li> <a href="https://github.com/guidospadavecchia/DolarBot-Api">DolarBot Api</a> </li>
+        <li> <a href="https://dolarapi.com/docs/">Dolar API</a></li>
         <li> <a href="https://api.bluelytics.com.ar/v2/latest">Bluelytics</a></li>
         <li> <a href="https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json">currency-api </a></li>
         <li> <a href="https://www.coingecko.com/es">Coingecko </a></li>

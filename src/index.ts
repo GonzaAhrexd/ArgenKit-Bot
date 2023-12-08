@@ -1,7 +1,6 @@
 //Librerías de node
 import Discord = require("discord.js");
 import fs = require('fs') //fs 
-import express from 'express'
 require('dotenv').config() //Variables de entorno
 
 //Intents requeridos
@@ -39,12 +38,14 @@ client.on("interactionCreate", async (interaction) => {
 
 //Ready
 client.on("ready", async () => {
-  console.log("Bot funcionando y conectado a Discord ✅");
-  console.log("Cargados "  +  cantidadComandos +  " comandos ✅")
+  console.log("---------------------------------------------")
+  console.log("✅ Bot funcionando y conectado a Discord ");
+  console.log("✅ Cargados "  +  cantidadComandos +  " comandos")
+  console.log("---------------------------------------------")
   client.user.setPresence({
     status: "online",
     activities: [{
-      name: 'Bot creado por GonzaAhre | Prueba /help o /update',
+      name: 'El bot con funciones útiles para Argentina | Utiliza /help para ver los comandos disponibles o /update para ver las novedades.',
       type: Discord.ActivityType.Custom
     }]
   })

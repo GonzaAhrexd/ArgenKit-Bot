@@ -2,8 +2,7 @@
 import Discord from "discord.js"
 import axios from "axios"
 import { embedError } from "../functions/embedError";
-var currencyFormatter = ('currency-formatter'); //Currency formatter
-const { total75, total154, total155 } = require("../functions/impuestos"); //Impuestos
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('pesoacripto')
@@ -316,7 +315,7 @@ module.exports = {
         Criptomonedas.forEach(async cripto => {
             if (interaction.options.getSubcommand() === cripto.id) {
                 let convertir: number = interaction.options.getNumber('ars');
-
+                await interaction.deferReply();
                 try {
                     const [apiCoingecko, apiLemon] = await Promise.all([
                         axios.get(cripto.apicoingecko),
@@ -335,8 +334,10 @@ module.exports = {
                             { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + ' ' + (cripto.id === "terraluna" ? ((convertir / criptodolar / apiLemon.data['bid']).toFixed(8)) : ((convertir / apiLemon.data['bid']).toFixed(8))), inline: true },
                             { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + ' ' + (cripto.id === "terraluna" ? ((convertir / criptodolar / apiLemon.data['ask']).toFixed(8)) : ((convertir / apiLemon.data['ask']).toFixed(8))), inline: true }
                         );
+                     
+                        await wait(3000)
+                        await interaction.editReply({ embeds: [embed] });
 
-                    return await interaction.reply({ embeds: [embed] });
                 } catch (error: any) {
                     embedError(interaction, error);
                 }

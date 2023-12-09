@@ -57,7 +57,7 @@ module.exports = {
     ,
     async run(client, interaction) {
         if (interaction.options.getSubcommand() === 'minecraft') {
-
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -140,8 +140,8 @@ module.exports = {
                             .setStyle(ButtonStyle.Secondary)
                     )
 
-                await interaction.deferReply();
-                await wait(4000)
+             
+                await wait(3000)
                 await interaction.editReply({ embeds: [embedJava] });
 
 
@@ -191,7 +191,7 @@ module.exports = {
         }
         //Roblox
         if (interaction.options.getSubcommand() === 'roblox') {
-
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -238,7 +238,6 @@ module.exports = {
                             .setStyle(ButtonStyle.Success)
                     )
 
-                await interaction.deferReply();
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedPremium], components: [row] });
              
@@ -281,7 +280,7 @@ module.exports = {
         //Fortnite
 
         if (interaction.options.getSubcommand() === 'fortnite') {
-
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -301,8 +300,6 @@ module.exports = {
                     { name: "13500 V-Bucks", value: "ARS" + formatoPrecio(total154(valorDolar * 89.99), "ARS"), inline: true },
                 )
 
-
-                await interaction.deferReply()
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedVbucks] });
         
@@ -318,6 +315,7 @@ module.exports = {
         //League of Legends
 
         if (interaction.options.getSubcommand() === 'leagueoflegends') {
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -384,7 +382,6 @@ module.exports = {
                             .setStyle(ButtonStyle.Success)
                     )
 
-                await interaction.deferReply();
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedTJ], components: [row] });
               
@@ -433,6 +430,7 @@ module.exports = {
 
         //Genshin Impact
         if (interaction.options.getSubcommand() === 'genshinimpact') {
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -458,7 +456,7 @@ module.exports = {
                     { name: "6480 Cristales ", value: "ARS" + formatoPrecio(total154(valorDolar * 99.99), "ARS"), inline: true },
                 )
 
-                await interaction.deferReply();
+        
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedGenesis] });
                
@@ -473,6 +471,7 @@ module.exports = {
 
         //Clash Royale
         if (interaction.options.getSubcommand() === 'clashroyale') {
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -497,7 +496,6 @@ module.exports = {
                     { name: "14000 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 108.83), "ARS"), inline: true },
                 )
   
-                await interaction.deferReply()
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedClashRoyale] });
 
@@ -508,6 +506,7 @@ module.exports = {
         }
         //Clash of Clans
         if (interaction.options.getSubcommand() === 'clashofclans') {
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -529,7 +528,7 @@ module.exports = {
                     { name: "14000 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 108.83), "ARS"), inline: true },
                 )
                 
-                await interaction.deferReply()
+        
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedClashOfClans] });
 
@@ -540,6 +539,7 @@ module.exports = {
         }
         //Counter Strike 2
         if (interaction.options.getSubcommand() === 'counterstrike') {
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -556,7 +556,7 @@ module.exports = {
                     { name: "Counter Strike 2 Status Prime", value: "ARS" + formatoPrecio(total154(valorDolar * 14.99), "ARS"), inline: true },
                     { name: "Llaves para abrir cajas", value: "ARS" + formatoPrecio(total154(valorDolar * 2.49), "ARS"), inline: true },
                 )
-                await interaction.deferReply()
+       
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedCounterStrike] });
             }
@@ -567,6 +567,7 @@ module.exports = {
 
         //Brawl Stars
         if (interaction.options.getSubcommand() === 'brawlstars') {
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -588,7 +589,7 @@ module.exports = {
                     { name: "2000 gemas", value: "ARS" + formatoPrecio(total154(valorDolar * 99.99), "ARS"), inline: true },
                 )
 
-                await interaction.deferReply()
+               
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedBrawlStars] });
             }
@@ -597,6 +598,7 @@ module.exports = {
             }
         }
         if (interaction.options.getSubcommand() === 'valorant') {
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -618,7 +620,6 @@ module.exports = {
                     { name: "11000 VP", value: "ARS" + formatoPrecio(total154(valorDolar * 99.99), "ARS"), inline: true },
                 )
 
-                await interaction.deferReply()
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedValorant] });
             }
@@ -628,6 +629,7 @@ module.exports = {
         }
 
         if (interaction.options.getSubcommand() === "freefire") {
+            await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -651,7 +653,6 @@ module.exports = {
                     { name: "5600 diamantes", value: "ARS" + formatoPrecio(total154(valorDolar * 51.68), "ARS"), inline: true },
                 )
 
-                await interaction.deferReply()
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedFreeFire] });
             }

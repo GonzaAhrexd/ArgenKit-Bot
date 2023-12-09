@@ -39,6 +39,7 @@ module.exports = {
             {id: 29, autor: "Manuel Belgrano", frase: "El miedo solo sirve para perderlo todo"},
             {id: 30, autor: "Carlos Saúl Menem", frase: "Dentro de poco llegaremos de Argentina a Japón en una hora volando en cohete por la estratósfera"},
             {id: 31, autor: "Eduardo Duhalde", frase: "El que depositó pesos, recibirá pesos, el  que depositó  dólares,  recibirá  dólares"},
+            
         ]
 
         let numeroAleatorio:number = generarRandom(1,32);

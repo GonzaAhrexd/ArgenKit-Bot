@@ -5,6 +5,7 @@ var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { restar155 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName('pesoa')
@@ -170,7 +171,7 @@ module.exports = {
 
     if (interaction.options.getSubcommand() === 'dolar') {
       let convertir: number = interaction.options.getNumber('ars')
-
+      await interaction.deferReply();
       try {
         const [oficial, blue, mep, ccl] = await Promise.all([
           axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
@@ -206,10 +207,9 @@ module.exports = {
 
           )
 
-        interaction.deferReply();
-        setTimeout(() => {
-          interaction.editReply({ embeds: [embed] });
-        }, 3000)
+          await wait(3000)
+          await interaction.editReply({ embeds: [embed] });
+
 
       } catch (error) {
 
@@ -221,6 +221,7 @@ module.exports = {
 
     if (interaction.options.getSubcommand() === 'euro') {
       let convertir: number = interaction.options.getNumber('ars')
+      await interaction.deferReply();
       try {
         const [oficial, blue] = await Promise.all([
           axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
@@ -252,10 +253,9 @@ module.exports = {
           )
 
 
-        interaction.deferReply();
-        setTimeout(() => {
-          interaction.editReply({ embeds: [embed] });
-        }, 3000)
+        await wait(3000)
+        await interaction.editReply({ embeds: [embed] });
+
       }
       catch (error) {
         embedError(interaction, error)
@@ -466,6 +466,7 @@ module.exports = {
     divisas.forEach(async divisa => {
       if (interaction.options.getSubcommand() === divisa.id) {
         let convertir: number = interaction.options.getNumber('ars')
+        await interaction.deferReply();
         try {
           const [DIVISA, oficial, blue] = await Promise.all([
             axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
@@ -496,10 +497,9 @@ module.exports = {
               { name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio((convertir * aconvertir) / blue.data['venta'], divisa.iso), inline: true }
             )
 
-          await interaction.deferReply();
-          setTimeout(() => {
-            interaction.editReply({ embeds: [embed] });
-          }, 5000)
+          await wait(3000)
+          await interaction.editReply({ embeds: [embed] });
+
 
         } catch (error) {
           embedError(interaction, error)

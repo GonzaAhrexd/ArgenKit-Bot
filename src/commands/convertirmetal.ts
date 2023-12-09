@@ -91,6 +91,7 @@ module.exports = {
             if (interaction.options.getSubcommand() === Metal.id) {
 
                 let convertir: number = interaction.options.getNumber((Metal.iso).toLowerCase())
+                await interaction.deferReply();
                 try {
                     const [metal, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
@@ -116,8 +117,7 @@ module.exports = {
                             { name: `${Metal.nombre} a precio del Dólar Blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * blue.data['compra'], "ARS")}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * blue.data['venta'], "ARS")}`, inline: true })
-
-                    await interaction.deferReply();
+                            
                     await wait(4000)
                     await interaction.editReply({ embeds: [embed] });
                

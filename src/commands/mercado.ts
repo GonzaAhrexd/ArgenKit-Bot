@@ -36,6 +36,7 @@ module.exports = {
         ),
     async run(client, interaction, options) {
         if (interaction.options.getSubcommand() === 'estado') {
+            await interaction.deferReply();
             try {
                 const [estadoMercado] = await Promise.all([
                     axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
@@ -50,7 +51,6 @@ module.exports = {
                         { name: "Estado", value: estadoMercado.data['isOpen'] ? "Abierto" : "Cerrado" },
                         { name: "Sesión", value: `${estadoMercado.data['session'] == null ? "Ninguno" : estadoMercado.data['session']}` },
                     )
-                    await interaction.deferReply()
                     await wait(3000)
                     await interaction.editReply({ embeds: [embed] });
 
@@ -118,7 +118,7 @@ module.exports = {
 
             ]
 
-
+            await interaction.deferReply();
             try {
                 const apiRequests = acciones.map(accion =>
                     axios.get(`https://finnhub.io/api/v1/quote?symbol=${accion.symbol}&token=${apiKEY}`)
@@ -239,7 +239,6 @@ module.exports = {
 
                 })
 
-                await interaction.deferReply()
                 await wait(3000)
                 await interaction.editReply({ embeds: [embed], components: [row] });
                 
@@ -287,6 +286,7 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'consultar') {
             let activo = interaction.options.getString('activo')
+            await interaction.deferReply();
             try {
                 const [estadoMercado, activoValores, dolarCCL] = await Promise.all([
                     axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
@@ -307,7 +307,8 @@ module.exports = {
                         { name: "Precio más bajo del día", value: `${formatoPrecio(accion.lowPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolarCCL.data['venta'],"ARS")}`, inline: true },
                         { name: "Precio más alto del día", value: `${formatoPrecio(accion.highPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolarCCL.data['venta'],"ARS")}`, inline: true },
                         )
-                return await interaction.reply({ embeds: [embed] });
+                await wait(3000)
+                await interaction.editReply({ embeds: [embed] });
 
             } catch (error) {
                 embedError(interaction, error)

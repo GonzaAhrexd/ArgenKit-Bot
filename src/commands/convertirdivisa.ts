@@ -185,14 +185,15 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'dolar') {
             let convertir: number = interaction.options.getNumber('usd')
+            await interaction.deferReply();
             try {
                 const [oficial, blue, mep, ccl] = await Promise.all([
-                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
                     axios.get('https://dolarapi.com/v1/dolares/blue'),
                     axios.get('https://dolarapi.com/v1/dolares/bolsa'),
                     axios.get('https://dolarapi.com/v1/dolares/contadoconliqui'),
                 ]);
-                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
 
                     .setTitle("Dólar estadounidense <:rightarrow:921907270747570247> Peso Argentino")
                     .setColor("Green")
@@ -216,13 +217,13 @@ module.exports = {
                         { name: "Dólar MEP ", value: `ARS${formatoPrecio((convertir * mep.data['venta']), "ARS")}`, inline: true },
                         { name: "Contado con Liqui.", value: `ARS${formatoPrecio((convertir * ccl.data['venta']), "ARS")}`, inline: true })
 
-                await interaction.deferReply();
+
                 await wait(3000)
                 await interaction.editReply({ embeds: [embed] });
-               
+
             } catch (error) {
-                
-                embedError(interaction,  error)
+
+                embedError(interaction, error)
 
             }
 
@@ -230,14 +231,15 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'euro') {
             let convertir = interaction.options.getNumber('eur')
+            await interaction.deferReply();
             try {
                 const [oficial, blue, valorUSD] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                     axios.get('https://api.bluelytics.com.ar/v2/latest'),
                     axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json')
-           
+
                 ]);
-                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
 
                     .setTitle("Euro <:rightarrow:921907270747570247> Peso Argentino")
                     .setColor("#0153b4")
@@ -259,14 +261,13 @@ module.exports = {
                         { name: "Compra :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * blue.data['blue_euro']['value_buy']), "ARS")}`, inline: true },
                         { name: "Venta :flag_ar:", value: `ARS$ ${formatoPrecio((convertir * blue.data['blue_euro']['value_sell']), "ARS")}`, inline: true })
 
-                await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embed] });
-                }, 3000)
+                await wait(3000)
+                await interaction.editReply({ embeds: [embed] });
+
 
 
             } catch (error) {
-           
+
                 embedError(interaction, error)
             }
 
@@ -471,17 +472,19 @@ module.exports = {
         }]
 
         divisas.forEach(async divisa => {
+
             if (interaction.options.getSubcommand() === divisa.id) {
                 let convertir = interaction.options.getNumber((divisa.iso).toLowerCase())
+                await interaction.deferReply();
                 try {
+                    
                     const [DIVISA, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                         axios.get('https://dolarapi.com/v1/dolares/blue')
                     ]);
                     let aconvertir = DIVISA.data['usd'][(divisa.iso).toLowerCase()]
-                    
-                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`${divisa.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                         .setColor(divisa.color)
                         .setDescription(`${divisa.nombre} expresado en pesos argentinos`)
@@ -491,9 +494,9 @@ module.exports = {
                             { name: `Monto original ${divisa.bandera}`, value: `${divisa.simbolo} ${formatoPrecio(convertir, divisa.iso)}` },
                             //Dólares
                             { name: `Valor en dólares 💸`, value: `Valor del ${divisa.nombre} en relación al dólar estadounidense.`, inline: false },
-                            { name: `${divisa.nombre.toUpperCase()} <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(convertir / aconvertir , "USD")} `, inline: true },
+                            { name: `${divisa.nombre.toUpperCase()} <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(convertir / aconvertir, "USD")} `, inline: true },
                             //Oficial
-                           
+
                             { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos ` },
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['compra']), "ARS")}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
@@ -503,11 +506,9 @@ module.exports = {
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * blue.data['compra']), "ARS")}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * blue.data['venta']), "ARS")}`, inline: true },
                         )
+                    await wait(3000)
+                    await interaction.editReply({ embeds: [embed] });
 
-                    await interaction.deferReply();
-                    setTimeout(async() => {
-                        await interaction.editReply({ embeds: [embed] });
-                    }, 4000)
                 } catch (error) {
                     embedError(interaction, error)
                 }

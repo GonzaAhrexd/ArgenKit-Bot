@@ -7,5 +7,5 @@ export function embedError(interaction: Discord.CommandInteraction, error: any) 
     .setTitle("Error")
     .setDescription("Ha ocurrido un error al obtener los datos del API. Por favor, inténtalo de nuevo más tarde.");
 
-    interaction.reply({ embeds: [errorEmbed] });
+    interaction.editReply({ embeds: [errorEmbed] });
 }

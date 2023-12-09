@@ -61,8 +61,8 @@ module.exports = {
       .setColor('#385E7F')
       .addFields(
         { name: "» Comandos disponibles", value: "¡Tenemos `6` categorías distintas llenas de comandos y subcomandos! \n Para ver las novedades más recientes del bot utiliza `/update`" },
-        { name: "» Comandos populares", value: "`impuesto`  `calcular`  `convertirdivisa dolar`  `divisa dolar`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `moneda`  `invite`" },
-        { name: "» Comandos nuevos", value: "`mercado`  `hora`" }
+        { name: "» Comandos populares", value: "`impuesto`  `calcular`  `convertirdivisa dolar`  `divisa dolar`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `calcular`  `invite`" },
+        { name: "» Comandos nuevos", value: "`mercado`  `clima`  `juegos`  `frase``" }
       ).setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1176889247215648829/search_1.png?ex=65708286&is=655e0d86&hm=c0193aa9ccd9a045905e83e990940c81897d4c355da14866de45efd48a4a7e72&")
 
     let embed2 = new Discord.EmbedBuilder()
@@ -74,7 +74,7 @@ module.exports = {
         { name: "» Utilidad ", value: "`impuesto`  `calcular`  `anualizarinflacion`  `traductor`  `hora`  `clima`" },
         { name: "» `convertirdivisa`", value: "Subcomandos `dolar`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`" },
         { name: "» `pesoa` ", value: "» Subcomandos `dolar`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`" },
-        { name: "» `convertircripto` ", value: "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `decentraland`  `solana`  `dai`  `dogecoin" },
+        { name: "» `convertircripto` ", value: "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `decentraland`  `solana`  `dai`  `dogecoin`  `litecoin` `cardano` `bnb` `usdcoin` `avalanche` `polkadot` `uniswap` `polygon` `tron`" },
         { name: "» pesoacripto ", value: "» Subcomandos `bitcoin` `ethereum` `tether` `axieinfinity` `terraluna` `decentraland` `solana` `dai` `dogecoin` `litecoin` `cardano` `bnb` `usdcoin` `avalanche` `polkadot` `uniswap` `polygon` `tron`" },
         { name: "» convertirmetal ", value: "» Subcomandos `oro` `plata` `paladio` `platino`" },
         { name: "» pesoametal ", value: "» Subcomandos `oro` `plata` `paladio` `platino`" }

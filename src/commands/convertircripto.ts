@@ -3,6 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('convertircripto')
@@ -115,7 +116,7 @@ module.exports = {
                 .addNumberOption(option =>
                     option.setName('trx').setDescription('Monto en Tron.').setRequired(true)
                 ))
-                ,
+    ,
 
 
     async run(client, interaction, options) {
@@ -316,7 +317,7 @@ module.exports = {
         Criptomonedas.forEach(async cripto => {
             if (interaction.options.getSubcommand() === cripto.id) {
                 let convertir: number = interaction.options.getNumber((cripto.iso).toLowerCase())
-
+                await interaction.deferReply()
                 try {
                     const [apiCoingecko, apiLemon] = await Promise.all([
                         axios.get(cripto.apicoingecko),
@@ -324,24 +325,23 @@ module.exports = {
                     ]);
 
                     let criptodolar: number = apiCoingecko.data['prices'][0][1]
+                    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                        .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
+                        .setColor(cripto.color)
+                        .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
+                        .setThumbnail(cripto.imagen)
+                        .addFields(
+                            { name: `Monto original  `, value: `${cripto.simbolo} ${convertir} ` },
+                            { name: "Dólares :dollar: ", value: formatoPrecio(((convertir * criptodolar)), "USD"), inline: true },
+                            { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio(((cripto.id === "terraluna" ? ((convertir * criptodolar) * apiLemon.data['bid']) : convertir * apiLemon.data['bid'])), "ARS"), inline: true },
+                            { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio(((cripto.id === "terraluna" ? ((convertir * criptodolar) * apiLemon.data['bid']) : convertir * apiLemon.data['ask'])), "ARS"), inline: true })
 
 
-                        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                            .setTitle(`${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
-                            .setColor(cripto.color)
-                            .setDescription(`${cripto.nombre} expresado en pesos argentinos a la cotización del mercado`)
-                            .setThumbnail(cripto.imagen)
-                            .addFields(
-                                { name: `Monto original  `, value: `${cripto.simbolo} ${convertir} ` },
-                                { name: "Dólares :dollar: ", value: formatoPrecio(((convertir * criptodolar)), "USD"), inline: true },
-                                { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio(((cripto.id === "terraluna" ? ((convertir * criptodolar) * apiLemon.data['bid']) : convertir * apiLemon.data['bid'])), "ARS"), inline: true },
-                                { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio(((cripto.id === "terraluna" ? ((convertir * criptodolar) * apiLemon.data['bid']) : convertir * apiLemon.data['ask'])), "ARS"), inline: true })
-                           
-                                await interaction.deferReply();
-                                await interaction.editReply({ embeds: [embed] });
-                    
-                } catch (error:any) {
-                  
+                    await wait(3000)
+                    await interaction.editReply({ embeds: [embed] })
+
+                } catch (error: any) {
+
                     embedError(interaction, error)
                 }
 

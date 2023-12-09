@@ -89,6 +89,7 @@ module.exports = {
 
 
         if (interaction.options.getSubcommand() === 'dolar') {
+            await interaction.deferReply();
             try {
                 const [oficial, blue, mep, ccl] = await Promise.all([
                     axios.get('https://dolarapi.com/v1/dolares/oficial'),
@@ -146,7 +147,7 @@ module.exports = {
                             .setStyle(ButtonStyle.Primary)
                     )
 
-                await interaction.deferReply();
+       
                 await wait(4000)
                 await interaction.editReply({ embeds: [embed1], components: [row] });
 
@@ -186,6 +187,7 @@ module.exports = {
         //Euro
 
         if (interaction.options.getSubcommand() === 'euro') {
+            await interaction.deferReply();
             try {
                 const [euro, valorUSD] = await Promise.all([
                     axios.get('https://api.bluelytics.com.ar/v2/latest'),
@@ -204,7 +206,7 @@ module.exports = {
                         { name: "Euro oficial :bank:", value: "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, además, sólo se puede retirar el equivalente a USD$200 al mes." },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(euro.data['oficial_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(euro.data['oficial_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155(euro.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155(euro.data['oficial_euro']['value_sell']), { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "Euro blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
                         { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(euro.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
                         { name: "VENTA", value: `ARS$ ${currencyFormatter.format(euro.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
@@ -240,8 +242,6 @@ module.exports = {
                             .setStyle(ButtonStyle.Primary)
                     );
 
-
-                await interaction.deferReply()
                 await wait(3000)
                 await interaction.editReply({ embeds: [embed1], components: [row] });
 
@@ -630,6 +630,7 @@ module.exports = {
 
         divisas.forEach(async divisa => {
             if (interaction.options.getSubcommand() === divisa.id) {
+                await interaction.deferReply();
                 try {
                     const [DIVISA, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
@@ -693,11 +694,8 @@ module.exports = {
                         )
 
 
-                    await interaction.deferReply()
                     await wait(3000)
                     await interaction.editReply({ embeds: [embed1], components: [row] });
-
-
 
                     client.on('interactionCreate', interaction => {
                         if (!interaction.isButton()) return;

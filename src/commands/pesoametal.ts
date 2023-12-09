@@ -3,7 +3,8 @@ import Discord from "discord.js"
 import axios from "axios"
 import { embedError } from "../functions/embedError";
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { restar75, restar74, restar155 } = require("../functions/impuestos"); //Impuestos
+const { restar155 } = require("../functions/impuestos"); //Impuestos
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('pesoametal')
@@ -87,8 +88,9 @@ module.exports = {
 
         Metales.forEach(async Metal => {
             if (interaction.options.getSubcommand() === Metal.id) {
-
                 let convertir: number = interaction.options.getNumber('ars')
+                await interaction.deferReply();
+
                 try {
                     const [metal, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
@@ -114,12 +116,9 @@ module.exports = {
                                                 {name:"Compra :flag_ar:", value:`${Metal.iso} ` + currencyFormatter.format((convertir *  metal.data['usd'][Metal.iso]) / blue.data['compra'],{locale:'es-ES',code:' ', precision:8}),inline:true},
                                                 {name:"Venta :flag_ar:", value:`${Metal.iso} ` + currencyFormatter.format((convertir *  metal.data['usd'][Metal.iso]) / blue.data['venta'],{locale:'es-ES',code:' ', precision:8}),inline:true}
                                               )
-                                              
-                                        await interaction.deferReply();
-                                        setTimeout(async () => {
-                                            await interaction.editReply({ embeds: [embed] });
-                                        }, 3000)
-
+                                        await wait(3000)
+                                        await interaction.editReply({ embeds: [embed] });
+                                        
 
                     }catch(error) {
                         embedError(interaction, error)

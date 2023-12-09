@@ -27,6 +27,7 @@ module.exports = {
 
 
         if (interaction.options.getSubcommand() === 'capitales') {
+            
             const capitales: Array<{
                 nombre: string,
                 latitud: number,
@@ -58,7 +59,7 @@ module.exports = {
                     { nombre: 'Santiago del Estero <:santiagodelestero:936064420231127042>', latitud: -27.79511, longitud: -64.26149, temperatura: 0, sensacion: 0, main: '', estado: '' },
                     { nombre: 'Usuahia <:tierradelfuego:936064421082570762>', latitud: -54.807, longitud: -68.30701, temperatura: 0, sensacion: 0, main: '', estado: '' },
                 ]
-
+            await interaction.deferReply()
             try {
                 const apiRequests = capitales.map(capital =>
                     axios.get(`https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${capital.latitud}&lon=${capital.longitud}&appid=${API_KEY}&units=metric&lang=es`)
@@ -71,13 +72,9 @@ module.exports = {
                     capitales[index].main = response.data.weather[0].main
                     capitales[index].estado = response.data.weather[0].description
                 })
-
-
-
-
                 const embedClimaCapitales = new Discord.EmbedBuilder()
                     .setTitle('Clima en las capitales de Argentina')
-                    .setColor('#0099ff')
+                    .setColor('#69D6F4')
                     .setThumbnail('https://cdn.discordapp.com/attachments/802944543510495292/1181661137020928091/weather-forecast.png?ex=6581deb1&is=656f69b1&hm=3bda713d56232a12d23a36b56a25c021f7eff2b43bccb618913389f9c441bc71&')
                     .setTimestamp()
 
@@ -90,7 +87,7 @@ module.exports = {
                     };
                     embedClimaCapitales.addFields(field);
                 }
-                await interaction.deferReply()
+             
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedClimaCapitales] });
             } catch (Error) {
@@ -99,6 +96,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'consultar') {
             const ciudad = interaction.options.getString('ciudad')
+            await interaction.deferReply()
             try {
                 const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${API_KEY}&units=metric&lang=es`)
                 const embedClimaCiudad = new Discord.EmbedBuilder()
@@ -123,7 +121,6 @@ module.exports = {
                         { name: 'Atardecer :city_sunset:', value: `${new Date(response.data.sys.sunset * 1000).toLocaleTimeString()}`, inline: true },
                         { name: 'Zona horaria :timer:', value: `${response.data.timezone / 3600}hs`, inline: true },
                     )
-                await interaction.deferReply()
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedClimaCiudad] })
             } catch (Error) {

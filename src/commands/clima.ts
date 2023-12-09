@@ -85,7 +85,7 @@ module.exports = {
                 for (let capital of capitales) {
                     let field = {
                         name: `${capital.nombre}`,
-                        value: `🌡️ ${capital.temperatura}°C\n🤒 ${capital.sensacion}°C\n ${emojiSegunMain(capital.main)} ${mayusculaPrimerLetra(capital.estado)}`,
+                        value: `🌡️ ${capital.temperatura}°C\n<:sensaciontermica:1182840701013201039> ${capital.sensacion}°C\n ${emojiSegunMain(capital.main)} ${mayusculaPrimerLetra(capital.estado)}`,
                         inline: true,
                     };
                     embedClimaCapitales.addFields(field);
@@ -108,7 +108,7 @@ module.exports = {
                     .setTimestamp()
                     .addFields(
                         { name: 'Temperatura :thermometer: ', value: `${response.data.main.temp}°C`, inline: true },
-                        { name: 'Sensación térmica :thermometer: ', value: `${response.data.main.feels_like}°C`, inline: true },
+                        { name: 'Sensación térmica <:sensaciontermica:1182840701013201039> ', value: `${response.data.main.feels_like}°C`, inline: true },
                         { name: `Estado ${emojiSegunMain(response.data.weather[0].main)}`, value: `${mayusculaPrimerLetra(response.data.weather[0].description)}`, inline: true },
                         { name: 'Minima :arrow_down:', value: `${response.data.main.temp_min}°C`, inline: true },
                         { name: 'Maxima :arrow_up:', value: `${response.data.main.temp_max}°C`, inline: true },

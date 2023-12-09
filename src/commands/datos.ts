@@ -45,8 +45,7 @@ module.exports = {
       
             await interaction.deferReply()
             await wait(3000)
-            await interaction.editReply
-
+            await interaction.reply({ embeds: [embed] });
         })
         .catch((error) => {
           embedError(interaction, error)
@@ -69,7 +68,7 @@ module.exports = {
 
             await interaction.deferReply()
             await wait(3000)
-            await interaction.editReply
+            await interaction.reply({ embeds: [embed] });
         })
         .catch((err) => {
           console.error('ERR', err)
@@ -90,7 +89,7 @@ module.exports = {
 
             await interaction.deferReply()
             await wait(3000)
-            await interaction.editReply
+            await interaction.reply({ embeds: [embed] });
         })
         .catch((err) => {
           console.error('ERR', err)
@@ -119,7 +118,7 @@ module.exports = {
 
         await interaction.deferReply()
         await wait(3000)
-        await interaction.editReply
+        await interaction.reply({ embeds: [embed] })
 
       }catch(Error){
         embedError(interaction, Error)

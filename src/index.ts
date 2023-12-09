@@ -24,6 +24,7 @@ for (const file of slashcommandsFile) {
   cantidadComandos++
   client.slashcommands.set(slash.data.name, slash)
 }
+
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   const slashcmds = client.slashcommands.get(interaction.commandName)
@@ -34,6 +35,26 @@ client.on("interactionCreate", async (interaction) => {
   } catch (e) {
     console.error(e)
   }
+})
+
+process.on("unhandledRejection", (reason, p)=>{
+    console.log("Error encontrado")
+    console.log(reason, p)
+})
+
+process.on("uncaughtException", (err, origin)=>{
+    console.log("Error encontrado")
+    console.log(err, origin)
+})
+
+process.on("uncaughtExceptionMonitor", (err, origin)=>{
+    console.log("Error encontrado")
+    console.log(err, origin)
+})
+
+
+process.on("multipleResolves", () =>{
+    
 })
 
 //Ready

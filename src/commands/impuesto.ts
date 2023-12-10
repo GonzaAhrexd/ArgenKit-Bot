@@ -30,7 +30,7 @@ module.exports = {
       embed.setTitle(`Impuestos a la compra al exterior (${porcentaje}%)`)
         .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
         .setColor("#d6f2fc")
-        .setThumbnail("https://cdn.discordapp.com/attachments/8029410043510495292/903113482835197972/taxes.png")
+        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1179850115163373568/taxes.png?ex=657b480c&is=6568d30c&hm=0fc5a87affc32a471bd77d05f31d35a3a782dfb3f48d44a14d1e50d34fb9b2c8&")
       embed.addFields(arrayEmbed);
     }
     //IVA + PAIS + GANANCIAS + BIENES PERSONALES

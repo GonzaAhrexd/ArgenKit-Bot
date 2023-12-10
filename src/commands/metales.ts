@@ -6,6 +6,8 @@ import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total155 } = require("../functions/impuestos"); //Impuestos
+const { formatoPrecio } = require('../functions/formato')
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('metal')
@@ -89,7 +91,7 @@ module.exports = {
             ]
         Metales.forEach(async Metal => {
             if (interaction.options.getSubcommand() === Metal.id) {
-
+                await interaction.deferReply();
                 try {
                     const [metal, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
@@ -103,16 +105,16 @@ module.exports = {
                         .setDescription(Metal.desc)
                         .setThumbnail(Metal.imagen)
                         .addFields(
-                            { name: 'Precio en dólares ' + Metal.emoji, value: 'USD$ ' + currencyFormatter.format((1 / metal.data['usd'][Metal.iso]), { locale: 'es-ES', code: ' ' }), inline: true },
+                            { name: 'Precio en dólares ' + Metal.emoji, value: formatoPrecio((1 / metal.data['usd'][Metal.iso]), "USD"), inline: false },
                             //Oficial
-                            { name: 'Compra ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((1 / metal.data['usd'][Metal.iso])) * oficial.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
-                            { name: 'Venta ' + Metal.emoji, value: 'ARS$ ' + currencyFormatter.format(((1 /  metal.data['usd'][Metal.iso])) * oficial.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true },
+                            { name: 'Compra ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['compra'], "ARS"), inline: true },
+                            { name: 'Venta ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta'], "ARS"), inline: true },
                             //Impuestos
-                            { name: "Impuestos (155%)", value: "ARS$ " + currencyFormatter.format(total155((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), { locale: 'es-ES', code: ' ' }), inline: true },
+                            { name: "Impuestos (155%)", value: "ARS" + formatoPrecio(total155((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS"), inline: true },
                             //Blue
-                            { name: Metal.nombre + " a precio blue <:dollarblue:903149186436980767>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                            { name: "Compra", value: "ARS$ " + currencyFormatter.format((1 / metal.data['usd'][Metal.iso]) * blue.data['compra'], { locale: 'es-ES', code: ' ' }), inline: true },
-                            { name: "Venta", value: "ARS$ " + currencyFormatter.format((1 / metal.data['usd'][Metal.iso]) * blue.data['venta'], { locale: 'es-ES', code: ' ' }), inline: true })
+                            { name: Metal.nombre + " a precio blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
+                            { name: "Compra", value: "ARS" + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * blue.data['compra'], "ARS"), inline: true },
+                            { name: "Venta", value: "ARS" + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * blue.data['venta'], "ARS"), inline: true })
 
                     const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle("Oro")
@@ -139,10 +141,10 @@ module.exports = {
                                 .setLabel("📋 Información")
                                 .setStyle(ButtonStyle.Primary)
                         )
-                    await interaction.deferReply();
-                    setTimeout(async() => {
-                        await interaction.editReply({ embeds: [embed1], components: [row] });
-                    }, 3000)
+
+                    await wait(3000)
+                    await interaction.editReply({ embeds: [embed1], components: [row] });
+
 
 
                     client.on('interactionCreate', interaction => {
@@ -168,7 +170,7 @@ module.exports = {
                             interaction.editReply({ embeds: [actual], components: [] });
                         }
                     })
-                } catch (err) { // Catch del axios dólar blue
+                } catch (err) {
                     console.error('Error en el API de Metales', err)
                     const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`Ha ocurrido un error`)

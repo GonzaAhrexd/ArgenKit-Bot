@@ -22,39 +22,33 @@ module.exports = {
               emoji: "<:Utilidadyconversin:903096312919126107>",
             },
             {
-              label: 'Divisas',
-              description: 'Fiat y Criptomonedas disponibles',
+              label: 'Cotizaciones',
+              description: 'Fiat, Criptomonedas, Metales y mercado de capitales.',
               value: 'second',
               emoji: "<:Divisas:903096313061724190>"
             },
             {
-              label: 'Información  del Covid19',
-              description: 'Información con respecto a la pandemia del covid19',
-              value: 'third',
-              emoji: "<:Covid:903096313439219762>"
-            },
-            {
               label: 'Datos',
               description: 'Datos variados acerca del país',
-              value: 'fourth',
+              value: 'third',
               emoji: "<:Datos2:903096311102988378>"
             },
             {
               label: 'Servicios',
-              description: 'Precio de servicios de streaming y variados',
-              value: 'fifth',
+              description: 'Precio de servicios de streaming y videojuegos',
+              value: 'fourth',
               emoji: "<:Servicios2:903097132683239474>"
             },
             {
               label: 'Diversión',
               description: 'Comandos de diversión',
-              value: 'sixth',
+              value: 'fifth',
               emoji: "<:Diversin:903096312289955860>"
             },
             {
               label: 'Información',
               description: 'Información del bot y su creador',
-              value: 'seventh',
+              value: 'sixth',
               emoji: "<:Informacindelbot:903096312713609246>"
             }
           ]
@@ -64,85 +58,82 @@ module.exports = {
 
     let embed = new Discord.EmbedBuilder()
       .setTitle(":desktop: COMANDOS DE ARGENKIT BOT :desktop: ")
-      .setColor('#fdcb68')
+      .setColor('#385E7F')
       .addFields(
-        { name: "» Comandos disponibles", value: "¡Tenemos `7` categorías distintas llenas de comandos y subcomandos! \n Para ver las novedades más recientes del bot utiliza `/update`" },
-        { name: "» Comandos populares", value: "`impuesto`  `calcuar`  `convertir dolar`  `divisa dolar`  `divisa blue`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `moneda`  `invite`" },
-        { name: "» Comandos nuevos", value: "`calcular`  `hora`" }
-      ).setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903001307554652160/buscando.png")
+        { name: "» Comandos disponibles", value: "¡Tenemos `6` categorías distintas llenas de comandos y subcomandos! \n Para ver las novedades más recientes del bot utiliza `/update`" },
+        { name: "» Comandos populares", value: "`impuesto`  `calcular`  `convertirdivisa dolar`  `divisa dolar`  `elecciones`  `servicio netflix`  `servicio twitch`  `servicio disney+`  `8ball`  `calcular`  `invite`" },
+        { name: "» Comandos nuevos", value: "`mercado`  `clima`  `juegos`  `frase``" }
+      ).setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1176889247215648829/search_1.png?ex=65708286&is=655e0d86&hm=c0193aa9ccd9a045905e83e990940c81897d4c355da14866de45efd48a4a7e72&")
 
     let embed2 = new Discord.EmbedBuilder()
       .setTitle(":arrows_counterclockwise:  Utilidad y conversión de divisas :arrows_counterclockwise:  ")
-      .setColor('#fdcb68')
+      .setColor('#385E7F')
       .setDescription("Estos comandos contienen utilidades y conversión de divisa")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903010091756814356/money-exchange.png")
       .addFields(
-        { name: "» Utilidad ", value: "`impuesto`  `calcular`  `anualizarinflacion`  `traductor`  `hora`" },
+        { name: "» Utilidad ", value: "`impuesto`  `calcular`  `anualizarinflacion`  `traductor`  `hora`  `clima`" },
         { name: "» `convertirdivisa`", value: "Subcomandos `dolar`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`" },
         { name: "» `pesoa` ", value: "» Subcomandos `dolar`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`" },
-        { name: "» `convertircripto` ", value: "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `decentraland`  `solana`  `dai`  `dogecoin" },
-        { name: "» pesoacripto ", value: "» Subcomandos bitcoin ethereum tether axieinfinity terraluna decentraland solana dai dogecoin" },
-        { name: "» convertirmetal ", value: "» Subcomandos oro plata paladio platino" },
-        { name: "» pesoametal ", value: "» Subcomandos oro plata paladio platino" }
+        { name: "» `convertircripto` ", value: "» Subcomandos `bitcoin`  `ethereum`  `tether`  `axieinfinity`  `terraluna`  `decentraland`  `solana`  `dai`  `dogecoin`  `litecoin` `cardano` `bnb` `usdcoin` `avalanche` `polkadot` `uniswap` `polygon` `tron`" },
+        { name: "» pesoacripto ", value: "» Subcomandos `bitcoin` `ethereum` `tether` `axieinfinity` `terraluna` `decentraland` `solana` `dai` `dogecoin` `litecoin` `cardano` `bnb` `usdcoin` `avalanche` `polkadot` `uniswap` `polygon` `tron`" },
+        { name: "» convertirmetal ", value: "» Subcomandos `oro` `plata` `paladio` `platino`" },
+        { name: "» pesoametal ", value: "» Subcomandos `oro` `plata` `paladio` `platino`" }
       );
 
+  
     let embed3 = new Discord.EmbedBuilder()
       .setTitle(":dollar:  Cotizaciones :dollar: ")
-      .setColor('#fdcb68')
-      .setDescription("Estos comandos contienen las distintas cotizaciones disponibles con su precio a pesos argentinos e informacion adicional")
+      .setColor('#385E7F')
+      .setDescription("Estos comandos contienen distintas cotizaciones de divisas, criptomonedas, metales, o acciones financieras")
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/90301281.759495484/dollars.png")
       .addFields(
         { name: "» `divisa` ", value: "» Subcomandos `dolar`  `euro`  `real`  `yen`  `libra`  `rublo`  `dolarcanadiense`  `dolaraustraliano`  `dolarneozelandes`  `pesomexicano`  `pesochileno`  `pesouruguayo`  `pesocolombiano`  `boliviano`  `sol`  `guarani`  `bolivar`  `yuan`  `rupia`  `won`  `franco`  `lira`" },
-        { name: "» `criptomoneda` ", value: "» Subcomandos bitcoin ethereum tether axieinfinity terraluna decentraland solana dai dogecoin" },
-        { name: "» `metal`", value: "» Subcomandos oro plata paladio platino" }
-      )
-    let embed4 = new Discord.EmbedBuilder()
-      .setTitle(":mask:  Covid19 :mask: ")
-      .setColor('#fdcb68')
-      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903019853202468884/nueva-normalidad.png")
-      .setDescription("Estos comandos contienen información sobre la pandemia del covid19")
-      .addFields(
-        {name:"» `covid`", value: "» Subcomandos `casos`  `global`  `covidpais`  `sintomas`  `recomendaciones`"})
+        { name: "» `criptomoneda` ", value: "» Subcomandos `bitcoin` `ethereum` `tether` `axieinfinity` `terraluna` `decentraland` `solana` `dai` `dogecoin` `litecoin` `cardano` `bnb` `usdcoin` `avalanche` `polkadot` `uniswap` `polygon` `tron`" },
+        { name: "» `metal`", value: "» Subcomandos `oro` `plata` `paladio` `platino`" },
+        { name: "» `mercado`", value: "» Subcomandos `estado` `acciones` `consultar`" },
+        )
+   
 
-    let embed5 = new Discord.EmbedBuilder()
+    let embed4 = new Discord.EmbedBuilder()
       .setTitle(":bar_chart: Datos :bar_chart:")
-      .setColor('#fdcb68')
+      .setColor('#385E7F')
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094616071483392/unknown.png")
       .setDescription("Estos comandos tienen distintos datos sobre Argentina")
       .addFields(
-        { name: "» Comando `datos`", value: "subcomandos `riesgopais`  `reservas`  `circulante`" },
+        { name: "» Comando `datos`", value: "subcomandos `riesgopais`  `reservas`  `circulante`  `pbi`  `gabinete`" },
         { name: "» Otros Comandos ", value: "`elecciones`  `futbol`  `provinciainfo`" }
       )
-    let embed6 = new Discord.EmbedBuilder()
+    let embed5 = new Discord.EmbedBuilder()
       .setTitle(":tv: Servicios Digitales :tv:")
-      .setColor('#fdcb68')
+      .setColor('#385E7F')
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903093667911315557/Servicios.png")
       .setDescription("Estos subcomandos te dan el precio de distintos servicios digitales en Argentina con impuestos")
       .addFields(
-        {name:"» `servicio`", value: "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`"})
-
-    let embed7 = new Discord.EmbedBuilder()
+        {name:"» `servicio`", value: "`netflix`  `youtube`  `spotify`  `crunchyroll`  `disney`  `xboxgamepass`  `primevideo`  `appletv`  `hbomax`  `discordnitro`  `googleone`  `ea`  `steam`  `paramount`  `twitch`"},
+        {name: "» `juegos`", value: "`minecraft`  `roblox`  `fortnite`  `leagueoflegends`  `valorant`  `counterstrike`  `clashroyale`  `clashofclans`  `genshinimpact`  `freefire`"} 
+        )
+    let embed6 = new Discord.EmbedBuilder()
       .setTitle(":rofl: Diversión :rofl:")
-      .setColor('#fdcb68')
+      .setColor('#385E7F')
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903094465747648552/Diversion.png")
       .setDescription("Estos son comandos con cosas divertidas mayormente basadas en aleatoridad")
       .addFields(
-        {name:"» Comandos", value: "`odio argentina`  `odio latinoamerica`  `covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`"})
+        {name:"» Comandos", value: "`covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`  `frase`"})
 
-    let embed8 = new Discord.EmbedBuilder()
+    let embed7 = new Discord.EmbedBuilder()
       .setTitle(":open_file_folder: Información del bot :open_file_folder:")
-      .setColor('#fdcb68')
+      .setColor('#385E7F')
       .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903095489719828541/Informacion_del_bot.png")
       .setDescription("Estos comandos te permiten consultar más información acerca del bot")
       .addFields(
         {name:"» Comandos", value: "`creador`  `api`  `invitar`  `servidor`  `votar`  `donaciones`  `update`"})
 
     const collector = interaction.channel.createMessageComponentCollector({
-      componentType: ComponentType.StringSelect, time: 20000
+      componentType: ComponentType.StringSelect, time: 30000
 
     })
 
-    await interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
+    interaction.reply({ content: " ", ephemeral: false, embeds: [embed], components: [row] })
 
 
 
@@ -167,9 +158,6 @@ module.exports = {
       }
       if (value === "sixth") {
         await interaction.editReply({ embeds: [embed7], ephemeral: false })
-      }
-      if (value === "seventh") {
-        await interaction.editReply({ embeds: [embed8], ephemeral: false })
       }
 
     })

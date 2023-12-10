@@ -1,8 +1,10 @@
 
 import Discord from "discord.js"
 import axios from "axios"
-var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total75, total154, total155 } = require("../functions/impuestos"); //Impuestos
+const { total155 } = require("../functions/impuestos"); //Impuestos
+import { formatoPrecio } from '../functions/formato'
+import { embedError } from "../functions/embedError"
+const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('convertirdivisa')
@@ -183,14 +185,15 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'dolar') {
             let convertir: number = interaction.options.getNumber('usd')
+            await interaction.deferReply();
             try {
                 const [oficial, blue, mep, ccl] = await Promise.all([
-                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
                     axios.get('https://dolarapi.com/v1/dolares/blue'),
                     axios.get('https://dolarapi.com/v1/dolares/bolsa'),
                     axios.get('https://dolarapi.com/v1/dolares/contadoconliqui'),
                 ]);
-                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
 
                     .setTitle("Dólar estadounidense <:rightarrow:921907270747570247> Peso Argentino")
                     .setColor("Green")
@@ -198,36 +201,29 @@ module.exports = {
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/921906513453408286/dolarapeso.png")
                     .addFields(
                         //Monto Original
-                        { name: `Monto original :dollar:  `, value: `USD$ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
+                        { name: `Monto original :dollar:  `, value: `${formatoPrecio(convertir, "USD")} ` },
                         //Oficial
                         { name: "Dólar oficial :bank: ", value: `Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.` },
-                        { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio((convertir * oficial.data['compra']), "ARS")}`, inline: true },
+                        { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio((convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Impuestos
-                        { name: "Impuestos (155%) ", value: `ARS$ ${currencyFormatter.format(total155(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Impuestos (155%) ", value: `ARS${formatoPrecio(total155(convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Blue
-                        { name: `Dólar blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                        { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Venta :flag_ar:", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: `Dólar blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
+                        { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio((convertir * blue.data['compra']), "ARS")}`, inline: true },
+                        { name: "Venta :flag_ar:", value: `ARS${formatoPrecio((convertir * blue.data['venta']), "ARS")}`, inline: true },
                         //Financieros
                         { name: `Financieros <:finanzas:1068357650380755045>  `, value: `Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares.` },
-                        { name: "Dólar MEP ", value: `ARS$ ${currencyFormatter.format((convertir * mep.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Contado con Liqui.", value: `ARS$ ${currencyFormatter.format((convertir * ccl.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true })
+                        { name: "Dólar MEP ", value: `ARS${formatoPrecio((convertir * mep.data['venta']), "ARS")}`, inline: true },
+                        { name: "Contado con Liqui.", value: `ARS${formatoPrecio((convertir * ccl.data['venta']), "ARS")}`, inline: true })
 
-                await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embed] });
-                }, 3000)
 
-            } catch (err) {
-                console.error('ERR', err);
+                await wait(3000)
+                await interaction.editReply({ embeds: [embed] });
 
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
+            } catch (error) {
 
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, error)
 
             }
 
@@ -235,12 +231,15 @@ module.exports = {
 
         if (interaction.options.getSubcommand() === 'euro') {
             let convertir = interaction.options.getNumber('eur')
+            await interaction.deferReply();
             try {
-                const [oficial, blue] = await Promise.all([
+                const [oficial, blue, valorUSD] = await Promise.all([
                     axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
-                    axios.get('https://api.bluelytics.com.ar/v2/latest')
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
+                    axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json')
+
                 ]);
-                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
 
                     .setTitle("Euro <:rightarrow:921907270747570247> Peso Argentino")
                     .setColor("#0153b4")
@@ -248,76 +247,32 @@ module.exports = {
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922548848826654801/euroapeso.png")
                     .addFields(
                         //Monto Original
-                        { name: `Monto original :euro:  `, value: `EUR€ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
+                        { name: `Monto original :euro:  `, value: `${formatoPrecio(convertir, "EUR")} ` },
                         //Oficial
+                        { name: `Valor en dólares 💸`, value: `Valor del euro en relación al dólar estadounidense.`, inline: false },
+                        { name: `EURO <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(convertir / valorUSD.data['usd']['eur'], "USD")} `, inline: true },
                         { name: "Euro oficial :bank: ", value: `Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes.` },
-                        { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Compra :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * oficial.data['compra']), "ARS")}`, inline: true },
+                        { name: "Venta :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Impuestos
-                        { name: "Impuestos (155%) ", value: `ARS$ ${currencyFormatter.format(total155(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "Impuestos (155%) ", value: `ARS$ ${formatoPrecio(total155(convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Blue
-                        { name: `Euro blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                        { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['blue_euro']['value_buy']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Venta :flag_ar:", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['blue_euro']['value_sell']), { locale: 'es-ES', code: ' ' })}`, inline: true })
+                        { name: `Euro blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
+                        { name: "Compra :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * blue.data['blue_euro']['value_buy']), "ARS")}`, inline: true },
+                        { name: "Venta :flag_ar:", value: `ARS$ ${formatoPrecio((convertir * blue.data['blue_euro']['value_sell']), "ARS")}`, inline: true })
 
-                await interaction.deferReply();
-                setTimeout(async () => {
-                    await interaction.editReply({ embeds: [embed] });
-                }, 3000)
+                await wait(3000)
+                await interaction.editReply({ embeds: [embed] });
+
 
 
             } catch (error) {
-                console.error(error);
 
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-
-                interaction.reply({ embeds: [errorEmbed] });
+                embedError(interaction, error)
             }
 
         }
 
-        if (interaction.options.getSubcommand() === 'real') {
-            let convertir = interaction.options.getNumber('brl')
-            try {
-                const [oficial, blue] = await Promise.all([
-                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/oficial'),
-                    axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/real/blue')
-                ]);
-                const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                    .setTitle("Real <:rightarrow:921907270747570247> Peso Argentino")
-                    .setColor("#6da545")
-                    .setDescription("Real expresado en pesos argentinos")
-                    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/922553925243117698/realapeso.png")
-                    .addFields(
-                        //Monto Original
-                        { name: `Monto original :flag_br:  `, value: `BRL R$ ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })} ` },
-                        //Oficial
-                        { name: "Real oficial :flag_br: ", value: `Valor del Real Brasileño que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar el equivalente a USD$200 al mes.` },
-                        { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Impuestos (155%) ", value: `ARS$ ${currencyFormatter.format(total155(convertir * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        //Blue
-                        { name: `Real blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                        { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Venta :flag_ar:", value: `ARS$ ${currencyFormatter.format((convertir * blue.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true })
-
-                await interaction.deferReply();
-                setTimeout(async() => {
-                    await interaction.editReply({ embeds: [embed] });
-                }, 3000)
-
-            } catch (error) {
-                console.error(error);
-                const errorEmbed = new Discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("Error")
-                    .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-                interaction.reply({ embeds: [errorEmbed] });
-            }
-        }
 
         let divisas: Array<
             {
@@ -331,6 +286,15 @@ module.exports = {
 
             }
         > = [{
+            id: "real",
+            nombre: "Real Brasilero",
+            iso: "BRL",
+            bandera: ":flag_br:",
+            color: "#e8ce6c",
+            img: "https://cdn.discordapp.com/attachments/802944543510495292/922553925243117698/realapeso.png",
+            simbolo: "R$"
+        },
+        {
             id: "yen",
             nombre: "Yen Japonés",
             iso: "JPY",
@@ -508,46 +472,45 @@ module.exports = {
         }]
 
         divisas.forEach(async divisa => {
+
             if (interaction.options.getSubcommand() === divisa.id) {
                 let convertir = interaction.options.getNumber((divisa.iso).toLowerCase())
+                await interaction.deferReply();
                 try {
+                    
                     const [DIVISA, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
                         axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
                         axios.get('https://dolarapi.com/v1/dolares/blue')
                     ]);
                     let aconvertir = DIVISA.data['usd'][(divisa.iso).toLowerCase()]
-                    
-                    const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+                    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`${divisa.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
                         .setColor(divisa.color)
                         .setDescription(`${divisa.nombre} expresado en pesos argentinos`)
                         .setThumbnail(divisa.img)
                         .addFields(
                             //Monto Original
-                            { name: `Monto original ${divisa.bandera}`, value: `${divisa.simbolo} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
+                            { name: `Monto original ${divisa.bandera}`, value: `${divisa.simbolo} ${formatoPrecio(convertir, divisa.iso)}` },
+                            //Dólares
+                            { name: `Valor en dólares 💸`, value: `Valor del ${divisa.nombre} en relación al dólar estadounidense.`, inline: false },
+                            { name: `${divisa.nombre.toUpperCase()} <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(convertir / aconvertir, "USD")} `, inline: true },
                             //Oficial
-                            { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos ` },
-                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "Impuestos (155%) ", value: `ARS$ ${currencyFormatter.format(total155((convertir / aconvertir) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            //Blue
-                            { name: `${divisa.nombre} Blue <:dollarblue:903149186436980767>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                            { name: "Compra :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['compra']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "Venta :flag_ar: ", value: `ARS$ ${currencyFormatter.format(((convertir / aconvertir) * blue.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        )
 
-                    await interaction.deferReply();
-                    setTimeout(async() => {
-                        await interaction.editReply({ embeds: [embed] });
-                    }, 4000)
+                            { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos ` },
+                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['compra']), "ARS")}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
+                            { name: "Impuestos (155%) ", value: `ARS${formatoPrecio(total155((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
+                            //Blue
+                            { name: `${divisa.nombre} Blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
+                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * blue.data['compra']), "ARS")}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * blue.data['venta']), "ARS")}`, inline: true },
+                        )
+                    await wait(3000)
+                    await interaction.editReply({ embeds: [embed] });
+
                 } catch (error) {
-                    console.error(error);
-                    const errorEmbed = new Discord.EmbedBuilder()
-                        .setColor("#ff0000")
-                        .setTitle("Error")
-                        .setDescription("Ha ocurrido un error al obtener los datos desde el API. Por favor, inténtalo de nuevo más tarde.");
-                    interaction.reply({ embeds: [errorEmbed] });
+                    embedError(interaction, error)
                 }
 
             }

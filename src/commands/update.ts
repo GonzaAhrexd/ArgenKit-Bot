@@ -2,13 +2,36 @@
 import Discord from "discord.js"
 import { ButtonBuilder } from 'discord.js'
 import { ButtonStyle } from 'discord.js'
-import paginationEmbed from 'discordjs-button-pagination' //Botones
+const {pagination, ButtonTypes, ButtonStyles} = require('@devraelfreeze/discordjs-pagination');
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName("update")
     .setDescription("Muestra las novedades de la actualización"),
 
   async run(client, interaction) {
+
+    const embed20:Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      .setTitle("ARGENKIT BOT VERSIÓN 2.0: NUEVA ERA")
+      .setColor('#0a9ee1')
+      .setDescription("Fecha de lanzamiento: 10/12/2023 \n Debido al cambio de gobierno, es posible que se realicen muchas  modificaciones en algunos aspectos de la economía directamente relacionados con funciones del bot, como conversión de divisas e impuestos digitales, por lo que el bot se mantendrá actualizandose constantemente durante los próximos meses. \n ¡Este es el comienzo de una nueva era en Argentina!")
+      .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/811043646848630786/argboticon-03.png")
+      .addFields(
+        { name: "<:djs:928800848996352041> Discord.js 14 ", value: "Se ha actualizado el bot a Discord.js 14" },
+        { name: "💵  Precio en USD ", value: "Ahora todas las divisas también muestran su valor en USD, de cara a una futura dolarización" },
+        { name: ":chart_with_upwards_trend:  Mercado de capitales ", value: "Ahora es posible visualizar acciones del mercado de capitales con los comandos `mercado`" },
+        { name: "🦠 Removido comandos de covid19 ", value: "Han sido removidos los comandos referidos al covid19 ya que pasaron 4 años desde el mismo.  " },
+        { name: "🎱 Nuevas respuestas a 8ball ", value: "Se han agregado nuevas respuestas al comando de 8ball, sumando un total de 30." },
+        {name: "🎮 Microtransacciones en juegos", value: "Se ha agregado un nuevo comando para  consultar el precio de microtransacciones de juegos en Argentina, con el comando `juego`"},
+        { name: "💬 Frases celebres ", value: "Se han agregado frases celebres de famosos argentinos con el comando `frase`." },
+        { name: "📷 Imagenes actualizadas", value: "Se han actualizado algunas de las imagenes del bot" },
+        {name: "🌧️ Tiempo meteorológico", value: "Se ha agregado un comando para consultar el tiempo en las capitales argentinas o en cualquier parte del mundo con `tiempo`"},
+        { name: " <:calculator:1071233126656917624> Calculadora mejorada ", value: "Se ha mejorado el comando `calcular` agregando varios subcomandos con distintas funciones como conversión de base, raíz cuadrada, potencia y logaritmo " },
+        {name: ":coin: Nuevas criptomonedas", value: "Se han agregado litecoin, cardano, bnb, usdcoin, avalanche, polkadot, uniswap, polygon y tron"},
+        {name: "<:Datos2:903096311102988378> Nuevos datos", value: "Se ha agregado la posibilidad de consultar el PBI y PBI per cápita de Argentina con el comando `datos pbi` y el gabinete actual con `datos gabinete`"},
+        {name: ":flag_ar: Provincias actualizadas", value: "Se han actualizado los gobernadores de las provincias con los que asumieron para el periodo 2023-2027,  además, ahora muestra a qué partido pertenecen. También se ha resumido la información de cada provincia."}
+        )
+
+
     const embed15:Discord.EmbedBuilder = new Discord.EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.5 ¡ACTUALIZACIÓN TÉCNICA!")
       .setColor('#0a9ee1')
@@ -86,6 +109,7 @@ module.exports = {
       .setStyle(ButtonStyle.Danger);
 
     const pages = [
+      embed20,
       embed15,
       embed14,
       embed13,
@@ -96,9 +120,29 @@ module.exports = {
 
     const buttonList = [button1, button2];
     const timeout = 120000;
-    paginationEmbed(interaction, pages, buttonList, timeout);
+    await pagination({
+      embeds: pages, /** Array of embeds objects */
+      author: interaction.member.user,
+      interaction: interaction,
+      ephemeral: false,
+      time: 40000, /** 40 seconds */
+      disableButtons: false, /** Remove buttons after timeout */
+      fastSkip: false,
+      pageTravel: false,
+      buttons: [
+        {
+          type: ButtonTypes.previous,
+          label: 'Más reciente',
+          style: ButtonStyles.Primary
+        },
+        {
+          type: ButtonTypes.next,
+          label: 'Más antigua',
+          style: ButtonStyles.Success
+        }
+      ]
+    });
 
-    return await interaction.reply({ content: ' ‎  ' });
 
   }
 

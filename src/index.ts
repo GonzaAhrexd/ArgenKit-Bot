@@ -1,24 +1,7 @@
 //Librerías de node
 import Discord = require("discord.js");
 import fs = require('fs') //fs 
-import express from 'express'
 require('dotenv').config() //Variables de entorno
-
-// Crear una instancia de la aplicación Express
-const app = express();
-
-//Utilizamos express para mostrar este mensaje en una página y así mantener el bot 24/7
-app.get('/', (req, res) => {
-  res.send('Argenkit Bot Versión 1.5.5');
-});
-
-// Puerto de las solicitudes
-const port = 3000;
-
-// Iniciar el servidor
-app.listen(port, () => {
-  console.log(`Servidor express conectado ✅`)
-});
 
 //Intents requeridos
 const { Client, Intents, EmbedBuilder, reactions, Collection } = require('discord.js');
@@ -41,6 +24,7 @@ for (const file of slashcommandsFile) {
   cantidadComandos++
   client.slashcommands.set(slash.data.name, slash)
 }
+
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   const slashcmds = client.slashcommands.get(interaction.commandName)
@@ -53,14 +37,36 @@ client.on("interactionCreate", async (interaction) => {
   }
 })
 
+process.on("unhandledRejection", (reason, p)=>{
+    console.log("Error encontrado")
+    console.log(reason, p)
+})
+
+process.on("uncaughtException", (err, origin)=>{
+    console.log("Error encontrado")
+    console.log(err, origin)
+})
+
+process.on("uncaughtExceptionMonitor", (err, origin)=>{
+    console.log("Error encontrado")
+    console.log(err, origin)
+})
+
+
+process.on("multipleResolves", () =>{
+    
+})
+
 //Ready
 client.on("ready", async () => {
-  console.log("Bot funcionando y conectado a Discord ✅");
-  console.log("Cargados "  +  cantidadComandos +  " comandos ✅")
+  console.log("---------------------------------------------")
+  console.log("✅ Bot funcionando y conectado a Discord ");
+  console.log("✅ Cargados "  +  cantidadComandos +  " comandos")
+  console.log("---------------------------------------------")
   client.user.setPresence({
     status: "online",
     activities: [{
-      name: 'Bot creado por GonzaAhre | Prueba /help o /update',
+      name: 'El bot con funciones útiles para Argentina | Utiliza /help para ver los comandos disponibles o /update para ver las novedades.',
       type: Discord.ActivityType.Custom
     }]
   })

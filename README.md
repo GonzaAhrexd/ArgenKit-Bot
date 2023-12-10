@@ -2,33 +2,28 @@
 
 <img src="https://preview.redd.it/qq8psbos8uk61.png?width=1299&format=png&auto=webp&s=8ffd4a1ad7e2fe87de789805852483fcd59c5f7f">
 
-<p> Argenkit bot es un bot de Discord que cuenta con muchas funciones relacionadas a la República Argentina, como
-        calcliar el impuesto a las compras online, conslitar y convertir el precio de un gran número de divisas y
-        criptomonedas, ver el precio de distintos servicios como Netflix, Disney+, Crunchyroll, conocer la cantidad de
-        casos de covid-19 en y ver recomendaciones, conslitar datos del país y ver cuánto falta para las elecciones y
-        para que juegue Argentina. </p>
-<p> Así como funciones divertidas como tirar dados, preguntarle cosas a la bola mágica, ver tus posibilidades de
-        escapar de Latinoamérica. </p>
-<p> El bot fue creado por Gonzalo Ebel (GonzaAhre) el 6 de enero de 2021 y lanzado al público en marzo del mismo
-        año. A lo largo del tiempo ha atravesado por distintas actualizaciones que añadieron neuvas funciones y
-        mejoraron el diseño. </p>
+<p> Argenkit bot es un bot de Discord que ofrece una amplia gama de funciones relacionadas con la República Argentina. Con este bot, puedes calcular el impuesto aplicado a las compras en línea, consultar y convertir el precio de diversas divisas, criptomonedas, metales y acciones del mercado, obtener información sobre el precio de servicios populares como Netflix, Disney+ y Crunchyroll, acceder a datos relevantes sobre el país, obtener el clima actual de cualquier ciudad, utilizar un traductor desde tu servidor de Discord, obtener información sobre las próximas elecciones y los próximos partidos de fútbol de Argentina, entre muchas cosas más. </p>
+<p> Además, el bot ofrece funciones divertidas como tirar dados, hacer preguntas a la bola mágica y calcular tus posibilidades de escapar de Latinoamérica. </p>
+<p> Argenkit bot fue creado por Gonzalo Ebel (GonzaAhre) el 6 de enero de 2021 y lanzado al público en marzo del mismo año. A lo largo del tiempo, ha recibido varias actualizaciones que han añadido nuevas funciones y mejorado su diseño. </p>
 <h2>Servidor de Discord</h2>
-    <p> Podés acceder al servidor de Discord del bot <a href="https://discord.gg/68jsHeTRYa">aquí</a> </p>
+    <p> Puedes unirte al servidor de Discord del bot <a href="https://discord.gg/68jsHeTRYa">aquí</a>. </p>
     <h2>Donaciones</h2>
-    <p>Toda donación mediante el comando <code>/donaciones</code> se agradece un montón
+    <p> Se agradece cualquier donación realizada a través del comando <code>/donaciones</code>. </p>
     
 <h2>Slash commands</h2>
-    <p> Se recomienda utilizar los nuevos Slash Commands del bot y no los comandos clásicos con prefijo, ya que esto
-        será desactivado por Discord en Septiembre 2022. </p>
+    <p> Todos los comandos del bot se utilizan por medio  de slash commands </p>
         
  <h2>APIs Utilizadas</h2>
     <ul>
-        <li> <a href="https://github.com/Castrogiovanni20/api-dolar-argentina">Api Dolar Argentina</a> </li>
-        <li> <a href="https://disease.sh/">Disease.sh </a></li>
-        <li> <a href="https://exchangerate.host/#/">Exchangerate </a></li>
+        <li> <a href="https://github.com/guidospadavecchia/DolarBot-Api">DolarBot Api</a> </li>
+        <li> <a href="https://dolarapi.com/docs/">Dolar API</a></li>
+        <li> <a href="https://api.bluelytics.com.ar/v2/latest">Bluelytics</a></li>
+        <li> <a href="https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json">currency-api </a></li>
         <li> <a href="https://www.coingecko.com/es">Coingecko </a></li>
         <li> <a href="https://criptoya.com/api">CriptoYa </a></li>
-            <li> <a href="https://api.metals.live/">Metals </a></li>
+        <li> <a href="https://finnhub.io/">Finnhub.io </a></li>
+        <li> <a href="https://openweathermap.org/">Openweathermap </a></li>
+        <li> <a href="https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information">The World Bank </a></li>
     </ul>
     
 <h2>Divisas disponibles</h2>
@@ -67,6 +62,15 @@
         <li>Solana</li>
         <li>Dai</li>
         <li>Dogecoin</li>
+        <li>Litecoin</li>
+        <li>cardano</li>
+        <li>bnb</li>
+        <li>usdcoin</li>
+        <li>avalanche</li>
+        <li>polkadot</li>
+        <li>uniswap</li>
+        <li>polygon</li>
+        <li>tron</li>
 </ul>
 <h2>Metales</h2>
 <ul>
@@ -99,9 +103,13 @@
     <ul>
         <li> <code>/impuesto</code> <code>  [monto] </code>:Muestra el precio ingresado, aplicando los impuestos a las compras internacionales.
         </li>
-        <li> <code>/calcular</code> Te permite realizar un calculo matemático.
+        <li> <code>/calcular</code> Te permite realizar un calculo matemático, cuenta con distintos modos.
         </li>
            <li> <code>/hora</code> Te permite ver la hora de distintos paises.
+        </li>
+        <li> <code>/traductor</code> Te permite traducir frases de un idioma a otro.
+        </li>
+        <li> <code>/clima</code> Te permite ver el tiempo meteorológico actual de las capitales argentinas o de la ciudad que se ingrese.
         </li>
         <li> <code>/anualizarinflacion</code> <code>  [mensual] </code> :Muestra la inflación anual en base a la
             inflación mensual ingresada.
@@ -133,18 +141,7 @@
         </li>
         <li> <code>/metal</code> <code>  [metal] </code>:Muestra el precio e información del metal ingresado.
         </li>
-    </ul>
-<h3>Covid 19</h3>
-    <ul>
-        <li> <code>/covid</code> <code>  casos </code>: Muestra la cantidad de casos en Argentina.
-        </li>
-        <li> <code>/covid</code> <code>  global </code>: Muestra la cantidad de casos globalmente.
-        </li>
-        <li> <code>/covid</code> <code>  covidpais </code>: Muestra la cantidad de casos en un país específico.
-        </li>
-        <li> <code>/covid</code> <code>  sintomas </code>: Brinda información sobre los síntomas del covid-19.
-        </li>
-        <li> <code>/covid</code> <code>  recomendaciones </code>: Muestra recomendaciones sobre el covid-19.
+         <li> <code>/mercado</code> <code>  [metal] </code>:Muestra el valor de distintos activos financieros.
         </li>
     </ul>
     <h3>Datos</h3>
@@ -162,7 +159,7 @@
         <li> <code>/provinciainfo</code> : Muestra información sobre una provincia.
         </li>
     </ul>
-<h3>Servicios de streaming</h3>
+<h3>Servicios digitales</h3>
     <ul>
         <li> <code>/servicio</code> <code> netflix </code>: Muestra el precio de Netflix.
         </li>
@@ -194,13 +191,29 @@
         </li>
         <li> <code>/servicio</code> <code> twitch </code>: Muestra el precio de Twitch.
         </li>
+         <li> <code>/juegos</code> <code> minecraft </code>: Muestra el precio de microtransacciones de Minecraft.
+        </li>
+        <li> <code>/juegos</code> <code> roblox </code>: Muestra el precio de microtransacciones de Roblox.
+        </li>
+        <li> <code>/juegos</code> <code> fortnite </code>: Muestra el precio de microtransacciones de Fortnite.
+        </li>
+        <li> <code>/juegos</code> <code> leagueoflegends </code>: Muestra el precio de microtransacciones de League of Legends.
+        </li>
+        <li> <code>/juegos</code> <code> valorant </code>: Muestra el precio de microtransacciones de Valorant.
+        </li>
+        <li> <code>/juegos</code> <code> counterstrike </code>: Muestra el precio de microtransacciones de Counter-Strike.
+        </li>
+        <li> <code>/juegos</code> <code> clashroyale </code>: Muestra el precio de microtransacciones de Clash Royale.
+        </li>
+        <li> <code>/juegos</code> <code> clashofclans </code>: Muestra el precio de microtransacciones de Clash of Clans.
+        </li>
+        <li> <code>/juegos</code> <code> genshinimpact </code>: Muestra el precio de microtransacciones de Genshin Impact.
+        </li>
+        <li> <code>/juegos</code> <code> freefire </code>: Muestra el precio de microtransacciones de Free Fire.
+        </li>
     </ul>
     <h3>Diversión</h3>
     <ul>
-        <li> <code>/odio</code> <code> argentina </code>: Muestra tu nivel de odio hacía el país.
-        </li>
-        <li> <code>/odio</code> <code> latinoamerica </code>: Muestra tu nivel de odio hacía latam.
-        </li>
         <li> <code>/covidtest</code> : Te realiza un test de covid.
         </li>
         <li> <code>/escaparlatam</code> Muestra tus probabilidades de escapar de Latinoamérica.
@@ -211,7 +224,6 @@
         </li>
         <li> <code>/dados</code> : Tira unos dados.
         </li>
-        <li> <code>/piedrapapelotijera</code> <code> [usuario] </code>: Desafía a alguien en Piedra, Papel o Tijera.
+      <li> <code>/frase</code> : Da una frase aleatoria dicha por algún  famoso argentino.
         </li>
-        <li> <code>/tateti</code> <code> [usuario] </code>: Desafía a alguien en tateti.
-        </li>
+    

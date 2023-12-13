@@ -2,7 +2,7 @@
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { restar155 } = require("../functions/impuestos"); //Impuestos
+const { restar60 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 const wait = require('node:timers/promises').setTimeout
@@ -174,7 +174,7 @@ module.exports = {
       await interaction.deferReply();
       try {
         const [oficial, blue, mep, ccl] = await Promise.all([
-          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
           axios.get('https://dolarapi.com/v1/dolares/blue'),
           axios.get('https://dolarapi.com/v1/dolares/bolsa'),
           axios.get('https://dolarapi.com/v1/dolares/contadoconliqui'),
@@ -194,7 +194,7 @@ module.exports = {
             { name: "Venta :dollar:", value: formatoPrecio((convertir / oficial.data['venta']), "USD"), inline: true },
 
             //Impuestos
-            { name: "Impuestos (155%)  ", value: formatoPrecio(restar155(convertir / oficial.data['venta']), "USD"), inline: true },
+            { name: "Impuestos (60%)  ", value: formatoPrecio(restar60(convertir / oficial.data['venta']), "USD"), inline: true },
 
             //Blue
             { name: "Dólar blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
@@ -224,7 +224,7 @@ module.exports = {
       await interaction.deferReply();
       try {
         const [oficial, blue] = await Promise.all([
-          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
+          axios.get('https://dolarapi.com/v1/cotizaciones/eur'),
           axios.get('https://api.bluelytics.com.ar/v2/latest'),
 
 
@@ -244,7 +244,7 @@ module.exports = {
             { name: "Venta :euro:", value: 'EUR€ ' + formatoPrecio((convertir / oficial.data['venta']), "EUR"), inline: true },
 
             //Impuestos
-            { name: "Impuestos (155%)  ", value: "EUR€ " + formatoPrecio(restar155(convertir / oficial.data['venta']), "EUR"), inline: true },
+            { name: "Impuestos (60%)  ", value: "EUR€ " + formatoPrecio(restar60(convertir / oficial.data['venta']), "EUR"), inline: true },
 
             //Blue
             { name: "Euro Blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
@@ -470,7 +470,7 @@ module.exports = {
         try {
           const [DIVISA, oficial, blue] = await Promise.all([
             axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
-            axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/euro/oficial'),
+            axios.get('https://dolarapi.com/v1/dolares/oficial'),
             axios.get('https://dolarapi.com/v1/dolares/blue')
           ]);
           let aconvertir = DIVISA.data['usd'][(divisa.iso).toLowerCase()]
@@ -489,7 +489,7 @@ module.exports = {
               { name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio((convertir * aconvertir) / oficial.data['venta'], divisa.iso), inline: true },
 
               //Impuestos
-              { name: "Impuestos (155%)  ", value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio(restar155((convertir * aconvertir) / oficial.data['venta']), divisa.iso), inline: true },
+              { name: "Impuestos (60%)  ", value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio(restar60((convertir * aconvertir) / oficial.data['venta']), divisa.iso), inline: true },
 
               //Blue
               { name: `${divisa.nombre} blue <:dolarblue:1181095026432938034>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },

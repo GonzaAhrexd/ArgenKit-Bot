@@ -3,7 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total155 } = require("../functions/impuestos"); //Impuestos
+const { total60 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 const wait = require('node:timers/promises').setTimeout
@@ -105,17 +105,17 @@ module.exports = {
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903145945980604447/dolar3.png")
                     .addFields(
                         { name: "Dólar oficial :bank:", value: "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes." },
-                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155(oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "COMPRA", value: `${formatoPrecio(oficial.data['compra'], "ARS")}`, inline: true },
+                        { name: "VENTA", value: `${formatoPrecio(oficial.data['venta'], "ARS")}`, inline: true },
+                        { name: "Impuestos (60%)", value: `${formatoPrecio(total60(oficial.data['venta']), "ARS")}`, inline: true },
                         //Blue
                         { name: "Dólar blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
-                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(blue.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(blue.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "COMPRA", value: `ARS${formatoPrecio(blue.data['compra'], "ARS")}`, inline: true },
+                        { name: "VENTA", value: `ARS${formatoPrecio(blue.data['venta'], "ARS")}`, inline: true },
                         //Financieros
                         { name: "Financieros <:finanzas:1068357650380755045>", value: "Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares." },
-                        { name: "CCL", value: `ARS$ ${currencyFormatter.format(ccl.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "MEP", value: `ARS$ ${currencyFormatter.format(mep.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                        { name: "CCL", value: `ARS${formatoPrecio(ccl.data['venta'], "ARS")}`, inline: true },
+                        { name: "MEP", value: `ARS${formatoPrecio(mep.data['compra'], "ARS")}`, inline: true }
                     );
                 const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Dólar estadounidense")
@@ -204,12 +204,12 @@ module.exports = {
                         { name: `1 DÓLAR <:rightarrow:921907270747570247> EURO`, value: ` ${formatoPrecio(conversion, "EUR")} `, inline: true },
                         { name: `1 EURO <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(1 / conversion, "USD")} `, inline: true },
                         { name: "Euro oficial :bank:", value: "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, además, sólo se puede retirar el equivalente a USD$200 al mes." },
-                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(euro.data['oficial_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(euro.data['oficial_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155(euro.data['oficial_euro']['value_sell']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                        { name: "COMPRA", value: `ARS${formatoPrecio(euro.data['oficial_euro']['value_buy'], "ARS")}`, inline: true },
+                        { name: "VENTA", value: `ARS${formatoPrecio(euro.data['oficial_euro']['value_sell'], "ARS")}`, inline: true },
+                        { name: "Impuestos (60%)", value: `ARS${formatoPrecio(total60(euro.data['oficial_euro']['value_sell']), "ARS")}`, inline: true },
                         { name: "Euro blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
-                        { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(euro.data['blue_euro']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                        { name: "VENTA", value: `ARS$ ${currencyFormatter.format(euro.data['blue_euro']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                        { name: "COMPRA", value: `ARS${formatoPrecio(euro.data['blue_euro']['value_buy'], "ARS")}`, inline: true },
+                        { name: "VENTA", value: `ARS${formatoPrecio(euro.data['blue_euro']['value_sell'], "ARS")}`, inline: true }
                     );
 
                 const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -634,7 +634,7 @@ module.exports = {
                 try {
                     const [DIVISA, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
-                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                        axios.get('https://dolarapi.com/v1/dolares/oficial'),
                         axios.get('https://api.bluelytics.com.ar/v2/latest')
                     ]);
                     let conversion: number = DIVISA.data['usd'][(divisa.iso).toLowerCase()]
@@ -654,12 +654,12 @@ module.exports = {
                             { name: `1 DÓLAR <:rightarrow:921907270747570247> ${(divisa.nombre).toUpperCase()}`, value: ` ${formatoPrecio(conversion, divisa.iso)} `, inline: true },
                             { name: `1 ${divisa.nombre} <:rightarrow:921907270747570247> DÓLAR`, value: ` ${formatoPrecio(1 / conversion, "USD")} `, inline: true },
                             { name: `${divisa.nombre} oficial :bank:`, value: `Valor de ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos`, inline: false },
-                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['compra'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format(((num / conversion)) * oficial.data['venta'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "Impuestos (155%)", value: `ARS$ ${currencyFormatter.format(total155((num / conversion) * oficial.data['venta']), { locale: 'es-ES', code: ' ' })}`, inline: true },
+                            { name: "COMPRA", value: `ARS${formatoPrecio(((num / conversion)) * oficial.data['compra'], "ARS")}`, inline: true },
+                            { name: "VENTA", value: `ARS${formatoPrecio(((num / conversion)) * oficial.data['venta'], "ARS")}`, inline: true },
+                            { name: "Impuestos (60%)", value: `ARS${formatoPrecio(total60((num / conversion) * oficial.data['venta']), "ARS")}`, inline: true },
                             { name: `${divisa.nombre} blue <:dolarblue:1181095026432938034>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
-                            { name: "COMPRA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue']['value_buy'], { locale: 'es-ES', code: ' ' })}`, inline: true },
-                            { name: "VENTA", value: `ARS$ ${currencyFormatter.format((num / conversion) * blue.data['blue']['value_sell'], { locale: 'es-ES', code: ' ' })}`, inline: true }
+                            { name: "COMPRA", value: `ARS${formatoPrecio((num / conversion) * blue.data['blue']['value_buy'], "ARS")}`, inline: true },
+                            { name: "VENTA", value: `ARS${formatoPrecio((num / conversion) * blue.data['blue']['value_sell'], "ARS")}`, inline: true }
                         )
 
                     const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()

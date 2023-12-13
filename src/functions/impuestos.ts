@@ -10,9 +10,8 @@ module.exports = {
     iva: (num) => calcularImpuesto(num, 0.21),
     pais8: (num) => calcularImpuesto(num, 0.08),
     pais30: (num) => calcularImpuesto(num, 0.30),
-    ganancias: (num) => calcularImpuesto(num, 1),
-    bienes: (num) => calcularImpuesto(num, 0.25),
-    total154: (num) => calcularImpuesto(num, 2.54), 
-    total155: (num) => calcularImpuesto(num, 2.55),
-    restar155: (num) => restarImpuesto(num, 2.55),
+    ganancias: (num) => calcularImpuesto(num, 0.30),
+    total59: (num) => calcularImpuesto(num, 1.59), 
+    total60: (num) => calcularImpuesto(num, 1.60),
+    restar60: (num) => restarImpuesto(num, 1.55),
 }

@@ -5,7 +5,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total155 } = require("../functions/impuestos"); //Impuestos
+const { total60 } = require("../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require('../functions/formato')
 const wait = require('node:timers/promises').setTimeout
 module.exports = {
@@ -95,7 +95,7 @@ module.exports = {
                 try {
                     const [metal, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
-                        axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/dolar/oficial'),
+                        axios.get('https://dolarapi.com/v1/dolares/oficial'),
                         axios.get('https://dolarapi.com/v1/dolares/blue'),
                     ]);
 
@@ -110,7 +110,7 @@ module.exports = {
                             { name: 'Compra ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['compra'], "ARS"), inline: true },
                             { name: 'Venta ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta'], "ARS"), inline: true },
                             //Impuestos
-                            { name: "Impuestos (155%)", value: "ARS" + formatoPrecio(total155((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS"), inline: true },
+                            { name: "Impuestos (60%)", value: "ARS" + formatoPrecio(total60((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS"), inline: true },
                             //Blue
                             { name: Metal.nombre + " a precio blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                             { name: "Compra", value: "ARS" + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * blue.data['compra'], "ARS"), inline: true },

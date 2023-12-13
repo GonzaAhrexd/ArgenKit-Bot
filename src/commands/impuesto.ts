@@ -20,11 +20,11 @@ module.exports = {
 
     function llenarEmbed(embed, porcentaje) {
       let arrayEmbed = [
-        { name: "Monto original", value: "$" + formatoPrecio(imp, "ARS") },
-        porcentaje == 59 ? { name: "I.V.A (21%) ", value: "$" + formatoPrecio(impuestos.iva(imp), "ARS"), inline: true } : null,
-        { name: `P.A.I.S ${porcentaje == 59 ? "(8%)" : "(30%)"}`, value: "$" + formatoPrecio((porcentaje == 59 ? impuestos.pais8(imp) : impuestos.pais30(imp)), "ARS"), inline: true },
-        { name: "Adelanto de Ganancias (30%)", value: "$" + formatoPrecio(impuestos.ganancias(imp), "ARS"), inline: true },
-        { name: `Total ${porcentaje === 59 ? "(59%)" : ""} ${porcentaje === 60 ? "(60%)" : ""} `, value: "$" + formatoPrecio((porcentaje == 59 && impuestos.total59(imp)) || (porcentaje == 60 && impuestos.total60(imp)), "ARS") }
+        { name: "Monto original", value:  formatoPrecio(imp, "ARS") },
+        porcentaje == 59 ? { name: "I.V.A (21%) ", value: formatoPrecio(impuestos.iva(imp), "ARS"), inline: true } : null,
+        { name: `P.A.I.S ${porcentaje == 59 ? "(8%)" : "(30%)"}`, value:  formatoPrecio((porcentaje == 59 ? impuestos.pais8(imp) : impuestos.pais30(imp)), "ARS"), inline: true },
+        { name: "Adelanto de Ganancias (30%)", value:  formatoPrecio(impuestos.ganancias(imp), "ARS"), inline: true },
+        { name: `Total ${porcentaje === 59 ? "(59%)" : ""} ${porcentaje === 60 ? "(60%)" : ""} `, value: formatoPrecio((porcentaje == 59 && impuestos.total59(imp)) || (porcentaje == 60 && impuestos.total60(imp)), "ARS") }
       ]
       arrayEmbed = arrayEmbed.filter(Boolean);
       embed.setTitle(`Impuestos a la compra al exterior (${porcentaje}%)`)
@@ -46,12 +46,12 @@ module.exports = {
       .addComponents(
         new ButtonBuilder()
           .setCustomId('tarjeta')
-          .setLabel("📄154%")
+          .setLabel("📄59%")
           .setStyle(ButtonStyle.Success)
       ).addComponents(
         new ButtonBuilder()
           .setCustomId('solidario')
-          .setLabel("📄155%")
+          .setLabel("📄60%")
           .setStyle(ButtonStyle.Primary)
       )
     

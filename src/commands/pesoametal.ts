@@ -3,7 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { embedError } from "../functions/embedError";
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { restar155 } = require("../functions/impuestos"); //Impuestos
+const { restar60 } = require("../functions/impuestos"); //Impuestos
 const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -109,7 +109,7 @@ module.exports = {
                                                 {name: `Venta ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir *  metal.data['usd'][Metal.iso]) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
                                               
                                                 //Impuestos
-                                                {name:"Impuestos (155%)  ", value:`${Metal.iso} ` + currencyFormatter.format(restar155((convertir *  metal.data['usd'][Metal.iso]) / oficial.data['venta']), { locale:'es-ES', code:' ', precision:8}), inline:true},
+                                                {name:"Impuestos (155%)  ", value:`${Metal.iso} ` + currencyFormatter.format(restar60((convertir *  metal.data['usd'][Metal.iso]) / oficial.data['venta']), { locale:'es-ES', code:' ', precision:8}), inline:true},
                                               
                                                 //Blue
                                                 {name:"Dólar blue <:dolarblue:1181095026432938034>", value:"Valor del mercado paralelo establecido por la oferta y la demanda", inline:false},

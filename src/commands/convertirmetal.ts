@@ -2,7 +2,7 @@
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total155 } = require("../functions/impuestos"); //Impuestos
+const { total60 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 const wait = require('node:timers/promises').setTimeout
@@ -112,7 +112,7 @@ module.exports = {
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['compra'], "ARS")}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['venta'], "ARS")}`, inline: true },
                             //Impuestos
-                            { name: "Impuestos (155%) ", value: `ARS${formatoPrecio(total155((convertir / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS")}`, inline: true },
+                            { name: "Impuestos (155%) ", value: `ARS${formatoPrecio(total60((convertir / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS")}`, inline: true },
                             //Blue
                             { name: `${Metal.nombre} a precio del Dólar Blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * blue.data['compra'], "ARS")}`, inline: true },

@@ -2,7 +2,7 @@
 import Discord from "discord.js"
 import axios from "axios"
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
-const { total60, total59 } = require("../functions/impuestos"); //Impuestos
+const { total60, total59, total21 } = require("../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require('../functions/formato')
 import { embedError } from "../functions/embedError"
 module.exports = {
@@ -126,9 +126,9 @@ module.exports = {
         .setDescription("Precio  de Crunchyroll  con impuestos en Argentina ")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903849721699913778/crunchyroll.png")
         .addFields(
-          { name: "Fan (1 MES):", value: "ARS " + formatoPrecio(total59(299), "ARS"), inline: true },
-          { name: "Mega Fan (1 Mes):", value: "ARS " + formatoPrecio(total59(379), "ARS"), inline: true },
-          { name: "Mega Fan (1 Año):", value: "ARS " + formatoPrecio(total59(3799), "ARS"), inline: true }
+          { name: "Fan (1 MES):", value: "ARS " + formatoPrecio(total21(299), "ARS"), inline: true },
+          { name: "Mega Fan (1 Mes):", value: "ARS " + formatoPrecio(total21(379), "ARS"), inline: true },
+          { name: "Mega Fan (1 Año):", value: "ARS " + formatoPrecio(total21(3799), "ARS"), inline: true }
         )
 
       return interaction.reply({ embeds: [embed] });

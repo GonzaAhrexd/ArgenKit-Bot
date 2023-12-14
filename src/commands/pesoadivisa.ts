@@ -174,7 +174,7 @@ module.exports = {
       await interaction.deferReply();
       try {
         const [oficial, blue, mep, ccl] = await Promise.all([
-          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+          axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
           axios.get('https://dolarapi.com/v1/dolares/blue'),
           axios.get('https://dolarapi.com/v1/dolares/bolsa'),
           axios.get('https://dolarapi.com/v1/dolares/contadoconliqui'),
@@ -470,7 +470,7 @@ module.exports = {
         try {
           const [DIVISA, oficial, blue] = await Promise.all([
             axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
-            axios.get('https://dolarapi.com/v1/dolares/oficial'),
+            axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
             axios.get('https://dolarapi.com/v1/dolares/blue')
           ]);
           let aconvertir = DIVISA.data['usd'][(divisa.iso).toLowerCase()]

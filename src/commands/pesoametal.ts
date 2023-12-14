@@ -94,7 +94,7 @@ module.exports = {
                 try {
                     const [metal, oficial, blue] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
-                        axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                        axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                         axios.get('https://dolarapi.com/v1/dolares/blue'),
                     ]);
 

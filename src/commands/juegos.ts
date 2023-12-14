@@ -60,7 +60,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -194,7 +194,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -283,7 +283,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -318,7 +318,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -433,7 +433,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -474,7 +474,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -509,7 +509,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -542,7 +542,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -570,7 +570,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -601,7 +601,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 
@@ -632,7 +632,7 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                 ]);
                 let valorDolar = oficial.data['venta']
 

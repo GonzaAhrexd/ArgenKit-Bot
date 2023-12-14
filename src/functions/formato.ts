@@ -3,5 +3,6 @@ export function formatoPrecio(valor:number, divisa:string):string{
 }
 
 export function formatoNum(valor:number):string{
+    valor = Number(valor.toFixed(2))
     return Intl.NumberFormat("es-AR").format(valor)
 }

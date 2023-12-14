@@ -4,7 +4,7 @@ import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
 const { total60 } = require("../functions/impuestos"); //Impuestos
-import { formatoPrecio } from '../functions/formato'
+import { formatoNum, formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 const wait = require('node:timers/promises').setTimeout
 module.exports = {
@@ -115,7 +115,12 @@ module.exports = {
                         //Financieros
                         { name: "Financieros <:finanzas:1068357650380755045>", value: "Son el resultante de operaciones bursátiles que implican comprar una acción o un bono en pesos y vender ese mismo papel en dólares." },
                         { name: "CCL", value: `ARS${formatoPrecio(ccl.data['venta'], "ARS")}`, inline: true },
-                        { name: "MEP", value: `ARS${formatoPrecio(mep.data['compra'], "ARS")}`, inline: true }
+                        { name: "MEP", value: `ARS${formatoPrecio(mep.data['venta'], "ARS")}`, inline: true },
+                        //Brechas
+                        { name: "Brecha <:Datos2:903096311102988378>", value: `Brecha porcentual existente entre los distintos tipos de cambio y el dólar oficial` },
+                        { name: "Blue <:dolarblue:1181095026432938034>", value: `${formatoNum((((blue.data['venta'] / oficial.data['venta']) - 1) * 100))}%`, inline: true },
+                        { name: "CCL <:finanzas:1068357650380755045>", value: `${formatoNum(((ccl.data['venta'] / oficial.data['venta']) - 1) * 100)}%`, inline: true },
+                        { name: "MEP <:finanzas:1068357650380755045>", value: `${formatoNum(((mep.data['venta'] / oficial.data['venta']) - 1) * 100)}%`, inline: true }
                     );
                 const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle("Dólar estadounidense")

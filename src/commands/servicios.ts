@@ -187,24 +187,24 @@ module.exports = {
     //AppleTV
 
     if (interaction.options.getSubcommand() === 'appletv') {
-      
-      axios.get('https://dolarapi.com/v1/dolares/oficial')
-        .then((oficial) => {
-          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-            .setTitle("Apple TV+")
-            .setURL("https://www.apple.com/la/tv/")
-            .setDescription("Los precios de Apple TV en Argentina son los siguientes: ")
-            .setColor('#eeeeee')
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913852356771319928/televisor_1.png")
-            .addFields(
-              { name: "Costo mensual", value: `ARS${formatoPrecio(total59(6.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            )
-          return interaction.reply({ embeds: [embed] });
-
-        })
-        .catch((error) => {
-          embedError(interaction, error)
-        })
+      await interaction.deferReply()
+      try {
+        const [oficial] = await Promise.all([
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+        ]);
+        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          .setTitle("Apple TV+")
+          .setURL("https://www.apple.com/la/tv/")
+          .setDescription("Los precios de Apple TV en Argentina son los siguientes: ")
+          .setColor('#eeeeee')
+          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913852356771319928/televisor_1.png")
+          .addFields(
+            { name: "Costo mensual", value: `ARS${formatoPrecio(total59(6.99 * oficial.data['venta']), "ARS")}`, inline: true },
+          )
+        await interaction.editReply({ embeds: [embed] });
+      } catch (error) {
+        embedError(interaction, error)
+      }
 
     }
 
@@ -231,20 +231,20 @@ module.exports = {
 
 
     if (interaction.options.getSubcommand() === 'discordnitro') {
-    
-          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-            .setTitle("Discord Nitro")
-            .setDescription("Los precios de Discord Nitro en Argentina son los siguientes: ")
-            .setColor('#8aa9fa')
-            .setThumbnail("https://gitdab.com/distok/apkfuckery/raw/commit/ceffadc1723d227e61ee1001a624979fd9c783bb/com.discord/res/drawable-xxxhdpi/img_wumpus_jetpack.png")
-            .addFields(
-              { name: "Discord Nitro Basic Mensual", value: `ARS${formatoPrecio(total59(216.99), "ARS")}`, inline: true },
-              { name: "Discord Nitro Mensual", value: `ARS${formatoPrecio(total59(584.99), "ARS")}`, inline: true },
-              { name: "Discord Nitro Basic Anual", value: `ARS${formatoPrecio(total59(2169.99), "ARS")}`, inline: true },
-              { name: "Discord Nitro Anual", value: `ARS${formatoPrecio(total59(5849.99), "ARS")}`, inline: true }
-            )
 
-          return interaction.reply({ embeds: [embed] });
+      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+        .setTitle("Discord Nitro")
+        .setDescription("Los precios de Discord Nitro en Argentina son los siguientes: ")
+        .setColor('#8aa9fa')
+        .setThumbnail("https://gitdab.com/distok/apkfuckery/raw/commit/ceffadc1723d227e61ee1001a624979fd9c783bb/com.discord/res/drawable-xxxhdpi/img_wumpus_jetpack.png")
+        .addFields(
+          { name: "Discord Nitro Basic Mensual", value: `ARS${formatoPrecio(total59(216.99), "ARS")}`, inline: true },
+          { name: "Discord Nitro Mensual", value: `ARS${formatoPrecio(total59(584.99), "ARS")}`, inline: true },
+          { name: "Discord Nitro Basic Anual", value: `ARS${formatoPrecio(total59(2169.99), "ARS")}`, inline: true },
+          { name: "Discord Nitro Anual", value: `ARS${formatoPrecio(total59(5849.99), "ARS")}`, inline: true }
+        )
+
+      return interaction.reply({ embeds: [embed] });
 
 
     }
@@ -252,124 +252,129 @@ module.exports = {
     //Google One
 
     if (interaction.options.getSubcommand() === 'googleone') {
+      await interaction.deferReply()
+      try {
+        const [oficial] = await Promise.all([
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+        ]);
+        const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          .setTitle("Google One")
+          .setDescription("Los precios de Google One mensual en Argentina son los siguientes: ")
+          .setColor('#f1bb1a')
+          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
+          .addFields(
+            { name: "Plan de 100GB (USD$ 1,99)", value: `ARS${formatoPrecio(total59(1.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 200GB (USD$ 2,99)", value: `ARS${formatoPrecio(total59(2.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 1TB (USD$ 9,99)", value: `ARS${formatoPrecio(total59(9.99 * oficial.data['venta']), "ARS")}`, inline: true }
+          )
 
-      axios.get('https://dolarapi.com/v1/dolares/oficial')
-        .then((oficial) => {
-          const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-            .setTitle("Google One")
-            .setDescription("Los precios de Google One mensual en Argentina son los siguientes: ")
-            .setColor('#f1bb1a')
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
-            .addFields(
-              { name: "Plan de 100GB (USD$ 1,99)", value: `ARS${formatoPrecio(total59(1.99 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "Plan de 200GB (USD$ 2,99)", value: `ARS${formatoPrecio(total59(2.99 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "Plan de 1TB (USD$ 9,99)", value: `ARS${formatoPrecio(total59(9.99 * oficial.data['venta']), "ARS")}`, inline: true }
-            )
-
-          const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-            .setTitle("Google One")
-            .setDescription("Los precios de Google One anual en Argentina son los siguientes:")
-            .setColor('#f1bb1a')
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
-            .addFields(
-              { name: "Plan de 100GB (USD$ 19,99)", value: `ARS${formatoPrecio(total59(19.99 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "Plan de 200GB (USD$ 29,99)", value: `ARS${formatoPrecio(total59(29.99 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "Plan de 1TB (USD$ 99,99)", value: `ARS${formatoPrecio(total59(99.99 * oficial.data['venta']), "ARS")}`, inline: true }
-            )
-
-
-          const row = new ActionRowBuilder()
-            .addComponents(
-              new ButtonBuilder()
-                .setCustomId('mensual')
-                .setLabel("Mensual")
-                .setStyle(ButtonStyle.Success)
-            ).addComponents(
-              new ButtonBuilder()
-                .setCustomId('anual')
-                .setLabel("Anual")
-                .setStyle(ButtonStyle.Primary)
-            )
-
-          interaction.reply({ embeds: [embed1], components: [row] });
-
-          client.on('interactionCreate', interaction => {
-            if (!interaction.isButton()) return;
-          });
+        const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          .setTitle("Google One")
+          .setDescription("Los precios de Google One anual en Argentina son los siguientes:")
+          .setColor('#f1bb1a')
+          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
+          .addFields(
+            { name: "Plan de 100GB (USD$ 19,99)", value: `ARS${formatoPrecio(total59(19.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 200GB (USD$ 29,99)", value: `ARS${formatoPrecio(total59(29.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 1TB (USD$ 99,99)", value: `ARS${formatoPrecio(total59(99.99 * oficial.data['venta']), "ARS")}`, inline: true }
+          )
 
 
-          const filter = i => i.customId;
+        const row = new ActionRowBuilder()
+          .addComponents(
+            new ButtonBuilder()
+              .setCustomId('mensual')
+              .setLabel("Mensual")
+              .setStyle(ButtonStyle.Success)
+          ).addComponents(
+            new ButtonBuilder()
+              .setCustomId('anual')
+              .setLabel("Anual")
+              .setStyle(ButtonStyle.Primary)
+          )
 
-          const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+        await interaction.editReply({ embeds: [embed1], components: [row] });
 
-          collector.on('collect', async i => {
-            if (i.customId === 'mensual') {
-              await i.deferUpdate()
-              await i.editReply({ embeds: [embed1], components: [row] });
-            }
-            if (i.customId === 'anual') {
+        client.on('interactionCreate', interaction => {
+          if (!interaction.isButton()) return;
+        });
 
-              await i.deferUpdate();
-              await i.editReply({ embeds: [embed2], components: [row] });
-            }
 
-          });
-        })
-        .catch((error) => {
-          embedError(interaction, error)
-        })
+        const filter = i => i.customId;
+
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+
+        collector.on('collect', async i => {
+          if (i.customId === 'mensual') {
+            await i.deferUpdate()
+            await i.editReply({ embeds: [embed1], components: [row] });
+          }
+          if (i.customId === 'anual') {
+
+            await i.deferUpdate();
+            await i.editReply({ embeds: [embed2], components: [row] });
+          }
+
+        });
+      } catch (error) {
+        embedError(interaction, error)
+      }
     }
 
     //EA
 
     if (interaction.options.getSubcommand() === 'ea') {
 
-      axios.get('https://dolarapi.com/v1/dolares/oficial')
-        .then((oficial) => {
-
-          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-            .setTitle("EA Play")
-            .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
-            .setDescription("Los precios de EA Play con impuestos en Argentina son los siguientes: ")
-            .setColor('#fe4747')
-            .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
-            .addFields(
-              { name: "EA Play Mensual", value: `ARS${formatoPrecio(total59(4.99 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "EA Play Anual:", value: `ARS${formatoPrecio(total59(29.99 * oficial.data['venta']), "ARS")}`, inline: true }
-            )
-          return interaction.reply({ embeds: [embed] });
-        })
-        .catch((error) => {
-          embedError(interaction, error)
-        })
+      await interaction.deferReply()
+      try {
+        const [oficial] = await Promise.all([
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+        ]);
+        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          .setTitle("EA Play")
+          .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
+          .setDescription("Los precios de EA Play con impuestos en Argentina son los siguientes: ")
+          .setColor('#fe4747')
+          .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
+          .addFields(
+            { name: "EA Play Mensual", value: `ARS${formatoPrecio(total59(4.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "EA Play Anual:", value: `ARS${formatoPrecio(total59(29.99 * oficial.data['venta']), "ARS")}`, inline: true }
+          )
+        await interaction.editReply({ embeds: [embed] });
+      }
+      catch (error) {
+        embedError(interaction, error)
+      }
 
     }
 
     //Steam
 
     if (interaction.options.getSubcommand() === 'steam') {
-      axios.get('https://dolarapi.com/v1/dolares/oficial')
-        .then((oficial) => {
+      await interaction.deferReply()
+      try {
+        const [oficial] = await Promise.all([
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+        ])
+        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          .setTitle("Fondos de la Cartera de Steam")
+          .setURL("https://store.steampowered.com/steamaccount/addfunds")
+          .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: \n")
+          .setColor('#306fb5')
+          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
+          .addFields(
+            { name: "USD$ 5.00", value: `ARS${formatoPrecio(total59(5 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "USD$ 10.00", value: `ARS${formatoPrecio(total59(10 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "USD$ 25.00", value: `ARS${formatoPrecio(total59(25 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "USD$ 50.00", value: `ARS${formatoPrecio(total59(50 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "USD$ 100.00", value: `ARS${formatoPrecio(total59(100 * oficial.data['venta']), "ARS")}`, inline: true },
+          )
 
-          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-            .setTitle("Fondos de la Cartera de Steam")
-            .setURL("https://store.steampowered.com/steamaccount/addfunds")
-            .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: \n")
-            .setColor('#306fb5')
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
-            .addFields(
-              { name: "USD$ 5.00", value: `ARS${formatoPrecio(total59(5 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "USD$ 10.00", value: `ARS${formatoPrecio(total59(10 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "USD$ 25.00", value: `ARS${formatoPrecio(total59(25 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "USD$ 50.00", value: `ARS${formatoPrecio(total59(50 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "USD$ 100.00", value: `ARS${formatoPrecio(total59(100 * oficial.data['venta']), "ARS")}`, inline: true },
-            )
-
-          return interaction.reply({ embeds: [embed] });
-        })
-        .catch((error) => {
-          embedError(interaction, error)
-        })
+        await interaction.editReply({ embeds: [embed] });
+      }
+      catch (error) {
+        embedError(interaction, error)
+      }
 
     }
 
@@ -392,82 +397,83 @@ module.exports = {
     //Twitch
 
     if (interaction.options.getSubcommand() === 'twitch') {
-      axios.get('https://dolarapi.com/v1/dolares/oficial')
-        .then((oficial) => {
-          const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-            .setTitle("Siscripciones de Twitch")
-            .setURL("https://www.twitch.tv/")
-            .setDescription("Los precios de las suscripciones a Twitch en Argentina son los siguientes: ")
-            .setColor('#9246ff')
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
-            .addFields(
-              { name: "Suscripción de nivel 1", value: `ARS$ ${formatoPrecio(total59(1.99 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "Suscripción de nivel 2", value: `ARS$ ${formatoPrecio(total59(3.99 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "Suscripción de nivel 3", value: `ARS$ ${formatoPrecio(total59(9.99 * oficial.data['venta']), "ARS")}`, inline: true }
-            )
+      await interaction.deferReply()
+      try {
+        const [oficial] = await Promise.all([
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+        ]);
+        const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          .setTitle("Siscripciones de Twitch")
+          .setURL("https://www.twitch.tv/")
+          .setDescription("Los precios de las suscripciones a Twitch en Argentina son los siguientes: ")
+          .setColor('#9246ff')
+          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
+          .addFields(
+            { name: "Suscripción de nivel 1", value: `ARS$ ${formatoPrecio(total59(1.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Suscripción de nivel 2", value: `ARS$ ${formatoPrecio(total59(3.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Suscripción de nivel 3", value: `ARS$ ${formatoPrecio(total59(9.99 * oficial.data['venta']), "ARS")}`, inline: true }
+          )
 
 
-          const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-            .setTitle("Bits de Twitch")
-            .setDescription("Los precios de los bits de Twitch en Argentina son los siguientes: ")
-            .setColor('#9246ff')
-            .setURL("https://www.twitch.tv/")
-            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
-            .addFields(
-              { name: "100 bits", value: `ARS$ ${formatoPrecio(total59(1.40 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "300 bits", value: `ARS$ ${formatoPrecio(total59(3.00 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "500 bits", value: `ARS$ ${formatoPrecio(total59(7.00 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "1.500 bits", value: `ARS$ ${formatoPrecio(total59(19.95 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "5.000 bits", value: `ARS$ ${formatoPrecio(total59(64.40 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "10.000 bits", value: `ARS$ ${formatoPrecio(total59(126.00 * oficial.data['venta']), "ARS")}`, inline: true },
-              { name: "25.000 bits", value: `ARS$ ${formatoPrecio(total59(308.00 * oficial.data['venta']), "ARS")}`, inline: true }
-            )
+        const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          .setTitle("Bits de Twitch")
+          .setDescription("Los precios de los bits de Twitch en Argentina son los siguientes: ")
+          .setColor('#9246ff')
+          .setURL("https://www.twitch.tv/")
+          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
+          .addFields(
+            { name: "100 bits", value: `ARS$ ${formatoPrecio(total59(1.40 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "300 bits", value: `ARS$ ${formatoPrecio(total59(3.00 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "500 bits", value: `ARS$ ${formatoPrecio(total59(7.00 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "1.500 bits", value: `ARS$ ${formatoPrecio(total59(19.95 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "5.000 bits", value: `ARS$ ${formatoPrecio(total59(64.40 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "10.000 bits", value: `ARS$ ${formatoPrecio(total59(126.00 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "25.000 bits", value: `ARS$ ${formatoPrecio(total59(308.00 * oficial.data['venta']), "ARS")}`, inline: true }
+          )
 
 
 
-          const row = new ActionRowBuilder()
-            .addComponents(
-              new ButtonBuilder()
-                .setCustomId('suscripciones')
-                .setLabel("Suscripciones")
-                .setStyle(ButtonStyle.Success)
-            ).addComponents(
-              new ButtonBuilder()
-                .setCustomId('bits')
-                .setLabel("Bits")
-                .setStyle(ButtonStyle.Primary)
-            )
+        const row = new ActionRowBuilder()
+          .addComponents(
+            new ButtonBuilder()
+              .setCustomId('suscripciones')
+              .setLabel("Suscripciones")
+              .setStyle(ButtonStyle.Success)
+          ).addComponents(
+            new ButtonBuilder()
+              .setCustomId('bits')
+              .setLabel("Bits")
+              .setStyle(ButtonStyle.Primary)
+          )
 
-          interaction.reply({ embeds: [embed1], components: [row] });
+        interaction.reply({ embeds: [embed1], components: [row] });
 
-          client.on('interactionCreate', interaction => {
-            if (!interaction.isButton()) return;
-          });
-
-
-          const filter = i => i.customId;
-
-          const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
-
-          collector.on('collect', async i => {
-            if (i.customId === 'suscripciones') {
-              await i.deferUpdate()
-              await i.editReply({ embeds: [embed1], components: [row] });
-            }
-            if (i.customId === 'bits') {
-
-              await i.deferUpdate();
-              await i.editReply({ embeds: [embed2], components: [row] });
-            }
-
-          });
+        client.on('interactionCreate', interaction => {
+          if (!interaction.isButton()) return;
+        });
 
 
-        })
-        .catch((err) => {
-            embedError(interaction, err)
+        const filter = i => i.customId;
 
-        })
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+
+        collector.on('collect', async i => {
+          if (i.customId === 'suscripciones') {
+            await i.deferUpdate()
+            await i.editReply({ embeds: [embed1], components: [row] });
+          }
+          if (i.customId === 'bits') {
+
+            await i.deferUpdate();
+            await i.editReply({ embeds: [embed2], components: [row] });
+          }
+
+        });
+      } catch (error) {
+        embedError(interaction, error)
+      }
+
+
 
     }
   }

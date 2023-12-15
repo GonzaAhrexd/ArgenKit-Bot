@@ -142,7 +142,7 @@ module.exports = {
 
              
                 await wait(3000)
-                await interaction.editReply({ embeds: [embedJava] });
+                await interaction.editReply({ embeds: [embedJava], components: [row] });
 
 
                 client.on('interactionCreate', interaction => {

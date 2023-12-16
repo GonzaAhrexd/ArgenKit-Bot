@@ -162,9 +162,9 @@ module.exports = {
         .setColor('#a6ed75')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903853195443445770/xbox.png")
         .addFields(
-          { name: "Xbox Game Pass Core", value: "ARS" + formatoPrecio((total59(1899)), "ARS"), inline: true },
-          { name: "Xbox Game Pass para PC / Consola", value: "ARS" + formatoPrecio((total59(2399)), "ARS"), inline: true },
-          { name: "Xbox Game Pass Ultimate", value: "ARS" + formatoPrecio((total59(2999)), "ARS"), inline: true }
+          { name: "Xbox Game Pass Core", value: "ARS" + formatoPrecio((total59(4299)), "ARS"), inline: true },
+          { name: "Xbox Game Pass para PC / Consola", value: "ARS" + formatoPrecio((total59(5399)), "ARS"), inline: true },
+          { name: "Xbox Game Pass Ultimate", value: "ARS" + formatoPrecio((total59(6999)), "ARS"), inline: true }
 
         )
       return interaction.reply({ embeds: [embed] });

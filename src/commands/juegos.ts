@@ -74,16 +74,16 @@ module.exports = {
                 const embedJava: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedJava, "Minecraft Java Edition")
                 embedJava.addFields(
-                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total59(5995), "ARS"), inline: true },
+                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total59(13199), "ARS"), inline: true },
                     { name: "Minecraft Realms (Java)", value: "ARS" + formatoPrecio(total59(valorDolar * 7.99), "ARS"), inline: true },
                 )
 
                 const embedBedrock: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedBedrock, "Minecraft Bedrock Edition")
                 embedBedrock.addFields(
-                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total59(5995), "ARS"), inline: true },
+                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total59(13199), "ARS"), inline: true },
                     { name: "Minecraft Bedrock (Android/iOS)", value: "ARS" + formatoPrecio(total59(valorDolar * 7.99), "ARS"), inline: true },
-                    { name: "Minecraft Bedrock (Xbox)", value: "ARS" + formatoPrecio(total59(3999), "ARS"), inline: true },
+                    { name: "Minecraft Bedrock (Xbox)", value: "ARS" + formatoPrecio(total59(8799), "ARS"), inline: true },
                     { name: "Minecraft Bedrock (PlayStation)", value: "ARS" + formatoPrecio(total59(valorDolar * 19.99), "ARS"), inline: true },
                     { name: "Minecraft Bedrock (Nintendo Switch)", value: "ARS" + formatoPrecio(total59(5999), "ARS"), inline: true },
                     { name: "Minecraft Realms Plus (Bedrock)", value: "ARS" + formatoPrecio(total59(115), "ARS"), inline: true },
@@ -98,7 +98,7 @@ module.exports = {
                 llenarEmbed(embedDungeons, "Minecraft Dungeons")
                 embedDungeons.addFields(
                     { name: "Minecraft Dungeons(<:MSTore:1181093660272635914><:Xbox:1181092947949801492><:Switch:1181093657491816528>)", value: "ARS" + formatoPrecio(total59(3999), "ARS"), inline: true },
-                    { name: "Minecraft Dungeons Edición Definitiva (<:MSTore:1181093660272635914><:Xbox:1181092947949801492>/<:Switch:1181093657491816528>)", value: "ARS" + formatoPrecio(total59(7999), "ARS"), inline: true },
+                    { name: "Minecraft Dungeons Edición Definitiva (<:MSTore:1181093660272635914><:Xbox:1181092947949801492>/<:Switch:1181093657491816528>)", value: "ARS" + formatoPrecio(total59(17739), "ARS"), inline: true },
                     { name: "Minecraft Dungeons(<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total59(valorDolar * 19.99), "ARS")}`, inline: true },
                     { name: "Minecraft Dungeons Edición Definitiva(<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total59(valorDolar * 39.99), "ARS")}`, inline: true },
                 )

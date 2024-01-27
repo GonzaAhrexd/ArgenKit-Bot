@@ -142,10 +142,9 @@ module.exports = {
         .setColor('#3fa5dc')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903852192929288213/icons8-disney-plus-480.png")
         .addFields(
-          { name: "1 Mes:", value: `ARS ${formatoPrecio(799, "ARS")}`, inline: true },
-          { name: "1 Año:", value: `ARS ${formatoPrecio(6699, "ARS")}`, inline: true },
-          { name: "Combo con Star+ mensual:", value: `ARS ${formatoPrecio(1999, "ARS")}`, inline: true },
-          { name: "Combo con Star+ y Lionsgate+ mensual:", value: `ARS ${formatoPrecio(2399, "ARS")}`, inline: true }
+          { name: "1 Mes:", value: `ARS ${formatoPrecio(1999, "ARS")}`, inline: true },
+          { name: "1 Año:", value: `ARS ${formatoPrecio(17949, "ARS")}`, inline: true },
+          { name: "Combo con Star+ mensual:", value: `ARS ${formatoPrecio(3999, "ARS")}`, inline: true },
         )
       return interaction.reply({ embeds: [embed] });
 

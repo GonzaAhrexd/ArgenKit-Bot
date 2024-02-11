@@ -110,10 +110,10 @@ module.exports = {
         .setColor('#7ad684')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903358342733389854/spotify_1.png")
         .addFields(
-          { name: "Individual:", value: "ARS" + formatoPrecio((total59(599)), "ARS"), inline: true },
-          { name: "Dúo:", value: "ARS" + formatoPrecio((total59(799)), "ARS"), inline: true },
-          { name: "Familiar:", value: "ARS" + formatoPrecio((total59(999)), "ARS"), inline: true },
-          { name: "Estudiantes:", value: "ARS" + formatoPrecio((total59(329)), "ARS"), inline: true }
+          { name: "Individual:", value: "ARS" + formatoPrecio((total59(1299)), "ARS"), inline: true },
+          { name: "Dúo:", value: "ARS" + formatoPrecio((total59(1699)), "ARS"), inline: true },
+          { name: "Familiar:", value: "ARS" + formatoPrecio((total59(2199)), "ARS"), inline: true },
+          { name: "Estudiantes:", value: "ARS" + formatoPrecio((total59(699)), "ARS"), inline: true }
         )
 
       return interaction.reply({ embeds: [embed] });
@@ -178,7 +178,7 @@ module.exports = {
         .setColor('#1aa6e0')
         .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
         .addFields(
-          { name: "Costo mensual", value: "ARS" + formatoPrecio(total59(1149), "ARS") })
+          { name: "Costo mensual", value: "ARS" + formatoPrecio(total59(1599), "ARS") })
       return interaction.reply({ embeds: [embed] });
 
     }

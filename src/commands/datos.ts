@@ -219,13 +219,14 @@ module.exports = {
         const inflacionInteranualAnterior = interanual.data[interanual.data.length - 2].v
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Inflación")
+          .setDescription("La inflación es el aumento generalizado y sostenido de los precios de los bienes y servicios existentes en el mercado durante un período de tiempo, generalmente un año.")
           .setColor("#FF0000")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1210388005571928194/interest-rate.png?ex=65ea60ac&is=65d7ebac&hm=583707d60d34e41f7eda6611ee1269a473e5bccc2146ab7138f53c14d68085e1&")
          .addFields({name: `Mensual \n(${fechas[0]})`, value: formatoNum(esteMes) + "%"  ,  inline: true},
                     {name:  `Mes anterior \n(${fechas[1]})`, value: formatoNum(mesAnterior) + "%" , inline: true },
                     {name: `Variación `, value: formatoNum(esteMes - mesAnterior) + "%" + subioInflacion(inflacion), inline: true },      
 
-                    {name: `Interanual \n(${fechas[2]} - ${fechas[3]}) `, value: formatoNum(inflacionInteranual) + "%" + subioInflacion(interanual) , inline: true },
+                    {name: `Interanual \n(${fechas[2]} - ${fechas[3]}) `, value: formatoNum(inflacionInteranual) + "%" , inline: true },
                     {name: `Interanual anterior \n(${fechas[4]} - ${fechas[5]})`, value: formatoNum(inflacionInteranualAnterior) + "%" , inline: true},
                     {name: `Variación`, value: formatoNum(inflacionInteranual - inflacionInteranualAnterior) + "%" + subioInflacion(interanual), inline: true},
 

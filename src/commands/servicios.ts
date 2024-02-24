@@ -230,6 +230,11 @@ module.exports = {
 
 
     if (interaction.options.getSubcommand() === 'discordnitro') {
+      await interaction.deferReply()
+      try {
+        const [oficial] = await Promise.all([
+          axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
+        ])
 
       const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Discord Nitro")
@@ -237,14 +242,15 @@ module.exports = {
         .setColor('#8aa9fa')
         .setThumbnail("https://gitdab.com/distok/apkfuckery/raw/commit/ceffadc1723d227e61ee1001a624979fd9c783bb/com.discord/res/drawable-xxxhdpi/img_wumpus_jetpack.png")
         .addFields(
-          { name: "Discord Nitro Basic Mensual", value: `ARS${formatoPrecio(total59(216.99), "ARS")}`, inline: true },
-          { name: "Discord Nitro Mensual", value: `ARS${formatoPrecio(total59(584.99), "ARS")}`, inline: true },
-          { name: "Discord Nitro Basic Anual", value: `ARS${formatoPrecio(total59(2169.99), "ARS")}`, inline: true },
-          { name: "Discord Nitro Anual", value: `ARS${formatoPrecio(total59(5849.99), "ARS")}`, inline: true }
+          { name: "Discord Nitro Basic Mensual", value: `ARS${formatoPrecio(total59(1.91), "ARS")}`, inline: true },
+          { name: "Discord Nitro Mensual", value: `ARS${formatoPrecio(total59(5.15), "ARS")}`, inline: true },
+          { name: "Discord Nitro Basic Anual", value: `ARS${formatoPrecio(total59(14.76), "ARS")}`, inline: true },
+          { name: "Discord Nitro Anual", value: `ARS${formatoPrecio(total59(51.48), "ARS")}`, inline: true }
         )
-
-      return interaction.reply({ embeds: [embed] });
-
+        await interaction.editReply({ embeds: [embed] });
+      } catch (error) {
+        embedError(interaction, error)
+      }
 
     }
 

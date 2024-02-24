@@ -8,8 +8,8 @@ const Discord = require('discord.js')
 // const { Routes } = require('discord-api-types/v9')
 require('dotenv').config() //Variables de entorno
 // const guild = client.guilds.cache.get()  
-const clientId = '810272095279251556' //Bot de pruebas
-// const clientId = '796173877981216799' //Bot estable
+// const clientId = '810272095279251556' //Bot de pruebas
+const clientId = '796173877981216799' //Bot estable
 const commands = []
 let slashcommandFiles = fs.readdirSync("./src/commands").filter(file => file.endsWith('ts'))
 

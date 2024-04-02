@@ -242,10 +242,10 @@ module.exports = {
         .setColor('#8aa9fa')
         .setThumbnail("https://gitdab.com/distok/apkfuckery/raw/commit/ceffadc1723d227e61ee1001a624979fd9c783bb/com.discord/res/drawable-xxxhdpi/img_wumpus_jetpack.png")
         .addFields(
-          { name: "Discord Nitro Basic Mensual", value: `ARS${formatoPrecio(total59(1.91), "ARS")}`, inline: true },
-          { name: "Discord Nitro Mensual", value: `ARS${formatoPrecio(total59(5.15), "ARS")}`, inline: true },
-          { name: "Discord Nitro Basic Anual", value: `ARS${formatoPrecio(total59(14.76), "ARS")}`, inline: true },
-          { name: "Discord Nitro Anual", value: `ARS${formatoPrecio(total59(51.48), "ARS")}`, inline: true }
+          { name: "Discord Nitro Basic Mensual", value: `ARS${formatoPrecio(total59(1.91 * oficial.data['venta']), "ARS")}`, inline: true },
+          { name: "Discord Nitro Mensual", value: `ARS${formatoPrecio(total59(5.15 * oficial.data['venta']), "ARS")}`, inline: true },
+          { name: "Discord Nitro Basic Anual", value: `ARS${formatoPrecio(total59(14.76 * oficial.data['venta']), "ARS")}`, inline: true },
+          { name: "Discord Nitro Anual", value: `ARS${formatoPrecio(total59(51.48 * oficial.data['venta']), "ARS")}`, inline: true }
         )
         await interaction.editReply({ embeds: [embed] });
       } catch (error) {

@@ -203,13 +203,13 @@ module.exports = {
           
           //Define la fecha el primer día del mes actual
           const startMonth:String = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split("T")[0]
-          //Ahora define el primer día de 2 meses atrás
-          const startTwoMonthsAgo:String = new Date(new Date().getFullYear(), new Date().getMonth() - 13, 1).toISOString().split("T")[0]
+          //Ahora define el primer día de 12 meses atrás
+          const startTwelveMonthsBefore:String = new Date(new Date().getFullYear(), new Date().getMonth() - 13, 1).toISOString().split("T")[0]
 
 
         const [inflacion, interanual] = await Promise.all([
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/27/${startTwoMonthsAgo}/${startMonth}`, { httpsAgent: agent }),
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/28/${startTwoMonthsAgo}/${startMonth}`, { httpsAgent: agent })
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/27/${startTwelveMonthsBefore}/${startMonth}`, { httpsAgent: agent }),
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/28/${startTwelveMonthsBefore}/${startMonth}`, { httpsAgent: agent })
         ]);
 
 

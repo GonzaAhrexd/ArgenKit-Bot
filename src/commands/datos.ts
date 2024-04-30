@@ -1,6 +1,7 @@
 
 import Discord from "discord.js"
 import axios from "axios"
+import https from 'https'
 import { formatoPrecio, formatoNum } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 const wait = require('node:timers/promises').setTimeout
@@ -69,30 +70,28 @@ module.exports = {
         // Importar axios
 
         // Obtener el token de la API de BCRA
-        const BCRAAPIToken = process.env.BCRAApiToken 
-        // Crear una instancia de axios con el token de autorización
-        const api = axios.create({
-          baseURL: 'https://api.estadisticasbcra.com',
-          headers: {
-            Authorization: `BEARER ${BCRAAPIToken}`
-          }
+        const agent = new https.Agent({  
+          rejectUnauthorized: false
         });
+        
+        const todayDate = new Date().toISOString().split("T")[0]
+        //Misma fecha pero 2 semanas antes
+        const twoWeeksAgo = new Date(Date.now() - 12096e5).toISOString().split("T")[0]
 
-        const [reservas] = await Promise.all([
-          api.get('/reservas')
-        ]);
-
-  
-        const fecha = new Date(reservas.data[reservas.data.length - 1].d).toLocaleDateString("es-AR");
+        let [reservas] = await Promise.all([
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/1/${twoWeeksAgo}/${todayDate}`, { httpsAgent: agent })
+        ]);     
+        reservas = reservas['data']['results'][reservas['data']['results'].length -1]
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Reservas del Banco Central de la República Argentina")
           .setColor("#9bcef7")
           .setDescription("Las reservas constituyen el componente más importante de los activos del Banco Central y se utilizan para financiar los pagos al exterior o para intervenir en el mercado cambiario.")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903122250708963358/bank.png")
-          .addFields({ name: "Valor  :bank: ", value: formatoPrecio(reservas.data[reservas.data.length - 1].v, "USD") + ` (${fecha})` })
+         // @ts-ignore
+         .addFields({ name: "Valor  :bank: ", value: formatoPrecio(reservas.valor.replace(".", ""), "USD") + ` (${reservas.fecha})` })
 
         await wait(3000)
-        await interaction.editReply({ embeds: [embed] });
+        await interaction.editReply({ embeds: [embed] }); 
       } catch (error) {
         embedError(interaction, error)
       }
@@ -177,10 +176,14 @@ module.exports = {
       try{
         function subioInflacion(inf): String {
 
-          const inflamesActual = inf.data[inf.data.length - 1].v
-          const inflamesanterior = inf.data[inf.data.length - 2].v
+          const inflamesActual:number = parseFloat((inf['data']['results'][inflacion['data']['results'].length -1].valor).replace(",", "."))
+          const inflamesanterior:number = parseFloat((inf['data']['results'][inflacion['data']['results'].length -2].valor).replace(",", "."))
 
           return inflamesActual > inflamesanterior ? "🔺" : "<:flechashaciaabajo:1210747546096369664>"
+      }
+      function anualizarInflacion(mensual:number): number{
+        let anualizado: number = (((mensual / 100) + 1) ** 12 - 1) * 100;
+        return anualizado
       }
 
         // Obtener el token de la API de BCRA
@@ -193,48 +196,73 @@ module.exports = {
           }
         });
 
+           // Obtener el token de la API de BCRA
+           const agent = new https.Agent({  
+            rejectUnauthorized: false
+          });
+          
+          //Define la fecha el primer día del mes actual
+          const startMonth:String = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split("T")[0]
+          //Ahora define el primer día de 2 meses atrás
+          const startTwoMonthsAgo:String = new Date(new Date().getFullYear(), new Date().getMonth() - 13, 1).toISOString().split("T")[0]
+
+
         const [inflacion, interanual] = await Promise.all([
-          api.get('/inflacion_mensual_oficial'),
-          api.get("/inflacion_interanual_oficial")
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/27/${startTwoMonthsAgo}/${startMonth}`, { httpsAgent: agent }),
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/28/${startTwoMonthsAgo}/${startMonth}`, { httpsAgent: agent })
         ]);
 
-        const fechas = 
-        [new Date(inflacion.data[inflacion.data.length - 1].d).toLocaleString('es-ES', { month: 'long' }),  
-        new Date(inflacion.data[inflacion.data.length - 2].d).toLocaleString('es-ES', { month: 'long' }),
-        new Date(inflacion.data[inflacion.data.length - 12].d).toLocaleDateString("es-AR"),
+
+        const convertirFecha = (fechaAConvertir:String): Date =>{
+          //Convierte esa fecha de tipo String a tipo Date
+          let fechaConvirtiendo = fechaAConvertir.split("/")
+          let intermedio = fechaConvirtiendo[1] + "-" + fechaConvirtiendo[0] + "-" + fechaConvirtiendo[2]
+          const fechaConvertida:Date = new Date(intermedio) 
+          return fechaConvertida
+        }
+        //A partir de la cadena 31/03/2024, cómo podría agregarlo a un objeto date?
+        const fechaAConvertir:String = inflacion['data']['results'][inflacion['data']['results'].length -1].fecha
+          
+        //Solo queda corregir esto
+        const fechas = [
+          convertirFecha(inflacion['data']['results'][inflacion['data']['results'].length -1].fecha).toLocaleString('es-ES', { month: 'long' })  ,
+          convertirFecha(inflacion['data']['results'][inflacion['data']['results'].length -2].fecha).toLocaleString('es-ES', { month: 'long' })  ,
+          convertirFecha(interanual['data']['results'][inflacion['data']['results'].length -12].fecha).toLocaleDateString("es-AR"),
+          convertirFecha(interanual['data']['results'][inflacion['data']['results'].length -1].fecha).toLocaleDateString("es-AR"),
+          convertirFecha(interanual['data']['results'][inflacion['data']['results'].length -13].fecha).toLocaleDateString("es-AR"),
+          convertirFecha(interanual['data']['results'][inflacion['data']['results'].length -2].fecha).toLocaleDateString("es-AR"),
+        
+        ]
+        /* new Date(inflacion.data[inflacion.data.length - 12].d).toLocaleDateString("es-AR"),
         new Date(inflacion.data[inflacion.data.length - 1].d).toLocaleDateString("es-AR"),
         new Date(inflacion.data[interanual.data.length - 13].d).toLocaleDateString("es-AR"),
         new Date(inflacion.data[interanual.data.length - 2].d).toLocaleDateString("es-AR"),
-      ]
+      */
 
-        function anualizarInflacion(mensual:number): number{
-          let anualizado: number = (((mensual / 100) + 1) ** 12 - 1) * 100;
-          return anualizado
-        }
-
-        const esteMes = inflacion.data[inflacion.data.length - 1].v
-        const mesAnterior = inflacion.data[inflacion.data.length - 2].v
+      
+        const esteMes = parseFloat((inflacion['data']['results'][inflacion['data']['results'].length -1].valor).replace(",", "."))
+        const mesAnterior = parseFloat((inflacion['data']['results'][inflacion['data']['results'].length -2].valor).replace(",", "."))        
         const inflacionAnualizada = anualizarInflacion(esteMes)
-        const inflacionInteranual = interanual.data[interanual.data.length - 1].v
-        const inflacionInteranualAnterior = interanual.data[interanual.data.length - 2].v
+        const inflacionInteranual = parseFloat((interanual['data']['results'][inflacion['data']['results'].length -1].valor).replace(",", "."))
+        const inflacionInteranualAnterior = parseFloat((interanual['data']['results'][inflacion['data']['results'].length -2].valor).replace(",", "."))
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-          .setTitle("Inflación")
+        .setTitle("Inflación")
           .setDescription("La inflación es el aumento generalizado y sostenido de los precios de los bienes y servicios existentes en el mercado durante un período de tiempo, generalmente un año.")
           .setColor("#FF0000")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1210388005571928194/interest-rate.png?ex=65ea60ac&is=65d7ebac&hm=583707d60d34e41f7eda6611ee1269a473e5bccc2146ab7138f53c14d68085e1&")
          .addFields({name: `Mensual \n(${fechas[0]})`, value: formatoNum(esteMes) + "%"  ,  inline: true},
                     {name:  `Mes anterior \n(${fechas[1]})`, value: formatoNum(mesAnterior) + "%" , inline: true },
-                    {name: `Variación `, value: formatoNum(esteMes - mesAnterior) + "%" + subioInflacion(inflacion), inline: true },      
+                    {name: `Variación `, value: formatoNum((esteMes) - (mesAnterior)) + "%" + subioInflacion(inflacion), inline: true },      
 
-                    {name: `Interanual \n(${fechas[2]} - ${fechas[3]}) `, value: formatoNum(inflacionInteranual) + "%" , inline: true },
-                    {name: `Interanual anterior \n(${fechas[4]} - ${fechas[5]})`, value: formatoNum(inflacionInteranualAnterior) + "%" , inline: true},
+                    {name: `Interanual \n(${fechas[2]} - ${fechas[3]}) `, value: (inflacionInteranual) + "%" , inline: true },
+                    {name: `Interanual anterior \n(${fechas[4]} - ${fechas[5]})`, value: (inflacionInteranualAnterior) + "%" , inline: true},
                     {name: `Variación`, value: formatoNum(inflacionInteranual - inflacionInteranualAnterior) + "%" + subioInflacion(interanual), inline: true},
 
-                    {name: `Mensual anualizado` , value: formatoNum(inflacionAnualizada) + "%", inline: true }                   
+                    {name: `Mensual anualizado` , value: (formatoNum(inflacionAnualizada)) + "%", inline: true }                   
                     )
 
         await wait(3000)
-        await interaction.editReply({ embeds: [embed] });
+        await interaction.editReply({ embeds: [embed] }); 
       }catch(error){
         embedError(interaction, error)
       }

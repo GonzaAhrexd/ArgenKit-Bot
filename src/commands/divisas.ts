@@ -282,7 +282,7 @@ module.exports = {
             } catch (error) {
                 embedError(interaction, error)
             }
-        }
+        }        
         let divisas: Array<
             {
                 id: string,
@@ -628,8 +628,6 @@ module.exports = {
                     inflacion: "12.15%",
                     emisor: "Banco Central de Turquía"
                 },
-
-
 
             ]
 

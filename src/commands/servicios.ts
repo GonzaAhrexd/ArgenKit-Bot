@@ -126,9 +126,9 @@ module.exports = {
         .setDescription("Precio  de Crunchyroll  con impuestos en Argentina ")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903849721699913778/crunchyroll.png")
         .addFields(
-          { name: "Fan (1 MES):", value: "ARS " + formatoPrecio(total21(299), "ARS"), inline: true },
-          { name: "Mega Fan (1 Mes):", value: "ARS " + formatoPrecio(total21(379), "ARS"), inline: true },
-          { name: "Mega Fan (1 Año):", value: "ARS " + formatoPrecio(total21(3799), "ARS"), inline: true }
+          { name: "Fan (1 MES):", value: "ARS " + formatoPrecio(total21(3499), "ARS"), inline: true },
+          { name: "Mega Fan (1 Mes):", value: "ARS " + formatoPrecio(total21(4399), "ARS"), inline: true },
+          { name: "Mega Fan (1 Año):", value: "ARS " + formatoPrecio(total21(43999), "ARS"), inline: true }
         )
 
       return interaction.reply({ embeds: [embed] });

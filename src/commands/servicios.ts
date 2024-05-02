@@ -91,13 +91,13 @@ module.exports = {
       const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("YouTube Premium")
         .setURL("https://www.youtube.com/premium")
-        .setDescription("Los precios de YouTube Premium en Argentina con impuestos son los siguientes:")
+        .setDescription("Los precios de YouTube Premium en Argentina con impuestos son los siguientes: \nNuevos precios estimados para mayo/junio para suscriptores actuales")
         .setColor('#ff0000')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903357207310127185/youtube.png")
         .addFields(
-          { name: "YouTube Music:", value: "ARS" + formatoPrecio(total60(599), "ARS"), inline: true },
-          { name: "YouTube Premium Individual:", value: "ARS" + formatoPrecio(total60(869), "ARS"), inline: true },
-          { name: "YouTube Premium Familiar:", value: "ARS" + formatoPrecio(total60(1569), "ARS"), inline: true }
+          { name: "YouTube Music:", value: "ARS" + formatoPrecio(total60(1299), "ARS"), inline: true },
+          { name: "YouTube Premium Individual:", value: "ARS" + formatoPrecio(total60(1899), "ARS"), inline: true },
+          { name: "YouTube Premium Familiar:", value: "ARS" + formatoPrecio(total60(3699), "ARS"), inline: true }
         )
 
       return interaction.reply({ embeds: [embed] });

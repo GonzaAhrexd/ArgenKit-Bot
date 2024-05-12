@@ -196,7 +196,7 @@ module.exports = {
             try {
                 const [euro, valorUSD] = await Promise.all([
                     axios.get('https://api.bluelytics.com.ar/v2/latest'),
-                    axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json')
+                    axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json')
                 ]);
                 let conversion: number = valorUSD.data['usd']['eur']
                 const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -636,7 +636,7 @@ module.exports = {
                 await interaction.deferReply();
                 try {
                     const [DIVISA, oficial, blue] = await Promise.all([
-                        axios.get('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'),
+                        axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
                         axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
                         axios.get('https://api.bluelytics.com.ar/v2/latest')
                     ]);

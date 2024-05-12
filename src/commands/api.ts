@@ -13,7 +13,7 @@ module.exports = {
           { name: 'Cotizaciones del dólar', value: "https://dolarapi.com/docs/" },
           {name: 'Riesgo País, Reservas y otras cosas', value: "https://github.com/guidospadavecchia/DolarBot-Api"},
           {name: 'Cotizaciones dólar y euro blue', value: "https://api.bluelytics.com.ar/v2/latest"},
-          {name: 'Cotizaciones otras monedas', value: 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'},
+          {name: 'Cotizaciones otras monedas', value: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'},
           { name: 'Cotizaciones de criptomonedas',  value: "https://www.coingecko.com/es" },
           { name: 'Cotizaciones de criptomonedas', value: "https://criptoya.com/api" },
           { name: 'Cotizaciones de acciones', value: "https://finnhub.io/" },

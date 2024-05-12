@@ -101,29 +101,29 @@ module.exports = {
 
       await interaction.deferReply();
       try {
-       
-        // Obtener el token de la API de BCRA
-        const BCRAAPIToken = process.env.BCRAApiToken 
-        // Crear una instancia de axios con el token de autorización
-        const api = axios.create({
-          baseURL: 'https://api.estadisticasbcra.com',
-          headers: {
-            Authorization: `BEARER ${BCRAAPIToken}`
-          }
-        });
+        
+          // Obtener el token de la API de BCRA
+          const agent = new https.Agent({  
+            rejectUnauthorized: false
+          });
+          
+          //Dame la fecha actual
+          const todayDate = new Date().toISOString().split("T")[0]
+          const twoWeeksAgo = new Date(Date.now() - 12096e5).toISOString().split("T")[0]
+          
 
         const [circulante] = await Promise.all([
-          api.get('/circulacion_monetaria')
-        ]);
-
-        const fecha = new Date(circulante.data[circulante.data.length - 1].d).toLocaleDateString("es-AR");
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/16/${twoWeeksAgo}/${todayDate}`, { httpsAgent: agent }),
+         ]);
+         const circulanteValor = circulante['data']['results'][circulante['data']['results'].length -1].valor
+        const fecha = circulante['data']['results'][circulante['data']['results'].length -1].fecha
        
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Pesos Argentinos en circulación")
           .setDescription("La cantidad de pesos en circulación en la economía")
           .setColor("#FAD56F")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1210375333761654834/cash-flow.png?ex=65ea54df&is=65d7dfdf&hm=575568c65381ec4dcf3bdf3ad50e08f9be26325e673951f0000c8996242838ea&")
-          .addFields({ name: "Valor  :bank: ", value: formatoPrecio(circulante.data[circulante.data.length - 1].v, "ARS") + ` (${fecha})` })
+          .addFields({ name: "Valor  :bank: ", value: '$ ' + circulanteValor + ` (${fecha})` })
 
         await wait(3000)
         await interaction.editReply({ embeds: [embed] });
@@ -151,6 +151,8 @@ module.exports = {
           api.get('/base_usd'),
         
         ]);
+
+        
 
 
         const fecha = new Date(baseMonetaria.data[baseMonetaria.data.length - 1].d).toLocaleDateString("es-AR");
@@ -185,16 +187,6 @@ module.exports = {
         let anualizado: number = (((mensual / 100) + 1) ** 12 - 1) * 100;
         return anualizado
       }
-
-        // Obtener el token de la API de BCRA
-        const BCRAAPIToken = process.env.BCRAApiToken 
-        // Crear una instancia de axios con el token de autorización
-        const api = axios.create({
-          baseURL: 'https://api.estadisticasbcra.com',
-          headers: {
-            Authorization: `BEARER ${BCRAAPIToken}`
-          }
-        });
 
            // Obtener el token de la API de BCRA
            const agent = new https.Agent({  
@@ -233,11 +225,7 @@ module.exports = {
           convertirFecha(interanual['data']['results'][inflacion['data']['results'].length -2].fecha).toLocaleDateString("es-AR"),
         
         ]
-        /* new Date(inflacion.data[inflacion.data.length - 12].d).toLocaleDateString("es-AR"),
-        new Date(inflacion.data[inflacion.data.length - 1].d).toLocaleDateString("es-AR"),
-        new Date(inflacion.data[interanual.data.length - 13].d).toLocaleDateString("es-AR"),
-        new Date(inflacion.data[interanual.data.length - 2].d).toLocaleDateString("es-AR"),
-      */
+        
 
       
         const esteMes = parseFloat((inflacion['data']['results'][inflacion['data']['results'].length -1].valor).replace(",", "."))

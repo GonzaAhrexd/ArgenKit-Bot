@@ -25,7 +25,7 @@ module.exports = {
         .setDescription('Muestra el valor de la base monetaria actual')
     ).addSubcommand(subcommand =>
       subcommand.setName('inflacion')
-        .setDescription('Muestra el valor de la base monetaria actual')
+        .setDescription('Muestra el Indice de Precios al Consumidor del último mes registrado y comparaciones previas')
     )
     .addSubcommand(subcommand =>
       subcommand.setName('pbi')
@@ -59,11 +59,7 @@ module.exports = {
         embedError(interaction, error)
       }
     }
-
-
-
     //Reservas
-
     if (interaction.options.getSubcommand() === 'reservas') {
       await interaction.deferReply();
       try {
@@ -137,33 +133,36 @@ module.exports = {
       await interaction.deferReply();
       try{
         // Obtener el token de la API de BCRA
-        const BCRAAPIToken = process.env.BCRAApiToken 
-        // Crear una instancia de axios con el token de autorización
-        const api = axios.create({
-          baseURL: 'https://api.estadisticasbcra.com',
-          headers: {
-            Authorization: `BEARER ${BCRAAPIToken}`
-          }
-        });
+       
+           // Obtener el token de la API de BCRA
+           const agent = new https.Agent({  
+            rejectUnauthorized: false
+          });
+          
 
-        const [baseMonetaria, baseMonetariaUSD] = await Promise.all([
-          api.get('/base'),
-          api.get('/base_usd'),
-        
-        ]);
+      //Dame la fecha actual
+      const todayDate = new Date().toISOString().split("T")[0]
+      const twoWeeksAgo = new Date(Date.now() - 12096e5).toISOString().split("T")[0]
+      
 
-        
+    const [baseMonetaria] = await Promise.all([
+      axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/15/${twoWeeksAgo}/${todayDate}`, { httpsAgent: agent }),
+     ]);
 
+     const baseMonetariaValor  = baseMonetaria['data']['results'][baseMonetaria['data']['results'].length -1].valor
+       const baseMonetariaValorAnterior = baseMonetaria['data']['results'][baseMonetaria['data']['results'].length -2].valor
 
-        const fecha = new Date(baseMonetaria.data[baseMonetaria.data.length - 1].d).toLocaleDateString("es-AR");
+       let isAumentoBase = baseMonetariaValor > baseMonetariaValorAnterior ? "🔺" : "<:flechashaciaabajo:1210747546096369664>"
+
+        const fecha = baseMonetaria['data']['results'][baseMonetaria['data']['results'].length -1].fecha
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Base Monetaria")
           .setDescription("La Base Monetaria está constituida por el dinero legal en circulación (billetes y monedas), más las reservas de bancos en el banco central. La base monetaria es controlada por el banco central y constituye su principal vía para controlar la oferta monetaria. Otra vía para definir la base monetaria es que constituyen los pasivos monetarios del banco central.")
           .setColor("#FAD56F")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1177083051579293696/profits.png?ex=65713704&is=655ec204&hm=7e73a87fbc7549b29a236a1b60cb97a45f421eb3ca79d284109a5694d902a7df&")
-         .addFields({ name: "Valor  :bank: ", value: formatoPrecio(baseMonetaria.data[baseMonetaria.data.length - 1].v, "ARS") + ` (${fecha})` },
-                    {  name: "Valor en USD :bank: ", value: formatoPrecio(baseMonetariaUSD.data[baseMonetariaUSD.data.length - 1].v, "USD") + ` (${fecha})` }
-         )
+         .addFields({ name: "Valor  :bank: ", value: '$ ' + baseMonetariaValor + ` (${fecha})` + isAumentoBase })
+                
+
 
         await wait(3000)
         await interaction.editReply({ embeds: [embed] });
@@ -212,10 +211,8 @@ module.exports = {
           const fechaConvertida:Date = new Date(intermedio) 
           return fechaConvertida
         }
-        //A partir de la cadena 31/03/2024, cómo podría agregarlo a un objeto date?
         const fechaAConvertir:String = inflacion['data']['results'][inflacion['data']['results'].length -1].fecha
           
-        //Solo queda corregir esto
         const fechas = [
           convertirFecha(inflacion['data']['results'][inflacion['data']['results'].length -1].fecha).toLocaleString('es-ES', { month: 'long' })  ,
           convertirFecha(inflacion['data']['results'][inflacion['data']['results'].length -2].fecha).toLocaleString('es-ES', { month: 'long' })  ,
@@ -223,11 +220,7 @@ module.exports = {
           convertirFecha(interanual['data']['results'][inflacion['data']['results'].length -1].fecha).toLocaleDateString("es-AR"),
           convertirFecha(interanual['data']['results'][inflacion['data']['results'].length -13].fecha).toLocaleDateString("es-AR"),
           convertirFecha(interanual['data']['results'][inflacion['data']['results'].length -2].fecha).toLocaleDateString("es-AR"),
-        
         ]
-        
-
-      
         const esteMes = parseFloat((inflacion['data']['results'][inflacion['data']['results'].length -1].valor).replace(",", "."))
         const mesAnterior = parseFloat((inflacion['data']['results'][inflacion['data']['results'].length -2].valor).replace(",", "."))        
         const inflacionAnualizada = anualizarInflacion(esteMes)
@@ -238,7 +231,8 @@ module.exports = {
           .setDescription("La inflación es el aumento generalizado y sostenido de los precios de los bienes y servicios existentes en el mercado durante un período de tiempo, generalmente un año.")
           .setColor("#FF0000")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1210388005571928194/interest-rate.png?ex=65ea60ac&is=65d7ebac&hm=583707d60d34e41f7eda6611ee1269a473e5bccc2146ab7138f53c14d68085e1&")
-         .addFields({name: `Mensual \n(${fechas[0]})`, value: formatoNum(esteMes) + "%"  ,  inline: true},
+         .addFields(
+                    {name: `Mensual \n(${fechas[0]})`, value: formatoNum(esteMes) + "%"  ,  inline: true},
                     {name:  `Mes anterior \n(${fechas[1]})`, value: formatoNum(mesAnterior) + "%" , inline: true },
                     {name: `Variación `, value: formatoNum((esteMes) - (mesAnterior)) + "%" + subioInflacion(inflacion), inline: true },      
 

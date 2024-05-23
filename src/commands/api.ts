@@ -18,7 +18,8 @@ module.exports = {
           { name: 'Cotizaciones de criptomonedas', value: "https://criptoya.com/api" },
           { name: 'Cotizaciones de acciones', value: "https://finnhub.io/" },
           {name: 'Clima', value: 'https://openweathermap.org/'},
-          {name: 'PBI y otros datos', value: 'https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information'}
+          {name: 'PBI y otros datos', value: 'https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information'},
+          {name: 'Datos variados sobre variables del BCRA', value: 'https://www.bcra.gob.ar/Catalogo/apis.asp?fileName=principales-variables-v2'}
         )
       await interaction.reply({ embeds: [embed]})
     }

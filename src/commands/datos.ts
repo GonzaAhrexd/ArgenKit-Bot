@@ -74,7 +74,7 @@ module.exports = {
         const twoWeeksAgo = new Date(Date.now() - 12096e5).toISOString().split("T")[0]
 
         let [reservas] = await Promise.all([
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v2.0/datosvariable/1/${twoWeeksAgo}/${todayDate}`, { httpsAgent: agent })
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/1/${twoWeeksAgo}/${todayDate}`, { httpsAgent: agent })
         ]);     
         reservas = reservas['data']['results'][reservas['data']['results'].length -1]
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -108,7 +108,7 @@ module.exports = {
           
 
         const [circulante] = await Promise.all([
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v2.0/datosvariable/16/${twoWeeksAgo}/${todayDate}`, { httpsAgent: agent }),
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/16/${twoWeeksAgo}/${todayDate}`, { httpsAgent: agent }),
          ]);
          const circulanteValor = circulante['data']['results'][circulante['data']['results'].length -1].valor
         const fecha = circulante['data']['results'][circulante['data']['results'].length -1].fecha
@@ -145,7 +145,7 @@ module.exports = {
       
 
     const [baseMonetaria] = await Promise.all([
-      axios.get(`https://api.bcra.gob.ar/estadisticas/v2.0/datosvariable/15/${twoWeeksAgo}/${todayDate}`, { httpsAgent: agent }),
+      axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/15/${twoWeeksAgo}/${todayDate}`, { httpsAgent: agent }),
      ]);
 
      const baseMonetariaValor  = baseMonetaria['data']['results'][baseMonetaria['data']['results'].length -1].valor
@@ -198,8 +198,8 @@ module.exports = {
 
 
         const [inflacion, interanual] = await Promise.all([
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v2.0/datosvariable/27/${startTwelveMonthsBefore}/${startMonth}`, { httpsAgent: agent }),
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v2.0/datosvariable/28/${startTwelveMonthsBefore}/${startMonth}`, { httpsAgent: agent })
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/27/${startTwelveMonthsBefore}/${startMonth}`, { httpsAgent: agent }),
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v1/datosvariable/28/${startTwelveMonthsBefore}/${startMonth}`, { httpsAgent: agent })
         ]);
 
 

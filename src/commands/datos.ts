@@ -286,11 +286,10 @@ module.exports = {
         .addFields(
           { name: "Presidente", value: "Javier Gerardo Milei (LLA 🟣)", inline: true },
           { name: "Vicepresidente", value: "Victoria Villaruel (LLA 🟣)", inline: true },
-          { name: "Jefatura de Gabinete", value: "Nicolás Posse (LLA 🟣)", inline: true },
+          { name: "Jefatura de Gabinete", value: "Guillermo Francos (LLA 🟣)", inline: true },
           { name: "Ministerio de Capital Humano", value: "Sandra Pettovello (UCEDE 🔵)", inline: true },
           { name: "Ministerio de Defensa", value: "Luis Petri (UCR 🔴)", inline: true },
           { name: "Ministerio de Economía", value: "Luis Caputo (PRO 🟡)", inline: true },
-          { name: "Ministerio del Interior", value: "Guillermo Francos (LLA 🟣)", inline: true },
           { name: "Ministerio de Justicia", value: "Mariano Cúneo Libarona (LLA 🟣)", inline: true },
           { name: "Ministerio de Relaciones Exteriores", value: "Diana Mondino (LLA 🟣)", inline: true },
           { name: "Ministerio de Seguridad", value: "Patricia Bullrich (PRO 🟡)", inline: true },

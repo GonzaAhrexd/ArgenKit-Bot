@@ -42,8 +42,8 @@ module.exports = {
         .setDescription('Muestra el precio de Apple TV + impuestos')
     )
     .addSubcommand(subcommand =>
-      subcommand.setName('hbomax')
-        .setDescription('Muestra el precio de HBO MAX + impuestos')
+      subcommand.setName('max')
+        .setDescription('Muestra el precio de MAX + impuestos')
     )
     .addSubcommand(subcommand =>
       subcommand.setName('discordnitro')
@@ -142,9 +142,9 @@ module.exports = {
         .setColor('#3fa5dc')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903852192929288213/icons8-disney-plus-480.png")
         .addFields(
-          { name: "1 Mes:", value: `ARS ${formatoPrecio(1999, "ARS")}`, inline: true },
-          { name: "1 Año:", value: `ARS ${formatoPrecio(17949, "ARS")}`, inline: true },
-          { name: "Combo con Star+ mensual:", value: `ARS ${formatoPrecio(3999, "ARS")}`, inline: true },
+          { name: "1 Mes:", value: `ARS ${formatoPrecio(3.999, "ARS")}`, inline: true },
+          { name: "1 Año:", value: `ARS ${formatoPrecio(35899, "ARS")}`, inline: true },
+          { name: "Combo con Star+ mensual:", value: `ARS ${formatoPrecio(6399, "ARS")}`, inline: true },
         )
       return interaction.reply({ embeds: [embed] });
 
@@ -178,7 +178,7 @@ module.exports = {
         .setColor('#1aa6e0')
         .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
         .addFields(
-          { name: "Costo mensual", value: "ARS" + formatoPrecio(total59(1599), "ARS") })
+          { name: "Costo mensual", value: "ARS" + formatoPrecio(total59(3499), "ARS") })
       return interaction.reply({ embeds: [embed] });
 
     }
@@ -213,15 +213,20 @@ module.exports = {
 
 
       const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-        .setTitle("HBO Max")
-        .setURL("https://www.hbomax.com/latam/es")
+        .setTitle("MAX")
+        .setURL("https://www.max.com/ar/es")
         .setDescription("Precio de HBO Max  en  Argentina con impuestos ")
-        .setColor('#970899')
-        .setThumbnail("https://hbomax-images.warnermediacdn.com/2020-05/square%20social%20logo%20400%20x%20400_0.png")
+        .setColor('#0422CB')
+        .setThumbnail("https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Max_logo.svg/2560px-Max_logo.svg.png")
         .addFields(
-          { name: "Suscripción mensual estándar", value: `ARS${formatoPrecio(total59(1590), "ARS")}`, inline: true },
-          { name: "Suscripción trimestral estándar", value: `ARS${formatoPrecio(total59(4290), "ARS")}`, inline: true },
-          { name: "Suscripción anual estándar", value: `ARS${formatoPrecio(total59(12990), "ARS")}`, inline: true }
+          // Mensual
+          { name: "Suscripción mensual básico con anuncios", value: `ARS${formatoPrecio(total59(3990), "ARS")}`, inline: true },
+          { name: "Suscripción mensual estándar", value: `ARS${formatoPrecio(total59(4990), "ARS")}`, inline: true },
+          { name: "Suscripción mensual platino", value: `ARS${formatoPrecio(total59(5990), "ARS")}`, inline: true },
+          // Anual
+          { name: "Suscripción anual básico con anuncios", value: `ARS${formatoPrecio(total59(33900), "ARS")}`, inline: true },
+          { name: "Suscripción anual estándar", value: `ARS${formatoPrecio(total59(41990), "ARS")}`, inline: true },
+          { name: "Suscripción anual platino", value: `ARS${formatoPrecio(total59(49990), "ARS")}`, inline: true }
         )
       return interaction.reply({ embeds: [embed1] });
 

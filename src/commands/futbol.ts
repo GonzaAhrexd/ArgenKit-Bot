@@ -11,7 +11,7 @@ module.exports = {
       const proximosPartidos = [
         {
           fecha: '2024-07-09',
-          rival: 'Por definir'
+          rival: ':flag_ca:'
         },
         {
         fecha: "2024-09-05",

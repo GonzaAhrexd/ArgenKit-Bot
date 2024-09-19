@@ -189,7 +189,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
         ]);
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Apple TV+")
@@ -238,7 +238,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
         ])
 
       const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -265,7 +265,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
         ]);
         const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Google One")
@@ -338,7 +338,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
         ]);
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("EA Play")
@@ -364,7 +364,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
         ])
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Fondos de la Cartera de Steam")
@@ -410,7 +410,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://bluepy.vercel.app/api/dolar/oficial'),
+          axios.get('https://dolarapi.com/v1/dolares/oficial'),
         ]);
         const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Siscripciones de Twitch")

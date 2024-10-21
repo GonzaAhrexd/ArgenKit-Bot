@@ -46,15 +46,26 @@ module.exports = {
       await interaction.deferReply();
 
       try {
-        const [riesgo] = await Promise.all([
-          axios.get('https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo'),
+        const [riesgo ] = await Promise.all([
+          // axios.get('https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo'),
+          axios.get('https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/')
         ])
+
+        const ultimoDato = riesgo.data[riesgo.data.length - 1]
+        const datoAnterior = riesgo.data[riesgo.data.length - 2]
+
+
+        console.log(ultimoDato)
+        console.log(datoAnterior)
+
+        let isCambioRiesgo = ultimoDato['valor'] > datoAnterior['valor'] ? "🔺" : ultimoDato['valor'] == datoAnterior['valor'] ? "⏸️" : "<:flechashaciaabajo:1210747546096369664>"
+
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Riesgo País")
           .setColor("#e6306c")
           .setDescription("El riesgo país es todo riesgo inherente a las inversiones y a las financiaciones en un país en contraste con otro.")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1177075689195835422/benchmarking.png?ex=65713029&is=655ebb29&hm=eb99e3c29ae5f5c67de55ede357d6e7501752bb2a5a08f577f4e4395fa6259ee&")
-          .addFields({ name: "Valor :chart_with_upwards_trend: ", value: riesgo.data['valor'] + " puntos" })
+          .addFields({ name: "Valor :chart_with_upwards_trend: ", value: `${ultimoDato['valor']} puntos ${isCambioRiesgo}` })
         await wait(3000)
         await interaction.editReply({ embeds: [embed] });
       } catch (error) {

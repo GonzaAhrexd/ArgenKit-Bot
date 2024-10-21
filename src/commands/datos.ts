@@ -47,7 +47,7 @@ module.exports = {
 
       try {
         const [riesgo] = await Promise.all([
-          axios.get('https://dolarbot-api.g0nz4codderar.repl.co/api/bcra/riesgopais'),
+          axios.get('https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais/ultimo'),
         ])
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Riesgo País")
@@ -287,14 +287,14 @@ module.exports = {
           { name: "Presidente", value: "Javier Gerardo Milei (LLA 🟣)", inline: true },
           { name: "Vicepresidente", value: "Victoria Villaruel (LLA 🟣)", inline: true },
           { name: "Jefatura de Gabinete", value: "Guillermo Francos (LLA 🟣)", inline: true },
-          { name: "Ministerio de Capital Humano", value: "Sandra Pettovello (UCEDE 🔵)", inline: true },
+          { name: "Ministerio de Capital Humano", value: "Sandra Pettovello (LLA 🟣)", inline: true },
           { name: "Ministerio de Defensa", value: "Luis Petri (UCR 🔴)", inline: true },
-          { name: "Ministerio de Economía", value: "Luis Caputo (PRO 🟡)", inline: true },
-          { name: "Ministerio de Desregulación y Transformación del Estado", value: "Federico Sturzenegger (PRO 🟡)", inline: true },
+          { name: "Ministerio de Economía", value: "Luis Caputo (LLA 🟣)", inline: true },
+          { name: "Ministerio de Desregulación y Transformación del Estado", value: "Federico Sturzenegger (LLA 🟣)", inline: true },
           { name: "Ministerio de Justicia", value: "Mariano Cúneo Libarona (LLA 🟣)", inline: true },
           { name: "Ministerio de Relaciones Exteriores", value: "Diana Mondino (LLA 🟣)", inline: true },
           { name: "Ministerio de Seguridad", value: "Patricia Bullrich (PRO 🟡)", inline: true },
-          { name: "Ministerio de Salud", value: "Mario Russo	(LLA 🟣)", inline: true }
+          { name: "Ministerio de Salud", value: "Mario Iván Lugones	(LLA 🟣)", inline: true }
         )
       return await interaction.reply({ embeds: [embed] });
     }

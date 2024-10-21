@@ -1,3 +1,4 @@
+const { REST, Routes } = require('discord.js');
 
 const fs = require('fs')
 //@ts-ignore
@@ -19,20 +20,25 @@ for(const file of slashcommandFiles){
     commands.push(slash.data)
 }
 
-const rest = new Discord.REST({version: "9"}).setToken(process.env.token)
+// const rest = new Discord.REST({version: "10"}).setToken(process.env.token)
 
-createSlash()
+// createSlash()
 
-async function createSlash(){
-    try{
-        await rest.put(
-            Discord.Routes.applicationCommands(clientId),{
-                body: commands
-            }
-        )
-            console.log("Slash agregados")
-    }
-    catch(e){
-        console.error(e)
-    }
-}
+const rest = new REST().setToken(process.env.token);
+
+(async () => {
+	try {
+		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+
+		// The put method is used to fully refresh all commands in the guild with the current set
+		const data = await rest.put(
+            Routes.applicationCommands(clientId),
+			{ body: commands },
+		);
+
+		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+	} catch (error) {
+		// And of course, make sure you catch and log any errors!
+		console.error(error);
+	}
+})();

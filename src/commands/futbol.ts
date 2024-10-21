@@ -9,22 +9,6 @@ module.exports = {
     async run(client, interaction){
       
       const proximosPartidos = [
-        {
-        fecha: "2024-09-05",
-        rival: ":flag_cl:"
-      },
-      {
-        fecha: "2024-09-10",
-        rival: ":flag_co:"
-      },
-      {
-        fecha: "2024-10-10",
-        rival: ":flag_vz:"
-      },
-      {
-        fecha: "2024-10-15",
-        rival: ":flag_bo:"
-      },
       {
         fecha: "2024-11-14",
         rival: ":flag_py:"

@@ -21,37 +21,35 @@ module.exports = {
     function llenarEmbed(embed, porcentaje) {
       let arrayEmbed = [
         { name: "Monto original", value:  formatoPrecio(imp, "ARS") },
-        porcentaje == 59 ? { name: "I.V.A (21%) ", value: formatoPrecio(impuestos.iva(imp), "ARS"), inline: true } : null,
-        { name: `P.A.I.S ${porcentaje == 59 ? "(8%)" : "(30%)"}`, value:  formatoPrecio((porcentaje == 59 ? impuestos.pais8(imp) : impuestos.pais30(imp)), "ARS"), inline: true },
-        { name: "Adelanto de Ganancias (30%)", value:  formatoPrecio(impuestos.ganancias(imp), "ARS"), inline: true },
-        { name: `Total ${porcentaje === 59 ? "(59%)" : ""} ${porcentaje === 60 ? "(60%)" : ""} `, value: formatoPrecio((porcentaje == 59 && impuestos.total59(imp)) || (porcentaje == 60 && impuestos.total60(imp)), "ARS") }
+        porcentaje == 51 ? { name: "I.V.A (21%) ", value: formatoPrecio(impuestos.iva(imp), "ARS"), inline: true } : null,
+        { name: "Percepción de Ganancias (30%)", value:  formatoPrecio(impuestos.ganancias(imp), "ARS"), inline: true },
+        { name: `Total ${porcentaje === 51 ? "(51%)" : ""} ${porcentaje === 30 ? "(30%)" : ""} `, value: formatoPrecio((porcentaje == 51 && impuestos.total51(imp)) || (porcentaje == 30 && impuestos.total30(imp)), "ARS") }
       ]
       arrayEmbed = arrayEmbed.filter(Boolean);
       embed.setTitle(`Impuestos a la compra al exterior (${porcentaje}%)`)
-        .setDescription("Se puede aplicar más impuestos dependiendo la provincia")
+        .setDescription(`Se puede aplicar más impuestos dependiendo la provincia ${porcentaje === 30 && "\n Para estos casos, se recomienda realizar el pago utilizando Dólar MEP"}`)
         .setColor("#d6f2fc")
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1179850115163373568/taxes.png?ex=657b480c&is=6568d30c&hm=0fc5a87affc32a471bd77d05f31d35a3a782dfb3f48d44a14d1e50d34fb9b2c8&")
       embed.addFields(arrayEmbed);
     }
     //IVA + PAIS + GANANCIAS + BIENES PERSONALES
     const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-    llenarEmbed(embed1, 59)
+    llenarEmbed(embed1, 51)
     ////PAIS + GANANCIA + BIENES PERSONALES
     const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-    embed2.setDescription("Cuando no se aplica IVA, el impuesto P.A.I.S pasa a ser del  30% ")
-    llenarEmbed(embed2, 60)
+    llenarEmbed(embed2, 30)
     //PAIS + GANANCIA + BIENES PERSONALES
     
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
           .setCustomId('tarjeta')
-          .setLabel("📄59%")
+          .setLabel("📄51%")
           .setStyle(ButtonStyle.Success)
       ).addComponents(
         new ButtonBuilder()
           .setCustomId('solidario')
-          .setLabel("📄60%")
+          .setLabel("📄30%")
           .setStyle(ButtonStyle.Primary)
       )
     

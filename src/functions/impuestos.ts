@@ -12,7 +12,7 @@ module.exports = {
     pais30: (num) => calcularImpuesto(num, 0.30),
     ganancias: (num) => calcularImpuesto(num, 0.30),
     total21: (num) => calcularImpuesto(num, 1.21), 
-    total59: (num) => calcularImpuesto(num, 1.59), 
-    total60: (num) => calcularImpuesto(num, 1.60),
+    total51: (num) => calcularImpuesto(num, 1.51), 
+    total30: (num) => calcularImpuesto(num, 1.30),
     restar60: (num) => restarImpuesto(num, 1.55),
 }

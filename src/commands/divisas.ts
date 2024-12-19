@@ -3,7 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { ButtonStyle } from 'discord.js'
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total60 } = require("../functions/impuestos"); //Impuestos
+const { total30, total51 } = require("../functions/impuestos"); //Impuestos
 import { formatoNum, formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 const wait = require('node:timers/promises').setTimeout
@@ -107,7 +107,10 @@ module.exports = {
                         { name: "Dólar oficial :bank:", value: "Valor del dólar que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, sólo se puede retirar USD$200 al mes." },
                         { name: "COMPRA", value: `${formatoPrecio(oficial.data['compra'], "ARS")}`, inline: true },
                         { name: "VENTA", value: `${formatoPrecio(oficial.data['venta'], "ARS")}`, inline: true },
-                        { name: "Impuestos (60%)", value: `${formatoPrecio(total60(oficial.data['venta']), "ARS")}`, inline: true },
+                        // Impuestos
+                        { name: "Impuestos (30%)", value: `${formatoPrecio(total30(oficial.data['venta']), "ARS")}`, inline: true },
+                        { name: "Impuestos (51%)", value: `${formatoPrecio(total51(oficial.data['venta']), "ARS")}`, inline: true },
+                        
                         //Blue
                         { name: "Dólar blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
                         { name: "COMPRA", value: `ARS${formatoPrecio(blue.data['compra'], "ARS")}`, inline: true },
@@ -211,7 +214,7 @@ module.exports = {
                         { name: "Euro oficial :bank:", value: "Valor del euro que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos, además, sólo se puede retirar el equivalente a USD$200 al mes." },
                         { name: "COMPRA", value: `ARS${formatoPrecio(euro.data['oficial_euro']['value_buy'], "ARS")}`, inline: true },
                         { name: "VENTA", value: `ARS${formatoPrecio(euro.data['oficial_euro']['value_sell'], "ARS")}`, inline: true },
-                        { name: "Impuestos (60%)", value: `ARS${formatoPrecio(total60(euro.data['oficial_euro']['value_sell']), "ARS")}`, inline: true },
+                        { name: "Impuestos (30%)", value: `ARS${formatoPrecio(total30(euro.data['oficial_euro']['value_sell']), "ARS")}`, inline: true },
                         { name: "Euro blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda" },
                         { name: "COMPRA", value: `ARS${formatoPrecio(euro.data['blue_euro']['value_buy'], "ARS")}`, inline: true },
                         { name: "VENTA", value: `ARS${formatoPrecio(euro.data['blue_euro']['value_sell'], "ARS")}`, inline: true }
@@ -659,7 +662,7 @@ module.exports = {
                             { name: `${divisa.nombre} oficial :bank:`, value: `Valor de ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos`, inline: false },
                             { name: "COMPRA", value: `ARS${formatoPrecio(((num / conversion)) * oficial.data['compra'], "ARS")}`, inline: true },
                             { name: "VENTA", value: `ARS${formatoPrecio(((num / conversion)) * oficial.data['venta'], "ARS")}`, inline: true },
-                            { name: "Impuestos (60%)", value: `ARS${formatoPrecio(total60((num / conversion) * oficial.data['venta']), "ARS")}`, inline: true },
+                            { name: "Impuestos (30%)", value: `ARS${formatoPrecio(total30((num / conversion) * oficial.data['venta']), "ARS")}`, inline: true },
                             { name: `${divisa.nombre} blue <:dolarblue:1181095026432938034>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                             { name: "COMPRA", value: `ARS${formatoPrecio((num / conversion) * blue.data['blue']['value_buy'], "ARS")}`, inline: true },
                             { name: "VENTA", value: `ARS${formatoPrecio((num / conversion) * blue.data['blue']['value_sell'], "ARS")}`, inline: true }

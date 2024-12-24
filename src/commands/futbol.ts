@@ -10,14 +10,29 @@ module.exports = {
       
       const proximosPartidos = [
       {
-        fecha: "2024-11-14",
-        rival: ":flag_py:"
+        fecha: "2025-03-20",
+        rival: ":flag_uy:"
       },
       {
-        fecha: "2024-11-19",
-        rival: ":flag_pe:"
-      }
-
+        fecha: "2025-03-25",
+        rival: ":flag_br:"
+      },
+      {
+        fecha: "2025-06-04",
+        rival: ":flag_cl:"
+      },
+      {
+        fecha: "2025-06-09",
+        rival: ":flag_co:"
+      },
+      {
+        fecha: "2025-09-09",
+        rival: ":flag_ve:"
+      },
+      {
+        fecha: "2025-09-25",
+        rival: ":flag_ec:"
+      },
     ]
 
       const fields = proximosPartidos.map(partido => {

@@ -256,7 +256,7 @@ module.exports = {
                         { name: "Compra :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * oficial.data['compra']), "ARS")}`, inline: true },
                         { name: "Venta :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Impuestos
-                        { name: "Impuestos (60%) ", value: `ARS$ ${formatoPrecio(total30(convertir * oficial.data['venta']), "ARS")}`, inline: true },
+                        { name: "Impuestos (30%) ", value: `ARS$ ${formatoPrecio(total30(convertir * oficial.data['venta']), "ARS")}`, inline: true },
                         //Blue
                         { name: `Euro blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                         { name: "Compra :flag_ar: ", value: `ARS$ ${formatoPrecio((convertir * blue.data['blue_euro']['value_buy']), "ARS")}`, inline: true },
@@ -501,7 +501,7 @@ module.exports = {
                             { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} que se liquida por parte del gobierno nacional y está sujeto a diversos impuestos ` },
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['compra']), "ARS")}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
-                            { name: "Impuestos (60%) ", value: `ARS${formatoPrecio(total30((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
+                            { name: "Impuestos (30%) ", value: `ARS${formatoPrecio(total30((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
                             //Blue
                             { name: `${divisa.nombre} Blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * blue.data['compra']), "ARS")}`, inline: true },

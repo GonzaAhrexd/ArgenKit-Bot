@@ -110,7 +110,7 @@ module.exports = {
                             { name: 'Compra ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['compra'], "ARS"), inline: true },
                             { name: 'Venta ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta'], "ARS"), inline: true },
                             //Impuestos
-                            { name: "Impuestos (60%)", value: "ARS" + formatoPrecio(total30((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS"), inline: true },
+                            { name: "Impuestos (30%)", value: "ARS" + formatoPrecio(total30((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS"), inline: true },
                             //Blue
                             { name: Metal.nombre + " a precio blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
                             { name: "Compra", value: "ARS" + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * blue.data['compra'], "ARS"), inline: true },

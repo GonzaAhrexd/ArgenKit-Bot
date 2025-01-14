@@ -2,7 +2,7 @@
 import Discord from "discord.js"
 import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { restar60 } = require("../functions/impuestos"); //Impuestos
+const { restar30 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 const wait = require('node:timers/promises').setTimeout
@@ -194,7 +194,7 @@ module.exports = {
             { name: "Venta :dollar:", value: formatoPrecio((convertir / oficial.data['venta']), "USD"), inline: true },
 
             //Impuestos
-            { name: "Impuestos (60%)  ", value: formatoPrecio(restar60(convertir / oficial.data['venta']), "USD"), inline: true },
+            { name: "Impuestos (30%)  ", value: formatoPrecio(restar30(convertir / oficial.data['venta']), "USD"), inline: true },
 
             //Blue
             { name: "Dólar blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
@@ -244,7 +244,7 @@ module.exports = {
             { name: "Venta :euro:", value: 'EUR€ ' + formatoPrecio((convertir / oficial.data['venta']), "EUR"), inline: true },
 
             //Impuestos
-            { name: "Impuestos (60%)  ", value: "EUR€ " + formatoPrecio(restar60(convertir / oficial.data['venta']), "EUR"), inline: true },
+            { name: "Impuestos (30%)  ", value: "EUR€ " + formatoPrecio(restar30(convertir / oficial.data['venta']), "EUR"), inline: true },
 
             //Blue
             { name: "Euro Blue <:dolarblue:1181095026432938034>", value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },
@@ -489,7 +489,7 @@ module.exports = {
               { name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio((convertir * aconvertir) / oficial.data['venta'], divisa.iso), inline: true },
 
               //Impuestos
-              { name: "Impuestos (60%)  ", value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio(restar60((convertir * aconvertir) / oficial.data['venta']), divisa.iso), inline: true },
+              { name: "Impuestos (30%)  ", value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio(restar30((convertir * aconvertir) / oficial.data['venta']), divisa.iso), inline: true },
 
               //Blue
               { name: `${divisa.nombre} blue <:dolarblue:1181095026432938034>`, value: "Valor del mercado paralelo establecido por la oferta y la demanda", inline: false },

@@ -14,7 +14,7 @@ module.exports = {
 
         try{ 
         const [feriados ] = await Promise.all([
-            axios.get('https://api.argentinadatos.com/v1/feriados/2024')
+            axios.get('https://api.argentinadatos.com/v1/feriados/2025')
           ])
 
           const today = new Date()

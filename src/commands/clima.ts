@@ -27,7 +27,7 @@ module.exports = {
 
 
         if (interaction.options.getSubcommand() === 'capitales') {
-            
+
             const capitales: Array<{
                 nombre: string,
                 latitud: number,
@@ -87,7 +87,7 @@ module.exports = {
                     };
                     embedClimaCapitales.addFields(field);
                 }
-             
+
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedClimaCapitales] });
             } catch (Error) {

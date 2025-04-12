@@ -245,18 +245,101 @@ module.exports = {
           axios.get('https://dolarapi.com/v1/dolares/oficial'),
         ])
 
-      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+      const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Discord Nitro")
-        .setDescription("Los precios de Discord Nitro en Argentina son los siguientes: \n Pagando con Dólar MEP se puede obtener un precio más bajo.")
+        .setDescription("Los precios de Discord Nitro en Argentina son los siguientes: \n Debitando en dólares se puede evitar la percepción de ganancias (30%)")
         .setColor('#8aa9fa')
         .setThumbnail("https://gitdab.com/distok/apkfuckery/raw/commit/ceffadc1723d227e61ee1001a624979fd9c783bb/com.discord/res/drawable-xxxhdpi/img_wumpus_jetpack.png")
         .addFields(
-          { name: "Discord Nitro Basic Mensual", value: `ARS${formatoPrecio(total30(1.91 * oficial.data['venta']), "ARS")}`, inline: true },
-          { name: "Discord Nitro Mensual", value: `ARS${formatoPrecio(total30(5.15 * oficial.data['venta']), "ARS")}`, inline: true },
-          { name: "Discord Nitro Basic Anual", value: `ARS${formatoPrecio(total30(14.76 * oficial.data['venta']), "ARS")}`, inline: true },
-          { name: "Discord Nitro Anual", value: `ARS${formatoPrecio(total30(51.48 * oficial.data['venta']), "ARS")}`, inline: true }
+          {
+            name: "Discord Nitro Basic Mensual",
+            value: `ARS${formatoPrecio(total30(1.91 * oficial.data['venta']), "ARS")}`,
+            inline: true
+          },
+          {
+            name: "Discord Nitro Mensual",
+            value: `ARS${formatoPrecio(total30(5.15 * oficial.data['venta']), "ARS")}`,
+            inline: true
+          },
+          {
+            name: "Discord Nitro Basic Anual",
+            value: `ARS${formatoPrecio(total30(14.76 * oficial.data['venta']), "ARS")}`,
+            inline: true
+          },
+          {
+            name: "Discord Nitro Anual",
+            value: `ARS${formatoPrecio(total30(51.48 * oficial.data['venta']), "ARS")}`,
+            inline: true
+          }
         )
-        await interaction.editReply({ embeds: [embed] });
+
+        const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+        .setTitle("Discord Nitro")
+        .setDescription("Los precios de Discord Nitro en Argentina son los siguientes: \n Debitando en dólares se puede evitar la percepción de ganancias (30%)")
+        .setColor('#8aa9fa')
+        .setThumbnail("https://gitdab.com/distok/apkfuckery/raw/commit/ceffadc1723d227e61ee1001a624979fd9c783bb/com.discord/res/drawable-xxxhdpi/img_wumpus_jetpack.png")
+        .addFields(
+          {
+            name: "Discord Nitro Basic Mensual",
+            value: `ARS${formatoPrecio(1.91 * oficial.data['venta'], "ARS")}`,
+            inline: true
+          },
+          {
+            name: "Discord Nitro Mensual",
+            value: `ARS${formatoPrecio(5.15 * oficial.data['venta'], "ARS")}`,
+            inline: true
+          },
+          {
+            name: "Discord Nitro Basic Anual",
+            value: `ARS${formatoPrecio(14.76 * oficial.data['venta'], "ARS")}`,
+            inline: true
+          },
+          {
+            name: "Discord Nitro Anual",
+            value: `ARS${formatoPrecio(51.48 * oficial.data['venta'], "ARS")}`,
+            inline: true
+          }
+        )
+
+        const row = new ActionRowBuilder()
+        .addComponents(
+          new ButtonBuilder()
+            .setCustomId('percepcion')
+            .setLabel("Percepción")
+            .setStyle(ButtonStyle.Success)
+        ).addComponents(
+          new ButtonBuilder()
+            .setCustomId('sinpercepcion')
+            .setLabel("Sin percepción")
+            .setStyle(ButtonStyle.Primary)
+        )
+
+      await interaction.editReply({ embeds: [embed1], components: [row] });
+
+      client.on('interactionCreate', interaction => {
+        if (!interaction.isButton()) return;
+      });
+
+
+      const filter = i => i.customId;
+
+      const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+
+      collector.on('collect', async i => {
+        if (i.customId === 'percepcion') {
+          await i.deferUpdate()
+          await i.editReply({ embeds: [embed1], components: [row] });
+        }
+        if (i.customId === 'sinpercepcion') {
+
+          await i.deferUpdate();
+          await i.editReply({ embeds: [embed2], components: [row] });
+        }
+
+      });
+
+
+           await interaction.editReply({ embeds: [embed1] });
       } catch (error) {
         embedError(interaction, error)
       }
@@ -273,37 +356,44 @@ module.exports = {
         ]);
         const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Google One")
-          .setDescription("Los precios de Google One mensual en Argentina son los siguientes: \n Pagando con Dólar MEP se puede obtener un precio más bajo.")
+          .setDescription("Los precios de Google One mensual en Argentina son los siguientes: \n Debitando con dólares se puede obtener un precio más bajo.")
           .setColor('#f1bb1a')
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
           .addFields(
             { name: "Plan de 100GB (USD$ 1,99)", value: `ARS${formatoPrecio(total30(1.99 * oficial.data['venta']), "ARS")}`, inline: true },
             { name: "Plan de 200GB (USD$ 2,99)", value: `ARS${formatoPrecio(total30(2.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 1TB (USD$ 9,99)", value: `ARS${formatoPrecio(total30(9.99 * oficial.data['venta']), "ARS")}`, inline: true }
+            { name: "Plan de 1TB  (USD$ 9,99)", value: `ARS${formatoPrecio(total30(9.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 100GB Anual (USD$ 19,99)", value: `ARS${formatoPrecio(total30(19.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 200GB Anual (USD$ 29,99)", value: `ARS${formatoPrecio(total30(29.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 1TB Anual (USD$ 99,99)", value: `ARS${formatoPrecio(total30(99.99 * oficial.data['venta']), "ARS")}`, inline: true }
+       
           )
 
         const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Google One")
-          .setDescription("Los precios de Google One anual en Argentina son los siguientes:")
+          .setDescription("Los precios de Google One anual en Argentina son los siguientes:\n Debitando con dólares se puede obtener un precio más bajo.")
           .setColor('#f1bb1a')
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
           .addFields(
-            { name: "Plan de 100GB (USD$ 19,99)", value: `ARS${formatoPrecio(total30(19.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 200GB (USD$ 29,99)", value: `ARS${formatoPrecio(total30(29.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 1TB (USD$ 99,99)", value: `ARS${formatoPrecio(total30(99.99 * oficial.data['venta']), "ARS")}`, inline: true }
+            { name: "Plan de 100GB (USD$ 1,99)", value: `ARS${formatoPrecio((1.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 200GB (USD$ 2,99)", value: `ARS${formatoPrecio((2.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 1TB (USD$ 9,99)", value: `ARS${formatoPrecio((9.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 100GB Anual (USD$ 19,99)", value: `ARS${formatoPrecio((19.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 200GB Anual (USD$ 29,99)", value: `ARS${formatoPrecio((29.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Plan de 1TB Anual (USD$ 99,99)", value: `ARS${formatoPrecio((99.99 * oficial.data['venta']), "ARS")}`, inline: true }
           )
 
 
         const row = new ActionRowBuilder()
           .addComponents(
             new ButtonBuilder()
-              .setCustomId('mensual')
+              .setCustomId('percepciones')
               .setLabel("Mensual")
               .setStyle(ButtonStyle.Success)
           ).addComponents(
             new ButtonBuilder()
-              .setCustomId('anual')
-              .setLabel("Anual")
+              .setCustomId('sinpercepciones')
+              .setLabel("Sin percepciones")
               .setStyle(ButtonStyle.Primary)
           )
 
@@ -319,11 +409,11 @@ module.exports = {
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 
         collector.on('collect', async i => {
-          if (i.customId === 'mensual') {
+          if (i.customId === 'percepciones') {
             await i.deferUpdate()
             await i.editReply({ embeds: [embed1], components: [row] });
           }
-          if (i.customId === 'anual') {
+          if (i.customId === 'sinpercepciones') {
 
             await i.deferUpdate();
             await i.editReply({ embeds: [embed2], components: [row] });
@@ -402,7 +492,7 @@ module.exports = {
         .setDescription("Los precios de Paramount+ en Argentina con impuestos son los siguientes: ")
         .setColor('#0b67ff')
         .addFields(
-          { name: "Plan  mensual ", value: `ARS${formatoPrecio(599, "ARS")}` })
+          { name: "Plan  mensual ", value: `ARS${formatoPrecio(1599, "ARS")}` })
 
       return interaction.reply({ embeds: [embed] });
 

@@ -11,8 +11,8 @@ module.exports = {
               .setRequired(true)   
     ),
     async run(client, interaction, options){
-      let mensual = interaction.options.getNumber('mensual')
-      let anualizado: number = (((mensual / 100) + 1) ** 12 - 1) * 100;
+      const mensual:number = interaction.options.getNumber('mensual')
+      const anualizado: number = (((mensual / 100) + 1) ** 12 - 1) * 100;
       const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Inflación mensual anualizada")
           .setDescription("La economía tiene un resago de 18 a 24 meses.")

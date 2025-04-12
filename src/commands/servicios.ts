@@ -95,9 +95,9 @@ module.exports = {
         .setColor('#ff0000')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903357207310127185/youtube.png")
         .addFields(
-          { name: "YouTube Music:", value: "ARS" + formatoPrecio(total51(1299), "ARS"), inline: true },
-          { name: "YouTube Premium Individual:", value: "ARS" + formatoPrecio(total51(1899), "ARS"), inline: true },
-          { name: "YouTube Premium Familiar:", value: "ARS" + formatoPrecio(total51(3699), "ARS"), inline: true }
+          { name: "YouTube Music:", value: "ARS" + formatoPrecio(total51(2499), "ARS"), inline: true },
+          { name: "YouTube Premium Individual:", value: "ARS" + formatoPrecio(total51(3399), "ARS"), inline: true },
+          { name: "YouTube Premium Familiar:", value: "ARS" + formatoPrecio(total51(6799), "ARS"), inline: true }
         )
 
       return interaction.reply({ embeds: [embed] });
@@ -165,9 +165,9 @@ module.exports = {
         .setColor('#a6ed75')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903853195443445770/xbox.png")
         .addFields(
-          { name: "Xbox Game Pass Core", value: "ARS" + formatoPrecio((total51(4299)), "ARS"), inline: true },
-          { name: "Xbox Game Pass para PC / Consola", value: "ARS" + formatoPrecio((total51(5399)), "ARS"), inline: true },
-          { name: "Xbox Game Pass Ultimate", value: "ARS" + formatoPrecio((total51(6999)), "ARS"), inline: true }
+          { name: "Xbox Game Pass Core", value: "ARS" + formatoPrecio((total51(5998.69)), "ARS"), inline: true },
+          { name: "Xbox Game Pass para PC / Consola", value: "ARS" + formatoPrecio((total51(6998.69)), "ARS"), inline: true },
+          { name: "Xbox Game Pass Ultimate", value: "ARS" + formatoPrecio((total51(10997.39)), "ARS"), inline: true }
 
         )
       return interaction.reply({ embeds: [embed] });
@@ -182,7 +182,7 @@ module.exports = {
         .setColor('#1aa6e0')
         .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
         .addFields(
-          { name: "Costo mensual", value: "ARS" + formatoPrecio(total51(3999), "ARS") })
+          { name: "Costo mensual", value: "ARS" + formatoPrecio(total51(5199), "ARS") })
       return interaction.reply({ embeds: [embed] });
 
     }

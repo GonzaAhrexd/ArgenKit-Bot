@@ -1,11 +1,11 @@
 
-
-import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
+// DiscordJS
 import Discord from "discord.js"
-import axios from "axios"
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js'
 import { ButtonStyle } from 'discord.js'
-var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { total30 } = require("../functions/impuestos"); //Impuestos
+// Axios
+import axios from "axios"
+// Funciones y variables
 const { formatoPrecio } = require('../functions/formato')
 import Metales from "../variables/metales-valores" //Divisas
 const wait = require('node:timers/promises').setTimeout

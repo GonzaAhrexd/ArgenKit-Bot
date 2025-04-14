@@ -135,8 +135,8 @@ module.exports = {
                     { name: "COMPRA", value: `ARS ${formatoPrecio((num / conversion) * oficial.data['compra'], "ARS")}`, inline: true },
                     { name: "VENTA", value: `ARS ${formatoPrecio((num / conversion) * oficial.data['venta'], "ARS")}`, inline: true },
                     { name: "Impuestos nacionales", value: `Impuestos sobre tarjetas de crédito y débito a la compra de ${divisa.nombre}`, inline: false },
-                    { name: "Percepción de ganancias (30%)", value: `ARS ${formatoPrecio(total30((num / conversion) * oficial.data['compra']), "ARS")}`, inline: true },
-                    { name: "Percepción + IVA (51%)", value: `ARS ${formatoPrecio(total51((num / conversion) * oficial.data['compra']), "ARS")}`, inline: true },
+                    { name: "Percepción de ganancias (30%)", value: `ARS ${formatoPrecio(total30((num / conversion) * oficial.data['venta']), "ARS")}`, inline: true },
+                    { name: "Percepción + IVA (51%)", value: `ARS ${formatoPrecio(total51((num / conversion) * oficial.data['venta']), "ARS")}`, inline: true },
                 );
 
                 // --- EMBED DE INFORMACIÓN ADICIONAL ---

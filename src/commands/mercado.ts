@@ -62,225 +62,149 @@ module.exports = {
 
         }
         if (interaction.options.getSubcommand() === 'acciones') {
-         
-            const populares: String[] = ["Apple", "Coca Cola", "Mercado Libre", "SPDR S&P 500", "Tesla.inc"]
-            const tecnologia: String[] = ["Apple", "Microsoft", "Alphabet", "Amazon", "Intel", "AMD", "Nvidia", "Tesla.inc", "Qualcom"]
-            const nacionales: String[] = ["YPF", "Mercado Libre", "Globant", "Despegar.com", "Banco Francés", "Banco Supervielle", "Banco Macro", "Edenor", "Galicia"]
-            const gaming: String[] = ["Electronic Arts", "Intel", "Microsoft", "Nvidia", "Qualcom", "Roblox Corp", "Sony"]
-            const travel: String[] = ["Airbnb", "American Airlines", "Despegar.com", "Mastercard", "Visa"]
-            const automotriz: String[] = ["Tesla.inc", "Ford", "General Motors", "Toyota Motor"]
-            const consumo: String[] = ["Coca Cola", "Jonhson & Johnson", "Mcdonald's", "Nike Inc", "Pepsico", "Starbucks Corporation"]
-            let acciones: Accion[] = [
+            const populares = ["Apple", "Coca Cola", "Mercado Libre", "SPDR S&P 500", "Tesla.inc"];
+            const tecnologia = ["Apple", "Microsoft", "Alphabet", "Amazon", "Intel", "AMD", "Nvidia", "Tesla.inc", "Qualcom"];
+            const nacionales = ["YPF", "Mercado Libre", "Globant", "Despegar.com", "Banco Francés", "Banco Supervielle", "Banco Macro", "Edenor", "Galicia"];
+            const gaming = ["Electronic Arts", "Intel", "Microsoft", "Nvidia", "Qualcom", "Roblox Corp", "Sony"];
+            const travel = ["Airbnb", "American Airlines", "Despegar.com", "Mastercard", "Visa"];
+            const automotriz = ["Tesla.inc", "Ford", "General Motors", "Toyota Motor"];
+            const consumo = ["Coca Cola", "Jonhson & Johnson", "Mcdonald's", "Nike Inc", "Pepsico", "Starbucks Corporation"];
+        
+            let acciones = [
                 { symbol: "AAPL", name: "Apple", price: 0, previousPrice: 0, porcentaje: 0, ratio: 10 },
                 { symbol: "MSFT", name: "Microsoft", price: 0, previousPrice: 0, porcentaje: 0, ratio: 30 },
                 { symbol: "GOOG", name: "Alphabet", price: 0, previousPrice: 0, porcentaje: 0, ratio: 58 },
-
                 { symbol: "TSLA", name: "Tesla.inc", price: 0, previousPrice: 0, porcentaje: 0, ratio: 15 },
                 { symbol: "AMZN", name: "Amazon", price: 0, previousPrice: 0, porcentaje: 0, ratio: 144 },
                 { symbol: "QCOM", name: "Qualcom", price: 0, previousPrice: 0, porcentaje: 0, ratio: 11 },
-
                 { symbol: "INTC", name: "Intel", price: 0, previousPrice: 0, porcentaje: 0, ratio: 5 },
                 { symbol: "AMD", name: "AMD", price: 0, previousPrice: 0, porcentaje: 0, ratio: 10 },
                 { symbol: "NVDA", name: "Nvidia", price: 0, previousPrice: 0, porcentaje: 0, ratio: 24 },
-
                 { symbol: "YPF", name: "YPF", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
                 { symbol: "MELI", name: "Mercado Libre", price: 0, previousPrice: 0, porcentaje: 0, ratio: 60 },
                 { symbol: "GLOB", name: "Globant", price: 0, previousPrice: 0, porcentaje: 0, ratio: 18 },
                 { symbol: "DESP", name: "Despegar.com", price: 0, previousPrice: 0, porcentaje: 0, ratio: 18 },
-
                 { symbol: "BBAR", name: "Banco Francés", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
                 { symbol: "BMA", name: "Banco Macro", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
-
                 { symbol: "SUPV", name: "Banco Supervielle", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
                 { symbol: "EDN", name: "Edenor", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
                 { symbol: "GGAL", name: "Galicia", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
-
                 { symbol: "KO", name: "Coca Cola", price: 0, previousPrice: 0, porcentaje: 0, ratio: 5 },
                 { symbol: "JNJ", name: "Jonhson & Johnson", price: 0, previousPrice: 0, porcentaje: 0, ratio: 15 },
                 { symbol: "MCD", name: "Mcdonald's", price: 0, previousPrice: 0, porcentaje: 0, ratio: 24 },
                 { symbol: "NKE", name: "Nike Inc", price: 0, previousPrice: 0, porcentaje: 0, ratio: 12 },
                 { symbol: "PEP", name: "Pepsico", price: 0, previousPrice: 0, porcentaje: 0, ratio: 6 },
                 { symbol: "SBUX", name: "Starbucks Corporation", price: 0, previousPrice: 0, porcentaje: 0, ratio: 4 },
-
                 { symbol: "SPY", name: "SPDR S&P 500", price: 0, previousPrice: 0, porcentaje: 0, ratio: 20 },
                 { symbol: "RBLX", name: "Roblox Corp", price: 0, previousPrice: 0, porcentaje: 0, ratio: 2 },
-
-
                 { symbol: "SONY", name: "Sony", price: 0, previousPrice: 0, porcentaje: 0, ratio: 4 },
                 { symbol: "ABNB", name: "Airbnb", price: 0, previousPrice: 0, porcentaje: 0, ratio: 15 },
                 { symbol: "AAL", name: "American Airlines", price: 0, previousPrice: 0, porcentaje: 0, ratio: 2 },
                 { symbol: "MA", name: "Mastercard", price: 0, previousPrice: 0, porcentaje: 0, ratio: 33 },
                 { symbol: "V", name: "Visa", price: 0, previousPrice: 0, porcentaje: 0, ratio: 18 },
-
                 { symbol: "F", name: "Ford", price: 0, previousPrice: 0, porcentaje: 0, ratio: 1 },
                 { symbol: "GM", name: "General Motors", price: 0, previousPrice: 0, porcentaje: 0, ratio: 18 },
                 { symbol: "TM", name: "Toyota Motor", price: 0, previousPrice: 0, porcentaje: 0, ratio: 5 },
-
-            ]
-
+            ];
+        
             await interaction.deferReply();
             try {
-                const apiRequests = acciones.map(accion =>
-                    axios.get(`https://finnhub.io/api/v1/quote?symbol=${accion.symbol}&token=${apiKEY}`)
-                );
-                const responses = await Promise.all(apiRequests);
-
-                responses.forEach((response, index) => {
-                    acciones[index].price = response.data.c;
-                    acciones[index].previousPrice = response.data.pc;
-                    acciones[index].porcentaje = response.data.dp;
-                });
-
+                // Batch API requests to avoid rate limits
+                const chunkSize = 10;
+                for (let i = 0; i < acciones.length; i += chunkSize) {
+                    const chunk = acciones.slice(i, i + chunkSize);
+                    const apiRequests = chunk.map(accion =>
+                        axios.get(`https://finnhub.io/api/v1/quote?symbol=${accion.symbol}&token=${apiKEY}`)
+                    );
+                    const responses = await Promise.all(apiRequests);
+                    responses.forEach((response, index) => {
+                        chunk[index].price = response.data.c;
+                        chunk[index].previousPrice = response.data.pc;
+                        chunk[index].porcentaje = response.data.dp;
+                    });
+                    await new Promise(resolve => setTimeout(resolve, 1000)); // 1-second delay
+                }
+        
                 const [estadoMercado, dolarCCL] = await Promise.all([
                     axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
                     axios.get(`https://dolarapi.com/v1/dolares/contadoconliqui`),
-
                 ]);
-
-
-                const llenarEmbed = (embedRellenar, tipoAcciones: String[]) => {
+        
+                const llenarEmbed = (embedRellenar, tipoAcciones) => {
                     embedRellenar.setTitle("Acciones de empresas")
                         .setColor(estadoMercado.data['isOpen'] ? "Green" : "Red")
                         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1178904578763280456/stock.png?ex=6577d772&is=65656272&hm=d31896e4060b95d263afb323da2c5d36687da9f95998a024ab814dcfecb5d04b&")
-                        .setDescription(`Estas son algunas acciones del mercado. Los valores en pesos son una estimación tomando de referencia el dólar CCL`)
+                        .setDescription(`Estas son algunas acciones del mercado. Los valores en pesos son una estimación tomando de referencia el dólar CCL`);
                     for (let accion of acciones) {
-                        // crear un objeto con los campos name, value e inline
                         if (tipoAcciones.includes(accion.name)) {
                             let field = {
                                 name: `${accion.name} ${subioPrecio(accion)} ${(accion.porcentaje).toFixed(2)}%`,
                                 value: `${formatoPrecio(accion.price, "USD")} (NYC)\nARS ${formatoPrecio(((accion.price / accion.ratio) * dolarCCL.data['venta']), "ARS")} (CEDEAR ${accion.ratio}:1) `,
                                 inline: true,
                             };
-
-                            // agregar el objeto al método .addFields()
                             embedRellenar.addFields(field);
                         }
                     }
-                }
-
-                const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                llenarEmbed(embed, populares)
-
-                const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                llenarEmbed(embed2, nacionales)
-
-                const embed3: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                llenarEmbed(embed3, tecnologia)
-
-                const embed4: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                llenarEmbed(embed4, gaming)
-
-                const embed5: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                llenarEmbed(embed5, travel)
-
-                const embed6: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                llenarEmbed(embed6, automotriz)
-
-                const embed7: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                llenarEmbed(embed7, consumo)
-
-
-                const row = new ActionRowBuilder()
+                };
+        
+                const embed = new Discord.EmbedBuilder();
+                llenarEmbed(embed, populares);
+        
+                const embed2 = new Discord.EmbedBuilder();
+                llenarEmbed(embed2, nacionales);
+        
+                const embed3 = new Discord.EmbedBuilder();
+                llenarEmbed(embed3, tecnologia);
+        
+                const embed4 = new Discord.EmbedBuilder();
+                llenarEmbed(embed4, gaming);
+        
+                const embed5 = new Discord.EmbedBuilder();
+                llenarEmbed(embed5, travel);
+        
+                const embed6 = new Discord.EmbedBuilder();
+                llenarEmbed(embed6, automotriz);
+        
+                const embed7 = new Discord.EmbedBuilder();
+                llenarEmbed(embed7, consumo);
+        
+                const row = new Discord.ActionRowBuilder()
                     .addComponents(
-                        new StringSelectMenuBuilder()
+                        new Discord.StringSelectMenuBuilder()
                             .setCustomId('select')
                             .setPlaceholder('¡Selecciona una de categoría!')
                             .addOptions([
-                                {
-                                    label: 'Populares',
-                                    description: 'Acciones popularmente más operadas.',
-                                    value: 'populares',
-                                    emoji: '🌟'
-                                },
-                                {
-                                    label: 'Nacionales',
-                                    description: 'Acciones de empresas nacionales',
-                                    value: 'nacionales',
-                                    emoji: '🇦🇷'
-                                },
-                                {
-                                    label: 'Tecnología',
-                                    description: 'Acciones sobre empresas tecnológicas.',
-                                    value: 'tecnologia',
-                                    emoji: '💻'
-                                },
-                                {
-                                    label: 'Gaming',
-                                    description: 'Acciones sobre empresas relacionadas al gaming',
-                                    value: 'gaming',
-                                    emoji: '🎮'
-                                },
-                                {
-                                    label: 'Travel',
-                                    description: 'Acciones relacionadas a empresas de viajes',
-                                    value: 'travel',
-                                    emoji: '🛩️'
-                                },
-                                {
-                                    label: 'Automotriz',
-                                    description: 'Acciones sobre empresas del sector automotriz',
-                                    value: 'automotriz',
-                                    emoji: '🚗'
-                                },
-                                {
-                                    label: 'Consumo',
-                                    description: 'Acciones sobre empresas de consumo',
-                                    value: 'consumo',
-                                    emoji: '🥤'
-                                }
-                            ]
-                            )
-
-                    )
-
-
+                                { label: 'Populares', description: 'Acciones popularmente más operadas.', value: 'populares', emoji: '🌟' },
+                                { label: 'Nacionales', description: 'Acciones de empresas nacionales', value: 'nacionales', emoji: '🇦🇷' },
+                                { label: 'Tecnología', description: 'Acciones sobre empresas tecnológicas.', value: 'tecnologia', emoji: '💻' },
+                                { label: 'Gaming', description: 'Acciones sobre empresas relacionadas al gaming', value: 'gaming', emoji: '🎮' },
+                                { label: 'Travel', description: 'Acciones relacionadas a empresas de viajes', value: 'travel', emoji: '🛩️' },
+                                { label: 'Automotriz', description: 'Acciones sobre empresas del sector automotriz', value: 'automotriz', emoji: '🚗' },
+                                { label: 'Consumo', description: 'Acciones sobre empresas de consumo', value: 'consumo', emoji: '🥤' },
+                            ])
+                    );
+        
                 const collector = interaction.channel.createMessageComponentCollector({
-                    componentType: Discord.ComponentType.StringSelect, time: 30000
-
-                })
-
-                await wait(3000)
+                    componentType: Discord.ComponentType.StringSelect,
+                    time: 30000,
+                });
+        
                 await interaction.editReply({ embeds: [embed], components: [row] });
-                
-
-
-
+        
                 collector.on("collect", async (collected) => {
-
-                    const value = collected.values[0]
-
-                    if (value === "populares") {
-                        return interaction.editReply({ embeds: [embed], ephemeral: false });
-                    }
-                    if (value === "nacionales") {
-                        return interaction.editReply({ embeds: [embed2], ephemeral: false });
-                    }
-                    if (value === "tecnologia") {
-                        await interaction.editReply({ embeds: [embed3], ephemeral: false })
-                    }
-                    if (value === "gaming") {
-                        await interaction.editReply({ embeds: [embed4], ephemeral: false })
-                    }
-                    if (value === "travel") {
-                        await interaction.editReply({ embeds: [embed5], ephemeral: false })
-                    }
-                    if (value === "automotriz") {
-                        await interaction.editReply({ embeds: [embed6], ephemeral: false })
-                    }
-                    if (value === "consumo") {
-                        await interaction.editReply({ embeds: [embed7], ephemeral: false })
-                    }
-
-
-                })
-
-
-
+                    const value = collected.values[0];
+                    if (value === "populares") await collected.update({ embeds: [embed], components: [row] });
+                    if (value === "nacionales") await collected.update({ embeds: [embed2], components: [row] });
+                    if (value === "tecnologia") await collected.update({ embeds: [embed3], components: [row] });
+                    if (value === "gaming") await collected.update({ embeds: [embed4], components: [row] });
+                    if (value === "travel") await collected.update({ embeds: [embed5], components: [row] });
+                    if (value === "automotriz") await collected.update({ embeds: [embed6], components: [row] });
+                    if (value === "consumo") await collected.update({ embeds: [embed7], components: [row] });
+                });
+        
             } catch (error) {
-                embedError(interaction, error)
+                embedError(interaction, error);
             }
-
-
         }
 
 

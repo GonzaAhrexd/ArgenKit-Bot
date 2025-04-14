@@ -388,7 +388,7 @@ module.exports = {
           .addComponents(
             new ButtonBuilder()
               .setCustomId('percepciones')
-              .setLabel("Mensual")
+              .setLabel("Percepciones")
               .setStyle(ButtonStyle.Success)
           ).addComponents(
             new ButtonBuilder()

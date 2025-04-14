@@ -192,10 +192,10 @@ module.exports = {
                 await interaction.deferReply();
                 try {
 
-                    const [DIVISA, oficial, blue] = await Promise.all([
+                    const [DIVISA, oficial] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
-                        axios.get('https://dolarapi.com/v1/dolares/oficial'),
-                        axios.get('https://dolarapi.com/v1/dolares/blue')
+                        axios.get('https://api.bluelytics.com.ar/v2/latest'),
+                
                     ]);
                     let aconvertir = 1
                     if (divisa.iso != "USD") {
@@ -219,11 +219,11 @@ module.exports = {
 
                         embed.addFields(
                             { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} en pesos argentinos bajo esquema de flotación entre bandas. ` },
-                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['compra']), "ARS")}`, inline: true },
-                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
+                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['oficial']['value_buy']), "ARS")}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['oficial']['value_buy']), "ARS")}`, inline: true },
                             { name: "Impuestos nacionales", value: `Impuestos sobre tarjetas de crédito y débito a la compra de ${divisa.nombre}`, inline: false },
-                            { name: "Percepción de ganancias (30%) ", value: `ARS${formatoPrecio(total30((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
-                            { name: "Percepción + IVA (51%) ", value: `ARS${formatoPrecio(total51((convertir / aconvertir) * oficial.data['venta']), "ARS")}`, inline: true },
+                            { name: "Percepción de ganancias (30%) ", value: `ARS${formatoPrecio(total30((convertir / aconvertir) * oficial.data['oficial']['value_buy']), "ARS")}`, inline: true },
+                            { name: "Percepción + IVA (51%) ", value: `ARS${formatoPrecio(total51((convertir / aconvertir) * oficial.data['oficial']['value_buy']), "ARS")}`, inline: true },
                             
                         )
                     await wait(3000)

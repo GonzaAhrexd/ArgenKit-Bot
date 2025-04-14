@@ -49,7 +49,7 @@ module.exports = {
                 try {
                     const [metal, oficial ] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
-                        axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                        axios.get('https://api.bluelytics.com.ar/v2/latest'),
                     ]);
 
                                         const embed:Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -59,8 +59,8 @@ module.exports = {
                                             .setThumbnail(Metal.imagen)
                                             .addFields(
                                                 {name: `Monto Original :flag_ar:`, value: `ARS$ ` + currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' }), inline: false},
-                                                {name: `Compra ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir *  metal.data['usd'][Metal.iso])) / oficial.data['compra'], { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
-                                                {name: `Venta ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir *  metal.data['usd'][Metal.iso]) / oficial.data['venta']), { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
+                                                {name: `Compra ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir *  metal.data['usd'][Metal.iso])) / oficial.data['oficial']['value_buy'], { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
+                                                {name: `Venta ${Metal.emoji} `, value: `${Metal.iso} ` + currencyFormatter.format(((convertir *  metal.data['usd'][Metal.iso]) / oficial.data['oficial']['value_sell']), { locale: 'es-ES', code: ' ', precision: 8 }), inline: true},
                                               )
                                         await wait(3000)
                                         await interaction.editReply({ embeds: [embed] });

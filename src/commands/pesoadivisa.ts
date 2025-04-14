@@ -178,10 +178,9 @@ module.exports = {
         let convertir: number = interaction.options.getNumber('ars')
         await interaction.deferReply();
         try {
-          const [DIVISA, oficial, blue] = await Promise.all([
+          const [DIVISA, oficial ] = await Promise.all([
             axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
-            axios.get('https://dolarapi.com/v1/dolares/oficial'),
-            axios.get('https://dolarapi.com/v1/dolares/blue')
+            axios.get('https://api.bluelytics.com.ar/v2/latest'),
           ]);
 
           let aconvertir = 1 
@@ -199,8 +198,8 @@ module.exports = {
 
               //Oficial
               { name: `${divisa.nombre} oficial :bank: `, value: `Valor del peso argentino expresado en ${divisa.nombre}`, inline: false },
-              { name: `Compra ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio((convertir * aconvertir) / oficial.data['compra'], divisa.iso), inline: true },
-              { name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio((convertir * aconvertir) / oficial.data['venta'], divisa.iso), inline: true },
+              { name: `Compra ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio((convertir * aconvertir) / oficial.data['oficial']['value_buy'], divisa.iso), inline: true },
+              { name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio((convertir * aconvertir) / oficial.data['oficial']['value_sell'], divisa.iso), inline: true },
           )
 
           await wait(3000)

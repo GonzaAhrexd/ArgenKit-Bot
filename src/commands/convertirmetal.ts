@@ -50,7 +50,7 @@ module.exports = {
                 try {
                     const [metal, oficial ] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
-                        axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                        axios.get('https://api.bluelytics.com.ar/v2/latest'),
                     ]);
 
 
@@ -63,10 +63,10 @@ module.exports = {
                             { name: `Monto Original ${Metal.emoji}`, value: `${Metal.iso} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
                             //Oficial
                             { name: `${Metal.nombre} a precio del dólar oficial :bank: `, value: `Valor del ${Metal.nombre} a precio del dólar oficial, liquidado por parte del gobierno nacional sujeto a diversos impuestos ` },
-                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['compra'], "ARS")}`, inline: true },
-                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['venta'], "ARS")}`, inline: true },
+                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['oficial']['value_buy'], "ARS")}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['oficial']['value_sell'], "ARS")}`, inline: true },
                             //Impuestos
-                            { name: "Impuestos (30%) ", value: `ARS${formatoPrecio(total30((convertir / metal.data['usd'][Metal.iso]) * oficial.data['venta']), "ARS")}`, inline: true },
+                            { name: "Impuestos (30%) ", value: `ARS${formatoPrecio(total30((convertir / metal.data['usd'][Metal.iso]) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
                             //Blue
                             { name: `${Metal.nombre} a precio del Dólar Blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
                         )

@@ -36,7 +36,7 @@ module.exports = {
                 try {
                     const [metal, oficial ] = await Promise.all([
                         axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
-                        axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                        axios.get('https://api.bluelytics.com.ar/v2/latest'),
                     ]);
 
                     const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -46,8 +46,8 @@ module.exports = {
                         .setThumbnail(Metal.imagen)
                         .addFields(
                             { name: 'Valor en dólares ' + Metal.emoji, value: formatoPrecio((1 / metal.data['usd'][Metal.iso]), "USD"), inline: true},
-                            { name: 'Compra ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['compra'], "ARS"), inline: true },
-                            { name: 'Venta ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['venta'], "ARS"), inline: true },   
+                            { name: 'Compra ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['oficial']['value_buy'], "ARS"), inline: true },
+                            { name: 'Venta ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['oficial']['value_sell'], "ARS"), inline: true },   
                         )
 
 

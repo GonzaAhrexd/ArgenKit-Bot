@@ -193,7 +193,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+          axios.get('https://api.bluelytics.com.ar/v2/latest'),
         ]);
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Apple TV+")
@@ -202,7 +202,7 @@ module.exports = {
           .setColor('#eeeeee')
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913852356771319928/televisor_1.png")
           .addFields(
-            { name: "Costo mensual", value: `ARS${formatoPrecio(total51(6.99 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "Costo mensual", value: `ARS${formatoPrecio(total51(6.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
           )
         await interaction.editReply({ embeds: [embed] });
       } catch (error) {
@@ -242,7 +242,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+          axios.get('https://api.bluelytics.com.ar/v2/latest'),
         ])
 
       const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -253,22 +253,22 @@ module.exports = {
         .addFields(
           {
             name: "Discord Nitro Basic Mensual",
-            value: `ARS${formatoPrecio(total30(1.91 * oficial.data['venta']), "ARS")}`,
+            value: `ARS${formatoPrecio(total30(1.91 * oficial.data['oficial']['value_sell']), "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Mensual",
-            value: `ARS${formatoPrecio(total30(5.15 * oficial.data['venta']), "ARS")}`,
+            value: `ARS${formatoPrecio(total30(5.15 * oficial.data['oficial']['value_sell']), "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Basic Anual",
-            value: `ARS${formatoPrecio(total30(14.76 * oficial.data['venta']), "ARS")}`,
+            value: `ARS${formatoPrecio(total30(14.76 * oficial.data['oficial']['value_sell']), "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Anual",
-            value: `ARS${formatoPrecio(total30(51.48 * oficial.data['venta']), "ARS")}`,
+            value: `ARS${formatoPrecio(total30(51.48 * oficial.data['oficial']['value_sell']), "ARS")}`,
             inline: true
           }
         )
@@ -281,22 +281,22 @@ module.exports = {
         .addFields(
           {
             name: "Discord Nitro Basic Mensual",
-            value: `ARS${formatoPrecio(1.91 * oficial.data['venta'], "ARS")}`,
+            value: `ARS${formatoPrecio(1.91 * oficial.data['oficial']['value_sell'], "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Mensual",
-            value: `ARS${formatoPrecio(5.15 * oficial.data['venta'], "ARS")}`,
+            value: `ARS${formatoPrecio(5.15 * oficial.data['oficial']['value_sell'], "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Basic Anual",
-            value: `ARS${formatoPrecio(14.76 * oficial.data['venta'], "ARS")}`,
+            value: `ARS${formatoPrecio(14.76 * oficial.data['oficial']['value_sell'], "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Anual",
-            value: `ARS${formatoPrecio(51.48 * oficial.data['venta'], "ARS")}`,
+            value: `ARS${formatoPrecio(51.48 * oficial.data['oficial']['value_sell'], "ARS")}`,
             inline: true
           }
         )
@@ -352,7 +352,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+          axios.get('https://api.bluelytics.com.ar/v2/latest'),
         ]);
         const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Google One")
@@ -360,12 +360,12 @@ module.exports = {
           .setColor('#f1bb1a')
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
           .addFields(
-            { name: "Plan de 100GB (USD$ 1,99)", value: `ARS${formatoPrecio(total30(1.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 200GB (USD$ 2,99)", value: `ARS${formatoPrecio(total30(2.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 1TB  (USD$ 9,99)", value: `ARS${formatoPrecio(total30(9.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 100GB Anual (USD$ 19,99)", value: `ARS${formatoPrecio(total30(19.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 200GB Anual (USD$ 29,99)", value: `ARS${formatoPrecio(total30(29.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 1TB Anual (USD$ 99,99)", value: `ARS${formatoPrecio(total30(99.99 * oficial.data['venta']), "ARS")}`, inline: true }
+            { name: "Plan de 100GB (USD$ 1,99)", value: `ARS${formatoPrecio(total30(1.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 200GB (USD$ 2,99)", value: `ARS${formatoPrecio(total30(2.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 1TB  (USD$ 9,99)", value: `ARS${formatoPrecio(total30(9.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 100GB Anual (USD$ 19,99)", value: `ARS${formatoPrecio(total30(19.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 200GB Anual (USD$ 29,99)", value: `ARS${formatoPrecio(total30(29.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 1TB Anual (USD$ 99,99)", value: `ARS${formatoPrecio(total30(99.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
        
           )
 
@@ -375,12 +375,12 @@ module.exports = {
           .setColor('#f1bb1a')
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913859037764911174/icons8-google-one-500.png")
           .addFields(
-            { name: "Plan de 100GB (USD$ 1,99)", value: `ARS${formatoPrecio((1.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 200GB (USD$ 2,99)", value: `ARS${formatoPrecio((2.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 1TB (USD$ 9,99)", value: `ARS${formatoPrecio((9.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 100GB Anual (USD$ 19,99)", value: `ARS${formatoPrecio((19.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 200GB Anual (USD$ 29,99)", value: `ARS${formatoPrecio((29.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Plan de 1TB Anual (USD$ 99,99)", value: `ARS${formatoPrecio((99.99 * oficial.data['venta']), "ARS")}`, inline: true }
+            { name: "Plan de 100GB (USD$ 1,99)", value: `ARS${formatoPrecio((1.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 200GB (USD$ 2,99)", value: `ARS${formatoPrecio((2.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 1TB (USD$ 9,99)", value: `ARS${formatoPrecio((9.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 100GB Anual (USD$ 19,99)", value: `ARS${formatoPrecio((19.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 200GB Anual (USD$ 29,99)", value: `ARS${formatoPrecio((29.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Plan de 1TB Anual (USD$ 99,99)", value: `ARS${formatoPrecio((99.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
           )
 
 
@@ -432,7 +432,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+          axios.get('https://api.bluelytics.com.ar/v2/latest'),
         ]);
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("EA Play")
@@ -441,8 +441,8 @@ module.exports = {
           .setColor('#fe4747')
           .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
           .addFields(
-            { name: "EA Play Mensual", value: `ARS${formatoPrecio(total51(4.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "EA Play Anual:", value: `ARS${formatoPrecio(total51(29.99 * oficial.data['venta']), "ARS")}`, inline: true }
+            { name: "EA Play Mensual", value: `ARS${formatoPrecio(total51(4.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "EA Play Anual:", value: `ARS${formatoPrecio(total51(29.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
           )
         await interaction.editReply({ embeds: [embed] });
       }
@@ -458,7 +458,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+          axios.get('https://api.bluelytics.com.ar/v2/latest'),
         ])
         const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Fondos de la Cartera de Steam")
@@ -467,11 +467,11 @@ module.exports = {
           .setColor('#306fb5')
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
           .addFields(
-            { name: "USD$ 5.00", value: `ARS${formatoPrecio(total51(5 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "USD$ 10.00", value: `ARS${formatoPrecio(total51(10 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "USD$ 25.00", value: `ARS${formatoPrecio(total51(25 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "USD$ 50.00", value: `ARS${formatoPrecio(total51(50 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "USD$ 100.00", value: `ARS${formatoPrecio(total51(100 * oficial.data['venta']), "ARS")}`, inline: true },
+            { name: "USD$ 5.00", value: `ARS${formatoPrecio(total51(5 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "USD$ 10.00", value: `ARS${formatoPrecio(total51(10 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "USD$ 25.00", value: `ARS${formatoPrecio(total51(25 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "USD$ 50.00", value: `ARS${formatoPrecio(total51(50 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "USD$ 100.00", value: `ARS${formatoPrecio(total51(100 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
           )
 
         await interaction.editReply({ embeds: [embed] });
@@ -504,7 +504,7 @@ module.exports = {
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
-          axios.get('https://dolarapi.com/v1/dolares/oficial'),
+          axios.get('https://api.bluelytics.com.ar/v2/latest'),
         ]);
         const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
           .setTitle("Siscripciones de Twitch")
@@ -513,9 +513,9 @@ module.exports = {
           .setColor('#9246ff')
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
           .addFields(
-            { name: "Suscripción de nivel 1", value: `ARS$ ${formatoPrecio(total51(1.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Suscripción de nivel 2", value: `ARS$ ${formatoPrecio(total51(3.99 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "Suscripción de nivel 3", value: `ARS$ ${formatoPrecio(total51(9.99 * oficial.data['venta']), "ARS")}`, inline: true }
+            { name: "Suscripción de nivel 1", value: `ARS$ ${formatoPrecio(total51(1.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Suscripción de nivel 2", value: `ARS$ ${formatoPrecio(total51(3.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "Suscripción de nivel 3", value: `ARS$ ${formatoPrecio(total51(9.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
           )
 
 
@@ -526,13 +526,13 @@ module.exports = {
           .setURL("https://www.twitch.tv/")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
           .addFields(
-            { name: "100 bits", value: `ARS$ ${formatoPrecio(total51(1.40 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "300 bits", value: `ARS$ ${formatoPrecio(total51(3.00 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "500 bits", value: `ARS$ ${formatoPrecio(total51(7.00 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "1.500 bits", value: `ARS$ ${formatoPrecio(total51(19.95 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "5.000 bits", value: `ARS$ ${formatoPrecio(total51(64.40 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "10.000 bits", value: `ARS$ ${formatoPrecio(total51(126.00 * oficial.data['venta']), "ARS")}`, inline: true },
-            { name: "25.000 bits", value: `ARS$ ${formatoPrecio(total51(308.00 * oficial.data['venta']), "ARS")}`, inline: true }
+            { name: "100 bits", value: `ARS$ ${formatoPrecio(total51(1.40 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "300 bits", value: `ARS$ ${formatoPrecio(total51(3.00 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "500 bits", value: `ARS$ ${formatoPrecio(total51(7.00 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "1.500 bits", value: `ARS$ ${formatoPrecio(total51(19.95 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "5.000 bits", value: `ARS$ ${formatoPrecio(total51(64.40 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "10.000 bits", value: `ARS$ ${formatoPrecio(total51(126.00 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "25.000 bits", value: `ARS$ ${formatoPrecio(total51(308.00 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
           )
 
 

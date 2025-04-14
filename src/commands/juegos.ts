@@ -60,9 +60,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const llenarEmbed = (embed, juego) => {
                     embed.setTitle(juego)
@@ -194,9 +194,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const llenarEmbed = (embed, juego) => {
                     embed.setTitle(juego)
@@ -283,9 +283,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const embedVbucks: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 embedVbucks.setTitle("Fortnite")
@@ -318,9 +318,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const llenarEmbed = (embed, forma: String) => {
                     embed.setTitle("League of Legends")
@@ -433,9 +433,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const embedGenesis: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 embedGenesis.setTitle("Genshin Impact")
@@ -474,9 +474,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const embedClashRoyale: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 embedClashRoyale.setTitle("Clash Royale")
@@ -509,9 +509,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const embedClashOfClans: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 embedClashOfClans.setTitle("Clash of Clans")
@@ -542,9 +542,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const embedCounterStrike: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 embedCounterStrike.setTitle("Counter Strike 2")
@@ -570,9 +570,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const embedBrawlStars: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 embedBrawlStars.setTitle("Brawl Stars")
@@ -601,9 +601,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const embedValorant: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 embedValorant.setTitle("Valorant")
@@ -632,9 +632,9 @@ module.exports = {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
-                    axios.get('https://dolarapi.com/v1/dolares/oficial'),
+                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['venta']
+                let valorDolar = oficial.data['oficial']['value_sell']
 
                 const embedFreeFire: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 embedFreeFire.setTitle("Free Fire")

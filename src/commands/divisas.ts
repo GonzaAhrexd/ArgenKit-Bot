@@ -9,8 +9,8 @@ import axios from "axios"
 // Funciones 
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
-import divisas from '../variables/divisas-valores';
-const { total30, total51 } = require("../functions/impuestos"); //Impuestos
+import divisas from '../variables/divisas-valores'; 
+const { total30, total51, total21 } = require("../functions/impuestos"); //Impuestos
 
 
 module.exports = {
@@ -135,6 +135,7 @@ module.exports = {
                     { name: "COMPRA", value: `ARS ${formatoPrecio((num / conversion) * oficial.data['oficial']['value_buy'], "ARS")}`, inline: true },
                     { name: "VENTA", value: `ARS ${formatoPrecio((num / conversion) * oficial.data['oficial']['value_sell'], "ARS")}`, inline: true },
                     { name: "Impuestos nacionales", value: `Impuestos sobre tarjetas de crédito y débito a la compra de ${divisa.nombre}`, inline: false },
+                    { name: "IVA (21%)", value: `ARS ${formatoPrecio(total21((num / conversion) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
                     { name: "Percepción de ganancias (30%)", value: `ARS ${formatoPrecio(total30((num / conversion) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
                     { name: "Percepción + IVA (51%)", value: `ARS ${formatoPrecio(total51((num / conversion) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
                 );

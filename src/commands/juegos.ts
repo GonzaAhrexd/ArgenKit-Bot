@@ -4,7 +4,7 @@ import axios from "axios";
 import Discord from "discord.js"
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import { embedError } from "../functions/embedError";
-const { total51 } = require('../functions/impuestos')
+const { total51, total21, total30 } = require('../functions/impuestos')
 import { formatoPrecio } from '../functions/formato'
 const wait = require('node:timers/promises').setTimeout
 module.exports = {
@@ -74,42 +74,42 @@ module.exports = {
                 const embedJava: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedJava, "Minecraft Java Edition")
                 embedJava.addFields(
-                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total51(13199), "ARS"), inline: true },
-                    { name: "Minecraft Realms (Java)", value: "ARS" + formatoPrecio(total51(valorDolar * 7.99), "ARS"), inline: true },
+                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total21(13199), "ARS"), inline: true },
+                    { name: "Minecraft Realms (Java)", value: "ARS" + formatoPrecio(total21(valorDolar * 7.99), "ARS"), inline: true },
                 )
 
                 const embedBedrock: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedBedrock, "Minecraft Bedrock Edition")
                 embedBedrock.addFields(
-                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total51(13199), "ARS"), inline: true },
-                    { name: "Minecraft Bedrock (Android/iOS)", value: "ARS" + formatoPrecio(total51(valorDolar * 7.99), "ARS"), inline: true },
-                    { name: "Minecraft Bedrock (Xbox)", value: "ARS" + formatoPrecio(total51(8799), "ARS"), inline: true },
-                    { name: "Minecraft Bedrock (PlayStation)", value: "ARS" + formatoPrecio(total51(valorDolar * 19.99), "ARS"), inline: true },
-                    { name: "Minecraft Bedrock (Nintendo Switch)", value: "ARS" + formatoPrecio(total51(5999), "ARS"), inline: true },
-                    { name: "Minecraft Realms Plus (Bedrock)", value: "ARS" + formatoPrecio(total51(115), "ARS"), inline: true },
-                    { name: "320 minecoin", value: "ARS" + formatoPrecio(total51(397), "ARS"), inline: true },
-                    { name: "960 + 60 minecoin", value: "ARS" + formatoPrecio(total51(1206), "ARS"), inline: true },
-                    { name: "1600 + 120 minecoin", value: "ARS" + formatoPrecio(total51(1986), "ARS"), inline: true },
-                    { name: "3200 + 300 minecoin", value: "ARS" + formatoPrecio(total51(4008), "ARS"), inline: true },
-                    { name: "8000 + 800 minecoin", value: "ARS" + formatoPrecio(total51(9999), "ARS"), inline: true },
+                    { name: "Minecraft Java & Bedrock Edition for PC", value: "ARS" + formatoPrecio(total21(13199), "ARS"), inline: true },
+                    { name: "Minecraft Bedrock (Android/iOS)", value: `ARS" + ${formatoPrecio(total30(valorDolar * 7.99), "ARS")} \n${formatoPrecio(valorDolar * 7.99, "ARS")} (Sin percepción)`, inline: true },
+                    { name: "Minecraft Bedrock (Xbox)", value: "ARS" + formatoPrecio(total21(8799), "ARS"), inline: true },
+                    { name: "Minecraft Bedrock (PlayStation)", value: "ARS" + formatoPrecio(total21(valorDolar * 19.99), "ARS"), inline: true },
+                    { name: "Minecraft Bedrock (Nintendo Switch)", value: "ARS" + formatoPrecio(total21(13199), "ARS"), inline: true },
+                    { name: "Minecraft Realms Plus (Bedrock)", value: "ARS" + formatoPrecio(total21(115), "ARS"), inline: true },
+                    { name: "320 minecoin", value: "ARS" + formatoPrecio(total21(397), "ARS"), inline: true },
+                    { name: "960 + 60 minecoin", value: "ARS" + formatoPrecio(total21(1206), "ARS"), inline: true },
+                    { name: "1600 + 120 minecoin", value: "ARS" + formatoPrecio(total21(1986), "ARS"), inline: true },
+                    { name: "3200 + 300 minecoin", value: "ARS" + formatoPrecio(total21(4008), "ARS"), inline: true },
+                    { name: "8000 + 800 minecoin", value: "ARS" + formatoPrecio(total21(9999), "ARS"), inline: true },
                 )
 
                 const embedDungeons: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedDungeons, "Minecraft Dungeons")
                 embedDungeons.addFields(
-                    { name: "Minecraft Dungeons(<:MSTore:1181093660272635914><:Xbox:1181092947949801492><:Switch:1181093657491816528>)", value: "ARS" + formatoPrecio(total51(3999), "ARS"), inline: true },
-                    { name: "Minecraft Dungeons Edición Definitiva (<:MSTore:1181093660272635914><:Xbox:1181092947949801492>/<:Switch:1181093657491816528>)", value: "ARS" + formatoPrecio(total51(17739), "ARS"), inline: true },
-                    { name: "Minecraft Dungeons(<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total51(valorDolar * 19.99), "ARS")}`, inline: true },
-                    { name: "Minecraft Dungeons Edición Definitiva(<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total51(valorDolar * 39.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Dungeons(<:MSTore:1181093660272635914><:Xbox:1181092947949801492><:Switch:1181093657491816528>)", value: "ARS" + formatoPrecio(total21(3999), "ARS"), inline: true },
+                    { name: "Minecraft Dungeons Edición Definitiva (<:MSTore:1181093660272635914><:Xbox:1181092947949801492>/<:Switch:1181093657491816528>)", value: "ARS" + formatoPrecio(total21(17739), "ARS"), inline: true },
+                    { name: "Minecraft Dungeons(<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total21(valorDolar * 19.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Dungeons Edición Definitiva(<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total21(valorDolar * 39.99), "ARS")}`, inline: true },
                 )
 
                 const embedLegends: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedLegends, "Minecraft Legends")
                 embedLegends.addFields(
-                    { name: "Minecraft Legends (<:MSTore:1181093660272635914><:Xbox:1181092947949801492><:Switch:1181093657491816528>)", value: `ARS${formatoPrecio(total51(7999), "ARS")}`, inline: true },
-                    { name: "Minecraft Legends Definitive Edition (<:MSTore:1181093660272635914><:Xbox:1181092947949801492>/<:Switch:1181093657491816528>)", value: `ARS${formatoPrecio(total51(9999), "ARS")}`, inline: true },
-                    { name: "Minecraft Legends (<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total51(valorDolar * 39.99), "ARS")}`, inline: true },
-                    { name: "Minecraft Legends Definitive Edition (<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total51(valorDolar * 49.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends (<:MSTore:1181093660272635914><:Xbox:1181092947949801492><:Switch:1181093657491816528>)", value: `ARS${formatoPrecio(total21(7999), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends Definitive Edition (<:MSTore:1181093660272635914><:Xbox:1181092947949801492>/<:Switch:1181093657491816528>)", value: `ARS${formatoPrecio(total21(9999), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends (<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total21(valorDolar * 39.99), "ARS")}`, inline: true },
+                    { name: "Minecraft Legends Definitive Edition (<:Steam:1181092950567038996><:Playstation:1181092944682426452>)", value: `ARS${formatoPrecio(total21(valorDolar * 49.99), "ARS")}`, inline: true },
 
                 )
 
@@ -294,10 +294,10 @@ module.exports = {
                 embedVbucks.setColor("#77DBF7")
                 embedVbucks.setThumbnail("https://static.wikia.nocookie.net/depredador-avp/images/4/4f/Fortnite_F.png/revision/latest?cb=20231126072405&path-prefix=es")
                 embedVbucks.addFields(
-                    { name: "1000 V-Bucks", value: "ARS" + formatoPrecio(total51(valorDolar * 8.99), "ARS"), inline: true },
-                    { name: "2800 V-Bucks", value: "ARS" + formatoPrecio(total51(valorDolar * 22.99), "ARS"), inline: true },
-                    { name: "5000 V-Bucks", value: "ARS" + formatoPrecio(total51(valorDolar * 36.99), "ARS"), inline: true },
-                    { name: "13500 V-Bucks", value: "ARS" + formatoPrecio(total51(valorDolar * 89.99), "ARS"), inline: true },
+                    { name: "1000 V-Bucks", value: "ARS" + formatoPrecio(total21(valorDolar * 8.99), "ARS"), inline: true },
+                    { name: "2800 V-Bucks", value: "ARS" + formatoPrecio(total21(valorDolar * 22.99), "ARS"), inline: true },
+                    { name: "5000 V-Bucks", value: "ARS" + formatoPrecio(total21(valorDolar * 36.99), "ARS"), inline: true },
+                    { name: "13500 V-Bucks", value: "ARS" + formatoPrecio(total21(valorDolar * 89.99), "ARS"), inline: true },
                 )
 
                 await wait(3000)
@@ -334,31 +334,31 @@ module.exports = {
                 const embedTJ: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedTJ, "tarjeta de crédito/debito")
                 embedTJ.addFields(
-                    { name: "235 RP + 0 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 3.99), "ARS"), inline: true },
-                    { name: "645 RP + 45 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 10.99), "ARS"), inline: true },
-                    { name: "1235 RP + 130 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 20.99), "ARS"), inline: true },
-                    { name: "2060 RP + 315 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 34.99), "ARS"), inline: true },
-                    { name: "3535 RP + 715 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 59.99), "ARS"), inline: true },
-                    { name: "5300 RP + 1450 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 89.99), "ARS"), inline: true },
+                    { name: "235 RP + 0 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 3.99), "ARS"), inline: true },
+                    { name: "645 RP + 45 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 10.99), "ARS"), inline: true },
+                    { name: "1235 RP + 130 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 20.99), "ARS"), inline: true },
+                    { name: "2060 RP + 315 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 34.99), "ARS"), inline: true },
+                    { name: "3535 RP + 715 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 59.99), "ARS"), inline: true },
+                    { name: "5300 RP + 1450 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 89.99), "ARS"), inline: true },
                 )
                 const embedPP: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedPP, "pago a plazos")
                 embedPP.addFields(
-                    { name: "1175 RP + 125 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 19.99), "ARS"), inline: true },
-                    { name: "2060 RP + 315 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 34.99), "ARS"), inline: true },
-                    { name: "3535 RP + 715 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 59.99), "ARS"), inline: true },
-                    { name: "7360 RP + 2540 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 124.99), "ARS"), inline: true },
+                    { name: "1175 RP + 125 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 19.99), "ARS"), inline: true },
+                    { name: "2060 RP + 315 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 34.99), "ARS"), inline: true },
+                    { name: "3535 RP + 715 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 59.99), "ARS"), inline: true },
+                    { name: "7360 RP + 2540 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 124.99), "ARS"), inline: true },
                 )
 
                 const embedPPal: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                 llenarEmbed(embedPPal, "PayPal")
                 embedPPal.addFields(
-                    { name: "475 RP + 0 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 3.99), "ARS"), inline: true },
-                    { name: "1300 RP + 80 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 10.99), "ARS"), inline: true },
-                    { name: "2375 RP + 225 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 19.99), "ARS"), inline: true },
-                    { name: "4175 RP + 575 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 34.99), "ARS"), inline: true },
-                    { name: "7150 RP + 1350 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 59.99), "ARS"), inline: true },
-                    { name: "10725 RP + 2775 RP", value: "ARS" + formatoPrecio(total51(valorDolar * 89.99), "ARS"), inline: true },
+                    { name: "475 RP + 0 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 3.99), "ARS"), inline: true },
+                    { name: "1300 RP + 80 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 10.99), "ARS"), inline: true },
+                    { name: "2375 RP + 225 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 19.99), "ARS"), inline: true },
+                    { name: "4175 RP + 575 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 34.99), "ARS"), inline: true },
+                    { name: "7150 RP + 1350 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 59.99), "ARS"), inline: true },
+                    { name: "10725 RP + 2775 RP", value: "ARS" + formatoPrecio(total21(valorDolar * 89.99), "ARS"), inline: true },
 
                 )
 
@@ -445,15 +445,15 @@ module.exports = {
                 embedGenesis.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181053245804773386/image.png?ex=657fa88c&is=656d338c&hm=ec2dcfd2f9ad4898c65d3b344684da67cdf324916f13c2fabaa5308663a1b4b0&")
 
                 embedGenesis.addFields(
-                    { name: "Pase de Batalla", value: "ARS" + formatoPrecio(total51(valorDolar * 9.99), "ARS"), inline: true },
-                    { name: "Pase de Batalla + 10 niveles", value: "ARS" + formatoPrecio(total51(valorDolar * 19.99), "ARS"), inline: true },
-                    { name: "Bendición de la Luna", value: "ARS" + formatoPrecio(total51(valorDolar * 4.99), "ARS"), inline: true },
-                    { name: "60 Cristales ", value: "ARS" + formatoPrecio(total51(valorDolar * 0.99), "ARS"), inline: true },
-                    { name: "300 Cristales ", value: "ARS" + formatoPrecio(total51(valorDolar * 4.99), "ARS"), inline: true },
-                    { name: "980 Cristales ", value: "ARS" + formatoPrecio(total51(valorDolar * 14.99), "ARS"), inline: true },
-                    { name: "1980 Cristales ", value: "ARS" + formatoPrecio(total51(valorDolar * 29.99), "ARS"), inline: true },
-                    { name: "3280 Cristales ", value: "ARS" + formatoPrecio(total51(valorDolar * 49.99), "ARS"), inline: true },
-                    { name: "6480 Cristales ", value: "ARS" + formatoPrecio(total51(valorDolar * 99.99), "ARS"), inline: true },
+                    { name: "Pase ", value: `ARS ${formatoPrecio(total30(valorDolar * 9.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 9.99, "ARS")}`, inline: true },
+                    { name: "Pase 10 niveles", value: `ARS ${formatoPrecio(total30(valorDolar * 19.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 19.99, "ARS")}`, inline: true },
+                    { name: "Bendición de la Luna", value: `ARS ${formatoPrecio(total30(valorDolar * 4.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 4.99, "ARS")}`, inline: true },
+                    { name: "60 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 0.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 0.99, "ARS")}`, inline: true },
+                    { name: "300 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 4.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 4.99, "ARS")}`, inline: true },
+                    { name: "980 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 14.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 14.99, "ARS")}`, inline: true },
+                    { name: "1980 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 29.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 29.99, "ARS")}`, inline: true },
+                    { name: "3280 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 49.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 49.99, "ARS")}`, inline: true },
+                    { name: "6480 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 99.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 99.99, "ARS")}`, inline: true },
                 )
 
         
@@ -486,16 +486,16 @@ module.exports = {
                 embedClashRoyale.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181063385966723112/image.png?ex=657fb1fe&is=656d3cfe&hm=77fa2f583d85f9c4b6290adfa300c6fc4d49af6b199d7fe141c1b3c44bbde4a4&")
 
                 embedClashRoyale.addFields(
-                    { name: "Pass Royale Oro", value: "ARS" + formatoPrecio(total51(valorDolar * 6.52), "ARS"), inline: true },
-                    { name: "Pass Royale Diamante", value: "ARS" + formatoPrecio(total51(valorDolar * 13.05), "ARS"), inline: true },
-                    { name: "80 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 1.08), "ARS"), inline: true },
-                    { name: "500 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 5.43), "ARS"), inline: true },
-                    { name: "1200 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 10.87), "ARS"), inline: true },
-                    { name: "2500 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 21.76), "ARS"), inline: true },
-                    { name: "6500 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 54.41), "ARS"), inline: true },
-                    { name: "14000 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 108.83), "ARS"), inline: true },
+                    { name: "Pass Royale Oro", value: `ARS ${formatoPrecio(total30(valorDolar * 6.52), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 6.52, "ARS")}`, inline: true },
+                    { name: "Pass Royale Diamante", value: `ARS ${formatoPrecio(total30(valorDolar * 13.05), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 13.05, "ARS")}`, inline: true },
+                    { name: "80 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 1.08), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 1.08, "ARS")}`, inline: true },
+                    { name: "500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 5.43), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 5.43, "ARS")}`, inline: true },
+                    { name: "1200 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 10.87), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 10.87, "ARS")}`, inline: true },
+                    { name: "2500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 21.76), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 21.76, "ARS")}`, inline: true },
+                    { name: "6500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 54.41), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 54.41, "ARS")}`, inline: true },
+                    { name: "14000 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 108.83), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 108.83, "ARS")}`, inline: true },
                 )
-  
+                
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedClashRoyale] });
 
@@ -520,13 +520,13 @@ module.exports = {
                 embedClashOfClans.setColor("#FFF956")
                 embedClashOfClans.setThumbnail("https://play-lh.googleusercontent.com/LByrur1mTmPeNr0ljI-uAUcct1rzmTve5Esau1SwoAzjBXQUby6uHIfHbF9TAT51mgHm=w240-h480-rw")
                 embedClashOfClans.addFields(
-                    { name: "80 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 1.08), "ARS"), inline: true },
-                    { name: "500 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 5.43), "ARS"), inline: true },
-                    { name: "1200 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 10.87), "ARS"), inline: true },
-                    { name: "2500 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 21.76), "ARS"), inline: true },
-                    { name: "6500 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 54.41), "ARS"), inline: true },
-                    { name: "14000 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 108.83), "ARS"), inline: true },
-                )
+                    { name: "80 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 1.08), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 1.08, "ARS")}`, inline: true },
+                    { name: "500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 5.43), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 5.43, "ARS")}`, inline: true },
+                    { name: "1200 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 10.87), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 10.87, "ARS")}`, inline: true },
+                    { name: "2500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 21.76), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 21.76, "ARS")}`, inline: true },
+                    { name: "6500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 54.41), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 54.41, "ARS")}`, inline: true },
+                    { name: "14000 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 108.83), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 108.83, "ARS")}`, inline: true },
+                       )
                 
         
                 await wait(3000)
@@ -553,8 +553,8 @@ module.exports = {
                 embedCounterStrike.setColor("#FBAC18")
                 embedCounterStrike.setThumbnail("https://static.wikia.nocookie.net/logopedia/images/4/49/Counter-Strike_2_%28Icon%29.png/revision/latest/scale-to-width-down/150?cb=20230330015359")
                 embedCounterStrike.addFields(
-                    { name: "Counter Strike 2 Status Prime", value: "ARS" + formatoPrecio(total51(valorDolar * 14.99), "ARS"), inline: true },
-                    { name: "Llaves para abrir cajas", value: "ARS" + formatoPrecio(total51(valorDolar * 2.49), "ARS"), inline: true },
+                    { name: "Counter Strike 2 Status Prime", value: "ARS" + formatoPrecio(total21(valorDolar * 14.99), "ARS"), inline: true },
+                    { name: "Llaves para abrir cajas", value: "ARS" + formatoPrecio(total21(valorDolar * 2.49), "ARS"), inline: true },
                 )
        
                 await wait(3000)
@@ -581,13 +581,13 @@ module.exports = {
                 embedBrawlStars.setColor("#FFBE20")
                 embedBrawlStars.setThumbnail("https://play-lh.googleusercontent.com/EiElcSrd6-o-19roiswSx0AZPzsq6qF3hUGHsSWDl5UVtj7G23DHkneM8ucwqyOmEg=w480-h960-rw")
                 embedBrawlStars.addFields(
-                    { name: "30 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 1.99), "ARS"), inline: true },
-                    { name: "80 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 4.99), "ARS"), inline: true },
-                    { name: "170 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 9.99), "ARS"), inline: true },
-                    { name: "360 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 19.99), "ARS"), inline: true },
-                    { name: "950 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 49.99), "ARS"), inline: true },
-                    { name: "2000 gemas", value: "ARS" + formatoPrecio(total51(valorDolar * 99.99), "ARS"), inline: true },
-                )
+                    { name: "30 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 1.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 1.99, "ARS")}`, inline: true },
+                    { name: "80 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 4.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 4.99, "ARS")}`, inline: true },
+                    { name: "170 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 9.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 9.99, "ARS")}`, inline: true },
+                    { name: "360 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 19.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 19.99, "ARS")}`, inline: true },
+                    { name: "950 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 49.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 49.99, "ARS")}`, inline: true },
+                    { name: "2000 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 99.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 99.99, "ARS")}`, inline: true },
+)
 
                
                 await wait(3000)
@@ -612,12 +612,12 @@ module.exports = {
                 embedValorant.setColor("#FF4454")
                 embedValorant.setThumbnail("https://upload.wikimedia.org/wikipedia/commons/f/fc/Valorant_logo_-_pink_color_version_%28cropped%29.png")
                 embedValorant.addFields(
-                    { name: "475 VP", value: "ARS" + formatoPrecio(total51(valorDolar * 4.99), "ARS"), inline: true },
-                    { name: "1000 VP", value: "ARS" + formatoPrecio(total51(valorDolar * 9.99), "ARS"), inline: true },
-                    { name: "2050 VP", value: "ARS" + formatoPrecio(total51(valorDolar * 19.99), "ARS"), inline: true },
-                    { name: "3650 VP", value: "ARS" + formatoPrecio(total51(valorDolar * 34.99), "ARS"), inline: true },
-                    { name: "5350 VP", value: "ARS" + formatoPrecio(total51(valorDolar * 49.99), "ARS"), inline: true },
-                    { name: "11000 VP", value: "ARS" + formatoPrecio(total51(valorDolar * 99.99), "ARS"), inline: true },
+                    { name: "475 VP", value: "ARS" + formatoPrecio(total21(valorDolar * 4.99), "ARS"), inline: true },
+                    { name: "1000 VP", value: "ARS" + formatoPrecio(total21(valorDolar * 9.99), "ARS"), inline: true },
+                    { name: "2050 VP", value: "ARS" + formatoPrecio(total21(valorDolar * 19.99), "ARS"), inline: true },
+                    { name: "3650 VP", value: "ARS" + formatoPrecio(total21(valorDolar * 34.99), "ARS"), inline: true },
+                    { name: "5350 VP", value: "ARS" + formatoPrecio(total21(valorDolar * 49.99), "ARS"), inline: true },
+                    { name: "11000 VP", value: "ARS" + formatoPrecio(total21(valorDolar * 99.99), "ARS"), inline: true },
                 )
 
                 await wait(3000)
@@ -643,15 +643,15 @@ module.exports = {
                 embedFreeFire.setColor("#E87914")
                 embedFreeFire.setThumbnail("https://upload.wikimedia.org/wikipedia/en/c/c5/Logo_of_Garena_Free_Fire.png")
                 embedFreeFire.addFields(
-                    { name: "Membresia semanal", value: "ARS" + formatoPrecio(total51(valorDolar * 2.16), "ARS"), inline: true },
-                    { name: "Membresia mensual", value: "ARS" + formatoPrecio(total51(valorDolar * 10.86), "ARS"), inline: true },
-                    { name: "100 diamantes", value: "ARS" + formatoPrecio(total51(valorDolar * 1.11), "ARS"), inline: true },
-                    { name: "310 diamantes", value: "ARS" + formatoPrecio(total51(valorDolar * 3.36), "ARS"), inline: true },
-                    { name: "520 diamantes", value: "ARS" + formatoPrecio(total51(valorDolar * 5.23), "ARS"), inline: true },
-                    { name: "1060 diamantes", value: "ARS" + formatoPrecio(total51(valorDolar * 11.22), "ARS"), inline: true },
-                    { name: "2180 diamantes", value: "ARS" + formatoPrecio(total51(valorDolar * 21.71), "ARS"), inline: true },
-                    { name: "5600 diamantes", value: "ARS" + formatoPrecio(total51(valorDolar * 51.68), "ARS"), inline: true },
-                )
+                    { name: "Membresia semanal", value: `ARS ${formatoPrecio(total30(valorDolar * 2.16), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 2.16, "ARS")}`, inline: true },
+                    { name: "Membresia mensual", value: `ARS ${formatoPrecio(total30(valorDolar * 10.86), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 10.86, "ARS")}`, inline: true },
+                    { name: "100 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 1.11), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 1.11, "ARS")}`, inline: true },
+                    { name: "310 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 3.36), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 3.36, "ARS")}`, inline: true },
+                    { name: "520 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 5.23), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 5.23, "ARS")}`, inline: true },
+                    { name: "1060 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 11.22), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 11.22, "ARS")}`, inline: true },
+                    { name: "2180 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 21.71), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 21.71, "ARS")}`, inline: true },
+                    { name: "5600 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 51.68), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 51.68, "ARS")}`, inline: true },
+                              )
 
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedFreeFire] });

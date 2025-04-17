@@ -165,9 +165,9 @@ module.exports = {
         .setColor('#a6ed75')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903853195443445770/xbox.png")
         .addFields(
-          { name: "Xbox Game Pass Core", value: "ARS" + formatoPrecio((total51(5998.69)), "ARS"), inline: true },
-          { name: "Xbox Game Pass para PC / Consola", value: "ARS" + formatoPrecio((total51(6998.69)), "ARS"), inline: true },
-          { name: "Xbox Game Pass Ultimate", value: "ARS" + formatoPrecio((total51(10997.39)), "ARS"), inline: true }
+          { name: "Xbox Game Pass Core", value: "ARS" + formatoPrecio((total21(5998.69)), "ARS"), inline: true },
+          { name: "Xbox Game Pass para PC / Consola", value: "ARS" + formatoPrecio((total21(6998.69)), "ARS"), inline: true },
+          { name: "Xbox Game Pass Ultimate", value: "ARS" + formatoPrecio((total21(10997.39)), "ARS"), inline: true }
 
         )
       return interaction.reply({ embeds: [embed] });
@@ -441,9 +441,9 @@ module.exports = {
           .setColor('#fe4747')
           .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
           .addFields(
-            { name: "EA Play Mensual", value: `ARS${formatoPrecio(total51(4.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "EA Play Anual:", value: `ARS${formatoPrecio(total51(29.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
-          )
+            { name: "EA Play Mensual", value: `ARS${formatoPrecio(total21(4.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "EA Play Anual:", value: `ARS${formatoPrecio(total21(29.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
+          ) 
         await interaction.editReply({ embeds: [embed] });
       }
       catch (error) {
@@ -467,11 +467,11 @@ module.exports = {
           .setColor('#306fb5')
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
           .addFields(
-            { name: "USD$ 5.00", value: `ARS${formatoPrecio(total51(5 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "USD$ 10.00", value: `ARS${formatoPrecio(total51(10 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "USD$ 25.00", value: `ARS${formatoPrecio(total51(25 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "USD$ 50.00", value: `ARS${formatoPrecio(total51(50 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "USD$ 100.00", value: `ARS${formatoPrecio(total51(100 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "USD$ 5.00", value: `ARS${formatoPrecio(total21(5 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "USD$ 10.00", value: `ARS${formatoPrecio(total21(10 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "USD$ 25.00", value: `ARS${formatoPrecio(total21(25 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "USD$ 50.00", value: `ARS${formatoPrecio(total21(50 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+            { name: "USD$ 100.00", value: `ARS${formatoPrecio(total21(100 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
           )
 
         await interaction.editReply({ embeds: [embed] });

@@ -65,11 +65,7 @@ module.exports = {
                             { name: `${Metal.nombre} a precio del dólar oficial :bank: `, value: `Valor del ${Metal.nombre} a precio del dólar oficial, liquidado por parte del gobierno nacional sujeto a diversos impuestos ` },
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['oficial']['value_buy'], "ARS")}`, inline: true },
                             { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['oficial']['value_sell'], "ARS")}`, inline: true },
-                            //Impuestos
-                            { name: "Impuestos (30%) ", value: `ARS${formatoPrecio(total30((convertir / metal.data['usd'][Metal.iso]) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-                            //Blue
-                            { name: `${Metal.nombre} a precio del Dólar Blue <:dolarblue:1181095026432938034>  `, value: `Valor del mercado paralelo establecido por la oferta y la demanda` },
-                        )
+                            )
                     await wait(4000)
                     await interaction.editReply({ embeds: [embed] });
                

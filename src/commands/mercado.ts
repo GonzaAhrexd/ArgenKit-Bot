@@ -125,21 +125,21 @@ module.exports = {
                     await new Promise(resolve => setTimeout(resolve, 1000)); // 1-second delay
                 }
         
-                const [estadoMercado, dolarCCL] = await Promise.all([
+                const [estadoMercado, dolar] = await Promise.all([
                     axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
-                    axios.get(`https://dolarapi.com/v1/dolares/contadoconliqui`),
+                    axios.get(`https://dolarapi.com/v1/dolares/bolsa`),
                 ]);
         
                 const llenarEmbed = (embedRellenar, tipoAcciones) => {
                     embedRellenar.setTitle("Acciones de empresas")
                         .setColor(estadoMercado.data['isOpen'] ? "Green" : "Red")
                         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1178904578763280456/stock.png?ex=6577d772&is=65656272&hm=d31896e4060b95d263afb323da2c5d36687da9f95998a024ab814dcfecb5d04b&")
-                        .setDescription(`Estas son algunas acciones del mercado. Los valores en pesos son una estimación tomando de referencia el dólar CCL`);
+                        .setDescription(`Estas son algunas acciones del mercado.`);
                     for (let accion of acciones) {
                         if (tipoAcciones.includes(accion.name)) {
                             let field = {
                                 name: `${accion.name} ${subioPrecio(accion)} ${(accion.porcentaje).toFixed(2)}%`,
-                                value: `${formatoPrecio(accion.price, "USD")} (NYC)\nARS ${formatoPrecio(((accion.price / accion.ratio) * dolarCCL.data['venta']), "ARS")} (CEDEAR ${accion.ratio}:1) `,
+                                value: `${formatoPrecio(accion.price, "USD")} (NYC)\nARS ${formatoPrecio(((accion.price / accion.ratio) * dolar.data['venta']), "ARS")} (CEDEAR ${accion.ratio}:1) `,
                                 inline: true,
                             };
                             embedRellenar.addFields(field);
@@ -212,24 +212,24 @@ module.exports = {
             let activo = interaction.options.getString('activo')
             await interaction.deferReply();
             try {
-                const [estadoMercado, activoValores, dolarCCL] = await Promise.all([
+                const [estadoMercado, activoValores, dolar] = await Promise.all([
                     axios.get(`https://finnhub.io/api/v1/stock/market-status?exchange=US&token=${apiKEY}`),
                     axios.get(`https://finnhub.io/api/v1/quote?symbol=${activo.toUpperCase()}&token=${apiKEY}`),
-                    axios.get(`https://dolarapi.com/v1/dolares/contadoconliqui`),
+                    axios.get(`https://dolarapi.com/v1/dolares/bolsa`),
                 ]);
                 let accion = {symbol: activo, price: activoValores.data['c'],previousPrice: activoValores.data['pc'], lowPrice: activoValores.data['l'], openPrice: activoValores.data['o'], highPrice: activoValores.data['h'], porcentaje: activoValores.data['dp'] }
                 const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                     .setTitle(`Acciones de ${accion.symbol}`)
                     .setColor(estadoMercado.data['isOpen'] ? "Green" : "Red")
                     .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1178904578763280456/stock.png?ex=6577d772&is=65656272&hm=d31896e4060b95d263afb323da2c5d36687da9f95998a024ab814dcfecb5d04b&")
-                    .setDescription(`Valores de ${accion.symbol} en la bolsa de Nueva York. \nLos valores en pesos son una estimación utilizando el dólar CCL`)
+                    .setDescription(`Valores de ${accion.symbol} en la bolsa de Nueva York.`)
                     .addFields(
-                        { name: "Precio actual", value: `${formatoPrecio(accion.price,"USD")}\nARS${formatoPrecio(accion.price*dolarCCL.data['venta'],"ARS")}`, inline: true },
-                        { name: "Precio anterior", value: `${formatoPrecio(accion.previousPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolarCCL.data['venta'],"ARS")}`, inline: true },
+                        { name: "Precio actual", value: `${formatoPrecio(accion.price,"USD")}\nARS${formatoPrecio(accion.price*dolar.data['venta'],"ARS")}`, inline: true },
+                        { name: "Precio anterior", value: `${formatoPrecio(accion.previousPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolar.data['venta'],"ARS")}`, inline: true },
                         { name: "Variación anterior", value: `${formatoNum(accion.porcentaje.toFixed(2))}% ${subioPrecio(accion)}`, inline: true },
-                        { name: "Precio de apertura", value: `${formatoPrecio(accion.openPrice,"USD")}\nARS${formatoPrecio(accion.price*dolarCCL.data['venta'],"ARS")}`, inline: true },
-                        { name: "Precio más bajo del día", value: `${formatoPrecio(accion.lowPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolarCCL.data['venta'],"ARS")}`, inline: true },
-                        { name: "Precio más alto del día", value: `${formatoPrecio(accion.highPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolarCCL.data['venta'],"ARS")}`, inline: true },
+                        { name: "Precio de apertura", value: `${formatoPrecio(accion.openPrice,"USD")}\nARS${formatoPrecio(accion.price*dolar.data['venta'],"ARS")}`, inline: true },
+                        { name: "Precio más bajo del día", value: `${formatoPrecio(accion.lowPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolar.data['venta'],"ARS")}`, inline: true },
+                        { name: "Precio más alto del día", value: `${formatoPrecio(accion.highPrice,"USD")}\nARS${formatoPrecio(accion.previousPrice*dolar.data['venta'],"ARS")}`, inline: true },
                         )
                 await wait(3000)
                 await interaction.editReply({ embeds: [embed] });

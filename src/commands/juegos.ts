@@ -7,6 +7,9 @@ import { embedError } from "../functions/embedError";
 const { total51, total21, total30 } = require('../functions/impuestos')
 import { formatoPrecio } from '../functions/formato'
 const wait = require('node:timers/promises').setTimeout
+
+// Juegos
+import FreeFire from './juegos/FreeFire'
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName("juegos")
@@ -140,7 +143,7 @@ module.exports = {
                             .setStyle(ButtonStyle.Secondary)
                     )
 
-             
+
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedJava], components: [row] });
 
@@ -240,7 +243,7 @@ module.exports = {
 
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedPremium], components: [row] });
-             
+
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;
@@ -302,7 +305,7 @@ module.exports = {
 
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedVbucks] });
-        
+
 
             }
             catch (error) {
@@ -384,7 +387,7 @@ module.exports = {
 
                 await wait(3000)
                 await interaction.editReply({ embeds: [embedTJ], components: [row] });
-              
+
 
                 client.on('interactionCreate', interaction => {
                     if (!interaction.isButton()) return;
@@ -435,108 +438,271 @@ module.exports = {
                 const [oficial] = await Promise.all([
                     axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['oficial']['value_sell']
+                const valorDolar = oficial.data['oficial']['value_sell'];
 
-                const embedGenesis: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                embedGenesis.setTitle("Genshin Impact")
-                embedGenesis.setURL("https://genshin.mihoyo.com/es/home")
-                embedGenesis.setDescription(`Los precios en Genshin Impact en Argentina son los siguientes:`)
-                embedGenesis.setColor("#7997D3")
-                embedGenesis.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181053245804773386/image.png?ex=657fa88c&is=656d338c&hm=ec2dcfd2f9ad4898c65d3b344684da67cdf324916f13c2fabaa5308663a1b4b0&")
+                // Cálculo del precio con o sin percepción
+                const calcularPrecio = (usd: number, conPercepcion: boolean) => {
+                    const precio = usd * valorDolar;
+                    return conPercepcion ? total30(precio) : precio;
+                };
 
-                embedGenesis.addFields(
-                    { name: "Pase ", value: `ARS ${formatoPrecio(total30(valorDolar * 9.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 9.99, "ARS")}`, inline: true },
-                    { name: "Pase 10 niveles", value: `ARS ${formatoPrecio(total30(valorDolar * 19.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 19.99, "ARS")}`, inline: true },
-                    { name: "Bendición de la Luna", value: `ARS ${formatoPrecio(total30(valorDolar * 4.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 4.99, "ARS")}`, inline: true },
-                    { name: "60 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 0.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 0.99, "ARS")}`, inline: true },
-                    { name: "300 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 4.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 4.99, "ARS")}`, inline: true },
-                    { name: "980 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 14.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 14.99, "ARS")}`, inline: true },
-                    { name: "1980 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 29.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 29.99, "ARS")}`, inline: true },
-                    { name: "3280 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 49.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 49.99, "ARS")}`, inline: true },
-                    { name: "6480 Cristales", value: `ARS ${formatoPrecio(total30(valorDolar * 99.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 99.99, "ARS")}`, inline: true },
-                )
+                // Función para crear el embed
+                const crearEmbedGenshin = (conPercepcion: boolean) => {
+                    const embed = new Discord.EmbedBuilder()
+                        .setTitle("Genshin Impact")
+                        .setURL("https://genshin.mihoyo.com/es/home")
+                        .setDescription(
+                            conPercepcion
+                                ? "Los precios en Genshin Impact **con percepción (30%)** en Argentina son los siguientes:"
+                                : "Al pagar debitando directamente en dólares con cuenta en dólar se puede evitar la percepción:"
+                        )
+                        .setColor("#7997D3")
+                        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181053245804773386/image.png?ex=657fa88c&is=656d338c&hm=ec2dcfd2f9ad4898c65d3b344684da67cdf324916f13c2fabaa5308663a1b4b0&")
+                        .addFields(
+                            { name: "Pase", value: `ARS ${formatoPrecio(calcularPrecio(9.99, conPercepcion), "ARS")}`, inline: true },
+                            { name: "Pase 10 niveles", value: `ARS ${formatoPrecio(calcularPrecio(19.99, conPercepcion), "ARS")}`, inline: true },
+                            { name: "Bendición de la Luna", value: `ARS ${formatoPrecio(calcularPrecio(4.99, conPercepcion), "ARS")}`, inline: true },
+                            { name: "60 Cristales", value: `ARS ${formatoPrecio(calcularPrecio(0.99, conPercepcion), "ARS")}`, inline: true },
+                            { name: "300 Cristales", value: `ARS ${formatoPrecio(calcularPrecio(4.99, conPercepcion), "ARS")}`, inline: true },
+                            { name: "980 Cristales", value: `ARS ${formatoPrecio(calcularPrecio(14.99, conPercepcion), "ARS")}`, inline: true },
+                            { name: "1980 Cristales", value: `ARS ${formatoPrecio(calcularPrecio(29.99, conPercepcion), "ARS")}`, inline: true },
+                            { name: "3280 Cristales", value: `ARS ${formatoPrecio(calcularPrecio(49.99, conPercepcion), "ARS")}`, inline: true },
+                            { name: "6480 Cristales", value: `ARS ${formatoPrecio(calcularPrecio(99.99, conPercepcion), "ARS")}`, inline: true }
+                        );
 
-        
-                await wait(3000)
-                await interaction.editReply({ embeds: [embedGenesis] });
-               
+                    return embed;
+                };
 
+                const embedConPercepcion = crearEmbedGenshin(true);
 
+                const row = new ActionRowBuilder<ButtonBuilder>()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('conpercepcion_genshin')
+                            .setLabel("Con percepción")
+                            .setStyle(ButtonStyle.Success),
+                        new ButtonBuilder()
+                            .setCustomId('sinpercepcion_genshin')
+                            .setLabel("Sin percepción")
+                            .setStyle(ButtonStyle.Primary)
+                    );
+
+                await interaction.editReply({ embeds: [embedConPercepcion], components: [row] });
+
+                const collector = interaction.channel.createMessageComponentCollector({
+                    filter: i => ['conpercepcion_genshin', 'sinpercepcion_genshin'].includes(i.customId),
+                    time: 15000,
+                });
+
+                collector.on('collect', async i => {
+                    await i.deferUpdate();
+                    const conPercepcion = i.customId === 'conpercepcion_genshin';
+                    await i.editReply({ embeds: [crearEmbedGenshin(conPercepcion)], components: [row] });
+                });
+
+            } catch (error) {
+                embedError(interaction, error);
             }
-            catch (error) {
-                embedError(interaction, error)
-            }
-
         }
 
-        //Clash Royale
+        // Clash Royale
         if (interaction.options.getSubcommand() === 'clashroyale') {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['oficial']['value_sell']
-
-                const embedClashRoyale: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                embedClashRoyale.setTitle("Clash Royale")
-                embedClashRoyale.setURL("https://clashroyale.com/es")
-                embedClashRoyale.setDescription(`Los precios en Clash Royale en Argentina son los siguientes:`)
-                embedClashRoyale.setColor("#57EAFF")
-                embedClashRoyale.setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181063385966723112/image.png?ex=657fb1fe&is=656d3cfe&hm=77fa2f583d85f9c4b6290adfa300c6fc4d49af6b199d7fe141c1b3c44bbde4a4&")
-
-                embedClashRoyale.addFields(
-                    { name: "Pass Royale Oro", value: `ARS ${formatoPrecio(total30(valorDolar * 6.52), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 6.52, "ARS")}`, inline: true },
-                    { name: "Pass Royale Diamante", value: `ARS ${formatoPrecio(total30(valorDolar * 13.05), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 13.05, "ARS")}`, inline: true },
-                    { name: "80 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 1.08), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 1.08, "ARS")}`, inline: true },
-                    { name: "500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 5.43), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 5.43, "ARS")}`, inline: true },
-                    { name: "1200 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 10.87), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 10.87, "ARS")}`, inline: true },
-                    { name: "2500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 21.76), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 21.76, "ARS")}`, inline: true },
-                    { name: "6500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 54.41), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 54.41, "ARS")}`, inline: true },
-                    { name: "14000 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 108.83), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 108.83, "ARS")}`, inline: true },
-                )
-                
-                await wait(3000)
-                await interaction.editReply({ embeds: [embedClashRoyale] });
-
-            }
-            catch (error) {
-                embedError(interaction, error)
+                let valorDolar = oficial.data['oficial']['value_sell'];
+        
+                // Function to create the embed based on perception toggle
+                const createClashRoyaleEmbed = (withPerception) => {
+                    const embedClashRoyale = new Discord.EmbedBuilder()
+                        .setTitle("Clash Royale")
+                        .setURL("https://clashroyale.com/es")
+                        .setDescription(`Los precios en Clash Royale en Argentina son los siguientes:`)
+                        .setColor("#57EAFF")
+                        .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1181063385966723112/image.png?ex=657fb1fe&is=656d3cfe&hm=77fa2f583d85f9c4b6290adfa300c6fc4d49af6b199d7fe141c1b3c44bbde4a4&");
+        
+                    const items = [
+                        { name: "Pass Royale Oro", price: valorDolar * 6.52 },
+                        { name: "Pass Royale Diamante", price: valorDolar * 13.05 },
+                        { name: "80 gemas", price: valorDolar * 1.08 },
+                        { name: "500 gemas", price: valorDolar * 5.43 },
+                        { name: "1200 gemas", price: valorDolar * 10.87 },
+                        { name: "2500 gemas", price: valorDolar * 21.76 },
+                        { name: "6500 gemas", price: valorDolar * 54.41 },
+                        { name: "14000 gemas", price: valorDolar * 108.83 },
+                    ];
+        
+                    items.forEach(item => {
+                        const price = withPerception ? total30(item.price) : item.price;
+                        embedClashRoyale.addFields({
+                            name: item.name,
+                            value: `ARS ${formatoPrecio(price, "ARS")}`,
+                            inline: true,
+                        });
+                    });
+        
+                    return embedClashRoyale;
+                };
+        
+                // Create buttons
+                const withPerceptionButton = new Discord.ButtonBuilder()
+                    .setCustomId('with_perception')
+                    .setLabel('Con Percepción')
+                    .setStyle(Discord.ButtonStyle.Primary); // Celeste (Primary)
+        
+                const withoutPerceptionButton = new Discord.ButtonBuilder()
+                    .setCustomId('without_perception')
+                    .setLabel('Sin Percepción')
+                    .setStyle(Discord.ButtonStyle.Success); // Green (Success)
+        
+                const row = new Discord.ActionRowBuilder()
+                    .addComponents(withPerceptionButton, withoutPerceptionButton);
+        
+                // Initial embed (with perception by default)
+                let currentEmbed = createClashRoyaleEmbed(true);
+        
+                // Send initial reply
+                const message = await interaction.editReply({
+                    embeds: [currentEmbed],
+                    components: [row],
+                });
+        
+                // Create a collector for button interactions
+                const collector = message.createMessageComponentCollector({
+                    filter: i => i.user.id === interaction.user.id,
+                    time: 60000, // 60 seconds
+                });
+        
+                collector.on('collect', async i => {
+                    if (i.customId === 'with_perception') {
+                        currentEmbed = createClashRoyaleEmbed(true);
+                    } else if (i.customId === 'without_perception') {
+                        currentEmbed = createClashRoyaleEmbed(false);
+                    }
+        
+                    await i.update({
+                        embeds: [currentEmbed],
+                        components: [row],
+                    });
+                });
+        
+                collector.on('end', async () => {
+                    // Disable buttons after collector ends
+                    withPerceptionButton.setDisabled(true);
+                    withoutPerceptionButton.setDisabled(true);
+                    const disabledRow = new Discord.ActionRowBuilder()
+                        .addComponents(withPerceptionButton, withoutPerceptionButton);
+        
+                    await interaction.editReply({
+                        embeds: [currentEmbed],
+                        components: [disabledRow],
+                    });
+                });
+            } catch (error) {
+                embedError(interaction, error);
             }
         }
-        //Clash of Clans
+
         if (interaction.options.getSubcommand() === 'clashofclans') {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['oficial']['value_sell']
-
-                const embedClashOfClans: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                embedClashOfClans.setTitle("Clash of Clans")
-                embedClashOfClans.setURL("https://clashofclans.com/es")
-                embedClashOfClans.setDescription(`Los precios en Clash of Clans en Argentina son los siguientes:`)
-                embedClashOfClans.setColor("#FFF956")
-                embedClashOfClans.setThumbnail("https://play-lh.googleusercontent.com/LByrur1mTmPeNr0ljI-uAUcct1rzmTve5Esau1SwoAzjBXQUby6uHIfHbF9TAT51mgHm=w240-h480-rw")
-                embedClashOfClans.addFields(
-                    { name: "80 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 1.08), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 1.08, "ARS")}`, inline: true },
-                    { name: "500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 5.43), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 5.43, "ARS")}`, inline: true },
-                    { name: "1200 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 10.87), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 10.87, "ARS")}`, inline: true },
-                    { name: "2500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 21.76), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 21.76, "ARS")}`, inline: true },
-                    { name: "6500 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 54.41), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 54.41, "ARS")}`, inline: true },
-                    { name: "14000 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 108.83), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 108.83, "ARS")}`, inline: true },
-                       )
-                
+                let valorDolar = oficial.data['oficial']['value_sell'];
         
-                await wait(3000)
-                await interaction.editReply({ embeds: [embedClashOfClans] });
-
-            }
-            catch (error) {
-                embedError(interaction, error)
+                // Function to create the embed based on perception toggle
+                const createClashOfClansEmbed = (withPerception) => {
+                    const embedClashOfClans = new Discord.EmbedBuilder()
+                        .setTitle("Clash of Clans")
+                        .setURL("https://clashofclans.com/es")
+                        .setDescription(`Los precios en Clash of Clans en Argentina son los siguientes:`)
+                        .setColor("#FFF956")
+                        .setThumbnail("https://play-lh.googleusercontent.com/LByrur1mTmPeNr0ljI-uAUcct1rzmTve5Esau1SwoAzjBXQUby6uHIfHbF9TAT51mgHm=w240-h480-rw");
+        
+                    const items = [
+                        { name: "80 gemas", price: valorDolar * 1.08 },
+                        { name: "500 gemas", price: valorDolar * 5.43 },
+                        { name: "1200 gemas", price: valorDolar * 10.87 },
+                        { name: "2500 gemas", price: valorDolar * 21.76 },
+                        { name: "6500 gemas", price: valorDolar * 54.41 },
+                        { name: "14000 gemas", price: valorDolar * 108.83 },
+                    ];
+        
+                    items.forEach(item => {
+                        const price = withPerception ? total30(item.price) : item.price;
+                        embedClashOfClans.addFields({
+                            name: item.name,
+                            value: `ARS ${formatoPrecio(price, "ARS")}`,
+                            inline: true,
+                        });
+                    });
+        
+                    return embedClashOfClans;
+                };
+        
+                // Create buttons
+                const withPerceptionButton = new Discord.ButtonBuilder()
+                    .setCustomId('with_perception')
+                    .setLabel('Con Percepción')
+                    .setStyle(Discord.ButtonStyle.Primary); // Celeste (Primary)
+        
+                const withoutPerceptionButton = new Discord.ButtonBuilder()
+                    .setCustomId('without_perception')
+                    .setLabel('Sin Percepción')
+                    .setStyle(Discord.ButtonStyle.Success); // Green (Success)
+        
+                const row = new Discord.ActionRowBuilder()
+                    .addComponents(withPerceptionButton, withoutPerceptionButton);
+        
+                // Initial embed (with perception by default)
+                let currentEmbed = createClashOfClansEmbed(true);
+        
+                // Send initial reply
+                const message = await interaction.editReply({
+                    embeds: [currentEmbed],
+                    components: [row],
+                });
+        
+                // Create a collector for button interactions
+                const collector = message.createMessageComponentCollector({
+                    filter: i => i.user.id === interaction.user.id,
+                    time: 60000, // 60 seconds
+                });
+        
+                collector.on('collect', async i => {
+                    if (i.customId === 'with_perception') {
+                        currentEmbed = createClashOfClansEmbed(true);
+                    } else if (i.customId === 'without_perception') {
+                        currentEmbed = createClashOfClansEmbed(false);
+                    }
+        
+                    await i.update({
+                        embeds: [currentEmbed],
+                        components: [row],
+                    });
+                });
+        
+                collector.on('end', async () => {
+                    // Disable buttons after collector ends
+                    withPerceptionButton.setDisabled(true);
+                    withoutPerceptionButton.setDisabled(true);
+                    const disabledRow = new Discord.ActionRowBuilder()
+                        .addComponents(withPerceptionButton, withoutPerceptionButton);
+        
+                    await interaction.editReply({
+                        embeds: [currentEmbed],
+                        components: [disabledRow],
+                    });
+                });
+            } catch (error) {
+                embedError(interaction, error);
             }
         }
+
+
         //Counter Strike 2
         if (interaction.options.getSubcommand() === 'counterstrike') {
             await interaction.deferReply();
@@ -544,57 +710,158 @@ module.exports = {
                 const [oficial] = await Promise.all([
                     axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['oficial']['value_sell']
+                const valorDolar = oficial.data['oficial']['value_sell'];
 
-                const embedCounterStrike: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                embedCounterStrike.setTitle("Counter Strike 2")
-                embedCounterStrike.setURL("https://www.counter-strike.net/")
-                embedCounterStrike.setDescription(`Los precios en Counter Strike 2 en Argentina son los siguientes:`)
-                embedCounterStrike.setColor("#FBAC18")
-                embedCounterStrike.setThumbnail("https://static.wikia.nocookie.net/logopedia/images/4/49/Counter-Strike_2_%28Icon%29.png/revision/latest/scale-to-width-down/150?cb=20230330015359")
-                embedCounterStrike.addFields(
-                    { name: "Counter Strike 2 Status Prime", value: "ARS" + formatoPrecio(total21(valorDolar * 14.99), "ARS"), inline: true },
-                    { name: "Llaves para abrir cajas", value: "ARS" + formatoPrecio(total21(valorDolar * 2.49), "ARS"), inline: true },
-                )
-       
-                await wait(3000)
-                await interaction.editReply({ embeds: [embedCounterStrike] });
-            }
-            catch (error) {
-                embedError(interaction, error)
+                const valorConPercepcion = (usd: number) => total21(valorDolar * usd);
+                const valorSinPercepcion = (usd: number) => valorDolar * usd;
+
+                const crearEmbed = (conPercepcion: boolean) => {
+                    const precio = (usd: number) => conPercepcion ? valorConPercepcion(usd) : valorSinPercepcion(usd);
+
+                    return new Discord.EmbedBuilder()
+                        .setTitle("Counter Strike 2")
+                        .setURL("https://www.counter-strike.net/")
+                        .setDescription("Los precios en Counter Strike 2 en Argentina son los siguientes:")
+                        .setColor("#FBAC18")
+                        .setThumbnail("https://static.wikia.nocookie.net/logopedia/images/4/49/Counter-Strike_2_%28Icon%29.png/revision/latest/scale-to-width-down/150?cb=20230330015359")
+                        .addFields(
+                            { name: "Counter Strike 2 Status Prime", value: `ARS ${formatoPrecio(precio(14.99), "ARS")}`, inline: true },
+                            { name: "Llaves para abrir cajas", value: `ARS ${formatoPrecio(precio(2.49), "ARS")}`, inline: true },
+                        );
+                };
+
+                const crearBotones = () => {
+                    return new Discord.ActionRowBuilder<Discord.ButtonBuilder>().addComponents(
+                        new Discord.ButtonBuilder()
+                            .setCustomId('conpercepcion_cs')
+                            .setLabel('Mostrar con IVA')
+                            .setStyle(Discord.ButtonStyle.Primary),
+                        new Discord.ButtonBuilder()
+                            .setCustomId('sinpercepcion_cs')
+                            .setLabel('Mostrar sin IVA')
+                            .setStyle(Discord.ButtonStyle.Success) // Estilo verde para "sin percepción"
+                    );
+                };
+
+                await wait(1000);
+                await interaction.editReply({
+                    embeds: [crearEmbed(true)], // Por defecto con percepción
+                    components: [crearBotones()]
+                });
+
+                const collector = interaction.channel.createMessageComponentCollector({
+                    filter: i => i.user.id === interaction.user.id,
+                    time: 60000
+                });
+
+                collector.on('collect', async i => {
+                    const conPercepcion = i.customId === 'conpercepcion_cs';
+                    await i.update({
+                        embeds: [crearEmbed(conPercepcion)],
+                        components: [crearBotones()]
+                    });
+                });
+
+            } catch (error) {
+                embedError(interaction, error);
             }
         }
 
-        //Brawl Stars
+
         if (interaction.options.getSubcommand() === 'brawlstars') {
             await interaction.deferReply();
             try {
                 const [oficial] = await Promise.all([
                     axios.get('https://api.bluelytics.com.ar/v2/latest'),
                 ]);
-                let valorDolar = oficial.data['oficial']['value_sell']
-
-                const embedBrawlStars: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                embedBrawlStars.setTitle("Brawl Stars")
-                embedBrawlStars.setURL("https://supercell.com/en/games/brawlstars/")
-                embedBrawlStars.setDescription(`Los precios en Brawl Stars en Argentina son los siguientes:`)
-                embedBrawlStars.setColor("#FFBE20")
-                embedBrawlStars.setThumbnail("https://play-lh.googleusercontent.com/EiElcSrd6-o-19roiswSx0AZPzsq6qF3hUGHsSWDl5UVtj7G23DHkneM8ucwqyOmEg=w480-h960-rw")
-                embedBrawlStars.addFields(
-                    { name: "30 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 1.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 1.99, "ARS")}`, inline: true },
-                    { name: "80 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 4.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 4.99, "ARS")}`, inline: true },
-                    { name: "170 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 9.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 9.99, "ARS")}`, inline: true },
-                    { name: "360 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 19.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 19.99, "ARS")}`, inline: true },
-                    { name: "950 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 49.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 49.99, "ARS")}`, inline: true },
-                    { name: "2000 gemas", value: `ARS ${formatoPrecio(total30(valorDolar * 99.99), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 99.99, "ARS")}`, inline: true },
-)
-
-               
-                await wait(3000)
-                await interaction.editReply({ embeds: [embedBrawlStars] });
-            }
-            catch (error) {
-                embedError(interaction, error)
+                let valorDolar = oficial.data['oficial']['value_sell'];
+        
+                // Function to create the embed based on perception toggle
+                const createBrawlStarsEmbed = (withPerception) => {
+                    const embedBrawlStars = new Discord.EmbedBuilder()
+                        .setTitle("Brawl Stars")
+                        .setURL("https://supercell.com/en/games/brawlstars/")
+                        .setDescription(`Los precios en Brawl Stars en Argentina son los siguientes: \nAl pagar debitando de dólar en cuenta bancaria se puede evitar la percepción de ganancias:`)
+                        .setColor("#FFBE20")
+                        .setThumbnail("https://play-lh.googleusercontent.com/EiElcSrd6-o-19roiswSx0AZPzsq6qF3hUGHsSWDl5UVtj7G23DHkneM8ucwqyOmEg=w480-h960-rw");
+        
+                    const items = [
+                        { name: "30 gemas", price: valorDolar * 1.99 },
+                        { name: "80 gemas", price: valorDolar * 4.99 },
+                        { name: "170 gemas", price: valorDolar * 9.99 },
+                        { name: "360 gemas", price: valorDolar * 19.99 },
+                        { name: "950 gemas", price: valorDolar * 49.99 },
+                        { name: "2000 gemas", price: valorDolar * 99.99 },
+                    ];
+        
+                    items.forEach(item => {
+                        const price = withPerception ? total30(item.price) : item.price;
+                        embedBrawlStars.addFields({
+                            name: item.name,
+                            value: `ARS ${formatoPrecio(price, "ARS")}`,
+                            inline: true,
+                        });
+                    });
+        
+                    return embedBrawlStars;
+                };
+        
+                // Create buttons
+                const withPerceptionButton = new Discord.ButtonBuilder()
+                    .setCustomId('with_perception')
+                    .setLabel('Con Percepción')
+                    .setStyle(Discord.ButtonStyle.Primary); // Celeste (Primary)
+        
+                const withoutPerceptionButton = new Discord.ButtonBuilder()
+                    .setCustomId('without_perception')
+                    .setLabel('Sin Percepción')
+                    .setStyle(Discord.ButtonStyle.Success); // Green (Success)
+        
+                const row = new Discord.ActionRowBuilder()
+                    .addComponents(withPerceptionButton, withoutPerceptionButton);
+        
+                // Initial embed (with perception by default)
+                let currentEmbed = createBrawlStarsEmbed(true);
+        
+                // Send initial reply
+                const message = await interaction.editReply({
+                    embeds: [currentEmbed],
+                    components: [row],
+                });
+        
+                // Create a collector for button interactions
+                const collector = message.createMessageComponentCollector({
+                    filter: i => i.user.id === interaction.user.id,
+                    time: 60000, // 60 seconds
+                });
+        
+                collector.on('collect', async i => {
+                    if (i.customId === 'with_perception') {
+                        currentEmbed = createBrawlStarsEmbed(true);
+                    } else if (i.customId === 'without_perception') {
+                        currentEmbed = createBrawlStarsEmbed(false);
+                    }
+        
+                    await i.update({
+                        embeds: [currentEmbed],
+                        components: [row],
+                    });
+                });
+        
+                collector.on('end', async () => {
+                    // Disable buttons after collector ends
+                    withPerceptionButton.setDisabled(true);
+                    withoutPerceptionButton.setDisabled(true);
+                    const disabledRow = new Discord.ActionRowBuilder()
+                        .addComponents(withPerceptionButton, withoutPerceptionButton);
+        
+                    await interaction.editReply({
+                        embeds: [currentEmbed],
+                        components: [disabledRow],
+                    });
+                });
+            } catch (error) {
+                embedError(interaction, error);
             }
         }
         if (interaction.options.getSubcommand() === 'valorant') {
@@ -628,36 +895,12 @@ module.exports = {
             }
         }
 
-        if (interaction.options.getSubcommand() === "freefire") {
+        if (interaction.options.getSubcommand() === 'freefire') {
             await interaction.deferReply();
-            try {
-                const [oficial] = await Promise.all([
-                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
-                ]);
-                let valorDolar = oficial.data['oficial']['value_sell']
-
-                const embedFreeFire: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-                embedFreeFire.setTitle("Free Fire")
-                embedFreeFire.setURL("https://www.freefiremobile.com/es/")
-                embedFreeFire.setDescription(`Los precios en Free Fire en Argentina son los siguientes:`)
-                embedFreeFire.setColor("#E87914")
-                embedFreeFire.setThumbnail("https://upload.wikimedia.org/wikipedia/en/c/c5/Logo_of_Garena_Free_Fire.png")
-                embedFreeFire.addFields(
-                    { name: "Membresia semanal", value: `ARS ${formatoPrecio(total30(valorDolar * 2.16), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 2.16, "ARS")}`, inline: true },
-                    { name: "Membresia mensual", value: `ARS ${formatoPrecio(total30(valorDolar * 10.86), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 10.86, "ARS")}`, inline: true },
-                    { name: "100 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 1.11), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 1.11, "ARS")}`, inline: true },
-                    { name: "310 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 3.36), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 3.36, "ARS")}`, inline: true },
-                    { name: "520 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 5.23), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 5.23, "ARS")}`, inline: true },
-                    { name: "1060 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 11.22), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 11.22, "ARS")}`, inline: true },
-                    { name: "2180 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 21.71), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 21.71, "ARS")}`, inline: true },
-                    { name: "5600 diamantes", value: `ARS ${formatoPrecio(total30(valorDolar * 51.68), "ARS")}\nSin percepción: ARS ${formatoPrecio(valorDolar * 51.68, "ARS")}`, inline: true },
-                              )
-
-                await wait(3000)
-                await interaction.editReply({ embeds: [embedFreeFire] });
-            }
-            catch (error) {
-                embedError(interaction, error)
+            try{                
+                FreeFire(client, interaction)
+            } catch (error) {
+                embedError(interaction, error);
             }
         }
 

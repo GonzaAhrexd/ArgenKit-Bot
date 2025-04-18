@@ -220,11 +220,11 @@ module.exports = {
                         embed.addFields(
                             { name: `${divisa.nombre} oficial :bank: `, value: `Valor del ${divisa.nombre} en pesos argentinos bajo esquema de flotación entre bandas. ` },
                             { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['oficial']['value_buy']), "ARS")}`, inline: true },
-                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['oficial']['value_buy']), "ARS")}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / aconvertir) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
                             { name: "Impuestos nacionales", value: `Impuestos sobre tarjetas de crédito y débito a la compra de ${divisa.nombre}`, inline: false },
-                            { name: "IVA (21%) ", value: `ARS${formatoPrecio(total21((convertir / aconvertir) * oficial.data['oficial']['value_buy']), "ARS")}`, inline: true },
-                            { name: "Percepción de ganancias (30%) ", value: `ARS${formatoPrecio(total30((convertir / aconvertir) * oficial.data['oficial']['value_buy']), "ARS")}`, inline: true },
-                            { name: "Percepción + IVA (51%) ", value: `ARS${formatoPrecio(total51((convertir / aconvertir) * oficial.data['oficial']['value_buy']), "ARS")}`, inline: true },
+                            { name: "IVA (21%) ", value: `ARS${formatoPrecio(total21((convertir / aconvertir) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+                            { name: "Percepción de ganancias (30%) ", value: `ARS${formatoPrecio(total30((convertir / aconvertir) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+                            { name: "Percepción + IVA (51%) ", value: `ARS${formatoPrecio(total51((convertir / aconvertir) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
                             
                         )
                     await wait(3000)

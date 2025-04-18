@@ -426,32 +426,80 @@ module.exports = {
     }
 
     //EA
-
     if (interaction.options.getSubcommand() === 'ea') {
-
       await interaction.deferReply()
       try {
         const [oficial] = await Promise.all([
           axios.get('https://api.bluelytics.com.ar/v2/latest'),
         ]);
-        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-          .setTitle("EA Play")
-          .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
-          .setDescription("Los precios de EA Play con impuestos en Argentina son los siguientes: ")
-          .setColor('#fe4747')
-          .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
-          .addFields(
-            { name: "EA Play Mensual", value: `ARS${formatoPrecio(total21(4.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "EA Play Anual:", value: `ARS${formatoPrecio(total21(29.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
-          ) 
-        await interaction.editReply({ embeds: [embed] });
+    
+        const valorUSD = oficial.data['oficial']['value_sell'];
+    
+        // Función para calcular el precio con o sin IVA
+        const calcularPrecio = (usd: number, conIVA: boolean) => {
+          const precio = usd * valorUSD;
+          return conIVA ? total21(precio) : precio;
+        };
+    
+        // Función para crear el embed de EA Play
+        const crearEmbedEA = (conIVA: boolean) => {
+          const embed = new Discord.EmbedBuilder()
+            .setTitle("EA Play")
+            .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
+            .setDescription(
+              conIVA
+                ? "Los precios de EA Play **con IVA** en Argentina son los siguientes:"
+                : "Los precios de EA Play **sin IVA** en Argentina son los siguientes:"
+            )
+            .setColor('#fe4747')
+            .setThumbnail("https://media.contentapi.ea.com/content/dam/eacom/es-mx/common/october-ea-ring.png")
+            .addFields(
+              {
+                name: "EA Play Mensual",
+                value: `ARS ${formatoPrecio(calcularPrecio(4.99, conIVA), "ARS")}`,
+                inline: true
+              },
+              {
+                name: "EA Play Anual",
+                value: `ARS ${formatoPrecio(calcularPrecio(29.99, conIVA), "ARS")}`,
+                inline: true
+              }
+            );
+          return embed;
+        };
+    
+        const embedConIVA = crearEmbedEA(true);
+    
+        const row = new ActionRowBuilder<ButtonBuilder>()
+          .addComponents(
+            new ButtonBuilder()
+              .setCustomId('coniva_ea')
+              .setLabel("Con IVA")
+              .setStyle(ButtonStyle.Success),
+            new ButtonBuilder()
+              .setCustomId('siniva_ea')
+              .setLabel("Sin IVA")
+              .setStyle(ButtonStyle.Primary)
+          );
+    
+        await interaction.editReply({ embeds: [embedConIVA], components: [row] });
+    
+        const collector = interaction.channel.createMessageComponentCollector({
+          filter: i => ['coniva_ea', 'siniva_ea'].includes(i.customId),
+          time: 15000,
+        });
+    
+        collector.on('collect', async i => {
+          await i.deferUpdate();
+          const conIVA = i.customId === 'coniva_ea';
+          await i.editReply({ embeds: [crearEmbedEA(conIVA)], components: [row] });
+        });
+    
+      } catch (error) {
+        embedError(interaction, error);
       }
-      catch (error) {
-        embedError(interaction, error)
-      }
-
     }
-
+    
     //Steam
 
     if (interaction.options.getSubcommand() === 'steam') {
@@ -459,29 +507,78 @@ module.exports = {
       try {
         const [oficial] = await Promise.all([
           axios.get('https://api.bluelytics.com.ar/v2/latest'),
-        ])
-        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-          .setTitle("Fondos de la Cartera de Steam")
-          .setURL("https://store.steampowered.com/steamaccount/addfunds")
-          .setDescription("Los precios para recargar la cartera de Steam con impuestos en Argentina son los siguientes: \n Recargando con Dólar Cripto se puede obtener un precio más bajo.")
-          .setColor('#306fb5')
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png")
-          .addFields(
-            { name: "USD$ 5.00", value: `ARS${formatoPrecio(total21(5 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "USD$ 10.00", value: `ARS${formatoPrecio(total21(10 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "USD$ 25.00", value: `ARS${formatoPrecio(total21(25 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "USD$ 50.00", value: `ARS${formatoPrecio(total21(50 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "USD$ 100.00", value: `ARS${formatoPrecio(total21(100 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-          )
-
-        await interaction.editReply({ embeds: [embed] });
+        ]);
+    
+        const valorUSD = oficial.data['oficial']['value_sell'];
+    
+        // Función para calcular el precio con o sin IVA
+        const calcularPrecio = (usd: number, conIVA: boolean) => {
+          const precio = usd * valorUSD;
+          return conIVA ? total21(precio) : precio;
+        };
+    
+        // Función para crear el embed con los valores
+        const crearEmbedSteam = (conIVA: boolean) => {
+          const embed = new Discord.EmbedBuilder()
+            .setTitle("Fondos de la Cartera de Steam")
+            .setURL("https://store.steampowered.com/steamaccount/addfunds")
+            .setDescription(
+              conIVA
+                ? "Los precios para recargar la cartera de Steam **con IVA** en Argentina son los siguientes:"
+                : "Pagando con dólar cripto (AstroPay o Belo) se puede evitar el IVA y pagar a un valor similar al dólar oficial:"
+            )
+            .setColor('#306fb5')
+            .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/913860761342836786/steam.png");
+    
+          const montosUSD = [5, 10, 25, 50, 100];
+          embed.addFields(
+            montosUSD.map(monto => ({
+              name: `USD$ ${monto.toFixed(2)}`,
+              value: `ARS ${formatoPrecio(calcularPrecio(monto, conIVA), "ARS")}`,
+              inline: true
+            }))
+          );
+    
+          return embed;
+        };
+    
+        const embedConIVA = crearEmbedSteam(true);
+        const embedSinIVA = crearEmbedSteam(false);
+    
+        const row = new ActionRowBuilder<ButtonBuilder>()
+          .addComponents(
+            new ButtonBuilder()
+              .setCustomId('coniva')
+              .setLabel("Con IVA")
+              .setStyle(ButtonStyle.Success),
+            new ButtonBuilder()
+              .setCustomId('siniva')
+              .setLabel("Sin IVA")
+              .setStyle(ButtonStyle.Primary)
+          );
+    
+        await interaction.editReply({ embeds: [embedConIVA], components: [row] });
+    
+        const collector = interaction.channel.createMessageComponentCollector({
+          filter: i => ['coniva', 'siniva'].includes(i.customId),
+          time: 15000,
+        });
+    
+        collector.on('collect', async i => {
+          await i.deferUpdate();
+          if (i.customId === 'coniva') {
+            await i.editReply({ embeds: [crearEmbedSteam(true)], components: [row] });
+          }
+          if (i.customId === 'siniva') {
+            await i.editReply({ embeds: [crearEmbedSteam(false)], components: [row] });
+          }
+        });
+    
+      } catch (error) {
+        embedError(interaction, error);
       }
-      catch (error) {
-        embedError(interaction, error)
-      }
-
     }
-
+    
     //Paramount
 
     if (interaction.options.getSubcommand() === 'paramount') {

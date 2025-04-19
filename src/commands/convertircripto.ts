@@ -148,19 +148,13 @@ module.exports = {
                             { name: "Dólares :dollar: ", value: formatoPrecio(((convertir * criptodolar)), "USD"), inline: true },
                             { name: "Compra :flag_ar: ", value: 'ARS' + formatoPrecio(((cripto.id === "terraluna" ? ((convertir * criptodolar) * apiLemon.data['bid']) : convertir * apiLemon.data['bid'])), "ARS"), inline: true },
                             { name: "Venta :flag_ar: ", value: 'ARS' + formatoPrecio(((cripto.id === "terraluna" ? ((convertir * criptodolar) * apiLemon.data['bid']) : convertir * apiLemon.data['ask'])), "ARS"), inline: true })
-
-
+                            
                     await wait(3000)
                     await interaction.editReply({ embeds: [embed] })
-
                 } catch (error: any) {
-
                     embedError(interaction, error)
                 }
-
             }
-
         })
-
-    } //Async run
-} //Module export
+    } 
+} 

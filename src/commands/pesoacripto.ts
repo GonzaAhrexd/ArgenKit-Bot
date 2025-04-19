@@ -130,7 +130,7 @@ module.exports = {
                         axios.get(cripto.apilemon),
                     ]);
 
-                    let criptodolar: number = apiCoingecko.data['prices'][0][1];
+                    const criptodolar: number = apiCoingecko.data['prices'][0][1];
 
                     const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)

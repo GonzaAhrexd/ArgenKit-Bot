@@ -16,7 +16,7 @@ const Gabinete = async (client: any, interaction: any) => {
       { name: "Ministerio de Desregulación y Transformación del Estado", value: "Federico Sturzenegger (LLA 🟣)", inline: true },
       { name: "Ministerio de Justicia", value: "Mariano Cúneo Libarona (LLA 🟣)", inline: true },
       { name: "Ministerio de Relaciones Exteriores", value: "Gerardo Werthein (LLA 🟣)", inline: true },
-      { name: "Ministerio de Seguridad", value: "Patricia Bullrich (PRO 🟡)", inline: true },
+      { name: "Ministerio de Seguridad", value: "Patricia Bullrich (LLA 🟣)", inline: true },
       { name: "Ministerio de Salud", value: "Mario Iván Lugones	(LLA 🟣)", inline: true }
     )
   return await interaction.reply({ embeds: [embed] });

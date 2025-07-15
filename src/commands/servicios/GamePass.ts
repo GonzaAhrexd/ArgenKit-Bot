@@ -11,9 +11,10 @@ const gamepass = async (client: any, interaction: Discord.CommandInteraction) =>
         .setColor('#a6ed75')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903853195443445770/xbox.png")
         .addFields(
-          { name: "Xbox Game Pass Core", value: "ARS" + formatoPrecio((total21(5998.69)), "ARS"), inline: true },
-          { name: "Xbox Game Pass para PC / Consola", value: "ARS" + formatoPrecio((total21(6998.69)), "ARS"), inline: true },
-          { name: "Xbox Game Pass Ultimate", value: "ARS" + formatoPrecio((total21(10997.39)), "ARS"), inline: true }
+          { name: "Xbox Game Pass Core (Consola)", value: "ARS" + formatoPrecio((total21(5999.99)), "ARS"), inline: true },
+          { name: "Xbox Game Pass Standard (Consola)", value: "ARS" + formatoPrecio((total21(8999.99)), "ARS"), inline: true },
+          { name: "Xbox Game Pass para PC", value: "ARS" + formatoPrecio((total21(6999.00)), "ARS"), inline: true },
+          { name: "Xbox Game Pass Ultimate (PC y Consola)", value: "ARS" + formatoPrecio((total21(10999.00)), "ARS"), inline: true }
         )
         
       return interaction.reply({ embeds: [embed] });

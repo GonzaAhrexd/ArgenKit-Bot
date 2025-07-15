@@ -10,12 +10,14 @@ const disney = async (client: any,interaction: Discord.CommandInteraction) => {
         .setColor('#3fa5dc')
         .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/903852192929288213/icons8-disney-plus-480.png")
         .addFields(
-          { name: "Estándar:", value: `ARS ${formatoPrecio(10699, "ARS")}`, inline: true },
-          { name: "Estándar Anual", value: `ARS ${formatoPrecio(89499, "ARS")}`, inline: true },
-          { name: "Miembro Extra Estándar", value: `ARS ${formatoPrecio(6419, "ARS")}`, inline: true },
-          { name: "Premium: ", value: `ARS ${formatoPrecio(15299, "ARS")}`, inline: true },
-          { name: "Premium Anual: ", value: `ARS ${formatoPrecio(128499, "ARS")}`, inline: true },
-          { name: "Miembro Extra Premium", value: `ARS ${formatoPrecio(7649, "ARS")}`, inline: true },
+          { name: "Estándar con anuncios:", value: `ARS ${formatoPrecio(9999, "ARS")}`, inline: true },
+          { name: "Miembro Extra Estándar con anuncios", value: `ARS ${formatoPrecio(6999, "ARS")}`, inline: true },
+          { name: "Estándar:", value: `ARS ${formatoPrecio(12299, "ARS")}`, inline: true },
+          { name: "Estándar Anual", value: `ARS ${formatoPrecio(103299, "ARS")}`, inline: true },
+          { name: "Miembro Extra Estándar ", value: `ARS ${formatoPrecio(7399, "ARS")}`, inline: true },
+          { name: "Premium: ", value: `ARS ${formatoPrecio(18399, "ARS")}`, inline: true },
+          { name: "Premium Anual: ", value: `ARS ${formatoPrecio(154499, "ARS")}`, inline: true },
+          { name: "Miembro Extra Premium", value: `ARS ${formatoPrecio(9200, "ARS")}`, inline: true },
           
         )
       return interaction.reply({ embeds: [embed] });

@@ -11,7 +11,7 @@ const primevideo = async (client: any, interaction: Discord.CommandInteraction) 
     .setColor('#1aa6e0')
     .setThumbnail("https://images.squarespace-cdn.com/content/v1/5dcd9a119133c421eadd4e73/1574287053801-RG0293YPJNWPKOV77KXW/ke17ZwdGBToddI8pDm48kPJXHKy2-mnvrsdpGQjlhod7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmrMDYraMJMCQwFxTSOIP7LpSBEQpA-g5k6VTjWbSuadHJq0dp98hg5AZvIaPb3DoM/Prime+Video+Icon.png")
     .addFields(
-      { name: "Costo mensual", value: "ARS" + formatoPrecio(total51(5199), "ARS") })
+      { name: "Costo mensual", value: "ARS" + formatoPrecio(total51(6499), "ARS") })
   return interaction.reply({ embeds: [embed] });
 
 

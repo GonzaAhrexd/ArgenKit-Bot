@@ -1,13 +1,11 @@
 
 import Discord from "discord.js"
 import axios from "axios"
-import { ButtonStyle } from 'discord.js'
-import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
 import { embedError } from "../functions/embedError"
 import { formatoPrecio, formatoNum } from '../functions/formato'
 const apiKEY = process.env.apiKeyFinnhub
 const wait = require('node:timers/promises').setTimeout
-interface Accion {
+type Accion = {
     symbol: string; // el símbolo de la acción, como AAPL o MSFT
     name: string; // el nombre de la empresa, como Apple o Microsoft
     price: number; // el precio actual de la acción
@@ -70,7 +68,7 @@ module.exports = {
             const automotriz = ["Tesla.inc", "Ford", "General Motors", "Toyota Motor"];
             const consumo = ["Coca Cola", "Jonhson & Johnson", "Mcdonald's", "Nike Inc", "Pepsico", "Starbucks Corporation"];
         
-            let acciones = [
+            let acciones:Accion[] = [
                 { symbol: "AAPL", name: "Apple", price: 0, previousPrice: 0, porcentaje: 0, ratio: 10 },
                 { symbol: "MSFT", name: "Microsoft", price: 0, previousPrice: 0, porcentaje: 0, ratio: 30 },
                 { symbol: "GOOG", name: "Alphabet", price: 0, previousPrice: 0, porcentaje: 0, ratio: 58 },

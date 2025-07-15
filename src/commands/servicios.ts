@@ -1,9 +1,6 @@
 
 import Discord from "discord.js"
-import axios from "axios"
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
-const { total30, total51, total21 } = require("../functions/impuestos"); //Impuestos
-const { formatoPrecio } = require('../functions/formato')
+
 import { embedError } from "../functions/embedError"
 import youtube from "./servicios/YouTube";
 import netflix from "./servicios/Netflix";
@@ -15,7 +12,6 @@ import primevideo from "./servicios/Primevideo";
 import appletv from "./servicios/AppleTV";
 import max from "./servicios/Max";
 import paramount from "./servicios/Paramount";
-import nitro from "./servicios/DiscordNitro";
 import googleone from "./servicios/GoogleOne";
 import ea from "./servicios/EA";
 import steam from "./servicios/Steam";
@@ -160,8 +156,6 @@ module.exports = {
     //Twitch
     if (interaction.options.getSubcommand() === 'twitch') {
       estructuraBasica(twitch)
-
-
     }
   }
 

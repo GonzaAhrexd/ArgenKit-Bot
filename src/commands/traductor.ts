@@ -39,10 +39,10 @@ module.exports = {
         ),
 
     async run(client, interaction, options) {
-        let texto = await interaction.options.getString('texto')
-        let origen = await interaction.options.getString('origen')
-        let destino = await interaction.options.getString('destino')
-        let textoTraducido = await translate(texto, { from: origen, to: destino });
+        const texto = await interaction.options.getString('texto')
+        const origen = await interaction.options.getString('origen')
+        const destino = await interaction.options.getString('destino')
+        const textoTraducido = await translate(texto, { from: origen, to: destino });
 
         const embed1:Discord.EmbedBuilder = new Discord.EmbedBuilder()
             .setTitle("Traducción")

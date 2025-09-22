@@ -99,15 +99,15 @@ module.exports = {
 
     // Netflix
     if (interaction.options.getSubcommand() === 'netflix') {
-      netflix(client, interaction)
+      estructuraBasica(netflix)
     }
     // YouTube
     if (interaction.options.getSubcommand() === 'youtube') {
-      youtube(client, interaction)
+      estructuraBasica(youtube)
     }
     // Spotify
     if (interaction.options.getSubcommand() === 'spotify') {
-      spotify(client, interaction)
+      estructuraBasica(spotify)
     }
     // Crunchyroll
     if (interaction.options.getSubcommand() === 'crunchyroll') {
@@ -130,8 +130,8 @@ module.exports = {
       estructuraBasica(appletv)
     }
     //HBO Max
-    if (interaction.options.getSubcommand() === 'hbomax') {
-      max(client, interaction)
+    if (interaction.options.getSubcommand() === 'max') {
+      estructuraBasica(max)
     }
     //Nitro
     if (interaction.options.getSubcommand() === 'discordnitro') {

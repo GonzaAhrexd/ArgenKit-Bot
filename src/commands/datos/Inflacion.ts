@@ -21,28 +21,37 @@ const Inflacion = async (client: any, interaction: any) => {
       const startTwelveMonthsBefore = new Date(new Date().getFullYear(), new Date().getMonth() - 12, 1).toISOString().split("T")[0];
     
       const [inflacion, interanual] = await Promise.all([
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v2.0/datosvariable/27/${startTwelveMonthsBefore}/${startMonth}`, { httpsAgent: agent }),
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v2.0/datosvariable/28/${startTwelveMonthsBefore}/${startMonth}`, { httpsAgent: agent }),
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/27/`, { httpsAgent: agent, params: {
+            desde: startTwelveMonthsBefore,
+            hasta: startMonth,
+          } }),
+          axios.get(`https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/28/`, { httpsAgent: agent, params: {
+            desde: startTwelveMonthsBefore,
+            hasta: startMonth,
+          } }),
           ]);
+
+          console.log(inflacion.data.results[0].detalle[0].valor)
+        //   console.log(interanual)
 
       // Inflación datos 
       // Mes actual
-      const inflacionActual = inflacion.data.results[inflacion.data.results.length - 1].valor;
+      const inflacionActual = inflacion.data.results[0].detalle[0].valor
       // Fecha del mes
-      const inflacionActualMes = new Date(inflacion.data.results[inflacion.data.results.length - 1].fecha);
+      const inflacionActualMes = new Date(inflacion.data.results[0].detalle[0].fecha);
       // Mes anterior
-      const inflacionAnterior = inflacion.data.results[inflacion.data.results.length - 2].valor;
+      const inflacionAnterior = inflacion.data.results[0].detalle[1].valor;
       // Fecha del mes anterior
-      const inflacionAnteriorMes = new Date(inflacion.data.results[inflacion.data.results.length - 2].fecha);
+      const inflacionAnteriorMes = new Date(inflacion.data.results[0].detalle[1].fecha);
       // Inflación interanual
-      const inflacionInteranualActual = interanual.data.results[interanual.data.results.length - 1].valor;
+      const inflacionInteranualActual = interanual.data.results[0].detalle[0].valor;
       // Fecha del mes interanual
-      const inflacionInteranualActualMes = new Date(interanual.data.results[interanual.data.results.length - 1].fecha);
+      const inflacionInteranualActualMes = new Date(interanual.data.results[0].detalle[0].fecha);
       // Inflación interanual anterior
-      const inflacionInteranualAnterior = interanual.data.results[interanual.data.results.length - 2].valor;
-      
+      const inflacionInteranualAnterior = interanual.data.results[0].detalle[1].valor;
       // Fecha del mes interanual anterior
-      const inflacionInteranualAnteriorMes = new Date(interanual.data.results[interanual.data.results.length - 2].fecha);
+      const inflacionInteranualAnteriorMes = new Date(interanual.data.results[0].detalle[0].fecha);
+
       const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
       const inflacionInteranualActualString = `${meses[inflacionInteranualActualMes.getMonth() +1 ]} ${inflacionInteranualActualMes.getFullYear() - 1} - ${meses[inflacionActualMes.getMonth()]} ${inflacionActualMes.getFullYear()}`
       const inflacionInteranualAnteriorString = `${meses[inflacionInteranualAnteriorMes.getMonth()+1]} ${inflacionInteranualAnteriorMes.getFullYear() -1} - ${meses[inflacionInteranualAnteriorMes.getMonth()]} ${inflacionInteranualAnteriorMes.getFullYear()}`

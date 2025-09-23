@@ -9,9 +9,8 @@ import axios from "axios"
 // Funciones 
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
-import divisas from '../variables/divisas-valores'; 
+import divisas from '../variables/divisas-valores';
 const { total30, total51, total21 } = require("../functions/impuestos"); //Impuestos
-
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -87,6 +86,37 @@ module.exports = {
 
     async run(client, interaction, options) {
 
+        function calcularBandas(
+            fecha: Date,
+            fechaBase: Date,
+            inferiorInicial: number,
+            superiorInicial: number
+        ) {
+            const msPorDia = 1000 * 60 * 60 * 24;
+            const dias = Math.floor(
+                (fecha.getTime() - fechaBase.getTime()) / msPorDia
+            );
+
+            // tasa mensual 1%
+            const tasaMensual = 0.01;
+
+            // aprox 30 días por mes
+            const tasaDiaria = tasaMensual / 30;
+
+            // Variación acumulada
+            const factor = 1 + dias * tasaDiaria;
+
+            return {
+                fecha: fecha.toISOString().split("T")[0],
+                inferior: inferiorInicial / factor,
+                superior: superiorInicial * factor
+            };
+        }
+
+        // Ejemplo de uso
+        const fechaBase = new Date("2025-04-13");
+        const bandasHoy = calcularBandas(new Date(), fechaBase, 1000, 1400);
+
         // Itera sobre cada divisa disponible
         divisas.forEach(async (divisa) => {
             // Verifica si el subcomando coincide con la divisa actual
@@ -104,7 +134,7 @@ module.exports = {
                 // Obtiene la tasa de conversión USD -> divisa
                 let conversion = 1
                 if (divisa.iso != "USD") {
-                 conversion = DIVISA.data['usd'][divisa.iso.toLowerCase()];
+                    conversion = DIVISA.data['usd'][divisa.iso.toLowerCase()];
                 }
 
                 // Determina si hay que usar 1000 unidades por tema de redondeo visual
@@ -129,9 +159,9 @@ module.exports = {
                         { name: `1 DÓLAR <:rightarrow:921907270747570247> ${(divisa.nombre).toUpperCase()}`, value: formatoPrecio(conversion, divisa.iso), inline: true },
                         { name: `1 ${divisa.nombre} <:rightarrow:921907270747570247> DÓLAR`, value: formatoPrecio(1 / conversion, "USD"), inline: true }
                     );
-                }   
+                }
                 embed1.addFields(
-                    { name: `${divisa.nombre} oficial :bank:`, value: `Valor del ${divisa.nombre} en pesos argentinos bajo esquema de flotación entre bandas`, inline: false },
+                    { name: `${divisa.nombre} oficial :bank:`, value: `Valor del ${divisa.nombre} en pesos argentinos bajo esquema de flotación entre bandas.`, inline: false },
                     { name: "COMPRA", value: `ARS ${formatoPrecio((num / conversion) * oficial.data['oficial']['value_buy'], "ARS")}`, inline: true },
                     { name: "VENTA", value: `ARS ${formatoPrecio((num / conversion) * oficial.data['oficial']['value_sell'], "ARS")}`, inline: true },
                     { name: "Impuestos nacionales", value: `Impuestos sobre tarjetas de crédito y débito a la compra de ${divisa.nombre}`, inline: false },
@@ -139,6 +169,14 @@ module.exports = {
                     { name: "Percepción de ganancias (30%)", value: `ARS ${formatoPrecio(total30((num / conversion) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
                     { name: "Percepción + IVA (51%)", value: `ARS ${formatoPrecio(total51((num / conversion) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
                 );
+
+                if(divisa.iso == "USD"){
+                    embed1.addFields(
+                        { name: "Bandas cambiarias", value: "Valores actuales de las bandas cambiarias para la intervención del BCRA.", inline: false },
+                        { name: "Banda inferior", value: `${formatoPrecio(bandasHoy.inferior, "ARS")}`, inline: true },
+                        { name: "Banda superior", value: `${formatoPrecio(bandasHoy.superior, "ARS")}`, inline: true },
+                    );
+                }
 
                 // --- EMBED DE INFORMACIÓN ADICIONAL ---
                 const embed2 = new Discord.EmbedBuilder()

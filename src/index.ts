@@ -73,7 +73,7 @@ client.on("ready", async () => {
 
   const guild = client.guilds.cache.get()
   let commands
-  // const guildId = '740761148160213082' //guild server de pruebas
+  const guildId = '740761148160213082' //guild server de pruebas
   // client.application.commands.set([]); //Resetear comandos  
   /*Mostrar comandos
   const list = await client.application.commands.fetch()  

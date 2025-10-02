@@ -9,8 +9,8 @@ const Discord = require('discord.js')
 // const { Routes } = require('discord-api-types/v9')
 require('dotenv').config() //Variables de entorno
 // const guild = client.guilds.cache.get()  
-// const clientId = '810272095279251556' //Bot de pruebas
-const clientId = '796173877981216799' //Bot estable
+const clientId = '810272095279251556' //Bot de pruebas 
+// const clientId = '796173877981216799' //Bot estable
 const commands = []
 let slashcommandFiles = fs.readdirSync("./src/commands").filter(file => file.endsWith('ts'))
 
@@ -29,10 +29,11 @@ const rest = new REST().setToken(process.env.token);
 (async () => {
 	try {
 		console.log(`Started refreshing ${commands.length} application (/) commands.`);
-
+		const guildId = "740761148160213082"
 		// The put method is used to fully refresh all commands in the guild with the current set
 		const data = await rest.put(
-            Routes.applicationCommands(clientId),
+	            // Routes.applicationCommands(clientId),
+				Routes.applicationGuildCommands(clientId, guildId),
 			{ body: commands },
 		);
 
@@ -42,3 +43,4 @@ const rest = new REST().setToken(process.env.token);
 		console.error(error);
 	}
 })();
+

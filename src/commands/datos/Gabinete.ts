@@ -17,7 +17,7 @@ const Gabinete = async (client: any, interaction: any) => {
       { name: "Ministerio de Defensa", value: "Luis Petri (LLA 🟣)", inline: true },
       { name: "Ministerio de Capital Humano", value: "Sandra Pettovello (LLA 🟣)", inline: true },
       { name: "Ministerio de Justicia", value: "Mariano Cúneo Libarona (LLA 🟣)", inline: true },
-      { name: "Ministerio de Relaciones Exteriores", value: "Gerardo Werthein (LLA 🟣)", inline: true },
+      { name: "Ministerio de Relaciones Exteriores", value: "Pablo Quirno (LLA 🟣)", inline: true },
       { name: "Ministerio de Salud", value: "Mario Iván Lugones	(LLA 🟣)", inline: true }
     )
   return await interaction.reply({ embeds: [embed] });

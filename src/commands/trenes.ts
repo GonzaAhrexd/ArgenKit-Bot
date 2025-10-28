@@ -59,7 +59,7 @@ const trenesImages: Record<string, { nombre: string, ida: string, vuelta: string
         ida: "https://media.discordapp.net/attachments/810272714815701022/1420408325971120270/image.png?ex=68d549d6&is=68d3f856&hm=e8949191a766ce24d68d9ac95e1d6e094b948e34693d0d8975f0aed816f47426&=&format=webp&quality=lossless&width=786&height=226",
         vuelta: "https://media.discordapp.net/attachments/810272714815701022/1420408380450668664/image.png?ex=68d549e3&is=68d3f863&hm=4ed68626f5a30341fb7ce3fb070f16070ea2eb37ba0f35c3cd63b90b32d913c9&=&format=webp&quality=lossless&width=772&height=218",
         precios: "https://media.discordapp.net/attachments/1420381809451077794/1421112554414936144/image.png?ex=68d7d9b3&is=68d68833&hm=bba1c0c76bd27363001199fe214379124b42fd136ede57cb5c96e3a4cb35feb4&=&format=webp&quality=lossless&width=488&height=242",
-        descripcion: "Trenes de lunes a sábado\n🕐Duración estimada: **1 hs. 20 min.**\n💳Para viajar en el servicio regional de Entre Ríos podés comprar tus pasajes en las boleterías o a bordo del tren."
+        descripcion: "🚆Trenes de lunes a sábado\n🕐Duración estimada: **1 hs. 20 min.**\n💳Para viajar en el servicio regional de Entre Ríos podés comprar tus pasajes en las boleterías o a bordo del tren."
     },
     // Internacional
     "posadas_encarnacion": {
@@ -74,37 +74,43 @@ const trenesImages: Record<string, { nombre: string, ida: string, vuelta: string
         nombre: "Buenos Aires - Mar del Plata",
         ida: "https://media.discordapp.net/attachments/1420381809451077794/1420427810073350337/image.png?ex=68d55bfc&is=68d40a7c&hm=9cbbc040f987daec50083f257501de38210d9b1c79a56d9ddcc30ec34e5b3d8e&=&format=webp&quality=lossless&width=814&height=295",
         vuelta: "https://media.discordapp.net/attachments/1420381809451077794/1420427918185730109/image.png?ex=68d55c15&is=68d40a95&hm=89be8b6d2ab68d00942f0c745c049fb95531209d0a25697b472f268c094363ff&=&format=webp&quality=lossless&width=814&height=331",
-        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421113031500234762/image.png?ex=68d7da25&is=68d688a5&hm=e417f7bafde8d21c737634d8f3f4c3d6c1e4b2cf2181a2a74c28ab83d93201bf&=&format=webp&quality=lossless&width=1016&height=340"
+        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421113031500234762/image.png?ex=68d7da25&is=68d688a5&hm=e417f7bafde8d21c737634d8f3f4c3d6c1e4b2cf2181a2a74c28ab83d93201bf&=&format=webp&quality=lossless&width=1016&height=340",
+        descripcion: "🚆Consultar días de servicio por obras\n🕑Duración estimada: **6hs. 29min. (común) / 6hs. (semi-directo)\n🗺️ Sale desde: estación Plaza Constitución: acceso a preembarque por Hornos 25, CABA. / Estación Mar del Plata: Avenida Pedro Luro 4600, Mar del Plata"
     },
     "buenosaires_bragado": {
         nombre: "Buenos Aires - Bragado",
-        ida: "https://media.discordapp.net/attachments/1420381809451077794/1421095567978659951/image.png?ex=68d7c9e2&is=68d67862&hm=59593cb463bf2cf24e43f497b4570e49a10be08a8a5435688716e47d9a136251&=&format=webp&quality=lossless&width=562&height=119",
-        vuelta: "https://media.discordapp.net/attachments/1420381809451077794/1421095486861082777/image.png?ex=68d7c9ce&is=68d6784e&hm=e22f55fa65e5c9e9bfe5843dd4cdeb7f6f556ffb4e5668c1719bf114bb420d52&=&format=webp&quality=lossless&width=566&height=124",
-        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421113291714855024/image.png?ex=68d7da63&is=68d688e3&hm=82c5439639f63190723e766cc5033adf705f8e72cc5f100aadb23bc8bb586f54&=&format=webp&quality=lossless&width=1011&height=389"
+        ida: "https://media.discordapp.net/attachments/1420381809451077794/1423409708047536160/image.png?ex=68e03518&is=68dee398&hm=28660af965d0ccc630ff6da5e32a8e40ac7195c447b430de253a562daf19135a&=&format=webp&quality=lossless&width=588&height=116",
+        vuelta: "https://media.discordapp.net/attachments/1420381809451077794/1423409740829950023/image.png?ex=68e0351f&is=68dee39f&hm=151119b47ad201fe67d70b278a001fadeb663e66d36c5b1c007c86fad8728fe2&=&format=webp&quality=lossless&width=577&height=118",
+        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421113291714855024/image.png?ex=68d7da63&is=68d688e3&hm=82c5439639f63190723e766cc5033adf705f8e72cc5f100aadb23bc8bb586f54&=&format=webp&quality=lossless&width=1011&height=389",
+        descripcion: "🚆Trenes 3 veces por semana \n🕑Duración estimada: 6 hs. 14 min. (a Bragado)\n🗺️ Sale desde: estación Once / Estación Bragado"
     },
     "buenosaires_cordoba": {
         nombre: "Buenos Aires - Justo Daract",
         ida: "https://media.discordapp.net/attachments/1420381809451077794/1421095991075143710/image.png?ex=68d7ca46&is=68d678c6&hm=00874ba223ad6aa6a2fcaa877fe0115dcbc3c32802181c819af25eecf71fcdbb&=&format=webp&quality=lossless&width=645&height=140",
         vuelta: "https://media.discordapp.net/attachments/1420381809451077794/1421096048700690502/image.png?ex=68d7ca54&is=68d678d4&hm=23beca01eb6e431ebeeebfe49c314abe88f7fcfbba0e24c964f32ed5324ecb65&=&format=webp&quality=lossless&width=641&height=162",
-        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421113569596014715/image.png?ex=68d7daa6&is=68d68926&hm=401464911380a9e51eba468b09188f3bd42c8573fab9377e963a2e6d9b299ea9&=&format=webp&quality=lossless&width=862&height=348"
+        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421113569596014715/image.png?ex=68d7daa6&is=68d68926&hm=401464911380a9e51eba468b09188f3bd42c8573fab9377e963a2e6d9b299ea9&=&format=webp&quality=lossless&width=862&height=348",
+        descripcion: "🚆 Consultar disponibilidad \n🕑  Duración estimada: **20 hs.**\n🗺️ Sale desde: estación Retiro Mitre / Estación Córdoba Mitre"
     },
     "buenosaires_junin": {
         nombre: "Buenos Aires - Junín",
         ida: "https://media.discordapp.net/attachments/1420381809451077794/1421096307602362468/image.png?ex=68d7ca92&is=68d67912&hm=1a6f1f7ec1a94d0f8b4e2b218b9331f1cad72fdab0e44dc4ae8eb353bd1dbe0b&=&format=webp&quality=lossless&width=589&height=148",
         vuelta: "https://media.discordapp.net/attachments/1420381809451077794/1421096353102172261/image.png?ex=68d7ca9d&is=68d6791d&hm=3b2303e152255927666841610425474cf2a14fd035b73c4154b72253b682d809&=&format=webp&quality=lossless&width=618&height=171",
-        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421114026900979817/image.png?ex=68d7db13&is=68d68993&hm=b6c9208f45573494026adc0ac11bc203d4b7af360d60df5fef04d26e51056a7f&=&format=webp&quality=lossless&width=469&height=434"
+        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421114026900979817/image.png?ex=68d7db13&is=68d68993&hm=b6c9208f45573494026adc0ac11bc203d4b7af360d60df5fef04d26e51056a7f&=&format=webp&quality=lossless&width=469&height=434",
+        descripcion: "🚆Trenes todos los días\n 🕑 Duración estimada: **6 hs. 5 min.**\n🗺️ Sale desde: estación Retiro de línea San Martín / Estación Junín"
     },
     "buenosaires_rosario": {
         nombre: "Buenos Aires - Rosario",
         ida: "https://media.discordapp.net/attachments/1420381809451077794/1421096688264810598/image.png?ex=68d7caed&is=68d6796d&hm=4a6a732d00a27a9b646d9e38b47d16a6aa5cdb9b4e81866415e2f8bc9c8aaaa8&=&format=webp&quality=lossless&width=562&height=155",
         vuelta: "https://media.discordapp.net/attachments/1420381809451077794/1421096787824873523/image.png?ex=68d7cb04&is=68d67984&hm=7aa5899516770125bc6ffed615afc0ee102047a626b31da8f7bafc8d58b3db04&=&format=webp&quality=lossless&width=562&height=154",
-        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421114271491817472/image.png?ex=68d7db4d&is=68d689cd&hm=595a2c60f5199c35afc5457e62b07a72de0052a9ecbfc2a0242425a6a61429da&=&format=webp&quality=lossless&width=489&height=433"
+        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421114271491817472/image.png?ex=68d7db4d&is=68d689cd&hm=595a2c60f5199c35afc5457e62b07a72de0052a9ecbfc2a0242425a6a61429da&=&format=webp&quality=lossless&width=489&height=433",
+        descripcion: "🚆Trenes todos los días\n🕑Duración estimada: **6 hs. 34 min.**\n🗺️ Sale desde: estación Retiro Mitre / Estación Rosario Norte"
     },
     "buenosaires_tucuman": {
         nombre: "Buenos Aires - Tucumán",
         ida: "https://media.discordapp.net/attachments/1420381809451077794/1421097529730138242/image.png?ex=68d7cbb5&is=68d67a35&hm=f56c86905b3bf9b1818596a4af940ccff6f20b43b2050b5675a8f6e47687ae7c&=&format=webp&quality=lossless&width=1014&height=218",
         vuelta: "https://media.discordapp.net/attachments/1420381809451077794/1421097613553569934/image.png?ex=68d7cbc9&is=68d67a49&hm=9f46b2248e51bd062efb123f4bdbd4b7f2cf3559c931a8fac20eee1c07bdffe2&=&format=webp&quality=lossless&width=1014&height=218",
-        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421114733188218961/image.png?ex=68d7dbbb&is=68d68a3b&hm=2b68b9f3f3ffd3310585a82604c50d037e356df7e5fce19e2b8338dfc90d77aa&=&format=webp&quality=lossless&width=1077&height=246"
+        precios: "https://media.discordapp.net/attachments/1420381809451077794/1421114733188218961/image.png?ex=68d7dbbb&is=68d68a3b&hm=2b68b9f3f3ffd3310585a82604c50d037e356df7e5fce19e2b8338dfc90d77aa&=&format=webp&quality=lossless&width=1077&height=246",
+        descripcion: "🚆Consultar disponibilidad\n🕑Duración estimada: **32hs**\n🗺️Sale desde: estación Retiro Mitre / Estación Tucumán."
     }
 };
 

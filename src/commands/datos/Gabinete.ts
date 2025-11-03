@@ -9,8 +9,8 @@ const Gabinete = async (client: any, interaction: any) => {
     .addFields(
       { name: "Presidente", value: "Javier Gerardo Milei (LLA 🟣)", inline: true },
       { name: "Vicepresidente", value: "Victoria Villaruel (PD 🔵)", inline: true },
-      { name: "Jefatura de Gabinete", value: "Guillermo Francos (LLA 🟣)", inline: true },
-      { name: "Ministerio del Interior", value: "Lisandro Catalán (LLA 🟣)", inline: true },
+      { name: "Jefatura de Gabinete", value: "Manuel Adorni (LLA 🟣)", inline: true },
+      { name: "Ministerio del Interior", value: "Diego Santilli (PRO 🟡)", inline: true },
       { name: "Ministerio de Economía", value: "Luis Caputo (LLA 🟣)", inline: true },
       { name: "Ministerio de Desregulación y Transformación del Estado", value: "Federico Sturzenegger (LLA 🟣)", inline: true },
       { name: "Ministerio de Seguridad Nacional", value: "Patricia Bullrich (LLA 🟣)", inline: true },

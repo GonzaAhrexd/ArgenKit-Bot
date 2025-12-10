@@ -14,7 +14,7 @@ const Gabinete = async (client: any, interaction: any) => {
       { name: "Ministerio de Economía", value: "Luis Caputo (LLA 🟣)", inline: true },
       { name: "Ministerio de Desregulación y Transformación del Estado", value: "Federico Sturzenegger (LLA 🟣)", inline: true },
       { name: "Ministerio de Seguridad Nacional", value: "Alejandra Monteoliva (Independiente)", inline: true },
-      { name: "Ministerio de Defensa", value: "Luis Petri (LLA 🟣)", inline: true },
+      { name: "Ministerio de Defensa", value: "Teniente Gral. Carlos Presti (Ind.)", inline: true },
       { name: "Ministerio de Capital Humano", value: "Sandra Pettovello (LLA 🟣)", inline: true },
       { name: "Ministerio de Justicia", value: "Mariano Cúneo Libarona (LLA 🟣)", inline: true },
       { name: "Ministerio de Relaciones Exteriores", value: "Pablo Quirno (LLA 🟣)", inline: true },

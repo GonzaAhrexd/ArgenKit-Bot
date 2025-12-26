@@ -18,13 +18,13 @@ const crearEmbed = (conPercepciones: boolean) => {
     )
     .addFields(
       // Mensual
-      { name: "Suscripción mensual básico con anuncios", value: `ARS${formatoPrecio(calcular(5690), "ARS")}`, inline: true },
-      { name: "Suscripción mensual estándar", value: `ARS${formatoPrecio(calcular(7290), "ARS")}`, inline: true },
-      { name: "Suscripción mensual platino", value: `ARS${formatoPrecio(calcular(8790), "ARS")}`, inline: true },
+      { name: "Suscripción mensual básico con anuncios", value: `ARS${formatoPrecio(calcular(6490), "ARS")}`, inline: true },
+      { name: "Suscripción mensual estándar", value: `ARS${formatoPrecio(calcular(8390), "ARS")}`, inline: true },
+      { name: "Suscripción mensual platino", value: `ARS${formatoPrecio(calcular(10090), "ARS")}`, inline: true },
       // Anual
-      { name: "Suscripción anual básico con anuncios", value: `ARS${formatoPrecio(calcular(49590), "ARS")}`, inline: true },
-      { name: "Suscripción anual estándar", value: `ARS${formatoPrecio(calcular(61290), "ARS")}`, inline: true },
-      { name: "Suscripción anual platino", value: `ARS${formatoPrecio(calcular(72890), "ARS")}`, inline: true }
+      { name: "Suscripción anual básico con anuncios", value: `ARS${formatoPrecio(calcular(56590), "ARS")}`, inline: true },
+      { name: "Suscripción anual estándar", value: `ARS${formatoPrecio(calcular(70590), "ARS")}`, inline: true },
+      { name: "Suscripción anual platino", value: `ARS${formatoPrecio(calcular(84090), "ARS")}`, inline: true }
     );
 };
 

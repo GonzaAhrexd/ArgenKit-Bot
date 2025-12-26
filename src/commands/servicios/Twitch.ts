@@ -1,84 +1,121 @@
 
-import Discord from "discord.js"
-import axios from "axios"
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
-const {  total51 } = require("../../functions/impuestos"); //Impuestos
-const { formatoPrecio } = require('../../functions/formato')
+import Discord from "discord.js";
+import axios from "axios";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+const { total51, total21 } = require("../../functions/impuestos"); //Impuestos
+const { formatoPrecio } = require("../../functions/formato");
+
+type TipoImpuesto = "sin" | "sinPercepciones" | "percepciones";
+type TipoContenido = "suscripciones" | "bits";
+
+const crearEmbedSuscripciones = (tipoImpuesto: TipoImpuesto, valorDolar: number) => {
+  let calcular: (valor: number) => number;
+  let descripcion: string;
+
+  if (tipoImpuesto === "sin") {
+    calcular = (valor: number) => valor;
+    descripcion = "Los precios de las suscripciones a Twitch **sin impuestos** en Argentina son los siguientes:";
+  } else if (tipoImpuesto === "sinPercepciones") {
+    calcular = total21;
+    descripcion = "Los precios de las suscripciones a Twitch con impuestos **sin percepciones** en Argentina son los siguientes:";
+  } else {
+    calcular = total51;
+    descripcion = "Los precios de las suscripciones a Twitch con impuestos **y percepciones** en Argentina son los siguientes:";
+  }
+
+  return new Discord.EmbedBuilder()
+    .setTitle("Suscripciones de Twitch")
+    .setURL("https://www.twitch.tv/")
+    .setDescription(descripcion)
+    .setColor("#9246ff")
+    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
+    .addFields(
+      { name: "Suscripción de nivel 1", value: `ARS$ ${formatoPrecio(calcular(1.99 * valorDolar), "ARS")}`, inline: true },
+      { name: "Suscripción de nivel 2", value: `ARS$ ${formatoPrecio(calcular(3.99 * valorDolar), "ARS")}`, inline: true },
+      { name: "Suscripción de nivel 3", value: `ARS$ ${formatoPrecio(calcular(9.99 * valorDolar), "ARS")}`, inline: true }
+    );
+};
+
+const crearEmbedBits = (tipoImpuesto: TipoImpuesto, valorDolar: number) => {
+  let calcular: (valor: number) => number;
+  let descripcion: string;
+
+  if (tipoImpuesto === "sin") {
+    calcular = (valor: number) => valor;
+    descripcion = "Los precios de los bits de Twitch **sin impuestos** en Argentina son los siguientes:";
+  } else if (tipoImpuesto === "sinPercepciones") {
+    calcular = total21;
+    descripcion = "Los precios de los bits de Twitch con impuestos **sin percepciones** en Argentina son los siguientes:";
+  } else {
+    calcular = total51;
+    descripcion = "Los precios de los bits de Twitch con impuestos **y percepciones** en Argentina son los siguientes:";
+  }
+
+  return new Discord.EmbedBuilder()
+    .setTitle("Bits de Twitch")
+    .setDescription(descripcion)
+    .setColor("#9246ff")
+    .setURL("https://www.twitch.tv/")
+    .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
+    .addFields(
+      { name: "100 bits", value: `ARS$ ${formatoPrecio(calcular(1.40 * valorDolar), "ARS")}`, inline: true },
+      { name: "300 bits", value: `ARS$ ${formatoPrecio(calcular(3.00 * valorDolar), "ARS")}`, inline: true },
+      { name: "500 bits", value: `ARS$ ${formatoPrecio(calcular(7.00 * valorDolar), "ARS")}`, inline: true },
+      { name: "1.500 bits", value: `ARS$ ${formatoPrecio(calcular(19.95 * valorDolar), "ARS")}`, inline: true },
+      { name: "5.000 bits", value: `ARS$ ${formatoPrecio(calcular(64.40 * valorDolar), "ARS")}`, inline: true },
+      { name: "10.000 bits", value: `ARS$ ${formatoPrecio(calcular(126.00 * valorDolar), "ARS")}`, inline: true },
+      { name: "25.000 bits", value: `ARS$ ${formatoPrecio(calcular(308.00 * valorDolar), "ARS")}`, inline: true }
+    );
+};
 
 const twitch = async (client: any, interaction: any) => {
+  const [oficial] = await Promise.all([axios.get("https://api.bluelytics.com.ar/v2/latest")]);
+  const valorDolar = oficial.data["oficial"]["value_sell"];
 
-        const [oficial] = await Promise.all([
-          axios.get('https://api.bluelytics.com.ar/v2/latest'),
-        ]);
-        const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-          .setTitle("Siscripciones de Twitch")
-          .setURL("https://www.twitch.tv/")
-          .setDescription("Los precios de las suscripciones a Twitch en Argentina son los siguientes: ")
-          .setColor('#9246ff')
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
-          .addFields(
-            { name: "Suscripción de nivel 1", value: `ARS$ ${formatoPrecio(total51(1.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "Suscripción de nivel 2", value: `ARS$ ${formatoPrecio(total51(3.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "Suscripción de nivel 3", value: `ARS$ ${formatoPrecio(total51(9.99 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
-          )
+  let tipoImpuesto: TipoImpuesto = "sinPercepciones";
+  let tipoContenido: TipoContenido = "suscripciones";
 
+  const rowTipo = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder().setCustomId("suscripciones").setLabel("Suscripciones").setStyle(ButtonStyle.Success),
+    new ButtonBuilder().setCustomId("bits").setLabel("Bits").setStyle(ButtonStyle.Primary)
+  );
 
-        const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-          .setTitle("Bits de Twitch")
-          .setDescription("Los precios de los bits de Twitch en Argentina son los siguientes: ")
-          .setColor('#9246ff')
-          .setURL("https://www.twitch.tv/")
-          .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/858126355091030036/twitch_icon_146081.png")
-          .addFields(
-            { name: "100 bits", value: `ARS$ ${formatoPrecio(total51(1.40 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "300 bits", value: `ARS$ ${formatoPrecio(total51(3.00 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "500 bits", value: `ARS$ ${formatoPrecio(total51(7.00 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "1.500 bits", value: `ARS$ ${formatoPrecio(total51(19.95 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "5.000 bits", value: `ARS$ ${formatoPrecio(total51(64.40 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "10.000 bits", value: `ARS$ ${formatoPrecio(total51(126.00 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-            { name: "25.000 bits", value: `ARS$ ${formatoPrecio(total51(308.00 * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true }
-          )
+  const rowImpuestos = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder().setCustomId("sinimpuestos").setLabel("Sin impuestos").setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId("sinpercepciones").setLabel("Sin percepciones").setStyle(ButtonStyle.Primary),
+    new ButtonBuilder().setCustomId("percepciones").setLabel("Percepciones").setStyle(ButtonStyle.Success)
+  );
 
+  const obtenerEmbed = () => {
+    if (tipoContenido === "suscripciones") {
+      return crearEmbedSuscripciones(tipoImpuesto, valorDolar);
+    } else {
+      return crearEmbedBits(tipoImpuesto, valorDolar);
+    }
+  };
 
+  await interaction.editReply({ embeds: [obtenerEmbed()], components: [rowTipo, rowImpuestos] });
 
-        const row = new ActionRowBuilder()
-          .addComponents(
-            new ButtonBuilder()
-              .setCustomId('suscripciones')
-              .setLabel("Suscripciones")
-              .setStyle(ButtonStyle.Success)
-          ).addComponents(
-            new ButtonBuilder()
-              .setCustomId('bits')
-              .setLabel("Bits")
-              .setStyle(ButtonStyle.Primary)
-          )
+  const filter = (i: any) => i.user.id === interaction.user.id;
+  const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 
-        interaction.reply({ embeds: [embed1], components: [row] });
+  collector.on("collect", async (i: any) => {
+    await i.deferUpdate();
 
-        client.on('interactionCreate', interaction => {
-          if (!interaction.isButton()) return;
-        });
+    if (i.customId === "suscripciones") {
+      tipoContenido = "suscripciones";
+    } else if (i.customId === "bits") {
+      tipoContenido = "bits";
+    } else if (i.customId === "sinimpuestos") {
+      tipoImpuesto = "sin";
+    } else if (i.customId === "sinpercepciones") {
+      tipoImpuesto = "sinPercepciones";
+    } else if (i.customId === "percepciones") {
+      tipoImpuesto = "percepciones";
+    }
 
+    await i.editReply({ embeds: [obtenerEmbed()], components: [rowTipo, rowImpuestos] });
+  });
+};
 
-        const filter = i => i.customId;
-
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
-
-        collector.on('collect', async i => {
-          if (i.customId === 'suscripciones') {
-            await i.deferUpdate()
-            await i.editReply({ embeds: [embed1], components: [row] });
-          }
-          if (i.customId === 'bits') {
-
-            await i.deferUpdate();
-            await i.editReply({ embeds: [embed2], components: [row] });
-          }
-
-        });
-      
-
-}
-
-export default twitch
+export default twitch;

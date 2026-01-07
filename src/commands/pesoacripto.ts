@@ -3,6 +3,7 @@ import Discord from "discord.js"
 import axios from "axios"
 import { embedError } from "../functions/embedError";
 import Criptomonedas from "../variables/criptomonedas-valores"
+import { getAllCriptoData } from "../api/cripto";
 
 const wait = require('node:timers/promises').setTimeout
 module.exports = {
@@ -125,12 +126,10 @@ module.exports = {
                 let convertir: number = interaction.options.getNumber('ars');
                 await interaction.deferReply();
                 try {
-                    const [apiCoingecko, apiLemon] = await Promise.all([
-                        axios.get(cripto.apicoingecko),
-                        axios.get(cripto.apilemon),
-                    ]);
+                    const dataCoinGecko = (await getAllCriptoData(cripto.apicoingecko, cripto.apiCriptoYa)).dataCoingecko
+                    const dataCriptoYa = (await getAllCriptoData(cripto.apicoingecko, cripto.apiCriptoYa)).dataCriptoYa
 
-                    const criptodolar: number = apiCoingecko.data['prices'][0][1];
+                    const criptodolar: number = dataCoinGecko.prices
 
                     const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`)
@@ -139,12 +138,12 @@ module.exports = {
                         .setThumbnail(cripto.imagen)
                         .addFields(
                             { name: `Monto original :flag_ar: `, value: `ARS$ ${convertir} ` },
-                            { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + ' ' + (cripto.id === "terraluna" ? ((convertir / criptodolar / apiLemon.data['bid']).toFixed(8)) : ((convertir / apiLemon.data['bid']).toFixed(8))), inline: true },
-                            { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + ' ' + (cripto.id === "terraluna" ? ((convertir / criptodolar / apiLemon.data['ask']).toFixed(8)) : ((convertir / apiLemon.data['ask']).toFixed(8))), inline: true }
+                            { name: "Compra :flag_ar: ", value: `${cripto.simbolo}` + ' ' + (cripto.id === "terraluna" ? ((convertir / criptodolar / dataCriptoYa.bid).toFixed(8)) : ((convertir / dataCriptoYa.bid).toFixed(8))), inline: true },
+                            { name: "Venta :flag_ar: ", value: `${cripto.simbolo}` + ' ' + (cripto.id === "terraluna" ? ((convertir / criptodolar / dataCriptoYa.ask).toFixed(8)) : ((convertir / dataCriptoYa.ask).toFixed(8))), inline: true }
                         );
-                     
-                        await wait(3000)
-                        await interaction.editReply({ embeds: [embed] });
+
+                    await wait(3000)
+                    await interaction.editReply({ embeds: [embed] });
 
                 } catch (error: any) {
                     embedError(interaction, error);
@@ -152,5 +151,5 @@ module.exports = {
             }
         });
 
-    } 
+    }
 }

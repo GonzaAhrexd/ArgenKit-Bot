@@ -7,6 +7,9 @@ import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 import Criptomonedas from "../variables/criptomonedas-valores"
 const wait = require('node:timers/promises').setTimeout
+
+import { getAllCriptoData } from "../api/cripto"
+
 module.exports = {
     data: new Discord.SlashCommandBuilder()
         .setName('criptomoneda')
@@ -75,11 +78,12 @@ module.exports = {
             if (interaction.options.getSubcommand() === cripto.id) {
 
                 try {
-                    const [apiCoingecko, apiLemon] = await Promise.all([
-                        axios.get(cripto.apicoingecko),
-                        axios.get(cripto.apilemon),
-                    ]);
-                    let criptodolar: number = apiCoingecko.data['prices'][0][1]
+           
+
+                    const dataCoinGecko = (await getAllCriptoData(cripto.apicoingecko, cripto.apiCriptoYa)).dataCoingecko
+                    const dataCriptoYa = (await getAllCriptoData(cripto.apicoingecko, cripto.apiCriptoYa)).dataCriptoYa
+
+                    const criptodolar: number = dataCoinGecko.prices
                     const embed1 = new Discord.EmbedBuilder()
                     embed1.setTitle(cripto.nombre)
                         .setColor(cripto.color)
@@ -88,20 +92,20 @@ module.exports = {
                     if (cripto.id === "terraluna") {
                         embed1.addFields(
                             { name: `Precio `, value: `${formatoPrecio(criptodolar, "USD")}`, inline: true },
-                            { name: `Volumen `, value: `${formatoPrecio(((apiCoingecko.data['total_volumes'][0][1])), "USD")}`, inline: true },
-                            { name: `Capitalización `, value: `${formatoPrecio(((apiCoingecko.data['market_caps'][0][1])), "USD")}`, inline: true },
-                            { name: `Compra `, value: `ARS${formatoPrecio(criptodolar * apiLemon.data['bid'], "ARS")}`, inline: true },
-                            { name: `Venta `, value: `ARS${formatoPrecio(criptodolar * apiLemon.data['ask'], "ARS")}`, inline: true }
+                            { name: `Volumen `, value: `${formatoPrecio(((dataCoinGecko.total_volumes)), "USD")}`, inline: true },
+                            { name: `Capitalización `, value: `${formatoPrecio(((dataCoinGecko.market_caps)), "USD")}`, inline: true },
+                            { name: `Compra `, value: `ARS${formatoPrecio(criptodolar * dataCriptoYa.bid, "ARS")}`, inline: true },
+                            { name: `Venta `, value: `ARS${formatoPrecio(criptodolar * dataCriptoYa.ask, "ARS")}`, inline: true }
                         )
                     }
 
                     else {
                         embed1.addFields(
                             { name: `Precio `, value: `${formatoPrecio(criptodolar, "USD")}`, inline: true },
-                            { name: `Volumen `, value: `${formatoPrecio(((apiCoingecko.data['total_volumes'][0][1])), "USD")}`, inline: true },
-                            { name: `Capitalización `, value: `${formatoPrecio(((apiCoingecko.data['market_caps'][0][1])), "USD")}`, inline: true },
-                            { name: `Compra `, value: `ARS${formatoPrecio(apiLemon.data['bid'], "ARS")}`, inline: true },
-                            { name: `Venta `, value: `ARS${formatoPrecio(apiLemon.data['ask'], "ARS")}`, inline: true }
+                            { name: `Volumen `, value: `${formatoPrecio(((dataCoinGecko.total_volumes)), "USD")}`, inline: true },
+                            { name: `Capitalización `, value: `${formatoPrecio(((dataCoinGecko.market_caps)), "USD")}`, inline: true },
+                            { name: `Compra `, value: `ARS${formatoPrecio(dataCriptoYa.bid, "ARS")}`, inline: true },
+                            { name: `Venta `, value: `ARS${formatoPrecio(dataCriptoYa.ask, "ARS")}`, inline: true }
                         )
                     }
 

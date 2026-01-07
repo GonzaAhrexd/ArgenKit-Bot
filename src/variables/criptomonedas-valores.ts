@@ -11,7 +11,7 @@ type Cripto = {
     imagen: string
     color: ColorResolvable
     apicoingecko: string
-    apilemon?: any
+    apiCriptoYa?: any
 }
 
 const Criptomonedas: Cripto[] =
@@ -27,8 +27,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "₿21,000,000",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/929073343682990150/bitcoin.png",
         color: "#fddc4d",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/btc"
+        apicoingecko: "bitcoin",
+        apiCriptoYa: "/lemoncash/btc"
     },
     {
         id: "ethereum",
@@ -41,8 +41,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "No tiene límite fijo",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/963617030026694716/ethereum.png",
         color: "#7be0ff",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/eth"
+        apicoingecko: "ethereum",
+        apiCriptoYa: "/lemoncash/eth"
     },
     {
         id: "tether",
@@ -55,8 +55,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "No tiene límite fijo",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964345365602119782/tether.png",
         color: "#27e19e",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/tether/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/usdt"
+        apicoingecko: "tether",
+        apiCriptoYa: "/lemoncash/usdt"
     },
     {
         id: "axieinfinity",
@@ -69,8 +69,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "No tiene límite fijo",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964347852946018324/axie-infinity.png",
         color: "#555abe",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/axie-infinity/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/axs"
+        apicoingecko: "axie-infinity",
+        apiCriptoYa: "/lemoncash/axs"
     },
     {
         id: "terraluna",
@@ -83,8 +83,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "No tiene límite fijo",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/980221927308275742/terra-luna-2_large.png",
         color: "#ffd83a",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/terra-luna-2/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/usdt"
+        apicoingecko: "terra-luna-2",
+        apiCriptoYa: "/lemoncash/usdt"
     },
     {
         id: "decentraland",
@@ -97,8 +97,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "No tiene límite fijo",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964351096871088128/decentraland.png",
         color: "#ffa6b7",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/decentraland/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/mana"
+        apicoingecko: "decentraland",
+        apiCriptoYa: "/lemoncash/mana"
     },
     {
         id: "solana",
@@ -111,8 +111,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "No tiene límite fijo",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964351112725540934/solana.png",
         color: "#2488ff",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/sol"
+        apicoingecko: "solana",
+        apiCriptoYa: "/lemoncash/sol"
     },
     {
         id: "dai",
@@ -125,8 +125,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "Respaldado en dólares, otras criptomonedas y contratos inteligentes",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964681693292285962/dai.png",
         color: "#efc637",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/dai/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/dai"
+        apicoingecko: "dai",
+        apiCriptoYa: "/lemoncash/dai"
     },
     {
         id: "dogecoin",
@@ -139,8 +139,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "No tiene límite fijo",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964686112096391189/dogecoin.png",
         color: "#f5a431",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/dogecoin/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/bitso/doge"
+        apicoingecko: "dogecoin",
+        apiCriptoYa: "/bitso/doge"
     },
     {
         id: "litecoin",
@@ -153,8 +153,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "84,000,000",
         imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/LTC-400.png/2048px-LTC-400.png",
         color: "#bcbcbc",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/litecoin/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/ltc"
+        apicoingecko: "litecoin",
+        apiCriptoYa: "/lemoncash/ltc"
     },
     {
         id: "cardano",
@@ -167,8 +167,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "45,000,000,000",
         imagen: "https://s3.coinmarketcap.com/static-gravity/image/4aec70f6f1254e4f89650cc68ae49f3c.png",
         color: "#0033AD",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/cardano/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/ada"
+        apicoingecko: "cardano",
+        apiCriptoYa: "/lemoncash/ada"
     },
     {
         id: "bnb",
@@ -181,8 +181,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "No tiene límite fijo",
         imagen: "https://cryptologos.cc/logos/bnb-bnb-logo.png",
         color: "#f3ba2f",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/binancecoin/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/bnb"
+        apicoingecko: "binancecoin",
+        apiCriptoYa: "/lemoncash/bnb"
     },
     {
         id: "usdcoin",
@@ -195,8 +195,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "No tiene límite fijo",
         imagen: "https://cryptologos.cc/logos/usd-coin-usdc-logo.png",
         color: "#2775CA",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/usd-coin/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/usdc"
+        apicoingecko: "usd-coin",
+        apiCriptoYa: "/lemoncash/usdc"
     },
     {
         id: "avalanche",
@@ -209,8 +209,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "720,000,000",
         imagen: "https://cryptologos.cc/logos/avalanche-avax-logo.png",
         color: "#e84142",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/avalanche-2/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/avax"
+        apicoingecko: "avalanche-2",
+        apiCriptoYa: "/lemoncash/avax"
     },
     {
         id: "polkadot",
@@ -223,8 +223,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "1,000,000,000",
         imagen: "https://cryptologos.cc/logos/polkadot-new-dot-logo.png",
         color: "#e6007a",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/polkadot/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/dot"
+        apicoingecko: "polkadot",
+        apiCriptoYa: "/api/lemoncash/dot"
     },
     {
         id: "uniswap",
@@ -237,8 +237,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "1,000,000,000",
         imagen: "https://s2.coinmarketcap.com/static/img/coins/200x200/7083.png",
         color: "#ff007a",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/uniswap/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/uni"
+        apicoingecko: "uniswap",
+        apiCriptoYa: "lemoncash/uni"
     },
     {
         id: "polygon",
@@ -251,8 +251,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "10,000,000,000",
         imagen: "https://altcoinsbox.com/wp-content/uploads/2023/03/matic-logo.webp",
         color: "#8247e5",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/aave-polygon-wmatic/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/lemoncash/matic"
+        apicoingecko: "aave-polygon-wmatic",
+        apiCriptoYa: "/lemoncash/matic"
     },
     {
         id: "tron",
@@ -265,8 +265,8 @@ const Criptomonedas: Cripto[] =
         limitedeemision: "100,850,743,812",
         imagen: "https://cdn.discordapp.com/attachments/802944543510495292/1181813633110507531/tron-trx-logo.png?ex=65826cb7&is=656ff7b7&hm=3bc8731686026cbf5cc32024c62b6d58d1d6bda5ce710bd2ea0fe246537ee5e2&",
         color: "#d9012c",
-        apicoingecko: "https://api.coingecko.com/api/v3/coins/tron/market_chart?vs_currency=usd&days=0",
-        apilemon: "https://criptoya.com/api/bybit/trx/ars"
+        apicoingecko: "/tron",
+        apiCriptoYa: "/bybit/trx/ars"
     }]
 
 export default Criptomonedas

@@ -6,6 +6,7 @@ const { total30 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 import Metales from "../variables/metales-valores" //Divisas
+import { getAll } from "../api/Divisas";
 const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -48,11 +49,11 @@ module.exports = {
                 let convertir: number = interaction.options.getNumber((Metal.iso).toLowerCase())
                 await interaction.deferReply();
                 try {
-                    const [metal, oficial ] = await Promise.all([
-                        axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
-                        axios.get('https://api.bluelytics.com.ar/v2/latest'),
-                    ]);
+                   
+                    const metalData = (await getAll()).divisas[Metal.iso];
+                    const dolarData = (await getAll()).dolar;
 
+                    
 
                     const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`${Metal.nombre} <:rightarrow:921907270747570247> Peso Argentino`)
@@ -63,8 +64,8 @@ module.exports = {
                             { name: `Monto Original ${Metal.emoji}`, value: `${Metal.iso} ${currencyFormatter.format(convertir, { locale: 'es-ES', code: ' ' })}` },
                             //Oficial
                             { name: `${Metal.nombre} a precio del dólar oficial :bank: `, value: `Valor del ${Metal.nombre} a precio del dólar oficial, liquidado por parte del gobierno nacional sujeto a diversos impuestos ` },
-                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['oficial']['value_buy'], "ARS")}`, inline: true },
-                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metal.data['usd'][Metal.iso])) * oficial.data['oficial']['value_sell'], "ARS")}`, inline: true },
+                            { name: "Compra :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metalData)) * dolarData.oficial.value_buy, "ARS")}`, inline: true },
+                            { name: "Venta :flag_ar: ", value: `ARS${formatoPrecio(((convertir / metalData)) * dolarData.oficial.value_sell, "ARS")}`, inline: true },
                             )
                     await wait(4000)
                     await interaction.editReply({ embeds: [embed] });

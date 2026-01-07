@@ -1,5 +1,6 @@
 import Discord, { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import axios from "axios";
+import { getDolar } from "../../api/Divisas";
 const { total21, total51 } = require("../../functions/impuestos"); // Impuestos
 const { formatoPrecio } = require("../../functions/formato");
 
@@ -26,8 +27,9 @@ const crearEmbed = (conPercepciones: boolean, precioARS: number) => {
 
 const appletv = async (client: any, interaction: Discord.CommandInteraction) => {
   // Traer cotización oficial
-  const oficial = await axios.get("https://api.bluelytics.com.ar/v2/latest");
-  const precioARS = 6.99 * oficial.data["oficial"]["value_sell"]; // USD * valor oficial
+   const valorDolar = (await getDolar()).oficial.value_sell;
+      
+  const precioARS = 6.99 * valorDolar; // USD * valor oficial
 
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()

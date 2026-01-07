@@ -8,6 +8,7 @@ import axios from "axios"
 // Funciones y variables
 const { formatoPrecio } = require('../functions/formato')
 import Metales from "../variables/metales-valores" //Divisas
+import { getAll } from "../api/Divisas"
 const wait = require('node:timers/promises').setTimeout
 module.exports = {
     data: new Discord.SlashCommandBuilder()
@@ -34,10 +35,11 @@ module.exports = {
             if (interaction.options.getSubcommand() === Metal.id) {
                 await interaction.deferReply();
                 try {
-                    const [metal, oficial ] = await Promise.all([
-                        axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
-                        axios.get('https://api.bluelytics.com.ar/v2/latest'),
-                    ]);
+               
+
+                    const metalData = (await getAll()).divisas[Metal.iso];
+                    const dolarData = (await getAll()).dolar;
+
 
                     const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`${Metal.nombre} ${Metal.emoji}`)
@@ -45,9 +47,9 @@ module.exports = {
                         .setDescription(Metal.desc)
                         .setThumbnail(Metal.imagen)
                         .addFields(
-                            { name: 'Valor en dólares ' + Metal.emoji, value: formatoPrecio((1 / metal.data['usd'][Metal.iso]), "USD"), inline: true},
-                            { name: 'Compra ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['oficial']['value_buy'], "ARS"), inline: true },
-                            { name: 'Venta ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metal.data['usd'][Metal.iso]) * oficial.data['oficial']['value_sell'], "ARS"), inline: true },   
+                            { name: 'Valor en dólares ' + Metal.emoji, value: formatoPrecio((1 / metalData), "USD"), inline: true},
+                            { name: 'Compra ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metalData) * dolarData.oficial.value_buy, "ARS"), inline: true },
+                            { name: 'Venta ' + Metal.emoji, value: 'ARS' + formatoPrecio((1 / metalData) * dolarData.oficial.value_sell, "ARS"), inline: true },   
                         )
 
 

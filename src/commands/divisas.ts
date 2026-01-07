@@ -12,6 +12,7 @@ import { embedError } from "../functions/embedError"
 import divisas from '../variables/divisas-valores';
 const { total30, total51, total21 } = require("../functions/impuestos"); //Impuestos
 
+import { getAll } from '../api/Divisas';
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('divisa')
@@ -125,16 +126,14 @@ module.exports = {
             await interaction.deferReply();
 
             try {
-                // Realiza las 3 peticiones simultáneamente
-                const [DIVISA, oficial] = await Promise.all([
-                    axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
-                    axios.get('https://api.bluelytics.com.ar/v2/latest'),
-                ]);
+             
+                const divisasData = (await getAll()).divisas;
+                const oficial = (await getAll()).dolar;
 
-                // Obtiene la tasa de conversión USD -> divisa
                 let conversion = 1
                 if (divisa.iso != "USD") {
-                    conversion = DIVISA.data['usd'][divisa.iso.toLowerCase()];
+
+                    conversion = divisasData[divisa.iso.toLowerCase()];
                 }
 
                 // Determina si hay que usar 1000 unidades por tema de redondeo visual
@@ -162,12 +161,12 @@ module.exports = {
                 }
                 embed1.addFields(
                     { name: `${divisa.nombre} oficial :bank:`, value: `Valor del ${divisa.nombre} en pesos argentinos bajo esquema de flotación entre bandas.`, inline: false },
-                    { name: "COMPRA", value: `ARS ${formatoPrecio((num / conversion) * oficial.data['oficial']['value_buy'], "ARS")}`, inline: true },
-                    { name: "VENTA", value: `ARS ${formatoPrecio((num / conversion) * oficial.data['oficial']['value_sell'], "ARS")}`, inline: true },
+                    { name: "COMPRA", value: `ARS ${formatoPrecio((num / conversion) * oficial.oficial.value_buy, "ARS")}`, inline: true },
+                    { name: "VENTA", value: `ARS ${formatoPrecio((num / conversion) * oficial.oficial.value_sell, "ARS")}`, inline: true },
                     { name: "Impuestos nacionales", value: `Impuestos sobre tarjetas de crédito y débito a la compra de ${divisa.nombre}`, inline: false },
-                    { name: "IVA (21%)", value: `ARS ${formatoPrecio(total21((num / conversion) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-                    { name: "Percepción de ganancias (30%)", value: `ARS ${formatoPrecio(total30((num / conversion) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
-                    { name: "Percepción + IVA (51%)", value: `ARS ${formatoPrecio(total51((num / conversion) * oficial.data['oficial']['value_sell']), "ARS")}`, inline: true },
+                    { name: "IVA (21%)", value: `ARS ${formatoPrecio(total21((num / conversion) * oficial.oficial.value_sell), "ARS")}`, inline: true },
+                    { name: "Percepción de ganancias (30%)", value: `ARS ${formatoPrecio(total30((num / conversion) * oficial.oficial.value_sell), "ARS")}`, inline: true },
+                    { name: "Percepción + IVA (51%)", value: `ARS ${formatoPrecio(total51((num / conversion) * oficial.oficial.value_sell), "ARS")}`, inline: true },
                 );
 
                 if(divisa.iso == "USD"){

@@ -5,12 +5,12 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 const { total30 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require('../../functions/formato')
 import { embedError } from "../../functions/embedError"
+import { getDolar } from "../../api/Divisas";
 
 
 const discordnitro = async (client: any, interaction: any) => {
-        const [oficial] = await Promise.all([
-          axios.get('https://api.bluelytics.com.ar/v2/latest'),
-        ])
+   const valorDolar = (await getDolar()).oficial.value_sell;
+    
 
       const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
         .setTitle("Discord Nitro")
@@ -20,22 +20,22 @@ const discordnitro = async (client: any, interaction: any) => {
         .addFields(
           {
             name: "Discord Nitro Basic Mensual",
-            value: `ARS${formatoPrecio(total30(1.91 * oficial.data['oficial']['value_sell']), "ARS")}`,
+            value: `ARS${formatoPrecio(total30(1.91 *valorDolar), "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Mensual",
-            value: `ARS${formatoPrecio(total30(5.15 * oficial.data['oficial']['value_sell']), "ARS")}`,
+            value: `ARS${formatoPrecio(total30(5.15 *valorDolar), "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Basic Anual",
-            value: `ARS${formatoPrecio(total30(14.76 * oficial.data['oficial']['value_sell']), "ARS")}`,
+            value: `ARS${formatoPrecio(total30(14.76 *valorDolar), "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Anual",
-            value: `ARS${formatoPrecio(total30(51.48 * oficial.data['oficial']['value_sell']), "ARS")}`,
+            value: `ARS${formatoPrecio(total30(51.48 *valorDolar), "ARS")}`,
             inline: true
           }
         )
@@ -48,22 +48,22 @@ const discordnitro = async (client: any, interaction: any) => {
         .addFields(
           {
             name: "Discord Nitro Basic Mensual",
-            value: `ARS${formatoPrecio(1.91 * oficial.data['oficial']['value_sell'], "ARS")}`,
+            value: `ARS${formatoPrecio(1.91 *valorDolar, "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Mensual",
-            value: `ARS${formatoPrecio(5.15 * oficial.data['oficial']['value_sell'], "ARS")}`,
+            value: `ARS${formatoPrecio(5.15 *valorDolar, "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Basic Anual",
-            value: `ARS${formatoPrecio(14.76 * oficial.data['oficial']['value_sell'], "ARS")}`,
+            value: `ARS${formatoPrecio(14.76 *valorDolar, "ARS")}`,
             inline: true
           },
           {
             name: "Discord Nitro Anual",
-            value: `ARS${formatoPrecio(51.48 * oficial.data['oficial']['value_sell'], "ARS")}`,
+            value: `ARS${formatoPrecio(51.48 *valorDolar, "ARS")}`,
             inline: true
           }
         )

@@ -4,18 +4,17 @@ import axios from "axios"
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 const {  total21 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require('../../functions/formato')
-
+import { getDolar } from "../../api/Divisas";
 const steam = async (client: any, interaction: any) => {
     
-      const [oficial] = await Promise.all([
-        axios.get('https://api.bluelytics.com.ar/v2/latest'),
-      ]);
+     
 
-      const valorUSD = oficial.data['oficial']['value_sell'];
+       const valorDolar = (await getDolar()).oficial.value_sell;
+    
 
       // Función para calcular el precio con o sin IVA
       const calcularPrecio = (usd: number, conIVA: boolean) => {
-        const precio = usd * valorUSD;
+        const precio = usd * valorDolar;
         return conIVA ? total21(precio) : precio;
       };
 

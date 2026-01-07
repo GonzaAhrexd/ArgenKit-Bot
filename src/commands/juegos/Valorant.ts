@@ -3,13 +3,12 @@ import Discord from "discord.js";
 const { total21 } = require('../../functions/impuestos');
 import { formatoPrecio } from '../../functions/formato';
 const wait = require('node:timers/promises').setTimeout;
+import { getDolar } from "../../api/Divisas";
 
 const Valorant = async (client: any, interaction: any) => {
 
-const [oficial] = await Promise.all([
-    axios.get('https://api.bluelytics.com.ar/v2/latest'),
-]);
-let valorDolar = oficial.data['oficial']['value_sell']
+ const valorDolar = (await getDolar()).oficial.value_sell;
+    
 
 const embedValorant: Discord.EmbedBuilder = new Discord.EmbedBuilder()
 embedValorant.setTitle("Valorant")

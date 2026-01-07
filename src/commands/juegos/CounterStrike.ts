@@ -5,11 +5,12 @@ const { total21 } = require('../../functions/impuestos');
 import { formatoPrecio } from '../../functions/formato';
 const wait = require('node:timers/promises').setTimeout;
 
+import { getDolar } from "../../api/Divisas";
+
 const CounterStrike = async (client: any, interaction: any) => {
-        const [oficial] = await Promise.all([
-            axios.get('https://api.bluelytics.com.ar/v2/latest'),
-        ]);
-        const valorDolar = oficial.data['oficial']['value_sell'];
+
+         const valorDolar = (await getDolar()).oficial.value_sell;
+            
 
         const valorConPercepcion = (usd: number) => total21(valorDolar * usd);
         const valorSinPercepcion = (usd: number) => valorDolar * usd;

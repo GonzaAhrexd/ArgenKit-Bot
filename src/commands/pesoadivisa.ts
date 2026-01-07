@@ -6,9 +6,10 @@ import axios from "axios"
 // Funciones
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
-const { restar30 } = require("../functions/impuestos"); //Impuestos
 // Variables
 import divisas from "../variables/divisas-valores" //Divisas
+
+import { getAll } from '../api/Divisas'
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
@@ -178,14 +179,13 @@ module.exports = {
         let convertir: number = interaction.options.getNumber('ars')
         await interaction.deferReply();
         try {
-          const [DIVISA, oficial ] = await Promise.all([
-            axios.get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json'),
-            axios.get('https://api.bluelytics.com.ar/v2/latest'),
-          ]);
+         
+          const divisasData = (await getAll()).divisas;
+          const dolarData = (await getAll()).dolar;
 
           let aconvertir = 1 
           if(divisa.id != "USD"){ 
-             aconvertir = DIVISA.data['usd'][(divisa.iso).toLowerCase()]
+             aconvertir = divisasData[(divisa.iso).toLowerCase()]
           }
                     
           const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
@@ -198,8 +198,8 @@ module.exports = {
 
               //Oficial
               { name: `${divisa.nombre} oficial :bank: `, value: `Valor del peso argentino expresado en ${divisa.nombre}`, inline: false },
-              { name: `Compra ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio((convertir * aconvertir) / oficial.data['oficial']['value_buy'], divisa.iso), inline: true },
-              { name: `Venta ${divisa.bandera}`, value: `${divisa.iso} ${divisa.simbolo}` + formatoPrecio((convertir * aconvertir) / oficial.data['oficial']['value_sell'], divisa.iso), inline: true },
+              { name: `Compra ${divisa.bandera}`, value:  formatoPrecio((convertir * aconvertir) / dolarData.oficial.value_buy, divisa.iso), inline: true },
+              { name: `Venta ${divisa.bandera}`, value:  formatoPrecio((convertir * aconvertir) / dolarData.oficial.value_sell, divisa.iso), inline: true },
           )
 
           await wait(3000)

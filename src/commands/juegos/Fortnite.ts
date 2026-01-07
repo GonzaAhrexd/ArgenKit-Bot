@@ -3,10 +3,12 @@ import Discord from "discord.js";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 const { total21 } = require('../../functions/impuestos');
 import { formatoPrecio } from '../../functions/formato';
+import { getDolar } from "../../api/Divisas";
 const wait = require('node:timers/promises').setTimeout;
 
 const Fortnite = async (client, interaction) => {
-    const { data: { oficial: { value_sell: valorDolar } } } = await axios.get('https://api.bluelytics.com.ar/v2/latest');
+    const valorDolar = (await getDolar()).oficial.value_sell;
+       
 
     const createEmbed = (title, fields, color) => new Discord.EmbedBuilder()
         .setTitle("Fortnite")

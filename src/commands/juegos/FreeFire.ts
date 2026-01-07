@@ -5,13 +5,13 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import { embedError } from "../../functions/embedError";
 const { total51, total21, total30 } = require('../../functions/impuestos')
 import { formatoPrecio } from '../../functions/formato'
+import { getDolar } from "../../api/Divisas";
+
 const wait = require('node:timers/promises').setTimeout
 
 const FreeFire = async (client: any, interaction: any) => {
-        const [oficial] = await Promise.all([
-            axios.get('https://api.bluelytics.com.ar/v2/latest'),
-        ]);
-        let valorDolar = oficial.data['oficial']['value_sell'];
+        const valorDolar = (await getDolar()).oficial.value_sell;
+            
 
         // Function to create the embed based on perception toggle
         const createFreeFireEmbed = (withPerception) => {

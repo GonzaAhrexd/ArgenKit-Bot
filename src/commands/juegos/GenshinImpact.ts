@@ -4,13 +4,13 @@ import Discord from "discord.js";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 const { total30 } = require('../../functions/impuestos');
 import { formatoPrecio } from '../../functions/formato';
+import { getDolar } from "../../api/Divisas";
 const wait = require('node:timers/promises').setTimeout;
 
 const GenshinImpact = async (client: any, interaction: any) => {
-        const [oficial] = await Promise.all([
-            axios.get('https://api.bluelytics.com.ar/v2/latest'),
-        ]);
-        const valorDolar = oficial.data['oficial']['value_sell'];
+        
+    const valorDolar = (await getDolar()).oficial.value_sell;
+            
 
         // Cálculo del precio con o sin percepción
         const calcularPrecio = (usd: number, conPercepcion: boolean) => {

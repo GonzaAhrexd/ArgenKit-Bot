@@ -4,10 +4,11 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 const { total51, total30 } = require('../../functions/impuestos');
 import { formatoPrecio } from '../../functions/formato';
 const wait = require('node:timers/promises').setTimeout;
-
+import { getDolar } from "../../api/Divisas";
 const Roblox = async (client, interaction) => {
-    const { data: { oficial: { value_sell: valorDolar } } } = await axios.get('https://api.bluelytics.com.ar/v2/latest');
-
+        
+    const valorDolar = (await getDolar()).oficial.value_sell;
+    
     const createEmbed = (title, descripcion, fields, color) => new Discord.EmbedBuilder()
         .setTitle(title)
         .setURL("https://www.roblox.com/")

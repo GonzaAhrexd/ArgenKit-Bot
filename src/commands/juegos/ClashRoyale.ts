@@ -5,12 +5,12 @@ const { total30 } = require('../../functions/impuestos');
 import { formatoPrecio } from '../../functions/formato';
 const wait = require('node:timers/promises').setTimeout;
 
+import { getDolar } from "../../api/Divisas";
+
 const ClashRoyale = async(client: any, interaction: any) => {
 
-    const [oficial] = await Promise.all([
-        axios.get('https://api.bluelytics.com.ar/v2/latest'),
-    ]);
-    let valorDolar = oficial.data['oficial']['value_sell'];
+     const valorDolar = (await getDolar()).oficial.value_sell;
+        
 
     // Function to create the embed based on perception toggle
     const createClashRoyaleEmbed = (withPerception) => {

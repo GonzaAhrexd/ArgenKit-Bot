@@ -1,5 +1,9 @@
 import axios from 'axios'
+import dotenv from 'dotenv'
 
+dotenv.config()
+
+const API_TOKEN_FINNHUB = process.env.apiKeyFinnhub || ''
 
 export const bluelyticsClient = axios.create({
   baseURL: 'https://api.bluelytics.com.ar/v2',
@@ -11,7 +15,6 @@ export const jsdelivrClient = axios.create({
    
 })
 
-// 
 export const coingeckoClient = axios.create({
     baseURL: 'https://api.coingecko.com/api/v3/coins',
 })
@@ -19,3 +22,14 @@ export const coingeckoClient = axios.create({
 export const criptoYaClient = axios.create({
     baseURL: 'https://criptoya.com/api',
 })
+
+export const dolarApiClient = axios.create({
+    baseURL: 'https://dolarapi.com/v1',
+})
+
+export const finnhubClient = axios.create({
+  baseURL: 'https://finnhub.io/api/v1',
+  params: {
+    token: API_TOKEN_FINNHUB 
+  }
+});

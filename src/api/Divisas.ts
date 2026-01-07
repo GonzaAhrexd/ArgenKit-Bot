@@ -1,4 +1,4 @@
-import { bluelyticsClient, jsdelivrClient } from './axios'
+import { bluelyticsClient, dolarApiClient, jsdelivrClient } from './axios'
 
 import axios from 'axios';
 
@@ -17,6 +17,15 @@ type DolarResponse = {
 
 type DivisasResponse = {
     [key: string]: number
+}
+
+type DolarMepResponse = {
+    moneda: string,
+    casa: string,
+    nombre: string,
+    compra: number,
+    venta: number,
+    fechaActualizacion: string
 }
 
 export const getDolar = async (): Promise<DolarResponse> => {
@@ -40,6 +49,15 @@ export const getDivisas = async (): Promise<DivisasResponse> => {
     }
 }
 
+export const getDolarMep = async (): Promise<DolarMepResponse> => {
+    try {
+        const response = await dolarApiClient.get('/dolares/bolsa')
+        return response.data
+    } catch (error) {
+        console.error('Error fetching Dolar MEP data:', error)
+        throw error
+    }
+}
 
 export const getAll = async () => {
     try {

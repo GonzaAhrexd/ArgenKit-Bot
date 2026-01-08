@@ -2,7 +2,7 @@
 import Discord from "discord.js"
 import axios from "axios"
 import https from 'https'
-
+import { getInflacionData } from "../../api/bcraApi"
 
 const subioInflacion = (inflamesActual, inflamesAnterior) => {
     return inflamesActual > inflamesAnterior ? "🔺" : "<:flechashaciaabajo:1210747546096369664>";
@@ -13,49 +13,11 @@ const anualizarInflacion = (mensual) => {
 }
 
 
+
 const Inflacion = async (client: any, interaction: any) => {
-    
-      const agent = new https.Agent({ rejectUnauthorized: false });
-
-      const startMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split("T")[0];
-      const startTwelveMonthsBefore = new Date(new Date().getFullYear(), new Date().getMonth() - 12, 1).toISOString().split("T")[0];
-    
-      const [inflacion, interanual] = await Promise.all([
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/27/`, { httpsAgent: agent, params: {
-            desde: startTwelveMonthsBefore,
-            hasta: startMonth,
-          } }),
-          axios.get(`https://api.bcra.gob.ar/estadisticas/v4.0/Monetarias/28/`, { httpsAgent: agent, params: {
-            desde: startTwelveMonthsBefore,
-            hasta: startMonth,
-          } }),
-          ]);
-
-          console.log(inflacion.data.results[0].detalle[0].valor)
-        //   console.log(interanual)
-
-      // Inflación datos 
-      // Mes actual
-      const inflacionActual = inflacion.data.results[0].detalle[0].valor
-      // Fecha del mes
-      const inflacionActualMes = new Date(inflacion.data.results[0].detalle[0].fecha);
-      // Mes anterior
-      const inflacionAnterior = inflacion.data.results[0].detalle[1].valor;
-      // Fecha del mes anterior
-      const inflacionAnteriorMes = new Date(inflacion.data.results[0].detalle[1].fecha);
-      // Inflación interanual
-      const inflacionInteranualActual = interanual.data.results[0].detalle[0].valor;
-      // Fecha del mes interanual
-      const inflacionInteranualActualMes = new Date(interanual.data.results[0].detalle[0].fecha);
-      // Inflación interanual anterior
-      const inflacionInteranualAnterior = interanual.data.results[0].detalle[1].valor;
-      // Fecha del mes interanual anterior
-      const inflacionInteranualAnteriorMes = new Date(interanual.data.results[0].detalle[0].fecha);
-
+      
+      const inflacionData = await getInflacionData();
       const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-      const inflacionInteranualActualString = `${meses[inflacionInteranualActualMes.getMonth() +1 ]} ${inflacionInteranualActualMes.getFullYear() - 1} - ${meses[inflacionActualMes.getMonth()]} ${inflacionActualMes.getFullYear()}`
-      const inflacionInteranualAnteriorString = `${meses[inflacionInteranualAnteriorMes.getMonth()+1]} ${inflacionInteranualAnteriorMes.getFullYear() -1} - ${meses[inflacionInteranualAnteriorMes.getMonth()]} ${inflacionInteranualAnteriorMes.getFullYear()}`
-
 
       const embed = new Discord.EmbedBuilder()
           .setTitle("Inflación")
@@ -63,13 +25,13 @@ const Inflacion = async (client: any, interaction: any) => {
           .setColor("#FF0000")
           .setThumbnail("https://cdn.discordapp.com/attachments/802944543510495292/1210388005571928194/interest-rate.png?ex=65ea60ac&is=65d7ebac&hm=583707d60d34e41f7eda6611ee1269a473e5bccc2146ab7138f53c14d68085e1&")
           .addFields(
-              { name: `Mensual \n(${meses[inflacionActualMes.getMonth()]})`, value: `${inflacionActual}%`, inline: true },
-              { name: `Mes anterior \n(${meses[inflacionAnteriorMes.getMonth()]})`, value: `${inflacionAnterior}%`, inline: true },
-              { name: `Variación`, value: `${(inflacionActual - inflacionAnterior).toFixed(2)}% ${subioInflacion(inflacionActual, inflacionAnterior)}`, inline: true },
-              { name: `Interanual \n(${inflacionInteranualActualString})`, value: `${inflacionInteranualActual}%`, inline: true },
-              { name: `Interanual anterior \n(${inflacionInteranualAnteriorString})`, value: `${inflacionInteranualAnterior}%`, inline: true },
-              { name: `Variación`, value: `${(inflacionInteranualActual - inflacionInteranualAnterior).toFixed(2)}% ${subioInflacion(inflacionInteranualActual, inflacionInteranualAnterior)}`, inline: true },
-              { name: `Mensual anualizada`, value: `${anualizarInflacion(inflacionActual).toFixed(2)}%`, inline: true },
+              { name: `Mensual \n(${meses[inflacionData.mensual.fecha.getMonth()]})`, value: `${inflacionData.mensual.valor}%`, inline: true },
+              { name: `Mes anterior \n(${meses[inflacionData.mensual.fecha.getMonth() - 1]})`, value: `${inflacionData.mensual.valorAnterior}%`, inline: true },
+              { name: `Variación`, value: `${(inflacionData.mensual.valor - inflacionData.mensual.valorAnterior).toFixed(2)}% ${subioInflacion(inflacionData.mensual.valor, inflacionData.mensual.valorAnterior)}`, inline: true },
+              { name: `Interanual \n(${meses[inflacionData.interanual.fecha.getMonth()]})`, value: `${inflacionData.interanual.valor}%`, inline: true },
+              { name: `Interanual anterior \n(${meses[inflacionData.interanual.fecha.getMonth() - 1]})`, value: `${inflacionData.interanual.valorAnterior}%`, inline: true },
+              { name: `Variación`, value: `${(inflacionData.interanual.valor - inflacionData.interanual.valorAnterior).toFixed(2)}% ${subioInflacion(inflacionData.interanual.valor, inflacionData.interanual.valorAnterior)}`, inline: true },
+              { name: `Mensual anualizada`, value: `${anualizarInflacion(inflacionData.mensual.valor).toFixed(2)}%`, inline: true },
             );
 
       await interaction.editReply({ embeds: [embed] });

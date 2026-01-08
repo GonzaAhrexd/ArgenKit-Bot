@@ -6,8 +6,8 @@ const wait = require('node:timers/promises').setTimeout
 
 const PBI = async (client: any, interaction: any) => {
         const [PBIArg, PBIPerCapita] = await Promise.all([
-          axios.get(`https://api.worldbank.org/v2/country/AR/indicator/NY.GDP.MKTP.CD?date=2023&format=json`),
-          axios.get(`http://api.worldbank.org/v2/country/AR/indicator/NY.GDP.PCAP.CD?date=2023&format=json`)
+          axios.get(`https://api.worldbank.org/v2/country/AR/indicator/NY.GDP.MKTP.CD?date=2024&format=json`),
+          axios.get(`http://api.worldbank.org/v2/country/AR/indicator/NY.GDP.PCAP.CD?date=2024&format=json`)
         ]);
 
         let PBI = PBIArg.data[1][0].value

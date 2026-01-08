@@ -1,5 +1,10 @@
 import { apiargenttinadatosClient } from "./axios";
 
+type Feriado = {
+    fecha: string,
+    tipo: string
+    nombre: string,
+}
 
 
 type RiesgoDataResponse = {
@@ -29,5 +34,18 @@ export const getRiesgoPaisData = async (): Promise<RiesgoDataResponse> => {
         throw new Error("Error al obtener los datos del Riesgo País")
     }
 
+
+}
+
+export const getProximoFeriadoData = async (): Promise<Feriado> => {
+    try{
+            const response = await apiargenttinadatosClient.get('/feriados/2026/')
+            const today = new Date()
+            const proximoFeriado = response.data.find(feriado => new Date(feriado['fecha']) > today)
+            return proximoFeriado
+    }catch(error){
+        console.log(error)
+        throw new Error("Error al obtener los datos de los feriados")
+    }
 
 }

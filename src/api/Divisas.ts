@@ -1,7 +1,4 @@
 import { bluelyticsClient, dolarApiClient, jsdelivrClient } from './axios'
-
-import axios from 'axios';
-
 type values = {
     "value_avg": number,
     "value_sell": number,

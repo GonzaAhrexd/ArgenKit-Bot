@@ -56,3 +56,8 @@ export const apiBCRAClient = axios.create({
   baseURL: 'https://api.bcra.gob.ar/estadisticas/v4.0',
   httpsAgent: agent
 })
+
+
+export const apiWorldBankClient = axios.create({
+  baseURL: 'https://api.worldbank.org/v2',
+})

@@ -196,15 +196,11 @@ module.exports = {
 
                     const divisasData = (await getAll()).divisas;
                     const dolarData = (await getAll()).dolar;
-                    
-                    console.log(divisasData)
-                
+                                    
                     let CONVERSION = 1
                     if (divisa.iso != "USD") {
                          CONVERSION = divisasData[(divisa.iso).toLowerCase()]
                     }
-
-                    console.log(CONVERSION)
 
                     const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
                         .setTitle(`${divisa.nombre} <:rightarrow:921907270747570247> Peso Argentino`)

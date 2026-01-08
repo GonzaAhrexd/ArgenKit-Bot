@@ -1,4 +1,3 @@
-import axios from "axios";
 import Discord from "discord.js";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 const { total51, total30 } = require('../../functions/impuestos');

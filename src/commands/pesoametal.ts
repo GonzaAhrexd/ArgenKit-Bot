@@ -1,9 +1,7 @@
 
 import Discord from "discord.js"
-import axios from "axios"
 import { embedError } from "../functions/embedError";
 var currencyFormatter = require('currency-formatter'); //Currency formatter
-const { restar30 } = require("../functions/impuestos"); //Impuestos
 const wait = require('node:timers/promises').setTimeout
 import Metales from "../variables/metales-valores";
 

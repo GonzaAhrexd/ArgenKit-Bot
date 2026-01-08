@@ -2,7 +2,6 @@
 const wait = require('node:timers/promises').setTimeout
 // Discord
 import Discord from "discord.js"
-import axios from "axios"
 // Funciones
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"

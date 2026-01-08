@@ -1,8 +1,7 @@
 
 import Discord from "discord.js"
-import axios from "axios"
 import { ButtonStyle } from 'discord.js'
-import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js'
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 import Criptomonedas from "../variables/criptomonedas-valores"

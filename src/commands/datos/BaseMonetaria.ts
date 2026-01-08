@@ -8,9 +8,7 @@ const wait = require('node:timers/promises').setTimeout
 
 
 const baseMonetaria = async (client: any, interaction: any) => {
-  // Obtener el token de la API de BCRA
 
-  // Obtener el token de la API de BCRA
   const agent = new https.Agent({
     rejectUnauthorized: false
   });

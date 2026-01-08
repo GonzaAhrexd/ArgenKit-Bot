@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const API_TOKEN_FINNHUB = process.env.apiKeyFinnhub || ''
+const API_KEY_OPENWEATHER = process.env.apiKeyOpenWeather || ''
 
 export const bluelyticsClient = axios.create({
   baseURL: 'https://api.bluelytics.com.ar/v2',
@@ -33,3 +34,10 @@ export const finnhubClient = axios.create({
     token: API_TOKEN_FINNHUB 
   }
 });
+
+export const openweathermapClient = axios.create({
+  baseURL: 'https://api.openweathermap.org/data/2.5/',
+  params: {
+    appid: API_KEY_OPENWEATHER
+  }
+})

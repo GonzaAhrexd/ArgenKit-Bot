@@ -41,3 +41,7 @@ export const openweathermapClient = axios.create({
     appid: API_KEY_OPENWEATHER
   }
 })
+
+export const apiargenttinadatosClient = axios.create({
+  baseURL: 'https://api.argentinadatos.com/v1',
+})

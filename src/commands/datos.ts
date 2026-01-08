@@ -1,10 +1,6 @@
 
 import Discord from "discord.js"
-import axios from "axios"
-import https from 'https'
-import { formatoPrecio, formatoNum } from '../functions/formato'
 import { embedError } from "../functions/embedError"
-import moment from 'moment-timezone'
 
 const wait = require('node:timers/promises').setTimeout
 

@@ -1,8 +1,6 @@
-import axios from "axios";
 import Discord from "discord.js";
 const { total30 } = require('../../functions/impuestos');
 import { formatoPrecio } from '../../functions/formato';
-const wait = require('node:timers/promises').setTimeout;
 import { getDolar } from "../../api/Divisas";
 
 const BrawlStars = async (client: any, interaction: any) => {

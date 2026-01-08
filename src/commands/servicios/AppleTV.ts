@@ -1,5 +1,4 @@
 import Discord, { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-import axios from "axios";
 import { getDolar } from "../../api/Divisas";
 const { total21, total51 } = require("../../functions/impuestos"); // Impuestos
 const { formatoPrecio } = require("../../functions/formato");

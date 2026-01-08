@@ -1,10 +1,8 @@
 
 import Discord from "discord.js"
-import axios from "axios"
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 const { total30 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require('../../functions/formato')
-import { embedError } from "../../functions/embedError"
 import { getDolar } from "../../api/Divisas";
 
 

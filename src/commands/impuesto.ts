@@ -1,7 +1,7 @@
 
 import Discord from "discord.js"
 import { ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } from 'discord.js'
-const impuestos = require("../functions/impuestos.ts")
+const impuestos = require("../functions/impuestos")
 var currencyFormatter = require('currency-formatter') //Currency formatter
 import { ButtonStyle } from 'discord.js'
 import { formatoPrecio } from "../functions/formato"

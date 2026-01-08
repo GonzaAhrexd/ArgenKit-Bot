@@ -16,7 +16,18 @@ const client = new Client({
 
 //Command Handler
 client.slashcommands = new Discord.Collection();
-const slashcommandsFile = fs.readdirSync('src/commands').filter(file => file.endsWith("ts"))
+let slashcommandsFile = fs.readdirSync('src/commands').filter(file => 
+  (file.endsWith(".ts") || file.endsWith(".js")) && !file.endsWith(".d.ts")
+);
+
+// Convierte los .ts a .js si está en modo producción 
+if (process.env.mode === "production") slashcommandsFile = slashcommandsFile.map(file => {
+  if (file.endsWith(".ts")) {
+    return file.replace(".ts", ".js");
+  }
+  return file;
+});
+
 let cantidadComandos:number = 0
 for (const file of slashcommandsFile) {
   const slash = require(`./commands/${file}`)

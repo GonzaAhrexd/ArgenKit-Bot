@@ -1,7 +1,7 @@
 import Discord from 'discord.js'
 import { embedError } from '../functions/embedError'
 const wait = require('node:timers/promises').setTimeout
-import { getWeatherAllCapitals, getWeatherByCity } from '../api/clima'
+import { getWeatherAllCapitals, getWeatherByCity } from '../api/Clima'
 import { thumbnailSegunMain, emojiSegunMain } from '../functions/climaFunciones'
 
 module.exports = {

@@ -1,5 +1,7 @@
 
 import Discord from "discord.js"
+import axios from "axios"
+import https from 'https'
 import { formatoPrecio } from '../../functions/formato'
 import { getCirculanteData } from "../../api/bcraApi"
 const wait = require('node:timers/promises').setTimeout

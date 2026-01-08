@@ -1,5 +1,7 @@
 
 import Discord from "discord.js"
+import axios from "axios"
+import https from 'https'
 import { getInflacionData } from "../../api/bcraApi"
 
 const subioInflacion = (inflamesActual, inflamesAnterior) => {

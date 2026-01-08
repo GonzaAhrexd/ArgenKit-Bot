@@ -1,5 +1,6 @@
 
 import Discord from "discord.js"
+import axios from "axios"
 import { embedError } from "../functions/embedError"
 import { formatoPrecio, formatoNum } from '../functions/formato'
 import { getEstadoMercado, getPrecioAccion } from "../api/Mercado"

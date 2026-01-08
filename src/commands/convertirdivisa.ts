@@ -1,5 +1,6 @@
 
 import Discord from "discord.js"
+import axios from "axios"
 const { total30, total51, total21 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"

@@ -3,6 +3,8 @@
 import Discord from "discord.js"
 import { ActionRowBuilder, ButtonBuilder } from 'discord.js'
 import { ButtonStyle } from 'discord.js'
+// Axios
+import axios from "axios"
 // Funciones y variables
 const { formatoPrecio } = require('../functions/formato')
 import Metales from "../variables/metales-valores" //Divisas

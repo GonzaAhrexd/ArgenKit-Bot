@@ -1,9 +1,11 @@
 
+import axios from "axios";
 import Discord from "discord.js";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 const { total30 } = require('../../functions/impuestos');
 import { formatoPrecio } from '../../functions/formato';
 import { getDolar } from "../../api/Divisas";
+const wait = require('node:timers/promises').setTimeout;
 
 const GenshinImpact = async (client: any, interaction: any) => {
         

@@ -1,6 +1,8 @@
 
 import Discord from "discord.js"
+import axios from "axios"
 var currencyFormatter = require('currency-formatter'); //Currency formatter
+const { total30 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from '../functions/formato'
 import { embedError } from "../functions/embedError"
 import Metales from "../variables/metales-valores" //Divisas

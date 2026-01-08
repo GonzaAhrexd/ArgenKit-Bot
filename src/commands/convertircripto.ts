@@ -1,3 +1,5 @@
+// Axios
+import axios from "axios"
 // DiscordJS
 import Discord from "discord.js"
 // Node

@@ -1,5 +1,6 @@
 
 import Discord from "discord.js"
+import axios from "axios"
 import { embedError } from "../functions/embedError";
 import Criptomonedas from "../variables/criptomonedas-valores"
 import { getAllCriptoData } from "../api/cripto";

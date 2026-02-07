@@ -146,7 +146,7 @@ module.exports = {
                 const embed1 = new Discord.EmbedBuilder()
                     .setTitle(`${divisa.nombre} ${divisa.bandera} ${cantidad}`)
                     .setColor(divisa.color)
-                    .setDescription(divisa.descripcion)
+                    // .setDescription(divisa.descripcion)
                     .setThumbnail(divisa.img)
 
                 // Solo mostrar si la divisa NO es dólar
@@ -158,22 +158,22 @@ module.exports = {
                     );
                 }
                 embed1.addFields(
-                    { name: `${divisa.nombre} oficial :bank:`, value: `Valor del ${divisa.nombre} en pesos argentinos bajo esquema de flotación entre bandas.`, inline: false },
+                    { name: `Cotización oficial :bank:`, value: `Valor del ${divisa.nombre} en pesos argentinos bajo esquema de flotación entre bandas.`, inline: false },
                     { name: "COMPRA", value: `ARS ${formatoPrecio((num / conversion) * oficial.oficial.value_buy, "ARS")}`, inline: true },
                     { name: "VENTA", value: `ARS ${formatoPrecio((num / conversion) * oficial.oficial.value_sell, "ARS")}`, inline: true },
-                    { name: "Impuestos nacionales", value: `Impuestos sobre tarjetas de crédito y débito a la compra de ${divisa.nombre}`, inline: false },
+                    { name: "Impuestos nacionales 📖", value: `Impuestos sobre tarjetas de crédito y débito a la compra de ${divisa.nombre}`, inline: false },
                     { name: "IVA (21%)", value: `ARS ${formatoPrecio(total21((num / conversion) * oficial.oficial.value_sell), "ARS")}`, inline: true },
                     { name: "Percepción de ganancias (30%)", value: `ARS ${formatoPrecio(total30((num / conversion) * oficial.oficial.value_sell), "ARS")}`, inline: true },
                     { name: "Percepción + IVA (51%)", value: `ARS ${formatoPrecio(total51((num / conversion) * oficial.oficial.value_sell), "ARS")}`, inline: true },
                 );
 
-                if(divisa.iso == "USD"){
-                    embed1.addFields(
-                        { name: "Bandas cambiarias", value: "Valores actuales de las bandas cambiarias para la intervención del BCRA.", inline: false },
-                        { name: "Banda inferior", value: `${formatoPrecio(bandasHoy.inferior, "ARS")}`, inline: true },
-                        { name: "Banda superior", value: `${formatoPrecio(bandasHoy.superior, "ARS")}`, inline: true },
-                    );
-                }
+                // if(divisa.iso == "USD"){
+                //     embed1.addFields(
+                //         { name: "Bandas cambiarias", value: "Valores actuales de las bandas cambiarias para la intervención del BCRA.", inline: false },
+                //         { name: "Banda inferior", value: `${formatoPrecio(bandasHoy.inferior, "ARS")}`, inline: true },
+                //         { name: "Banda superior", value: `${formatoPrecio(bandasHoy.superior, "ARS")}`, inline: true },
+                //     );
+                // }
 
                 // --- EMBED DE INFORMACIÓN ADICIONAL ---
                 const embed2 = new Discord.EmbedBuilder()

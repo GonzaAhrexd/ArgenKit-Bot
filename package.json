@@ -18,6 +18,7 @@
     "@devraelfreeze/discordjs-pagination": "^2.7.6",
     "@types/node": "^20.8.2",
     "axios": "^0.21.1",
+    "canvas": "^3.2.1",
     "currency-formatter": "^1.5.6",
     "discord.js": "^14.13.0",
     "dotenv": "^16.0.1",

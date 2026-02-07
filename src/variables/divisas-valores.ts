@@ -47,7 +47,7 @@ const divisas: Divisa[] = [
                 color: "#5B9BD5",
                 gradient: ["#1a2a3d", "#0f1a28"],
                 gradientBox: ["#243a52", "#1d3045"],
-                img: "https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png",
+                img: "https://cdn.discordapp.com/attachments/802944543510495292/913863513498333224/european-union_1.png?ex=6988da38&is=698788b8&hm=c59dc3a92e6b49525a991e09d2e087ac6087088126df23e42881c26cbfae5110",
                 ac: "1 de enero de 2002",
                 paises: ":flag_de: :flag_at: :flag_be: :flag_cy: :flag_sk: :flag_si: :flag_es: :flag_ee: :flag_fi: :flag_fr: :flag_gr: :flag_ie: :flag_it: :flag_lv: :flag_lt: :flag_lu: :flag_mt: :flag_nl: :flag_pt: :flag_ad: :flag_va: :flag_mc: :flag_sm: :flag_xk: :flag_me:" ,
                 simbolo: "€",

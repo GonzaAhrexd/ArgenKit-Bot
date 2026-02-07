@@ -1,16 +1,14 @@
-// Node
-const wait = require('node:timers/promises').setTimeout
-// Discord JS
-import Discord from "discord.js"
-import { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder } from 'discord.js'
-import { ButtonStyle } from 'discord.js'
-// Funciones 
-import { embedError } from "../functions/embedError"
+// Discord.js
+import { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, EmbedBuilder, ButtonStyle } from 'discord.js'
+// Divisas
 import divisas from '../variables/divisas-valores';
-const { total30, total51, total21 } = require("../functions/impuestos"); //Impuestos
-
+// Funciones
+import { total21, total30, total51 } from '../functions/impuestos'; 
+import { embedError } from "../functions/embedError"
+// APIs
 import { getAll } from '../api/Divisas';
-import { generateDolarImage } from '../canvas/canvasDivisas'; // Ajusta la ruta
+// Canvas
+import { generateDolarImage } from '../canvas/Divisas/canvasDivisas'; // Ajusta la ruta
 
 module.exports = {
 
@@ -22,131 +20,68 @@ module.exports = {
             subcommand.setName('dolar')
                 .setDescription('Muestra los datos y tipos de cambio del dólar')
         ).addSubcommand(subcommand =>
-
             subcommand.setName('euro')
-
                 .setDescription('Muestra los datos y tipos de cambio del euro')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('real')
-
                 .setDescription('Muestra los datos y tipos de cambio del real')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('libra')
-
                 .setDescription('Muestra los datos y tipos de cambio de la libra')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('yen')
-
                 .setDescription('Muestra los datos y tipos de cambio del yen')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('rublo')
-
                 .setDescription('Muestra los datos y tipos de cambio del rublo')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('dolarcanadiense')
-
                 .setDescription('Muestra los datos y tipos de cambio del Dólar Canadiense')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('dolaraustraliano')
-
                 .setDescription('Muestra los datos y tipos de cambio del Dólar Australiano')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('dolarneozelandes')
-
                 .setDescription('Muestra los datos y tipos de cambio del Dólar Neozelandés')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('pesomexicano')
-
                 .setDescription('Muestra los datos y tipos de cambio del Peso Mexicano')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('pesochileno')
-
                 .setDescription('Muestra los datos y tipos de cambio del Peso Chileno')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('pesouruguayo')
-
                 .setDescription('Muestra los datos y tipos de cambio del Peso Uruguayo')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('pesocolombiano')
-
                 .setDescription('Muestra los datos y tipos de cambio del Peso Colombiano')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('boliviano')
-
                 .setDescription('Muestra los datos y tipos de cambio del Boliviano')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('sol')
-
                 .setDescription('Muestra los datos y tipos de cambio del Sol')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('guarani')
-
                 .setDescription('Muestra los datos y tipos de cambio del Guarani')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('bolivar')
-
                 .setDescription('Muestra los datos y tipos de cambio del Bolivar Digital Venezolano')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('yuan')
-
                 .setDescription('Muestra los datos y tipos de cambio del Yuan chino')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('rupia')
-
                 .setDescription('Muestra los datos y tipos de cambio del Rupia rusa')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('won')
-
                 .setDescription('Muestra los datos y tipos de cambio del Won surcoreano')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('franco')
-
                 .setDescription('Muestra los datos y tipos de cambio del Franco suizo')
-
         ).addSubcommand(subcommand =>
-
             subcommand.setName('lira')
-
                 .setDescription('Muestra los datos y tipos de cambio del Lira turca')
-
         ),
 
     async run(client, interaction) {
@@ -175,22 +110,26 @@ module.exports = {
             const compra = (num / conversion) * oficial.oficial.value_buy;
             const venta = (num / conversion) * oficial.oficial.value_sell;
             
-            // Calculamos impuestos usando tus funciones importadas
-            const valorIva = total21(venta);
-            const valorGanancias = total30(venta);
-            const valorTotal = total51(venta);
+           
 
             // --- GENERACIÓN DE IMAGEN CANVAS ---
             // Le pasamos los datos a la función que creamos antes
             const imagenResumen = await generateDolarImage({
                 nombre: divisa.nombre,
                 bandera: divisa.bandera,
+                iso: divisa.iso,
+                simbolo: divisa.simbolo, 
+                color: divisa.color,
+                gradient: divisa.gradient,
+                gradientBox: divisa.gradientBox,
+                img: divisa.img,
                 compra: compra,
                 venta: venta,
-                iva: valorIva,
-                ganancias: valorGanancias,
-                totalImpuestos: valorTotal,
-                iso: divisa.iso,
+                conversionDolares: conversion,
+                iva: total21(venta),
+                ganancias: total30(venta),
+                totalImpuestos: total51(venta),
+                
                 cantidadLabel: num > 1 ? "(1000 Unidades)" : ""
             });
 
@@ -223,7 +162,7 @@ module.exports = {
                 if (i.customId === 'informacion') {
                     // Aquí puedes seguir usando el embed2 que tenías para los datos técnicos
                     // o crear otra imagen de Canvas para la info.
-                    const embed2 = new Discord.EmbedBuilder()
+                    const embed2 = new EmbedBuilder()
                         .setTitle(`Detalles: ${divisa.nombre}`)
                         .setColor(divisa.color)
                         .addFields(

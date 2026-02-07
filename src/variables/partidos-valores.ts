@@ -1,25 +1,30 @@
 type Partido = {
     fecha: string, // String con la fecha YYYY/MM/DD
     rival: string // String con el rival
+    categoria: string // String con la categoría del partido (amistoso, eliminatoria, copa, etc.)
 }
 
-const proximosPartidos = [
+const proximosPartidos: Partido[] = [
     {
-        fecha: "2025-06-04", // 4 de junio
-        rival: ":flag_cl:"
+        fecha: "2026-03-27", // 27 de marzo de 2026
+        rival: ":flag_es:",
+        categoria: "Finalissima"
     },
     {
-        fecha: "2025-06-09", // 9 de junio
-        rival: ":flag_co:"
+        fecha: "2026-06-16", // 16 de junio de 2026
+        rival: ":flag_dz:",
+        categoria: "Mundial 2026"
     },
     {
-        fecha: "2025-09-09", // 9 de septiembre
-        rival: ":flag_ve:"
-    },  
-    {
-        fecha: "2025-09-14", // 14 de septiembre
-        rival: ":flag_ec:"
+        fecha: "2026-06-22", // 22 de junio de 2026
+        rival: ":flag_at:",
+        categoria: "Mundial 2026"
     },
+     {
+        fecha: "2026-06-27", // 27 de junio de 2026
+        rival: ":flag_jo:",
+        categoria: "Mundial 2026"
+    }
 ]
 
 export default proximosPartidos

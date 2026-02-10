@@ -104,7 +104,6 @@ module.exports = {
             }
 
             let num = 1;
-            if (["COP", "PYG", "KRW"].includes(divisa.iso)) num = 1000;
 
             // --- CÁLCULOS DE VALORES ---
             const compra = (num / conversion) * oficial.oficial.value_buy;

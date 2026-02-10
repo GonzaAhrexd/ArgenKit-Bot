@@ -43,7 +43,7 @@ function formatARS(num: number): string {
 
 export async function generateDolarImage(data: divisaData): Promise<AttachmentBuilder> {
     const width = 900;
-    const height = data.iso !== 'USD' ? 600 : 550;
+    const height = data.iso !== 'USD' ? 680 : 630;
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext('2d');
     const padding = 30;
@@ -81,7 +81,7 @@ export async function generateDolarImage(data: divisaData): Promise<AttachmentBu
 
     // --- SECCIÓN: EQUIVALENCIA EN DÓLARES (solo si no es USD) ---
     if (data.iso !== 'USD') {
-        yPos += 35;
+        yPos += 45;
         ctx.fillStyle = gradientBox1;
         roundRect(ctx, padding, yPos, width - padding * 2, 40, 10);
         ctx.fill();
@@ -210,7 +210,8 @@ export async function generateDolarImage(data: divisaData): Promise<AttachmentBu
     addTextCanvas(ctx, 'bold 14px sans-serif', data.color.toString(), `21%`, badge21X + 8, yPos + 28);
     
     addTextCanvas(ctx, 'bold 24px sans-serif', data.color.toString(), `ARS $${formatARS(data.iva)}`, padding + 20, yPos + 58);
-    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Impuesto aplicable sobre algunos servicios digitales', padding + 20, yPos + 78);
+    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Servicios digitales: Netflix, Spotify, iCloud', padding + 20, yPos + 78);
+    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Videojuegos (Steam, Xbox, PS) están exentos de ganancias', padding + 20, yPos + 92);
    
     
     // Box GANANCIAS
@@ -234,8 +235,8 @@ export async function generateDolarImage(data: divisaData): Promise<AttachmentBu
     addTextCanvas(ctx, 'bold 14px sans-serif', data.color.toString(), `30%`, badge30X + 8, yPos + 28);
     
     addTextCanvas(ctx, 'bold 24px sans-serif', data.color.toString(), `ARS $${formatARS(data.ganancias)}`, ventaX + 20, yPos + 58);
-    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Impuesto aplicable en ciertas tarjetas en compras', ventaX + 20, yPos + 78);
-    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'en moneda extranjera', ventaX + 20, yPos + 92);
+    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Compras en moneda extranjera no digitales', ventaX + 20, yPos + 78);
+    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Evitable pagando con USD en TC bancarias', ventaX + 20, yPos + 92);
 
     
   
@@ -253,13 +254,11 @@ export async function generateDolarImage(data: divisaData): Promise<AttachmentBu
     roundRect(ctx, padding, yPos, finalBoxWidth, finalBoxHeight, 12);
     ctx.fill();
     
-    // Borde superior verde
-    ctx.fillStyle = data.color.toString();
-    ctx.fillRect(padding + 15, yPos, finalBoxWidth - 30, 4);
+   
     
     // Texto izquierdo
-    addTextCanvas(ctx, 'bold 18px sans-serif', data.color.toString(), 'PERCEPCIÓN + IVA (51%)', padding + 20, yPos + 32); 
-    addTextCanvas(ctx, '16px sans-serif', '#e5e7e6', 'Aplicable en algunos servicios digitales con ciertas tarjetas.', padding + 20, yPos + 52); 
+    addTextCanvas(ctx, 'bold 18px sans-serif', "#e5e7e6", 'PERCEPCIÓN + IVA (51%)', padding + 20, yPos + 32); 
+    addTextCanvas(ctx, '16px sans-serif', '#6b7c75', 'Servicios digitales no exentos pagados con tarjeta en pesos', padding + 20, yPos + 52); 
 
     
     // Valor grande a la derecha
@@ -269,6 +268,28 @@ export async function generateDolarImage(data: divisaData): Promise<AttachmentBu
     const totalWidth = ctx.measureText(totalText).width;
 
     addTextCanvas(ctx, 'bold 28px sans-serif', '#FFFFFF', totalText, width - padding - totalWidth - 20, yPos + 48);
+
+    // --- BOX INFORMATIVO: CÓMO EVITAR PERCEPCIONES ---
+    yPos += finalBoxHeight + 15;
+    const infoBoxHeight = 70;
+    
+    ctx.fillStyle = '#1a1f1c';
+    roundRect(ctx, padding, yPos, finalBoxWidth, infoBoxHeight, 10);
+    ctx.fill();
+    
+    // Icono de información (círculo con i)
+    const infoX = padding + 18;
+    const infoY = yPos + infoBoxHeight / 2;
+    ctx.beginPath();
+    ctx.arc(infoX, infoY, 12, 0, Math.PI * 2);
+    ctx.fillStyle = '#3d4a44';
+    ctx.fill();
+    addTextCanvas(ctx, 'bold 16px sans-serif', '#6b7c75', 'i', infoX - 3, infoY + 6);
+    
+    // Texto informativo
+    addTextCanvas(ctx, '13px sans-serif', '#6b7c75', 'Algunas tarjetas no cobran percepciones. También podés evitarlas pagando con dólares', padding + 45, yPos + 24);
+    addTextCanvas(ctx, '13px sans-serif', '#6b7c75', 'en débito o saldando el resumen de tu tarjeta de crédito en USD antes del vencimiento.', padding + 45, yPos + 42);
+    addTextCanvas(ctx, '13px sans-serif', '#6b7c75', 'Para más información, pulsa el botón de Guía de Impuestos.', padding + 45, yPos + 60);
 
     const buffer = canvas.toBuffer('image/png');
     return new AttachmentBuilder(buffer, { name: 'cotizacion-moderna.png' });

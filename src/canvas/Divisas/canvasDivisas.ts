@@ -194,17 +194,22 @@ export async function generateDolarImage(data: divisaData): Promise<AttachmentBu
     roundRect(ctx, padding, yPos, boxWidth, taxBoxHeight, 12);
     ctx.fill();
     
-    // Label IVA con badge
+    // Borde izquierdo verde
+    ctx.fillStyle = data.color.toString();
+    roundRect(ctx, padding, yPos, 6, taxBoxHeight, 3);
+    ctx.fill();
+    
+    // Label IVA
     addTextCanvas(ctx, '16px sans-serif', '#e5e7e6', 'IVA', padding + 20, yPos + 28);
     
     // Badge 21% (alineado a la derecha)
     const badge21X = padding + boxWidth - 65;
     ctx.fillStyle = '#3d4a44';
-    roundRect(ctx, badge21X, yPos + 10, 45, 24, 6);
+    roundRect(ctx, badge21X, yPos + 12, 45, 22, 6);
     ctx.fill();
-        
-    addTextCanvas(ctx, 'bold 14px sans-serif', data.color.toString(), `21%`, badge21X + 8, yPos + 28); 
-    addTextCanvas(ctx, 'bold 24px sans-serif', '#FFFFFF', `ARS $${formatARS(data.iva)}`, padding + 20, yPos + 58);
+    addTextCanvas(ctx, 'bold 14px sans-serif', data.color.toString(), `21%`, badge21X + 8, yPos + 28);
+    
+    addTextCanvas(ctx, 'bold 24px sans-serif', data.color.toString(), `ARS $${formatARS(data.iva)}`, padding + 20, yPos + 58);
     addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Impuesto aplicable sobre algunos servicios digitales', padding + 20, yPos + 78);
    
     
@@ -213,17 +218,24 @@ export async function generateDolarImage(data: divisaData): Promise<AttachmentBu
     roundRect(ctx, ventaX, yPos, boxWidth, taxBoxHeight, 12);
     ctx.fill();
     
-    addTextCanvas(ctx, '16px sans-serif', '#e5e7e6', 'Percepción de Ganancias', ventaX + 20, yPos + 28);
+    // Borde izquierdo verde
+    ctx.fillStyle = data.color.toString();
+    roundRect(ctx, ventaX, yPos, 6, taxBoxHeight, 3);
+    ctx.fill();
+    
+    // Label Percepción de Ganancias
+    addTextCanvas(ctx, '16px sans-serif', '#e5e7e6', 'GANANCIAS', ventaX + 20, yPos + 28);
     
     // Badge 30% (alineado a la derecha)
     const badge30X = ventaX + boxWidth - 65;
     ctx.fillStyle = '#3d4a44';
-    roundRect(ctx, badge30X, yPos + 10, 45, 24, 6);
+    roundRect(ctx, badge30X, yPos + 12, 45, 22, 6);
     ctx.fill();
     addTextCanvas(ctx, 'bold 14px sans-serif', data.color.toString(), `30%`, badge30X + 8, yPos + 28);
-    addTextCanvas(ctx, 'bold 24px sans-serif', '#FFFFFF', `ARS $${formatARS(data.ganancias)}`, ventaX + 20, yPos + 58);
-    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Impuesto aplicable en ciertas tarjetas en compras en moneda extranjera', ventaX + 20, yPos + 78);
-    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Plataformas de videojuegos están exentas', ventaX + 20, yPos + 92);
+    
+    addTextCanvas(ctx, 'bold 24px sans-serif', data.color.toString(), `ARS $${formatARS(data.ganancias)}`, ventaX + 20, yPos + 58);
+    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Impuesto aplicable en ciertas tarjetas en compras', ventaX + 20, yPos + 78);
+    addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'en moneda extranjera', ventaX + 20, yPos + 92);
 
     
   

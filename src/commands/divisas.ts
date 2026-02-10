@@ -9,7 +9,7 @@ import { embedError } from "../functions/embedError"
 import { getAll } from '../api/Divisas';
 // Canvas
 import { generateDolarImage } from '../canvas/Divisas/canvasDivisas'; // Ajusta la ruta
-
+import { generateImpuestosGuiaImage } from '../canvas/ImpuestosGuia/CanvasImpuestos'; // Ajusta la ruta
 module.exports = {
 
     data: new SlashCommandBuilder()
@@ -203,9 +203,21 @@ module.exports = {
                     await i.editReply({ embeds: [embed2], files: [], components: [row] });
                 }
 
+
                 if (i.customId === 'conversion') {
                     // Volvemos a mostrar la imagen principal
                     await i.editReply({ embeds: [], files: [imagenResumen], components: [row] });
+                }
+
+                if(i.customId === 'guiaimpuestos') {
+                    const guiaImpuestosImage = await generateImpuestosGuiaImage()
+
+                    await i.editReply({ 
+                        embeds: [], 
+                        files: [guiaImpuestosImage], 
+                        components: [row] 
+                     });
+
                 }
             });
 

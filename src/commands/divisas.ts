@@ -132,17 +132,34 @@ module.exports = {
                 cantidadLabel: num > 1 ? "(1000 Unidades)" : ""
             });
 
+            // Valores para los botones de copiar
+            const valores = {
+                compra: compra.toFixed(2),
+                venta: venta.toFixed(2),
+                iva: total21(venta).toFixed(2),
+                ganancias: total30(venta).toFixed(2),
+                total: total51(venta).toFixed(2)
+            };
+
             // --- BOTONES ---
             const row = new ActionRowBuilder<ButtonBuilder>()
                 .addComponents(
                     new ButtonBuilder()
                         .setCustomId("conversion")
-                        .setLabel("💸 Ver Tabla")
+                        .setLabel("💸 Cotización")
+                        .setStyle(ButtonStyle.Success),
+                    new ButtonBuilder()
+                        .setCustomId("guiaimpuestos")
+                        .setLabel("📖 Guía de Impuestos")
                         .setStyle(ButtonStyle.Success),
                     new ButtonBuilder()
                         .setCustomId("informacion")
-                        .setLabel("📋 Info Técnica")
-                        .setStyle(ButtonStyle.Primary)
+                        .setLabel("📋 Información")
+                        .setStyle(ButtonStyle.Primary),
+                    new ButtonBuilder()
+                        .setCustomId("ver_valores")
+                        .setLabel("📊 Ver Valores")
+                        .setStyle(ButtonStyle.Secondary)
                 );
 
             // Enviamos la imagen generada
@@ -156,6 +173,20 @@ module.exports = {
             const collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 });
 
             collector.on('collect', async (i) => {
+                // Botón ver valores - respuesta efímera
+                if (i.customId === 'ver_valores') {
+                    await i.reply({ 
+                        content: `**${divisa.nombre} (${divisa.iso})**\n\n` +
+                            `📥 **Compra:** \`${valores.compra}\`\n` +
+                            `📤 **Venta:** \`${valores.venta}\`\n\n` +
+                            `💰 **IVA (21%):** \`${valores.iva}\`\n` +
+                            `💸 **Ganancias (30%):** \`${valores.ganancias}\`\n` +
+                            `📊 **Total (51%):** \`${valores.total}\``, 
+                        ephemeral: true 
+                    });
+                    return;
+                }
+
                 await i.deferUpdate();
                 
                 if (i.customId === 'informacion') {

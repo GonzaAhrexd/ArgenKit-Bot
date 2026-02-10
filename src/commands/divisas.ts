@@ -136,15 +136,11 @@ module.exports = {
 
                 // Determina si hay que usar 1000 unidades por tema de redondeo visual
                 let num = 1;
-                let cantidad = "";
-                if (["COP", "PYG", "KRW"].includes(divisa.iso)) {
-                    num = 1000;
-                    cantidad = "(1000 Unidades)";
-                }
+              
 
                 // --- EMBED DE CONVERSIÓN ---
                 const embed1 = new Discord.EmbedBuilder()
-                    .setTitle(`${divisa.nombre} ${divisa.bandera} ${cantidad}`)
+                    .setTitle(`${divisa.nombre} ${divisa.bandera} `)
                     .setColor(divisa.color)
                     // .setDescription(divisa.descripcion)
                     .setThumbnail(divisa.img)
@@ -154,7 +150,7 @@ module.exports = {
                     embed1.addFields(
                         { name: "Valor en dólares 💸", value: `Valor del ${divisa.nombre} en relación al dólar estadounidense.`, inline: false },
                         { name: `1 DÓLAR <:rightarrow:921907270747570247> ${(divisa.nombre).toUpperCase()}`, value: formatoPrecio(conversion, divisa.iso), inline: true },
-                        { name: `1 ${divisa.nombre} <:rightarrow:921907270747570247> DÓLAR`, value: formatoPrecio(1 / conversion, "USD"), inline: true }
+                        { name: `${["COP", "PYG", "KRW"].includes(divisa.iso) ? "1000" : "1"  } ${divisa.nombre} <:rightarrow:921907270747570247> DÓLAR`, value: formatoPrecio(["COP", "PYG", "KRW"].includes(divisa.iso) ? 1000 / conversion : 1 / conversion, "USD"), inline: true }
                     );
                 }
                 embed1.addFields(

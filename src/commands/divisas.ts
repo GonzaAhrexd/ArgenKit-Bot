@@ -212,10 +212,40 @@ module.exports = {
                 if(i.customId === 'guiaimpuestos') {
                     const guiaImpuestosImage = await generateImpuestosGuiaImage()
 
+                    // Fila principal de navegación
+                    const rowGuiaImpuestos = new ActionRowBuilder<ButtonBuilder>()
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId("conversion")
+                                .setLabel("💸 Cotización")
+                                .setStyle(ButtonStyle.Success),
+                            new ButtonBuilder()
+                                .setCustomId("guiaimpuestos")
+                                .setLabel("📖 Guía de Impuestos")
+                                .setStyle(ButtonStyle.Success),
+                            new ButtonBuilder()
+                                .setCustomId("informacion")
+                                .setLabel("📋 Información")
+                                .setStyle(ButtonStyle.Primary)
+                        );
+
+                    // Fila de enlaces externos ARCA
+                    const rowEnlacesArca = new ActionRowBuilder<ButtonBuilder>()
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setLabel("📋 Lista A ARCA")
+                                .setStyle(ButtonStyle.Link)
+                                .setURL("https://www.afip.gob.ar/iva/servicios-digitales/prestadores.asp"),
+                            new ButtonBuilder()
+                                .setLabel("📋 Excepciones Percepción")
+                                .setStyle(ButtonStyle.Link)
+                                .setURL("https://www.afip.gob.ar/regimen-devolucion-percepciones/percepcion/exclusiones.asp")
+                        );
+
                     await i.editReply({ 
                         embeds: [], 
                         files: [guiaImpuestosImage], 
-                        components: [row] 
+                        components: [rowGuiaImpuestos, rowEnlacesArca] 
                      });
 
                 }

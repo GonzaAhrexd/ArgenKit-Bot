@@ -1,6 +1,7 @@
 import { createCanvas } from 'canvas';
 import { AttachmentBuilder } from 'discord.js';
 import addTextCanvas from '../CanvasFunctions/AddTextCanvas';
+import creditosArgenkit from '../CanvasFunctions/CreditosArgenkit';
 
 // Función helper para dibujar rectángulos redondeados
 function roundRect(ctx: any, x: number, y: number, w: number, h: number, r: number) {
@@ -165,13 +166,13 @@ export async function generateImpuestosGuiaImage(): Promise<AttachmentBuilder> {
     
     // Badge DIGITAL
     const badgeX = width - padding - 75;
-    ctx.fillStyle = '#2d4a3d';
-    roundRect(ctx, badgeX, yPos + 20, 60, 24, 12);
-    ctx.fill();
-    addTextCanvas(ctx, 'bold 11px sans-serif', '#4ade80', 'SERVICIOS', badgeX + 8, yPos + 36);
+    // ctx.fillStyle = '#2d4a3d';
+    // roundRect(ctx, badgeX , yPos + 20, 75, 24, 12);
+    // ctx.fill();
+    // addTextCanvas(ctx, 'bold 11px sans-serif', '#4ade80', 'SERVICIOS', badgeX + 8, yPos + 36);
     
     // Descripción
-    yPos += 65;
+    yPos += 75;
     addTextCanvas(ctx, '13px sans-serif', colors.textSecondary, 'Se aplica a los Servicios Digitales que figuran en la "Lista A" de ARCA y que son consumidos por individuos.', padding + 15, yPos);
     
     // Bullet points
@@ -207,10 +208,10 @@ export async function generateImpuestosGuiaImage(): Promise<AttachmentBuilder> {
     addTextCanvas(ctx, 'bold 20px sans-serif', colors.blue, 'Percepción de Ganancias (30%)', padding + 60, yPos + 40);
     
     // Badge FÍSICO
-    ctx.fillStyle = '#3d2d4a';
-    roundRect(ctx, badgeX + 5, yPos + 20, 55, 24, 12);
-    ctx.fill();
-    addTextCanvas(ctx, 'bold 11px sans-serif', '#c084fc', 'FÍSICO', badgeX + 14, yPos + 36);
+    // ctx.fillStyle = '#3d2d4a';
+    // roundRect(ctx, badgeX + 5, yPos + 20, 55, 24, 12);
+    // ctx.fill();
+    // addTextCanvas(ctx, 'bold 11px sans-serif', '#c084fc', 'FÍSICO', badgeX + 14, yPos + 36);
     
     // Descripción
     yPos += 70;
@@ -265,10 +266,10 @@ export async function generateImpuestosGuiaImage(): Promise<AttachmentBuilder> {
     addTextCanvas(ctx, 'bold 20px sans-serif', colors.purple, 'IVA + Ganancias (51%)', padding + 60, yPos + 40);
     
     // Badge TOTAL
-    ctx.fillStyle = '#1e3a5f';
-    roundRect(ctx, badgeX + 5, yPos + 20, 55, 24, 12);
-    ctx.fill();
-    addTextCanvas(ctx, 'bold 11px sans-serif', colors.blue, 'TOTAL', badgeX + 16, yPos + 36);
+    // ctx.fillStyle = '#1e3a5f';
+    // roundRect(ctx, badgeX + 5, yPos + 20, 55, 24, 12);
+    // ctx.fill();
+    // addTextCanvas(ctx, 'bold 11px sans-serif', colors.blue, 'TOTAL', badgeX + 16, yPos + 36);
     
     // Descripción
     yPos += 70;
@@ -318,9 +319,9 @@ export async function generateImpuestosGuiaImage(): Promise<AttachmentBuilder> {
     
     // Badge PROVINCIAL
     ctx.fillStyle = '#1a3d2e';
-    roundRect(ctx, badgeX - 10, yPos + 20, 80, 24, 12);
-    ctx.fill();
-    addTextCanvas(ctx, 'bold 11px sans-serif', colors.green, 'PROVINCIAL', badgeX - 2, yPos + 36);
+    // roundRect(ctx, badgeX - 10, yPos + 20, 80, 24, 12);
+    // ctx.fill();
+    // addTextCanvas(ctx, 'bold 11px sans-serif', colors.green, 'PROVINCIAL', badgeX - 2, yPos + 36);
     
     // Descripción
     yPos += 75;
@@ -385,14 +386,16 @@ export async function generateImpuestosGuiaImage(): Promise<AttachmentBuilder> {
     }
     
     // Nota sobre Santa Fe
-    yPos += 10;
+    yPos += 15;
     addTextCanvas(ctx, '10px sans-serif', '#6b7280', '* Santa Fe: 3% suscripciones, 4,5% servicios digitales. Algunas provincias no tienen este impuesto.', padding + 20, yPos);
 
     // ========================================
     // FOOTER - Disclaimer
     // ========================================
+    addTextCanvas(ctx, '11px sans-serif', '#6b7280', 'Valores sujetos a cambios normativos. Consultar siempre la legislación vigente.', width / 2 - 190, height - 30);
+    
     yPos += 40;
-    addTextCanvas(ctx, '11px sans-serif', '#6b7280', 'Valores sujetos a cambios normativos. Consultar siempre la legislación vigente.', width / 2 - 190, yPos);
+    await creditosArgenkit(ctx, width / 2 - 190, yPos);
 
     // Crear el attachment
     const buffer = canvas.toBuffer('image/png');

@@ -3,6 +3,7 @@ import { AttachmentBuilder, ColorResolvable } from 'discord.js';
 import axios from 'axios';
 
 import addTextCanvas from '../CanvasFunctions/AddTextCanvas';
+import creditosArgenkit from '../CanvasFunctions/CreditosArgenkit';
 type divisaData = {
     nombre: string;
     bandera: string; 
@@ -287,9 +288,11 @@ export async function generateDolarImage(data: divisaData): Promise<AttachmentBu
     addTextCanvas(ctx, 'bold 16px sans-serif', '#6b7c75', 'i', infoX - 3, infoY + 6);
     
     // Texto informativo
-    addTextCanvas(ctx, '13px sans-serif', '#6b7c75', 'Algunas tarjetas no cobran percepciones. También podés evitarlas pagando con dólares', padding + 45, yPos + 24);
-    addTextCanvas(ctx, '13px sans-serif', '#6b7c75', 'en débito o saldando el resumen de tu tarjeta de crédito en USD antes del vencimiento.', padding + 45, yPos + 42);
-    addTextCanvas(ctx, '13px sans-serif', '#6b7c75', 'Para más información, pulsa el botón de Guía de Impuestos.', padding + 45, yPos + 60);
+    addTextCanvas(ctx, '13px sans-serif', '#6b7c75', 'Algunas tarjetas no cobran percepciones. También podés evitarlas pagando con dólares en débito o saldando el resumen de ', padding + 45, yPos + 24);
+    addTextCanvas(ctx, '13px sans-serif', '#6b7c75', 'tu tarjeta de crédito en USD antes del vencimiento. Para más información, pulsa el botón de Guía de Impuestos.', padding + 45, yPos + 42);
+
+
+    await creditosArgenkit(ctx, infoX + 10, height - 30);
 
     const buffer = canvas.toBuffer('image/png');
     return new AttachmentBuilder(buffer, { name: 'cotizacion-moderna.png' });

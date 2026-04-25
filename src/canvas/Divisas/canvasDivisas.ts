@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import addTextCanvas from '../CanvasFunctions/AddTextCanvas';
 import creditosArgenkit from '../CanvasFunctions/CreditosArgenkit';
+
 type divisaData = {
     nombre: string;
     bandera: string; 
@@ -238,9 +239,6 @@ export async function generateDolarImage(data: divisaData): Promise<AttachmentBu
     addTextCanvas(ctx, 'bold 24px sans-serif', data.color.toString(), `ARS $${formatARS(data.ganancias)}`, ventaX + 20, yPos + 58);
     addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Compras en moneda extranjera no digitales', ventaX + 20, yPos + 78);
     addTextCanvas(ctx, '12px sans-serif', '#6b7c75', 'Evitable pagando con USD en TC bancarias', ventaX + 20, yPos + 92);
-
-    
-  
 
     // --- BOX FINAL: PERCEPCIÓN + IVA ---
     yPos += taxBoxHeight + 25;

@@ -23,10 +23,10 @@
     "dotenv": "^16.0.1",
     "moment-timezone": "^0.5.45",
     "translate": "^1.4.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6",
-    "ts-node": "^10.9.1"
+    "nodemon": "^2.0.6"
   }
 }

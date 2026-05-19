@@ -14,7 +14,8 @@ import { embedError } from "../functions/embedError";
 // APIs
 import { getAll } from "../api/Divisas";
 // Canvas
-import { generateDolarImage } from "../canvas/Divisas/canvasDivisas"; 
+import { generateDolarImage } from "../canvas/Divisas/canvasDivisas";
+
 import { generateImpuestosGuiaImage } from "../canvas/ImpuestosGuia/CanvasImpuestos"; 
 import { generateInfoDivisa } from "../canvas/Divisas/infoDivisa";
 

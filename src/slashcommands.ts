@@ -1,49 +1,61 @@
-const { REST, Routes } = require("discord.js");
+// Librerías nativas
+import fs from "fs";
+import path from "path";
+import "dotenv/config"; // Variables de entorno
 
-const fs = require("fs");
-//@ts-ignore
-const Discord = require("discord.js");
-//@ts-ignore
-// const {  REST } = require('@discordjs/rest')
-//@ts-ignore
-// const { Routes } = require('discord-api-types/v9')
-require("dotenv").config(); //Variables de entorno
-// const guild = client.guilds.cache.get()
-// const clientId = '810272095279251556' //Bot de pruebas
-const clientId = "796173877981216799"; //Bot estable
-const commands = [];
-let slashcommandFiles = fs
-  .readdirSync("./src/commands")
-  .filter((file) => file.endsWith("ts"));
+// Librerías de discord.js v14
+import { REST, Routes } from "discord.js";
 
-for (const file of slashcommandFiles) {
-  const slash = require(`./commands/${file}`);
-  //@ts-ignore
-  commands.push(slash.data);
+const clientId = process.env.CLIENT_ID;
+const token = process.env.token;
+
+if (!token) {
+  throw new Error("❌ Falta el token del bot en el archivo .env");
 }
 
-// const rest = new Discord.REST({version: "10"}).setToken(process.env.token)
+const commands: any[] = [];
 
-// createSlash()
+const commandsPath = path.join(__dirname, "commands");
 
-const rest = new REST().setToken(process.env.token);
+const slashcommandFiles = fs
+  .readdirSync(commandsPath)
+  .filter(
+    (file) =>
+      (file.endsWith(".ts") || file.endsWith(".js")) && !file.endsWith(".d.ts"),
+  );
+
+for (const file of slashcommandFiles) {
+  const filePath = path.join(commandsPath, file);
+  const slash = require(filePath);
+
+  const commandData = slash.default || slash;
+
+  if (commandData?.data) {
+    commands.push(
+      commandData.data.toJSON ? commandData.data.toJSON() : commandData.data,
+    );
+  } else {
+    console.warn(
+      `⚠️ [Advertencia] El archivo ${file} no exporta 'data'. Se omitirá.`,
+    );
+  }
+}
+
+const rest = new REST({ version: "10" }).setToken(token);
 
 (async () => {
   try {
-    console.log(
-      `Started refreshing ${commands.length} application (/) commands.`,
-    );
+    console.log(`⏳ Empezando a registrar ${commands.length} comandos (/).`);
 
-    // The put method is used to fully refresh all commands in the guild with the current set
-    const data = await rest.put(Routes.applicationCommands(clientId), {
-      body: commands,
-    });
+    const data = (await rest.put(
+      Routes.applicationCommands(clientId as string),
+      {
+        body: commands,
+      },
+    )) as any[];
 
-    console.log(
-      `Successfully reloaded ${data.length} application (/) commands.`,
-    );
+    console.log(`✅ ¡Éxito! Se registraron ${data.length} comandos (/).`);
   } catch (error) {
-    // And of course, make sure you catch and log any errors!
-    console.error(error);
+    console.error("❌ Error al registrar los comandos:", error);
   }
 })();

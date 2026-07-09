@@ -1,4 +1,9 @@
-import Discord from "discord.js";
+import {
+  EmbedBuilder,
+  SlashCommandBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 import { embedError } from "../functions/embedError";
 const wait = require("node:timers/promises").setTimeout;
 import { getWeatherAllCapitals, getWeatherByCity } from "../api/Clima";
@@ -6,9 +11,12 @@ import {
   thumbnailSegunMain,
   emojiSegunMain,
 } from "../functions/climaFunciones";
+const mayusculaPrimerLetra = (texto: string) => {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+};
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("clima")
     .setDescription("Muestra el tiempo meteorologico actual")
     .addSubcommand((subcommand) =>
@@ -27,14 +35,14 @@ module.exports = {
             .setRequired(true),
         ),
     ),
-  async run(client, interaction) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     if (interaction.options.getSubcommand() === "capitales") {
       await interaction.deferReply();
 
       try {
         const capitalesActualizadas = await getWeatherAllCapitals();
 
-        const embedClimaCapitales = new Discord.EmbedBuilder()
+        const embedClimaCapitales = new EmbedBuilder()
           .setTitle("Clima en las capitales de Argentina")
           .setColor("#69D6F4")
           .setThumbnail("https://cdn.discordapp.com/...") // Tu URL de imagen
@@ -54,12 +62,12 @@ module.exports = {
       }
     }
     if (interaction.options.getSubcommand() === "consultar") {
-      const ciudad = interaction.options.getString("ciudad");
+      const ciudad = interaction.options.getString("ciudad") ?? "";
       await interaction.deferReply();
       try {
         const weatherData = await getWeatherByCity(ciudad);
 
-        const embedClimaCiudad = new Discord.EmbedBuilder()
+        const embedClimaCiudad = new EmbedBuilder()
           .setTitle(`Clima en ${ciudad}`)
           .setColor("#0099ff")
           .setThumbnail(`${thumbnailSegunMain(weatherData.weather[0].main)}`)
@@ -146,9 +154,6 @@ module.exports = {
       } catch (Error) {
         embedError(interaction, Error);
       }
-    }
-    function mayusculaPrimerLetra(texto) {
-      return texto.charAt(0).toUpperCase() + texto.slice(1);
     }
   },
 };

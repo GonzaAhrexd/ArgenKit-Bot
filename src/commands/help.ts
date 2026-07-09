@@ -1,18 +1,19 @@
-import Discord from "discord.js";
 import {
   ActionRowBuilder,
-  ButtonBuilder,
+  Client,
+  ChatInputCommandInteraction,
+  ComponentType,
+  EmbedBuilder,
+  SlashCommandBuilder,
   StringSelectMenuBuilder,
 } from "discord.js";
-import { ComponentType } from "discord.js";
-
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("help")
     .setDescription("Muestra los comandos disponibles"),
 
-  async run(client, interaction) {
-    const row = new ActionRowBuilder().addComponents(
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const row = new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(
       new StringSelectMenuBuilder()
         .setCustomId("select")
         .setPlaceholder("¡Selecciona una categoría!")
@@ -57,7 +58,7 @@ module.exports = {
         ]),
     );
 
-    let embed = new Discord.EmbedBuilder()
+    let embed = new EmbedBuilder()
       .setTitle(":desktop: COMANDOS DE ARGENKIT BOT :desktop: ")
       .setColor("#385E7F")
       .addFields(
@@ -80,7 +81,7 @@ module.exports = {
         "https://cdn.discordapp.com/attachments/802944543510495292/1176889247215648829/search_1.png?ex=65708286&is=655e0d86&hm=c0193aa9ccd9a045905e83e990940c81897d4c355da14866de45efd48a4a7e72&",
       );
 
-    let embed2 = new Discord.EmbedBuilder()
+    let embed2 = new EmbedBuilder()
       .setTitle(
         ":arrows_counterclockwise:  Utilidad y conversión de divisas :arrows_counterclockwise:  ",
       )
@@ -127,7 +128,7 @@ module.exports = {
         },
       );
 
-    let embed3 = new Discord.EmbedBuilder()
+    let embed3 = new EmbedBuilder()
       .setTitle(":dollar:  Cotizaciones :dollar: ")
       .setColor("#385E7F")
       .setDescription(
@@ -157,7 +158,7 @@ module.exports = {
         },
       );
 
-    let embed4 = new Discord.EmbedBuilder()
+    let embed4 = new EmbedBuilder()
       .setTitle(":bar_chart: Datos :bar_chart:")
       .setColor("#385E7F")
       .setThumbnail(
@@ -175,7 +176,7 @@ module.exports = {
           value: "`elecciones`  `futbol`  `provinciainfo`",
         },
       );
-    let embed5 = new Discord.EmbedBuilder()
+    let embed5 = new EmbedBuilder()
       .setTitle(":tv: Servicios Digitales :tv:")
       .setColor("#385E7F")
       .setThumbnail(
@@ -196,7 +197,7 @@ module.exports = {
             "`minecraft`  `roblox`  `fortnite`  `leagueoflegends`  `valorant`  `counterstrike`  `clashroyale`  `clashofclans`  `genshinimpact`  `freefire`",
         },
       );
-    let embed6 = new Discord.EmbedBuilder()
+    let embed6 = new EmbedBuilder()
       .setTitle(":rofl: Diversión :rofl:")
       .setColor("#385E7F")
       .setThumbnail(
@@ -211,7 +212,7 @@ module.exports = {
           "`covidtest`  `escaparlatam`  `8ball`  `moneda`  `dados`  `frase`",
       });
 
-    let embed7 = new Discord.EmbedBuilder()
+    let embed7 = new EmbedBuilder()
       .setTitle(":open_file_folder: Información del bot :open_file_folder:")
       .setColor("#385E7F")
       .setThumbnail(
@@ -226,7 +227,7 @@ module.exports = {
           "`creador`  `api`  `invitar`  `servidor`  `votar`  `donaciones`  `update`",
       });
 
-    const collector = interaction.channel.createMessageComponentCollector({
+    const collector = interaction.channel?.createMessageComponentCollector({
       componentType: ComponentType.StringSelect,
       time: 30000,
     });
@@ -235,29 +236,29 @@ module.exports = {
       content: " ",
       ephemeral: false,
       embeds: [embed],
-      components: [row],
+      components: [row.toJSON()],
     });
 
-    collector.on("collect", async (collected) => {
+    collector?.on("collect", async (collected): Promise<void> => {
       const value = collected.values[0];
 
       if (value === "first") {
-        return interaction.editReply({ embeds: [embed2], ephemeral: false });
+        await interaction.editReply({ embeds: [embed2] });
       }
       if (value === "second") {
-        await interaction.editReply({ embeds: [embed3], ephemeral: false });
+        await interaction.editReply({ embeds: [embed3] });
       }
       if (value === "third") {
-        await interaction.editReply({ embeds: [embed4], ephemeral: false });
+        await interaction.editReply({ embeds: [embed4] });
       }
       if (value === "fourth") {
-        await interaction.editReply({ embeds: [embed5], ephemeral: false });
+        await interaction.editReply({ embeds: [embed5] });
       }
       if (value === "fifth") {
-        await interaction.editReply({ embeds: [embed6], ephemeral: false });
+        await interaction.editReply({ embeds: [embed6] });
       }
       if (value === "sixth") {
-        await interaction.editReply({ embeds: [embed7], ephemeral: false });
+        await interaction.editReply({ embeds: [embed7] });
       }
     });
   },

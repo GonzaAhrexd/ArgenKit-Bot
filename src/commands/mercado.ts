@@ -1,12 +1,27 @@
-import Discord from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 import { embedError } from "../functions/embedError";
 import { formatoPrecio, formatoNum } from "../functions/formato";
 import { getEstadoMercado, getPrecioAccion } from "../api/Mercado";
 import { getDolarMep } from "../api/Divisas";
 
+interface stockQuoteResponseImproved {
+  currentPrice: number;
+  change: number;
+  percentChange: number;
+  highPriceOfDay: number;
+  lowPriceOfDay: number;
+  openPriceOfDay: number;
+  previousClosePrice: number;
+}
+
 const wait = require("node:timers/promises").setTimeout;
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("mercado")
     .setDescription("Muestra los datos del mercado")
     .addSubcommand((subcommand) =>
@@ -30,13 +45,13 @@ module.exports = {
             .setRequired(true),
         ),
     ),
-  async run(client, interaction, options) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     if (interaction.options.getSubcommand() === "estado") {
       await interaction.deferReply();
       try {
         const estadoMercado = await getEstadoMercado();
 
-        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+        const embed: EmbedBuilder = new EmbedBuilder()
           .setTitle("Estado del mercado actual")
           .setColor(estadoMercado.isOpen ? "Green" : "Red")
           .setThumbnail(
@@ -151,30 +166,30 @@ module.exports = {
         //     }
         // };
 
-        // const embed = new Discord.EmbedBuilder();
+        // const embed = new EmbedBuilder();
         // llenarEmbed(embed, populares);
 
-        // const embed2 = new Discord.EmbedBuilder();
+        // const embed2 = new EmbedBuilder();
         // llenarEmbed(embed2, nacionales);
 
-        // const embed3 = new Discord.EmbedBuilder();
+        // const embed3 = new EmbedBuilder();
         // llenarEmbed(embed3, tecnologia);
 
-        // const embed4 = new Discord.EmbedBuilder();
+        // const embed4 = new EmbedBuilder();
         // llenarEmbed(embed4, gaming);
 
-        // const embed5 = new Discord.EmbedBuilder();
+        // const embed5 = new EmbedBuilder();
         // llenarEmbed(embed5, travel);
 
-        // const embed6 = new Discord.EmbedBuilder();
+        // const embed6 = new EmbedBuilder();
         // llenarEmbed(embed6, automotriz);
 
-        // const embed7 = new Discord.EmbedBuilder();
+        // const embed7 = new EmbedBuilder();
         // llenarEmbed(embed7, consumo);
 
-        // const row = new Discord.ActionRowBuilder()
+        // const row = new ActionRowBuilder()
         //     .addComponents(
-        //         new Discord.StringSelectMenuBuilder()
+        //         new StringSelectMenuBuilder()
         //             .setCustomId('select')
         //             .setPlaceholder('¡Selecciona una de categoría!')
         //             .addOptions([
@@ -189,7 +204,7 @@ module.exports = {
         //     );
 
         // const collector = interaction.channel.createMessageComponentCollector({
-        //     componentType: Discord.ComponentType.StringSelect,
+        //     componentType: ComponentType.StringSelect,
         //     time: 30000,
         // });
 
@@ -206,7 +221,7 @@ module.exports = {
         //     if (value === "consumo") await collected.update({ embeds: [embed7], components: [row] });
         // });
 
-        const embedMantenimiento = new Discord.EmbedBuilder()
+        const embedMantenimiento = new EmbedBuilder()
           .setTitle("Comando en mantenimiento")
           .setColor("Yellow")
           .setDescription(
@@ -219,14 +234,14 @@ module.exports = {
     }
 
     if (interaction.options.getSubcommand() === "consultar") {
-      let activo = interaction.options.getString("activo");
+      const activo = interaction.options.getString("activo") ?? "";
       await interaction.deferReply();
       try {
         const estadoMercado = await getEstadoMercado();
         const activoValores = await getPrecioAccion(activo);
         const dolarMep = await getDolarMep();
 
-        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+        const embed: EmbedBuilder = new EmbedBuilder()
           .setTitle(`Acciones de ${activo}`)
           .setColor(estadoMercado.isOpen ? "Green" : "Red")
           .setThumbnail(
@@ -272,8 +287,8 @@ module.exports = {
       }
     }
 
-    function subioPrecio(activo): String {
-      return activo.price > activo.previousPrice
+    function subioPrecio(activo: stockQuoteResponseImproved): String {
+      return activo.currentPrice > activo.previousClosePrice
         ? "<:triangleup:1178914601799270450>"
         : "🔻";
     }

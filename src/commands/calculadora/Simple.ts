@@ -1,8 +1,11 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
 
-const Simple = async (client: any, interaction: any) => {
-  let calcular: string = interaction.options.getString("operacion");
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+const Simple = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
+  const calcular: string = interaction.options.getString("operacion") ?? "";
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Calcular operación")
     .setColor("#18f7ce")
     .setThumbnail(

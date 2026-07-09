@@ -1,7 +1,9 @@
-import Discord from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  Client,
+  SlashCommandBuilder,
+} from "discord.js";
 import { embedError } from "../functions/embedError";
-
-const wait = require("node:timers/promises").setTimeout;
 
 // Datos módulos
 import RiesgoPais from "./datos/RiesgoPais";
@@ -13,7 +15,7 @@ import PBI from "./datos/PBI";
 import Gabinete from "./datos/Gabinete";
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("datos")
     .setDescription("Muestra distintos datos de Argentina")
     .addSubcommand((subcommand) =>
@@ -57,7 +59,7 @@ module.exports = {
           "Muestra los integrantes actuales del gabinete de ministros",
         ),
     ),
-  async run(client, interaction, options) {
+  async run(client: Client, interaction: ChatInputCommandInteraction) {
     const EstructuraBasica = async (funcion: any) => {
       await interaction.deferReply();
       try {

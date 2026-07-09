@@ -1,14 +1,27 @@
-import Discord from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  ComponentType,
+  EmbedBuilder,
+} from "discord.js";
+import type {
+  Client,
+  ChatInputCommandInteraction,
+  ButtonInteraction,
+} from "discord.js";
 const { total30 } = require("../../functions/impuestos");
 import { formatoPrecio } from "../../functions/formato";
 import { getDolar } from "../../api/Divisas";
 
-const BrawlStars = async (client: any, interaction: any) => {
+const BrawlStars = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
-  // Function to create the embed based on perception toggle
-  const createBrawlStarsEmbed = (withPerception) => {
-    const embedBrawlStars = new Discord.EmbedBuilder()
+  const createBrawlStarsEmbed = (withPerception: boolean) => {
+    const embedBrawlStars = new EmbedBuilder()
       .setTitle("Brawl Stars")
       .setURL("https://supercell.com/en/games/brawlstars/")
       .setDescription(
@@ -40,35 +53,32 @@ const BrawlStars = async (client: any, interaction: any) => {
     return embedBrawlStars;
   };
 
-  // Create buttons
-  const withPerceptionButton = new Discord.ButtonBuilder()
+  const withPerceptionButton = new ButtonBuilder()
     .setCustomId("with_perception")
     .setLabel("Con Percepción")
-    .setStyle(Discord.ButtonStyle.Primary); // Celeste (Primary)
+    .setStyle(ButtonStyle.Primary);
 
-  const withoutPerceptionButton = new Discord.ButtonBuilder()
+  const withoutPerceptionButton = new ButtonBuilder()
     .setCustomId("without_perception")
     .setLabel("Sin Percepción")
-    .setStyle(Discord.ButtonStyle.Success); // Green (Success)
+    .setStyle(ButtonStyle.Success);
 
-  const row = new Discord.ActionRowBuilder().addComponents(
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     withPerceptionButton,
     withoutPerceptionButton,
   );
 
-  // Initial embed (with perception by default)
   let currentEmbed = createBrawlStarsEmbed(true);
 
-  // Send initial reply
   const message = await interaction.editReply({
     embeds: [currentEmbed],
     components: [row],
   });
 
-  // Create a collector for button interactions
   const collector = message.createMessageComponentCollector({
-    filter: (i) => i.user.id === interaction.user.id,
-    time: 60000, // 60 seconds
+    filter: (i: ButtonInteraction) => i.user.id === interaction.user.id,
+    componentType: ComponentType.Button,
+    time: 60000,
   });
 
   collector.on("collect", async (i) => {
@@ -85,10 +95,9 @@ const BrawlStars = async (client: any, interaction: any) => {
   });
 
   collector.on("end", async () => {
-    // Disable buttons after collector ends
     withPerceptionButton.setDisabled(true);
     withoutPerceptionButton.setDisabled(true);
-    const disabledRow = new Discord.ActionRowBuilder().addComponents(
+    const disabledRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
       withPerceptionButton,
       withoutPerceptionButton,
     );

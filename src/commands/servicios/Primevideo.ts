@@ -1,7 +1,10 @@
-import Discord, {
+import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
 } from "discord.js";
 const { total51, total21 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require("../../functions/formato");
@@ -12,7 +15,7 @@ const crearEmbed = (conPercepciones: boolean) => {
     ? "El precio de Prime Video con impuestos **y percepciones** en Argentina es el siguiente:"
     : "El precio de Prime Video con impuestos **sin percepciones** en Argentina es el siguiente:";
 
-  return new Discord.EmbedBuilder()
+  return new EmbedBuilder()
     .setTitle("Prime Video")
     .setURL("https://www.primevideo.com/")
     .setDescription(descripcion)
@@ -26,7 +29,10 @@ const crearEmbed = (conPercepciones: boolean) => {
     });
 };
 
-const primevideo = async (client: any, interaction: any) => {
+const primevideo = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId("sinpercepciones")
@@ -44,13 +50,14 @@ const primevideo = async (client: any, interaction: any) => {
     components: [row],
   });
 
-  const filter = (i: any) => i.user.id === interaction.user.id; // solo el usuario que ejecuta
-  const collector = interaction.channel.createMessageComponentCollector({
+  const filter = () => true;
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter,
     time: 15000,
   });
 
-  collector.on("collect", async (i: any) => {
+  collector?.on("collect", async (i) => {
+    if (!i.isButton()) return;
     await i.deferUpdate();
 
     if (i.customId === "percepciones") {

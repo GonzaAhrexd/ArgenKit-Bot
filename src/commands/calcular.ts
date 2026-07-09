@@ -1,11 +1,15 @@
-import Discord from "discord.js";
+import {
+  SlashCommandBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 import Simple from "./calculadora/Simple";
 import Raiz from "./calculadora/Raiz";
 import Potencia from "./calculadora/Potencia";
 import Logaritmo from "./calculadora/Logaritmo";
 import ConvertirBase from "./calculadora/ConvertirBase";
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("calcular")
     .setDescription("Realiza una operación matemática")
     .addSubcommand((subcommand) =>
@@ -95,26 +99,27 @@ module.exports = {
             .setRequired(true),
         ),
     ),
-  async run(client, interaction, options) {
-    // Calculadora simple
-    if (interaction.options.getSubcommand() === "simple") {
-      Simple(client, interaction);
-    }
-    // Raiz
-    if (interaction.options.getSubcommand() === "raiz") {
-      Raiz(client, interaction);
-    }
-    // Potencia
-    if (interaction.options.getSubcommand() === "potencia") {
-      Potencia(client, interaction);
-    }
-    // Logaritmo
-    if (interaction.options.getSubcommand() === "logaritmo") {
-      Logaritmo(client, interaction);
-    }
-    // Convertir base
-    if (interaction.options.getSubcommand() === "convertirbase") {
-      ConvertirBase(client, interaction);
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const option = interaction.options.getSubcommand();
+
+    switch (option) {
+      case "simple":
+        Simple(_client, interaction);
+        break;
+      case "raiz":
+        Raiz(_client, interaction);
+        break;
+      case "potencia":
+        Potencia(_client, interaction);
+        break;
+      case "logaritmo":
+        Logaritmo(_client, interaction);
+        break;
+      case "convertirbase":
+        ConvertirBase(_client, interaction);
+        break;
+      default:
+        await interaction.reply("Opción no válida");
     }
   },
 };

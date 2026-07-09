@@ -24,10 +24,14 @@
     "translate": "^3.0.1"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^26.1.1",
+    "eslint": "^10.6.0",
+    "globals": "^17.7.0",
     "nodemon": "^3.1.14",
     "prettier": "^3.9.4",
     "tsx": "^4.23.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "typescript-eslint": "^8.63.0"
   }
 }

@@ -1,10 +1,16 @@
-import Discord from "discord.js";
+import {
+  EmbedBuilder,
+  SlashCommandBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
+
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("api")
     .setDescription("Muestra las apis utilizadas por el bot"),
-  async run(client, interaction) {
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setTitle("Apis utilizadas para la creación del bot")
       .setColor("#2A2A49")
       .setThumbnail(

@@ -1,9 +1,42 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder } from "discord.js";
-import { ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  ComponentType,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
+import type {
+  ButtonInteraction,
+  ChatInputCommandInteraction,
+  Client,
+  ColorResolvable,
+} from "discord.js";
 import provincias from "../variables/provincias-valores";
-module.exports = {
-  data: new Discord.SlashCommandBuilder()
+
+interface ProvinciaItem {
+  identificacion: string;
+  nombre: string;
+  url: string;
+  descripcion: string;
+  color: ColorResolvable;
+  bandera: string;
+  gobernador: string;
+  capital: string;
+  poblada: string;
+  fundacion: string;
+  autonomia: string;
+  superficie: string;
+  poblacion: string;
+  gentillicio: string;
+  clima: string;
+  ubicacion: string;
+  ubicacionDesc: string;
+  ubicacionImg: string;
+}
+
+export default {
+  data: new SlashCommandBuilder()
     .setName("provinciainfo")
     .setDescription(
       "Muestra información sobre las 23 provincias de Argentina y la Ciudad Autonoma de Buenos Aires",
@@ -43,14 +76,11 @@ module.exports = {
         ),
     ),
 
-  async run(client, interaction, options) {
-    let provincia = interaction.options.getString("provincia");
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const provincia = interaction.options.getString("provincia");
 
-    if (provincia != null) {
-      var provincia2 = provincia.toLowerCase();
-    }
-    if (provincia == null) {
-      const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    if (provincia === null) {
+      const embed = new EmbedBuilder()
         .setTitle("Provincias de Argentina")
         .setURL("https://es.wikipedia.org/wiki/Provincias_de_Argentina")
         .setDescription(
@@ -60,7 +90,6 @@ module.exports = {
         .setThumbnail(
           "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/800px-Flag_of_Argentina.svg.png",
         )
-
         .addFields(
           {
             name: "Ciudad Autonoma",
@@ -74,100 +103,100 @@ module.exports = {
           },
         );
 
-      return interaction.reply({ embeds: [embed] });
+      await interaction.reply({ embeds: [embed] });
+      return;
     }
 
-    provincias.forEach(async (province) => {
-      if (provincia2 == province.identificacion) {
-        let isCaba: boolean = provincia2 == "caba";
-        const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-          .setTitle(province.nombre)
-          .setURL(province.url)
-          .setDescription(province.descripcion)
-          .setColor(province.color)
-          .setThumbnail(province.bandera)
-          .addFields(
-            {
-              name: isCaba ? "Jefe de Gobierno" : "Gobernador",
-              value: province.gobernador,
-              inline: true,
-            },
-            {
-              name: isCaba ? "Área metropolitana" : "Capital",
-              value: province.capital,
-              inline: true,
-            },
-            {
-              name: isCaba ? "Subdivisiones" : "Ciudad más poblada",
-              value: province.poblada,
-              inline: true,
-            },
-            { name: "Fundación", value: province.fundacion, inline: true },
-            {
-              name: "Declaración de autonomía",
-              value: province.autonomia,
-              inline: true,
-            },
-            { name: "Superficie", value: province.superficie, inline: true },
-            { name: "Población", value: province.poblacion, inline: true },
-            { name: "Gentilicio", value: province.gentillicio, inline: true },
-            { name: "Clima", value: province.clima, inline: true },
-          );
+    const provincia2 = provincia.toLowerCase();
 
-        const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-          .setTitle("Ubicación de " + province.nombre)
-          .setURL(province.ubicacion)
-          .setDescription(province.ubicacionDesc)
-          .setColor(province.color)
-          .setImage(province.ubicacionImg);
+    const province = (provincias as ProvinciaItem[]).find(
+      (p) => p.identificacion === provincia2,
+    );
 
-        const row = new ActionRowBuilder()
-          .addComponents(
-            new ButtonBuilder()
-              .setCustomId("informacion")
-              .setLabel("❓ Información")
-              .setStyle(ButtonStyle.Success),
-          )
-          .addComponents(
-            new ButtonBuilder()
-              .setCustomId("ubicacion")
-              .setLabel("🗺️ Ubicación")
-              .setStyle(ButtonStyle.Primary),
-          );
+    if (!province) return;
 
-        await interaction.reply({ embeds: [embed1], components: [row] });
+    const isCaba = provincia2 === "caba";
 
-        client.on("interactionCreate", (interaction) => {
-          if (!interaction.isButton()) return;
-        });
+    const embed1 = new EmbedBuilder()
+      .setTitle(province.nombre)
+      .setURL(province.url)
+      .setDescription(province.descripcion)
+      .setColor(province.color)
+      .setThumbnail(province.bandera)
+      .addFields(
+        {
+          name: isCaba ? "Jefe de Gobierno" : "Gobernador",
+          value: province.gobernador,
+          inline: true,
+        },
+        {
+          name: isCaba ? "Área metropolitana" : "Capital",
+          value: province.capital,
+          inline: true,
+        },
+        {
+          name: isCaba ? "Subdivisiones" : "Ciudad más poblada",
+          value: province.poblada,
+          inline: true,
+        },
+        { name: "Fundación", value: province.fundacion, inline: true },
+        {
+          name: "Declaración de autonomía",
+          value: province.autonomia,
+          inline: true,
+        },
+        { name: "Superficie", value: province.superficie, inline: true },
+        { name: "Población", value: province.poblacion, inline: true },
+        { name: "Gentilicio", value: province.gentillicio, inline: true },
+        { name: "Clima", value: province.clima, inline: true },
+      );
 
-        const filter = (i) => i.user.id === interaction.user.id;
+    const embed2 = new EmbedBuilder()
+      .setTitle("Ubicación de " + province.nombre)
+      .setURL(province.ubicacion)
+      .setDescription(province.ubicacionDesc)
+      .setColor(province.color)
+      .setImage(province.ubicacionImg);
 
-        const collector = interaction.channel.createMessageComponentCollector({
-          filter,
-          time: 8000,
-        });
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+      new ButtonBuilder()
+        .setCustomId("informacion")
+        .setLabel("❓ Información")
+        .setStyle(ButtonStyle.Success),
+      new ButtonBuilder()
+        .setCustomId("ubicacion")
+        .setLabel("🗺️ Ubicación")
+        .setStyle(ButtonStyle.Primary),
+    );
 
-        var actual = embed1;
+    await interaction.reply({ embeds: [embed1], components: [row] });
 
-        collector.on("collect", async (i) => {
-          if (i.customId === "informacion") {
-            await i.deferUpdate();
-            await i.editReply({ embeds: [embed1], components: [row] });
-            actual = embed1;
-          }
-          if (i.customId === "ubicacion") {
-            await i.deferUpdate();
-            await i.editReply({ embeds: [embed2], components: [row] });
-            actual = embed2;
-          }
-        });
+    const filter = (i: ButtonInteraction) => i.user.id === interaction.user.id;
 
-        collector.on("end", (collected, reason) => {
-          if (reason === "time") {
-            interaction.editReply({ embeds: [actual], components: [] });
-          }
-        });
+    const collector = interaction.channel?.createMessageComponentCollector({
+      filter,
+      componentType: ComponentType.Button,
+      time: 8000,
+    });
+
+    let actual = embed1;
+
+    collector?.on("collect", async (i) => {
+      if (i.customId === "informacion") {
+        await i.deferUpdate();
+        await i.editReply({ embeds: [embed1], components: [row] });
+        actual = embed1;
+      }
+      if (i.customId === "ubicacion") {
+        await i.deferUpdate();
+        await i.editReply({ embeds: [embed2], components: [row] });
+        actual = embed2;
+      }
+    });
+
+    collector?.on("end", async (_collected, reason) => {
+      if (reason === "time") {
+        await interaction.editReply({ embeds: [actual], components: [] });
       }
     });
   },

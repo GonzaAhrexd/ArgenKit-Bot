@@ -1,17 +1,20 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
 import { getInflacionData } from "../../api/bcraApi";
 
-const subioInflacion = (inflamesActual, inflamesAnterior) => {
+const subioInflacion = (inflamesActual: number, inflamesAnterior: number) => {
   return inflamesActual > inflamesAnterior
     ? "🔺"
     : "<:flechashaciaabajo:1210747546096369664>";
 };
 
-const anualizarInflacion = (mensual) => {
+const anualizarInflacion = (mensual: number) => {
   return ((mensual / 100 + 1) ** 12 - 1) * 100;
 };
 
-const Inflacion = async (client: any, interaction: any) => {
+const Inflacion = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const inflacionData = await getInflacionData();
   const meses = [
     "Enero",
@@ -28,7 +31,7 @@ const Inflacion = async (client: any, interaction: any) => {
     "Diciembre",
   ];
 
-  const embed = new Discord.EmbedBuilder()
+  const embed = new EmbedBuilder()
     .setTitle("Inflación")
     .setDescription(
       "La inflación es el aumento generalizado y sostenido de los precios de los bienes y servicios existentes en el mercado durante un período de tiempo, generalmente un año.",

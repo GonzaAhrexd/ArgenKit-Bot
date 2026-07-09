@@ -1,5 +1,4 @@
 import { ColorResolvable } from "discord.js";
-
 type Divisa = {
   id: string;
   nombre: string;

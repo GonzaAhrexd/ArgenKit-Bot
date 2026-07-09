@@ -1,11 +1,21 @@
-import Discord from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 const { total21 } = require("../../functions/impuestos");
 import { formatoPrecio } from "../../functions/formato";
 const wait = require("node:timers/promises").setTimeout;
 
 import { getDolar } from "../../api/Divisas";
 
-const CounterStrike = async (client: any, interaction: any) => {
+const CounterStrike = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
   const valorConPercepcion = (usd: number) => total21(valorDolar * usd);
@@ -15,7 +25,7 @@ const CounterStrike = async (client: any, interaction: any) => {
     const precio = (usd: number) =>
       conPercepcion ? valorConPercepcion(usd) : valorSinPercepcion(usd);
 
-    return new Discord.EmbedBuilder()
+    return new EmbedBuilder()
       .setTitle("Counter Strike 2")
       .setURL("https://www.counter-strike.net/")
       .setDescription(
@@ -40,15 +50,15 @@ const CounterStrike = async (client: any, interaction: any) => {
   };
 
   const crearBotones = () => {
-    return new Discord.ActionRowBuilder<Discord.ButtonBuilder>().addComponents(
-      new Discord.ButtonBuilder()
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
+      new ButtonBuilder()
         .setCustomId("conpercepcion_cs")
         .setLabel("Mostrar con IVA")
-        .setStyle(Discord.ButtonStyle.Primary),
-      new Discord.ButtonBuilder()
+        .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
         .setCustomId("sinpercepcion_cs")
         .setLabel("Mostrar sin IVA")
-        .setStyle(Discord.ButtonStyle.Success), // Estilo verde para "sin percepción"
+        .setStyle(ButtonStyle.Success), // Estilo verde para "sin percepción"
     );
   };
 
@@ -58,12 +68,12 @@ const CounterStrike = async (client: any, interaction: any) => {
     components: [crearBotones()],
   });
 
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter: (i) => i.user.id === interaction.user.id,
     time: 60000,
   });
 
-  collector.on("collect", async (i) => {
+  collector?.on("collect", async (i) => {
     const conPercepcion = i.customId === "conpercepcion_cs";
     await i.update({
       embeds: [crearEmbed(conPercepcion)],

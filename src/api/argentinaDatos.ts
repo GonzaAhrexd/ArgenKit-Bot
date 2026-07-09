@@ -49,7 +49,7 @@ export const getProximoFeriadoData = async (): Promise<Feriado> => {
     const response = await apiargenttinadatosClient.get("/feriados/2026/");
     const today = new Date();
     const proximoFeriado = response.data.find(
-      (feriado) => new Date(feriado["fecha"]) > today,
+      (feriado: any) => new Date(feriado["fecha"]) > today,
     );
     return proximoFeriado;
   } catch (error) {

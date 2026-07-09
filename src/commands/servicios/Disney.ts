@@ -1,8 +1,8 @@
-import Discord from "discord.js";
+import { Client, CommandInteraction, EmbedBuilder } from "discord.js";
 const { formatoPrecio } = require("../../functions/formato");
 
-const disney = async (client: any, interaction: Discord.CommandInteraction) => {
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+const disney = async (_client: Client, interaction: CommandInteraction) => {
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Disney+")
     .setURL("https://www.disneyplus.com/home")
     .setDescription(

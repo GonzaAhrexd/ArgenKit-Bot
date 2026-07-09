@@ -1,7 +1,10 @@
-import Discord, {
+import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
 } from "discord.js";
 const { total51, total21 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require("../../functions/formato");
@@ -12,7 +15,7 @@ const crearEmbed = (conPercepciones: boolean) => {
     ? "Los precios de YouTube Premium en Argentina con impuestos **y percepciones** son los siguientes:"
     : "Los precios de YouTube Premium en Argentina con impuestos **sin percepciones** son los siguientes:";
 
-  return new Discord.EmbedBuilder()
+  return new EmbedBuilder()
     .setTitle("YouTube Premium")
     .setURL("https://www.youtube.com/premium")
     .setDescription(descripcion)
@@ -39,7 +42,10 @@ const crearEmbed = (conPercepciones: boolean) => {
     );
 };
 
-const youtube = async (client: any, interaction: any) => {
+const youtube = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId("sinpercepciones")
@@ -58,12 +64,12 @@ const youtube = async (client: any, interaction: any) => {
   });
 
   const filter = (i: any) => i.user.id === interaction.user.id;
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter,
     time: 15000,
   });
 
-  collector.on("collect", async (i: any) => {
+  collector?.on("collect", async (i: any) => {
     await i.deferUpdate();
 
     if (i.customId === "percepciones") {

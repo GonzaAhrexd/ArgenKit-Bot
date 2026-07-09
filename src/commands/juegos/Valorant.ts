@@ -1,13 +1,16 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
 const { total21 } = require("../../functions/impuestos");
 import { formatoPrecio } from "../../functions/formato";
 const wait = require("node:timers/promises").setTimeout;
 import { getDolar } from "../../api/Divisas";
 
-const Valorant = async (client: any, interaction: any) => {
+const Valorant = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
-  const embedValorant: Discord.EmbedBuilder = new Discord.EmbedBuilder();
+  const embedValorant: EmbedBuilder = new EmbedBuilder();
   embedValorant.setTitle("Valorant");
   embedValorant.setURL("https://playvalorant.com/es-es/");
   embedValorant.setDescription(

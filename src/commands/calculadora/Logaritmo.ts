@@ -1,11 +1,13 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
+const Logaritmo = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
+  const base: number = interaction.options.getNumber("base") ?? 0;
+  const numero: number = interaction.options.getNumber("numero") ?? 0;
+  const resultado: number = Math.log(numero) / Math.log(base);
 
-const Logaritmo = async (client: any, interaction: any) => {
-  let base: number = interaction.options.getNumber("base");
-  let numero: number = interaction.options.getNumber("numero");
-  let resultado: number = Math.log(numero) / Math.log(base);
-
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Calcular logaritmo")
     .setColor("#97E4F9")
     .setThumbnail(

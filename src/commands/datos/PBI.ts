@@ -1,12 +1,15 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
 import { formatoPrecio } from "../../functions/formato";
 import { getAllPbiData } from "../../api/WorldBank";
 const wait = require("node:timers/promises").setTimeout;
 
-const PBI = async (client: any, interaction: any) => {
+const PBI = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const PBIData = await getAllPbiData();
 
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Producto Bruto Interno (2023)")
     .setColor("#FAD56F")
     .setThumbnail(

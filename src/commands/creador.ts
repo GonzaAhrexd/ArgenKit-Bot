@@ -1,13 +1,16 @@
-import { EmbedBuilder } from "discord.js";
-import Discord from "discord.js";
-
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("creador")
     .setDescription("Muestra información del creador del bot."),
 
-  async run(client, interaction) {
-    const embed: Discord.EmbedBuilder = new EmbedBuilder()
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setTitle("El creador del Bot es Gonzalo Ebel")
       .setThumbnail(
         "https://cdn.discordapp.com/attachments/802944543510495292/1177068140140707950/coding.png?ex=65712921&is=655eb421&hm=d7444a3c3d4e1fa2b025c7904de09389416160811f862ed5c99b0b56cdf71bb8&",

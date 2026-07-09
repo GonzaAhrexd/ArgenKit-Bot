@@ -1,4 +1,9 @@
-import Discord from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 var currencyFormatter = require("currency-formatter"); //Currency formatter
 import { formatoPrecio } from "../functions/formato";
 import { embedError } from "../functions/embedError";
@@ -6,7 +11,7 @@ import Metales from "../variables/metales-valores"; //Divisas
 import { getAll } from "../api/Divisas";
 const wait = require("node:timers/promises").setTimeout;
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("convertirmetal")
     .setDescription("Convierte de un metal a Pesos Argentinos")
     .addSubcommand((subcommand) =>
@@ -54,18 +59,17 @@ module.exports = {
         ),
     ),
 
-  async run(client, interaction, options) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     Metales.forEach(async (Metal) => {
       if (interaction.options.getSubcommand() === Metal.id) {
-        let convertir: number = interaction.options.getNumber(
-          Metal.iso.toLowerCase(),
-        );
+        const convertir: number =
+          interaction.options.getNumber(Metal.iso.toLowerCase()) ?? 0;
         await interaction.deferReply();
         try {
           const metalData = (await getAll()).divisas[Metal.iso];
           const dolarData = (await getAll()).dolar;
 
-          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          const embed: EmbedBuilder = new EmbedBuilder()
             .setTitle(
               `${Metal.nombre} <:rightarrow:921907270747570247> Peso Argentino`,
             )

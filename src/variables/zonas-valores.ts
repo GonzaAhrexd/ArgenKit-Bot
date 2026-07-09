@@ -1,5 +1,4 @@
-import Discord from "discord.js";
-
+import { ColorResolvable } from "discord.js";
 type zonas = {
   nombre: string;
   codigo: string;
@@ -8,7 +7,7 @@ type zonas = {
 type Zona = {
   codigo: string;
   nombre: string;
-  color: Discord.ColorResolvable;
+  color: ColorResolvable;
   zonas: zonas[];
 };
 

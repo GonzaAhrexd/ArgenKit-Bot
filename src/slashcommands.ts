@@ -4,9 +4,8 @@ import path from "path";
 import "dotenv/config"; // Variables de entorno
 import { TOKEN, CLIENT_ID } from "./config/envs";
 // Librerías de discord.js v14
-import { REST, Routes } from "discord.js";
 
-if (!TOKEN) {
+import { REST, Routes } from "discord.js";if (!TOKEN) {
   throw new Error("❌ Falta el token del bot en el archivo .env");
 }
 

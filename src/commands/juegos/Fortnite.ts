@@ -1,16 +1,37 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  ComponentType,
+  EmbedBuilder,
+} from "discord.js";
+import type {
+  Client,
+  ChatInputCommandInteraction,
+  ColorResolvable,
+  ButtonInteraction,
+  APIEmbedField,
+} from "discord.js";
 const { total21 } = require("../../functions/impuestos");
 import { formatoPrecio } from "../../functions/formato";
 import { getDolar } from "../../api/Divisas";
-const wait = require("node:timers/promises").setTimeout;
+import { setTimeout as wait } from "node:timers/promises";
 
-const Fortnite = async (client, interaction) => {
+type EmbedKey = "epic" | "switchXbox";
+
+const Fortnite = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
-  const createEmbed = (title, fields, color) =>
-    new Discord.EmbedBuilder()
-      .setTitle("Fortnite")
+  const createEmbed = (
+    title: string,
+    fields: APIEmbedField[],
+    color: ColorResolvable,
+  ) =>
+    new EmbedBuilder()
+      .setTitle(title)
       .setURL("https://www.epicgames.com/fortnite/es-ES/home")
       .setDescription("Precios de V-Bucks en Fortnite en Argentina:")
       .setColor(color)
@@ -19,7 +40,6 @@ const Fortnite = async (client, interaction) => {
       )
       .addFields(fields);
 
-  // Precios para PC/Epic Games (calculados con total21)
   const vbucksPricesEpic = [
     { name: "1000 V-Bucks", value: 8.99 },
     { name: "2800 V-Bucks", value: 22.99 },
@@ -27,15 +47,14 @@ const Fortnite = async (client, interaction) => {
     { name: "13500 V-Bucks", value: 89.99 },
   ];
 
-  // Precios para Switch/Xbox (definidos manualmente, cámbialos según necesites)
   const vbucksPricesSwitchXbox = [
-    { name: "1000 V-Bucks", value: 4977 }, // Cambia este valor (en ARS)
-    { name: "2800 V-Bucks", value: 12727 }, // Cambia este valor (en ARS)
-    { name: "5000 V-Bucks", value: 20477 }, // Cambia este valor (en ARS)
-    { name: "13500 V-Bucks", value: 49817 }, // Cambia este valor (en ARS)
+    { name: "1000 V-Bucks", value: 4977 },
+    { name: "2800 V-Bucks", value: 12727 },
+    { name: "5000 V-Bucks", value: 20477 },
+    { name: "13500 V-Bucks", value: 49817 },
   ];
 
-  const embeds = {
+  const embeds: Record<EmbedKey, EmbedBuilder> = {
     epic: createEmbed(
       "Fortnite: PC/Epic Games",
       vbucksPricesEpic.map((p) => ({
@@ -49,14 +68,14 @@ const Fortnite = async (client, interaction) => {
       "Fortnite: Switch/Xbox",
       vbucksPricesSwitchXbox.map((p) => ({
         name: p.name,
-        value: `ARS${formatoPrecio(total21(p.value), "ARS")}`, // Usamos el valor manual directamente
+        value: `ARS${formatoPrecio(total21(p.value), "ARS")}`,
         inline: true,
       })),
       "#00ff00",
     ),
   };
 
-  const row = new ActionRowBuilder().addComponents(
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId("epic")
       .setLabel("PC/Epic Games")
@@ -70,23 +89,25 @@ const Fortnite = async (client, interaction) => {
   await wait(3000);
   await interaction.editReply({ embeds: [embeds.epic], components: [row] });
 
-  const filter = (i) => i.user.id === interaction.user.id;
-  const collector = interaction.channel.createMessageComponentCollector({
+  const filter = (i: ButtonInteraction) => i.user.id === interaction.user.id;
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter,
+    componentType: ComponentType.Button,
     time: 20000,
   });
   let actual = embeds.epic;
 
-  collector.on("collect", async (i) => {
-    if (!i.isButton()) return;
+  collector?.on("collect", async (i) => {
     await i.deferUpdate();
-    actual = embeds[i.customId];
-    await i.editReply({ embeds: [actual], components: [row] });
+    if (i.customId === "epic" || i.customId === "switchXbox") {
+      actual = embeds[i.customId];
+      await i.editReply({ embeds: [actual], components: [row] });
+    }
   });
 
-  collector.on("end", (collected, reason) => {
+  collector?.on("end", async (_collected, reason) => {
     if (reason === "time") {
-      interaction.editReply({ embeds: [actual], components: [] });
+      await interaction.editReply({ embeds: [actual], components: [] });
     }
   });
 };

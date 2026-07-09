@@ -1,12 +1,11 @@
-import Discord from "discord.js";
-
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("donaciones")
     .setDescription("Muestra formas de apoyar al creador mediante donaciones."),
 
-  async run(client, interaction) {
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setTitle("DONACIONES")
       .setColor("Gold")
       .setDescription("¡Si decidiste donarme te lo agradezco infinitamente!")

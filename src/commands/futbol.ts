@@ -1,6 +1,11 @@
 // DiscordJS
-import { SlashCommandBuilder, EmbedBuilder, EmbedField } from "discord.js";
-// Funciones
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  EmbedField,
+  SlashCommandBuilder,
+} from "discord.js"; // Funciones
 import { diasHasta } from "../functions/diasHasta";
 // Variables
 import proximosPartidos from "../variables/partidos-valores";
@@ -11,7 +16,7 @@ module.exports = {
       "Muestra cuántos días faltan para  los siguientes partidos de la selección",
     ),
 
-  async run(_client, interaction) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     const partidosFuturos = proximosPartidos.filter(
       (partido) => new Date(partido.fecha) > new Date(),
     );

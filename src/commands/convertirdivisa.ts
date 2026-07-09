@@ -1,4 +1,9 @@
-import Discord from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 const { total30, total51, total21 } = require("../functions/impuestos"); //Impuestos
 import { formatoPrecio } from "../functions/formato";
 import { embedError } from "../functions/embedError";
@@ -8,7 +13,7 @@ const wait = require("node:timers/promises").setTimeout;
 import { getAll } from "../api/Divisas";
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("convertirdivisa")
     .setDescription("Convierte de Dolar Estadounidense a Pesos Argentinos")
     .addSubcommand((subcommand) =>
@@ -272,10 +277,11 @@ module.exports = {
         ),
     ),
 
-  async run(client, interaction, options) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     divisas.forEach(async (divisa) => {
       if (interaction.options.getSubcommand() === divisa.id) {
-        let convertir = interaction.options.getNumber(divisa.iso.toLowerCase());
+        const convertir: number =
+          interaction.options.getNumber(divisa.iso.toLowerCase()) ?? 0;
         await interaction.deferReply();
         try {
           const divisasData = (await getAll()).divisas;
@@ -286,7 +292,7 @@ module.exports = {
             CONVERSION = divisasData[divisa.iso.toLowerCase()];
           }
 
-          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          const embed: EmbedBuilder = new EmbedBuilder()
             .setTitle(
               `${divisa.nombre} <:rightarrow:921907270747570247> Peso Argentino`,
             )

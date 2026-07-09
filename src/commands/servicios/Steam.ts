@@ -1,9 +1,18 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 const { total21 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require("../../functions/formato");
 import { getDolar } from "../../api/Divisas";
-const steam = async (client: any, interaction: any) => {
+const steam = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
   // Función para calcular el precio con o sin IVA
@@ -14,7 +23,7 @@ const steam = async (client: any, interaction: any) => {
 
   // Función para crear el embed con los valores
   const crearEmbedSteam = (conIVA: boolean) => {
-    const embed = new Discord.EmbedBuilder()
+    const embed = new EmbedBuilder()
       .setTitle("Fondos de la Cartera de Steam")
       .setURL("https://store.steampowered.com/steamaccount/addfunds")
       .setDescription(
@@ -40,7 +49,6 @@ const steam = async (client: any, interaction: any) => {
   };
 
   const embedConIVA = crearEmbedSteam(true);
-  const embedSinIVA = crearEmbedSteam(false);
 
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
@@ -55,12 +63,12 @@ const steam = async (client: any, interaction: any) => {
 
   await interaction.editReply({ embeds: [embedConIVA], components: [row] });
 
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter: (i) => ["coniva", "siniva"].includes(i.customId),
     time: 15000,
   });
 
-  collector.on("collect", async (i) => {
+  collector?.on("collect", async (i) => {
     await i.deferUpdate();
     if (i.customId === "coniva") {
       await i.editReply({ embeds: [crearEmbedSteam(true)], components: [row] });

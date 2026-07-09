@@ -1,14 +1,47 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  ComponentType,
+} from "discord.js";
+import type {
+  Client,
+  ChatInputCommandInteraction,
+  ButtonInteraction,
+  ColorResolvable,
+} from "discord.js";
 const { total51, total30 } = require("../../functions/impuestos");
-import { formatoPrecio } from "../../functions/formato";
-const wait = require("node:timers/promises").setTimeout;
+import { setTimeout as wait } from "node:timers/promises";
 import { getDolar } from "../../api/Divisas";
-const Roblox = async (client, interaction) => {
+import { formatoPrecio } from "../../functions/formato";
+
+type EmbedKey = "ivaPercepcion" | "percepcion" | "sinImpuestos";
+
+interface PrecioItem {
+  name: string;
+  value: number;
+}
+
+interface EmbedField {
+  name: string;
+  value: string;
+  inline?: boolean;
+}
+
+const Roblox = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
-  const createEmbed = (title, descripcion, fields, color) =>
-    new Discord.EmbedBuilder()
+  const createEmbed = (
+    title: string,
+    descripcion: string,
+    fields: EmbedField[],
+    color: ColorResolvable,
+  ) =>
+    new EmbedBuilder()
       .setTitle(title)
       .setURL("https://www.roblox.com/")
       .setDescription(descripcion)
@@ -18,13 +51,13 @@ const Roblox = async (client, interaction) => {
       )
       .addFields(fields);
 
-  const premiumPrices = [
+  const premiumPrices: PrecioItem[] = [
     { name: "Premium 450", value: 4.99 },
     { name: "Premium 1000", value: 9.99 },
     { name: "Premium 2200", value: 19.99 },
   ];
 
-  const robuxPrices = [
+  const robuxPrices: PrecioItem[] = [
     { name: "Robux 400", value: 4.99 },
     { name: "Robux 800", value: 9.99 },
     { name: "Robux 1700", value: 19.99 },
@@ -33,7 +66,7 @@ const Roblox = async (client, interaction) => {
     { name: "Robux 22500", value: 199.99 },
   ];
 
-  const embeds = {
+  const embeds: Record<EmbedKey, EmbedBuilder> = {
     ivaPercepcion: createEmbed(
       "Roblox: IVA + Percepción",
       "Comprando desde Roblox.com cobra IVA y Percepción de Ganancias",
@@ -87,7 +120,7 @@ const Roblox = async (client, interaction) => {
     ),
   };
 
-  const row = new ActionRowBuilder().addComponents(
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId("ivaPercepcion")
       .setLabel("IVA + Percepción")
@@ -108,23 +141,23 @@ const Roblox = async (client, interaction) => {
     components: [row],
   });
 
-  const filter = (i) => i.user.id === interaction.user.id;
-  const collector = interaction.channel.createMessageComponentCollector({
+  const filter = (i: ButtonInteraction) => i.user.id === interaction.user.id;
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter,
+    componentType: ComponentType.Button,
     time: 20000,
   });
   let actual = embeds.ivaPercepcion;
 
-  collector.on("collect", async (i) => {
-    if (!i.isButton()) return;
+  collector?.on("collect", async (i) => {
     await i.deferUpdate();
-    actual = embeds[i.customId];
+    actual = embeds[i.customId as EmbedKey];
     await i.editReply({ embeds: [actual], components: [row] });
   });
 
-  collector.on("end", (collected, reason) => {
+  collector?.on("end", async (_collected, reason) => {
     if (reason === "time") {
-      interaction.editReply({ embeds: [actual], components: [] });
+      await interaction.editReply({ embeds: [actual], components: [] });
     }
   });
 };

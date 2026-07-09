@@ -1,11 +1,8 @@
-import Discord from "discord.js";
+import { Client, CommandInteraction, EmbedBuilder } from "discord.js";
 const { formatoPrecio } = require("../../functions/formato");
 
-const paramount = async (
-  client: any,
-  interaction: Discord.CommandInteraction,
-) => {
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+const paramount = async (_client: Client, interaction: CommandInteraction) => {
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Paramount+")
     .setThumbnail(
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Paramount_Plus.svg/1920px-Paramount_Plus.svg.png",

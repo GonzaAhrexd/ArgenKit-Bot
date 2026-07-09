@@ -1,11 +1,7 @@
-import Discord from "discord.js";
-
-export function embedError(
-  interaction: Discord.CommandInteraction,
-  error: any,
-) {
+import { CommandInteraction, EmbedBuilder } from "discord.js";
+export function embedError(interaction: CommandInteraction, error: any) {
   console.log(error);
-  const errorEmbed = new Discord.EmbedBuilder()
+  const errorEmbed = new EmbedBuilder()
     .setColor("#ff0000")
     .setTitle("Error")
     .setDescription(

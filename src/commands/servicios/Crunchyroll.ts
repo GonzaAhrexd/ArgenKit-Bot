@@ -1,12 +1,9 @@
-import Discord from "discord.js";
+import { Client, CommandInteraction, EmbedBuilder } from "discord.js";
 const { total21 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require("../../functions/formato");
 
-const crunchyroll = async (
-  client: any,
-  interaction: Discord.CommandInteraction,
-) => {
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+const crunchyroll = async (_client: Client, interaction: CommandInteraction) => {
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Crunchyroll")
     .setURL("https://www.crunchyroll.com/es")
     .setColor("#fec105")

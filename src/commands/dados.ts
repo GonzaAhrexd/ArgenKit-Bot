@@ -1,26 +1,37 @@
-import Discord from "discord.js";
+import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import type { Client, ChatInputCommandInteraction } from "discord.js";
 const { generarRandom } = require("../functions/numeroRandom");
 import opcionesDado from "../variables/dado-valores";
-module.exports = {
-  data: new Discord.SlashCommandBuilder()
+
+interface DadoItem {
+  number: number;
+  img: string;
+  emoji: string;
+}
+
+export default {
+  data: new SlashCommandBuilder()
     .setName("dados")
     .setDescription("Tira un dado"),
-  async run(client, interaction) {
-    let numeroRandom: number = generarRandom(1, 7);
 
-    opcionesDado.forEach(async (Dado) => {
-      if (numeroRandom == Dado.number) {
-        const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
-          .setColor("#F7F5FB")
-          .setThumbnail(Dado.img)
-          .setDescription("Tirando dados...")
-          .addFields({
-            name: "El dado cayó en...  ",
-            value: ` Número :${Dado.emoji}:`,
-          });
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const numeroRandom = generarRandom(1, 7) as number;
 
-        return await interaction.reply({ embeds: [embed] });
-      }
-    });
+    const dado = (opcionesDado as DadoItem[]).find(
+      (d) => d.number === numeroRandom,
+    );
+
+    if (!dado) return;
+
+    const embed = new EmbedBuilder()
+      .setColor("#F7F5FB")
+      .setThumbnail(dado.img)
+      .setDescription("Tirando dados...")
+      .addFields({
+        name: "El dado cayó en...  ",
+        value: ` Número :${dado.emoji}:`,
+      });
+
+    await interaction.reply({ embeds: [embed] });
   },
 };

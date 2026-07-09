@@ -1,12 +1,15 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
 import { getRiesgoPaisData } from "../../api/argentinaDatos";
 
 const wait = require("node:timers/promises").setTimeout;
 
-const RiesgoPais = async (client: any, interaction: any) => {
+const RiesgoPais = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const riesgoPaisData = await getRiesgoPaisData();
 
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Riesgo País")
     .setColor("#e6306c")
     .setDescription(

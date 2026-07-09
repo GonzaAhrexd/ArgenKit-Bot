@@ -1,14 +1,14 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 const { generarRandom } = require("../functions/numeroRandom");
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("moneda")
     .setDescription("Tira una moneda"),
 
-  async run(client, interaction) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     let randomizar: number = generarRandom(1, 3);
 
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setColor(`${randomizar == 1 ? "#27C5F5" : "#FCFBFB"}`)
       .setDescription("Tirando...")
       .setThumbnail(

@@ -1,11 +1,13 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
+const Potencia = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
+  const base: number = interaction.options.getNumber("base") ?? 0;
+  const exponente: number = interaction.options.getNumber("exponente") ?? 0;
+  const resultado: number = Math.pow(base, exponente);
 
-const Potencia = async (client: any, interaction: any) => {
-  let base: number = interaction.options.getNumber("base");
-  let exponente: number = interaction.options.getNumber("exponente");
-  let resultado: number = Math.pow(base, exponente);
-
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Calcular potencia")
     .setColor("#FF801F")
     .setThumbnail(

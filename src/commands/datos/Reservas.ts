@@ -1,17 +1,15 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
 import { formatoPrecio } from "../../functions/formato";
 import { getReservasData } from "../../api/bcraApi";
 const wait = require("node:timers/promises").setTimeout;
 
-type ReservasData = {
-  valor: number;
-  fecha: string;
-};
-
-const Reservas = async (client: any, interaction: any) => {
+const Reservas = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const reservasData = await getReservasData();
 
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Reservas del Banco Central de la República Argentina")
     .setColor("#9bcef7")
     .setDescription(

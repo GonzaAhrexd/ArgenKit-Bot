@@ -1,7 +1,10 @@
-import Discord, {
+import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  Client,
+  CommandInteraction,
+  EmbedBuilder,
 } from "discord.js";
 const { total51, total21 } = require("../../functions/impuestos"); // Impuestos
 const { formatoPrecio } = require("../../functions/formato");
@@ -12,7 +15,7 @@ const crearEmbed = (conPercepciones: boolean) => {
     ? "Los precios de Spotify Premium en Argentina con impuestos **y percepciones** son los siguientes:"
     : "Los precios de Spotify Premium en Argentina con impuestos **sin percepciones** son los siguientes:";
 
-  return new Discord.EmbedBuilder()
+  return new EmbedBuilder()
     .setTitle("Spotify")
     .setURL("https://www.spotify.com/ar/premium/")
     .setDescription(descripcion)
@@ -44,10 +47,7 @@ const crearEmbed = (conPercepciones: boolean) => {
     );
 };
 
-const spotify = async (
-  client: any,
-  interaction: Discord.CommandInteraction,
-) => {
+const spotify = async (_client: Client, interaction: CommandInteraction) => {
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId("sinpercepciones")

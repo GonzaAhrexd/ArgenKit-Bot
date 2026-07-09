@@ -1,10 +1,20 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 import { getDolar } from "../../api/Divisas";
 const { total21 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require("../../functions/formato");
 
-const EA = async (client: any, interaction: any) => {
+const EA = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
+  void _client;
   const valorDolar = (await getDolar()).oficial.value_sell;
 
   // Función para calcular el precio con o sin IVA
@@ -15,7 +25,7 @@ const EA = async (client: any, interaction: any) => {
 
   // Función para crear el embed de EA Play
   const crearEmbedEA = (conIVA: boolean) => {
-    const embed = new Discord.EmbedBuilder()
+    const embed = new EmbedBuilder()
       .setTitle("EA Play")
       .setURL("https://store.steampowered.com/subscriptions/ea?l=latam")
       .setDescription(
@@ -57,12 +67,13 @@ const EA = async (client: any, interaction: any) => {
 
   await interaction.editReply({ embeds: [embedConIVA], components: [row] });
 
-  const collector = interaction.channel.createMessageComponentCollector({
-    filter: (i) => ["coniva_ea", "siniva_ea"].includes(i.customId),
+  const collector = interaction.channel?.createMessageComponentCollector({
+    filter: () => true,
     time: 15000,
   });
 
-  collector.on("collect", async (i) => {
+  collector?.on("collect", async (i) => {
+    if (!i.isButton()) return;
     await i.deferUpdate();
     const conIVA = i.customId === "coniva_ea";
     await i.editReply({ embeds: [crearEmbedEA(conIVA)], components: [row] });

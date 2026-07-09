@@ -1,4 +1,3 @@
-import exp from "constants";
 import { coingeckoClient, criptoYaClient } from "./axios";
 
 type CriptoDataYaResponse = {

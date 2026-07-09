@@ -1,15 +1,31 @@
-import Discord from "discord.js";
 import {
   ActionRowBuilder,
   ButtonBuilder,
-  StringSelectMenuBuilder,
+  ButtonStyle,
+  ComponentType,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
+import type {
+  ButtonInteraction,
+  ChatInputCommandInteraction,
+  Client,
+  ColorResolvable,
 } from "discord.js";
 const impuestos = require("../functions/impuestos");
-var currencyFormatter = require("currency-formatter"); //Currency formatter
-import { ButtonStyle } from "discord.js";
 import { formatoPrecio } from "../functions/formato";
-module.exports = {
-  data: new Discord.SlashCommandBuilder()
+
+type ImpuestoKey = "iva" | "ganancias" | "servicios";
+
+interface ImpuestoConfig {
+  titulo: string;
+  descripcion: string;
+  color: ColorResolvable;
+  campos: { name: string; value: string; inline?: boolean }[];
+}
+
+export default {
+  data: new SlashCommandBuilder()
     .setName("impuesto")
     .setDescription("Calcula el impuesto a compras extranjeras con tarjeta")
     .addNumberOption((option) =>
@@ -19,10 +35,10 @@ module.exports = {
         .setRequired(true),
     ),
 
-  async run(client, interaction, options) {
-    const monto = interaction.options.getNumber("monto");
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const monto = interaction.options.getNumber("monto", true);
 
-    const config = {
+    const config: Record<ImpuestoKey, ImpuestoConfig> = {
       iva: {
         titulo: "Cálculo de IVA (21%)",
         descripcion:
@@ -84,9 +100,9 @@ module.exports = {
       },
     };
 
-    const crearEmbed = (clave) => {
+    const crearEmbed = (clave: ImpuestoKey) => {
       const { titulo, descripcion, color, campos } = config[clave];
-      return new Discord.EmbedBuilder()
+      return new EmbedBuilder()
         .setTitle(titulo)
         .setDescription(descripcion)
         .setColor(color)
@@ -99,7 +115,7 @@ module.exports = {
         ]);
     };
 
-    const row = new ActionRowBuilder().addComponents(
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId("iva")
         .setLabel("📄Solo IVA (21%)")
@@ -116,15 +132,20 @@ module.exports = {
 
     await interaction.reply({ embeds: [crearEmbed("iva")], components: [row] });
 
-    const filter = (i) => i.user.id === interaction.user.id;
-    const collector = interaction.channel.createMessageComponentCollector({
+    const filter = (i: ButtonInteraction) => i.user.id === interaction.user.id;
+    const collector = interaction.channel?.createMessageComponentCollector({
       filter,
+      componentType: ComponentType.Button,
       time: 15000,
     });
 
-    collector.on("collect", async (i) => {
+    collector?.on("collect", async (i) => {
       await i.deferUpdate();
-      if (config[i.customId]) {
+      if (
+        i.customId === "iva" ||
+        i.customId === "ganancias" ||
+        i.customId === "servicios"
+      ) {
         await i.editReply({
           embeds: [crearEmbed(i.customId)],
           components: [row],

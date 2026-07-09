@@ -1,4 +1,9 @@
-import Discord from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 import { embedError } from "../functions/embedError";
 var currencyFormatter = require("currency-formatter"); //Currency formatter
 const wait = require("node:timers/promises").setTimeout;
@@ -6,7 +11,7 @@ import Metales from "../variables/metales-valores";
 
 import { getAll } from "../api/Divisas";
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("pesoametal")
     .setDescription("Convierte de Pesos Argentinos a un metal")
     .addSubcommand((subcommand) =>
@@ -54,17 +59,17 @@ module.exports = {
         ),
     ),
 
-  async run(client, interaction, options) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     Metales.forEach(async (Metal) => {
       if (interaction.options.getSubcommand() === Metal.id) {
-        let convertir: number = interaction.options.getNumber("ars");
+        const convertir: number = interaction.options.getNumber("ars") ?? 0;
         await interaction.deferReply();
 
         try {
           const metalData = (await getAll()).divisas[Metal.iso];
           const dolarData = (await getAll()).dolar;
 
-          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          const embed: EmbedBuilder = new EmbedBuilder()
             .setTitle(
               ` Peso Argentino <:rightarrow:921907270747570247> ${Metal.nombre}`,
             )

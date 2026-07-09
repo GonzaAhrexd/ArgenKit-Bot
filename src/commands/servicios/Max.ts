@@ -1,7 +1,10 @@
-import Discord, {
+import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  CommandInteraction,
+  EmbedBuilder,
+  Client
 } from "discord.js";
 const { total21, total51 } = require("../../functions/impuestos"); // Impuestos
 const { formatoPrecio } = require("../../functions/formato");
@@ -12,7 +15,7 @@ const crearEmbed = (conPercepciones: boolean) => {
     ? "Precios de HBO Max en Argentina con impuestos **y percepciones**:"
     : "Precios de HBO Max en Argentina con impuestos **sin percepciones**:";
 
-  return new Discord.EmbedBuilder()
+  return new EmbedBuilder()
     .setTitle("MAX")
     .setURL("https://www.max.com/ar/es")
     .setDescription(descripcion)
@@ -56,7 +59,7 @@ const crearEmbed = (conPercepciones: boolean) => {
     );
 };
 
-const max = async (client: any, interaction: Discord.CommandInteraction) => {
+const max = async (_client: Client, interaction: CommandInteraction) => {
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId("sinpercepciones")

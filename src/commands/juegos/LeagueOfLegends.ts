@@ -1,14 +1,23 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 const { total21 } = require("../../functions/impuestos");
 import { formatoPrecio } from "../../functions/formato";
 const wait = require("node:timers/promises").setTimeout;
 import { getDolar } from "../../api/Divisas";
 
-const leagueoflegends = async (client: any, interaction: any) => {
+const leagueoflegends = async (
+  client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
-  const llenarEmbed = (embed, forma: String) => {
+  const llenarEmbed = (embed: EmbedBuilder, forma: string) => {
     embed.setTitle("League of Legends");
     embed.setURL("https://lan.leagueoflegends.com/es-ar/");
     embed.setDescription(
@@ -20,7 +29,7 @@ const leagueoflegends = async (client: any, interaction: any) => {
     );
   };
 
-  const embedTJ: Discord.EmbedBuilder = new Discord.EmbedBuilder();
+  const embedTJ: EmbedBuilder = new EmbedBuilder();
   llenarEmbed(embedTJ, "tarjeta de crédito/debito");
   embedTJ.addFields(
     {
@@ -54,7 +63,7 @@ const leagueoflegends = async (client: any, interaction: any) => {
       inline: true,
     },
   );
-  const embedPP: Discord.EmbedBuilder = new Discord.EmbedBuilder();
+  const embedPP: EmbedBuilder = new EmbedBuilder();
   llenarEmbed(embedPP, "pago a plazos");
   embedPP.addFields(
     {
@@ -79,7 +88,7 @@ const leagueoflegends = async (client: any, interaction: any) => {
     },
   );
 
-  const embedPPal: Discord.EmbedBuilder = new Discord.EmbedBuilder();
+  const embedPPal: EmbedBuilder = new EmbedBuilder();
   llenarEmbed(embedPPal, "PayPal");
   embedPPal.addFields(
     {
@@ -114,25 +123,20 @@ const leagueoflegends = async (client: any, interaction: any) => {
     },
   );
 
-  const row = new ActionRowBuilder()
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("tarjeta")
-        .setLabel("Tarjeta de crédito/debito")
-        .setStyle(ButtonStyle.Success),
-    )
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("plazos")
-        .setLabel("Pago a plazos")
-        .setStyle(ButtonStyle.Success),
-    )
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("paypal")
-        .setLabel("PayPal")
-        .setStyle(ButtonStyle.Success),
-    );
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder()
+      .setCustomId("tarjeta")
+      .setLabel("Tarjeta de crédito/debito")
+      .setStyle(ButtonStyle.Success),
+    new ButtonBuilder()
+      .setCustomId("plazos")
+      .setLabel("Pago a plazos")
+      .setStyle(ButtonStyle.Success),
+    new ButtonBuilder()
+      .setCustomId("paypal")
+      .setLabel("PayPal")
+      .setStyle(ButtonStyle.Success),
+  );
 
   await wait(3000);
   await interaction.editReply({ embeds: [embedTJ], components: [row] });
@@ -141,16 +145,17 @@ const leagueoflegends = async (client: any, interaction: any) => {
     if (!interaction.isButton()) return;
   });
 
-  const filter = (i) => i.user.id === interaction.user.id;
+  const filter = (i: { user: { id: string } }) =>
+    i.user.id === interaction.user.id;
 
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter,
     time: 20000,
   });
 
   var actual = embedTJ;
 
-  collector.on("collect", async (i) => {
+  collector?.on("collect", async (i) => {
     if (i.customId === "tarjeta") {
       await i.deferUpdate();
       await i.editReply({ embeds: [embedTJ], components: [row] });
@@ -168,7 +173,7 @@ const leagueoflegends = async (client: any, interaction: any) => {
     }
   });
 
-  collector.on("end", (collected, reason) => {
+  collector?.on("end", (_collected, reason) => {
     if (reason === "time") {
       interaction.editReply({ embeds: [actual], components: [] });
     }

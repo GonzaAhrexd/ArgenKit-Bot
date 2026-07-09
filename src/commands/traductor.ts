@@ -1,8 +1,13 @@
-import Discord from "discord.js";
-import translate from "translate"; //Translate
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
+const translate = require("translate");
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("traducir")
     .setDescription("Traduce rápidamente de un idioma a otro")
     .addStringOption((option) =>
@@ -42,16 +47,17 @@ module.exports = {
         .setRequired(true),
     ),
 
-  async run(client, interaction, options) {
-    const texto = await interaction.options.getString("texto");
-    const origen = await interaction.options.getString("origen");
-    const destino = await interaction.options.getString("destino");
-    const textoTraducido = await translate(texto, {
-      from: origen,
-      to: destino,
-    });
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const texto = (await interaction.options.getString("texto")) ?? "";
+    const origen = (await interaction.options.getString("origen")) ?? "";
+    const destino = (await interaction.options.getString("destino")) ?? "";
+    const textoTraducido =
+      (await translate(texto as string, {
+        from: origen,
+        to: destino,
+      })) ?? "";
 
-    const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed1: EmbedBuilder = new EmbedBuilder()
       .setTitle("Traducción")
       .setColor("#ff9e53")
       .setThumbnail(

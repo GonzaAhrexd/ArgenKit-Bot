@@ -1,7 +1,9 @@
-import Discord from "discord.js";
-const { formatoNum } = require("../functions/formato");
-module.exports = {
-  data: new Discord.SlashCommandBuilder()
+import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import type { Client, ChatInputCommandInteraction } from "discord.js";
+import { formatoNum } from "../functions/formato";
+
+export default {
+  data: new SlashCommandBuilder()
     .setName("anualizarinflacion")
     .setDescription("Calcula la inflación anual a partir de la mensual")
     .addNumberOption((option) =>
@@ -10,10 +12,12 @@ module.exports = {
         .setDescription("Inflación mensual a anualizar  sin el símbolo de %.")
         .setRequired(true),
     ),
-  async run(client, interaction, options) {
-    const mensual: number = interaction.options.getNumber("mensual");
-    const anualizado: number = ((mensual / 100 + 1) ** 12 - 1) * 100;
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const mensual = interaction.options.getNumber("mensual", true);
+    const anualizado = ((mensual / 100 + 1) ** 12 - 1) * 100;
+
+    const embed = new EmbedBuilder()
       .setTitle("Inflación mensual anualizada")
       .setDescription("La economía tiene un resago de 18 a 24 meses.")
       .setColor("#f82f40")
@@ -24,6 +28,7 @@ module.exports = {
         { name: "Inflación mensual:", value: `${formatoNum(mensual)}%` },
         { name: "Inflación anual", value: `${formatoNum(anualizado)}%` },
       );
-    return await interaction.reply({ embeds: [embed] });
+
+    await interaction.reply({ embeds: [embed] });
   },
 };

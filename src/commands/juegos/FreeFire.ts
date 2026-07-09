@@ -1,16 +1,24 @@
-import Discord from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 const { total30 } = require("../../functions/impuestos");
 import { formatoPrecio } from "../../functions/formato";
 import { getDolar } from "../../api/Divisas";
 
-const wait = require("node:timers/promises").setTimeout;
-
-const FreeFire = async (client: any, interaction: any) => {
+const FreeFire = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
   // Function to create the embed based on perception toggle
-  const createFreeFireEmbed = (withPerception) => {
-    const embedFreeFire = new Discord.EmbedBuilder()
+  const createFreeFireEmbed = (withPerception: boolean) => {
+    const embedFreeFire = new EmbedBuilder()
       .setTitle("Free Fire")
       .setURL("https://www.freefiremobile.com/es/")
       .setDescription(
@@ -45,17 +53,17 @@ const FreeFire = async (client: any, interaction: any) => {
   };
 
   // Create buttons
-  const withPerceptionButton = new Discord.ButtonBuilder()
+  const withPerceptionButton = new ButtonBuilder()
     .setCustomId("freefire_with_perception")
     .setLabel("Con Percepción")
-    .setStyle(Discord.ButtonStyle.Primary); // Celeste (Primary)
+    .setStyle(ButtonStyle.Primary); // Celeste (Primary)
 
-  const withoutPerceptionButton = new Discord.ButtonBuilder()
+  const withoutPerceptionButton = new ButtonBuilder()
     .setCustomId("freefire_without_perception")
     .setLabel("Sin Percepción")
-    .setStyle(Discord.ButtonStyle.Success); // Green (Success)
+    .setStyle(ButtonStyle.Success); // Green (Success)
 
-  const row = new Discord.ActionRowBuilder().addComponents(
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     withPerceptionButton,
     withoutPerceptionButton,
   );
@@ -92,7 +100,7 @@ const FreeFire = async (client: any, interaction: any) => {
     // Disable buttons after collector ends
     withPerceptionButton.setDisabled(true);
     withoutPerceptionButton.setDisabled(true);
-    const disabledRow = new Discord.ActionRowBuilder().addComponents(
+    const disabledRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
       withPerceptionButton,
       withoutPerceptionButton,
     );

@@ -1,11 +1,16 @@
-import Discord from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 import { embedError } from "../functions/embedError";
 import Criptomonedas from "../variables/criptomonedas-valores";
 import { getAllCriptoData } from "../api/cripto";
 
 const wait = require("node:timers/promises").setTimeout;
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("pesoacripto")
     .setDescription("Convierte de Pesos Argentinos a Criptomonedas")
     .addSubcommand((subcommand) =>
@@ -207,10 +212,10 @@ module.exports = {
         ),
     ),
 
-  async run(client, interaction, options) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     Criptomonedas.forEach(async (cripto) => {
       if (interaction.options.getSubcommand() === cripto.id) {
-        let convertir: number = interaction.options.getNumber("ars");
+        const convertir: number = interaction.options.getNumber("ars") ?? 0;
         await interaction.deferReply();
         try {
           const dataCoinGecko = (
@@ -222,7 +227,7 @@ module.exports = {
 
           const criptodolar: number = dataCoinGecko.prices;
 
-          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          const embed: EmbedBuilder = new EmbedBuilder()
             .setTitle(
               `Peso Argentino <:rightarrow:921907270747570247> ${cripto.nombre}`,
             )

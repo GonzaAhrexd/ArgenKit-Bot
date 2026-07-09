@@ -1,18 +1,21 @@
-import Discord from "discord.js";
-import { ButtonBuilder } from "discord.js";
-import { ButtonStyle } from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 const {
   pagination,
   ButtonTypes,
   ButtonStyles,
 } = require("@devraelfreeze/discordjs-pagination");
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("update")
     .setDescription("Muestra las novedades de la actualización"),
 
-  async run(client, interaction) {
-    const embed20ABR25V2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const embed20ABR25V2: EmbedBuilder = new EmbedBuilder()
       .setTitle(
         "ARGENKIT BOT VERSIÓN 2.0 ABR2025V2: FIN DE PERCEPCIÓN DE GANANCIAS PARA VIDEOJUEGOS",
       )
@@ -51,7 +54,7 @@ module.exports = {
         },
       );
 
-    const embed20ABR25: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed20ABR25: EmbedBuilder = new EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 2.0 ABR2025: FIN DEL CEPO CAMBIARIO")
       .setColor("#0a9ee1")
       .setDescription(
@@ -78,7 +81,7 @@ module.exports = {
         { name: "⚙️ Optimización", value: "Se optimizó el código del bot." },
       );
 
-    const embed20DIC24: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed20DIC24: EmbedBuilder = new EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 2.0 DIC2024: FIN DEL IMPUESTO PAÍS")
       .setColor("#0a9ee1")
       .setDescription("Fecha de lanzamiento: 23/12/2024 \n ")
@@ -91,7 +94,7 @@ module.exports = {
           "Se realizaron cambios en el bot debido a la eliminación del impuesto PAIS, por lo que se han ajustado los comandos de impuesto, divisa, convertirdivisa, pesoadivisa, servicios, metales, entre otros que hayan tenido referencias a dicho impuestos.",
       });
 
-    const embed20OCT24: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed20OCT24: EmbedBuilder = new EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 2.0 OCT2024")
       .setColor("#0a9ee1")
       .setDescription("Fecha de lanzamiento: 21/10/2024 \n ")
@@ -110,7 +113,7 @@ module.exports = {
             "La función de datos riesgopais vuelve a funcionar y ahora muestra si hubo cambio positivo, negativo o neutro con respecto al dato anterior, esto utilizando la API https://argentinadatos.com/ !",
         },
       );
-    const embed20FEB24: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed20FEB24: EmbedBuilder = new EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 2.0 FEB2024")
       .setColor("#0a9ee1")
       .setDescription("Fecha de lanzamiento: 23/02/2024 \n ")
@@ -138,7 +141,7 @@ module.exports = {
             "El comando  datos riesgopais no funciona de momento por problemas con el API  anterior",
         },
       );
-    const embed20: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed20: EmbedBuilder = new EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 2.0: NUEVA ERA")
       .setColor("#0a9ee1")
       .setDescription(
@@ -149,8 +152,8 @@ module.exports = {
       )
       .addFields(
         {
-          name: "<:djs:928800848996352041> Discord.js 14 ",
-          value: "Se ha actualizado el bot a Discord.js 14",
+          name: "<:djs:928800848996352041> js 14 ",
+          value: "Se ha actualizado el bot a js 14",
         },
         {
           name: "💵  Precio en USD ",
@@ -218,7 +221,7 @@ module.exports = {
         },
       );
 
-    const embed15: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed15: EmbedBuilder = new EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.5 ¡ACTUALIZACIÓN TÉCNICA!")
       .setColor("#0a9ee1")
       .setThumbnail(
@@ -268,7 +271,7 @@ module.exports = {
         },
       );
 
-    const embed14: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed14: EmbedBuilder = new EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.4 ¡SLASH COMMANDS UPDATE!")
       .setColor("#0a9ee1")
       .setDescription(
@@ -299,7 +302,7 @@ module.exports = {
         },
       );
 
-    const embed13: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed13: EmbedBuilder = new EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.3 ¡LA ACTUALIZACIÓN DE ANIVERSARIO!")
       .setColor("#0a9ee1")
       .setDescription(
@@ -310,8 +313,8 @@ module.exports = {
       )
       .addFields(
         {
-          name: "<:djs:928800848996352041> Discord.js 13 ",
-          value: "Se ha actualizado el bot a Discord.js 13 y node.js 16",
+          name: "<:djs:928800848996352041> js 13 ",
+          value: "Se ha actualizado el bot a js 13 y node.js 16",
         },
         {
           name: ":sparkles: Cambio de  diseño ",
@@ -368,7 +371,7 @@ module.exports = {
             "Se ha agregado un comando para consultar distintos husos horarios, prueba `*ar husos` (Eliminado en la versión  1.4 para una futura mejora)",
         },
       );
-    const embed12: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed12: EmbedBuilder = new EmbedBuilder()
       .setTitle("ARGENKIT BOT VERSIÓN 1.2 ¡LA ACTUALIZACIÓN DE LAS DIVISAS!")
       .setColor("#0a9ee1")
       .setDescription(
@@ -430,16 +433,6 @@ module.exports = {
         },
       );
 
-    const button1 = new ButtonBuilder()
-      .setCustomId("previousbtn")
-      .setLabel("Más reciente")
-      .setStyle(ButtonStyle.Success);
-
-    const button2 = new ButtonBuilder()
-      .setCustomId("nextbtn")
-      .setLabel("Anterior")
-      .setStyle(ButtonStyle.Danger);
-
     const pages = [
       embed20ABR25V2,
       embed20ABR25,
@@ -453,11 +446,9 @@ module.exports = {
       embed12,
     ];
 
-    const buttonList = [button1, button2];
-    const timeout = 120000;
     await pagination({
       embeds: pages /** Array of embeds objects */,
-      author: interaction.member.user,
+      author: interaction?.member?.user,
       interaction: interaction,
       ephemeral: false,
       time: 40000 /** 40 seconds */,

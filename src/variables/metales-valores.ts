@@ -1,5 +1,4 @@
 import { ColorResolvable } from "discord.js";
-
 type Metal = {
   id: String;
   nombre: String;

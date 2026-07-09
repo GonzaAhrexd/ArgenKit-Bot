@@ -1,12 +1,16 @@
-import Discord from "discord.js";
-
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("invitar")
     .setDescription("Invita al bot a unirte a tu servidor"),
 
-  async run(client, interaction) {
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setTitle("¡Invita al bot a tu servidor!")
       .setColor("#0a9ee1")
       .setURL(

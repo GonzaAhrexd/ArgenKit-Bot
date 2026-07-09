@@ -1,12 +1,9 @@
-import Discord from "discord.js";
+import { Client, CommandInteraction, EmbedBuilder } from "discord.js";
 const { total21 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require("../../functions/formato");
 
-const gamepass = async (
-  client: any,
-  interaction: Discord.CommandInteraction,
-) => {
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+const gamepass = async (_client: Client, interaction: CommandInteraction) => {
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Xbox Game Pass")
     .setURL("https://www.xbox.com/es-AR/xbox-game-pass")
     .setDescription(

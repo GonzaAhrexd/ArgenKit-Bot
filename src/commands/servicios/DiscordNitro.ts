@@ -1,13 +1,23 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 const { total30 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require("../../functions/formato");
 import { getDolar } from "../../api/Divisas";
 
-const discordnitro = async (client: any, interaction: any) => {
+const discordnitro = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
+  void _client;
   const valorDolar = (await getDolar()).oficial.value_sell;
 
-  const embed1: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed1: EmbedBuilder = new EmbedBuilder()
     .setTitle("Discord Nitro")
     .setDescription(
       "Los precios de Discord Nitro en Argentina son los siguientes: \n Debitando en dólares se puede evitar la percepción de ganancias (30%)",
@@ -39,7 +49,7 @@ const discordnitro = async (client: any, interaction: any) => {
       },
     );
 
-  const embed2: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed2: EmbedBuilder = new EmbedBuilder()
     .setTitle("Discord Nitro")
     .setDescription(
       "Los precios de Discord Nitro en Argentina son los siguientes: \n Debitando en dólares se puede evitar la percepción de ganancias (30%)",
@@ -71,34 +81,28 @@ const discordnitro = async (client: any, interaction: any) => {
       },
     );
 
-  const row = new ActionRowBuilder()
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("percepcion")
-        .setLabel("Percepción")
-        .setStyle(ButtonStyle.Success),
-    )
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("sinpercepcion")
-        .setLabel("Sin percepción")
-        .setStyle(ButtonStyle.Primary),
-    );
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder()
+      .setCustomId("percepcion")
+      .setLabel("Percepción")
+      .setStyle(ButtonStyle.Success),
+    new ButtonBuilder()
+      .setCustomId("sinpercepcion")
+      .setLabel("Sin percepción")
+      .setStyle(ButtonStyle.Primary),
+  );
 
   await interaction.editReply({ embeds: [embed1], components: [row] });
 
-  client.on("interactionCreate", (interaction) => {
-    if (!interaction.isButton()) return;
-  });
+  const filter = () => true;
 
-  const filter = (i) => i.customId;
-
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter,
     time: 15000,
   });
 
-  collector.on("collect", async (i) => {
+  collector?.on("collect", async (i) => {
+    if (!i.isButton()) return;
     if (i.customId === "percepcion") {
       await i.deferUpdate();
       await i.editReply({ embeds: [embed1], components: [row] });

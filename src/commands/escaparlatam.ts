@@ -1,15 +1,15 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 const { porcentaje } = require("../functions/funPorcentaje");
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("escaparlatam")
     .setDescription("Muestra tus posibilidades de escapar de latinoamérica"),
 
-  async run(client, interaction) {
-    let escaparLatam = porcentaje();
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const escaparLatam = porcentaje();
 
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setColor("Green")
       .setDescription("Calculando...")
       .setThumbnail(

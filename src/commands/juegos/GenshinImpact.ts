@@ -1,10 +1,19 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 const { total30 } = require("../../functions/impuestos");
 import { formatoPrecio } from "../../functions/formato";
 import { getDolar } from "../../api/Divisas";
 
-const GenshinImpact = async (client: any, interaction: any) => {
+const GenshinImpact = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
   // Cálculo del precio con o sin percepción
@@ -15,7 +24,7 @@ const GenshinImpact = async (client: any, interaction: any) => {
 
   // Función para crear el embed
   const crearEmbedGenshin = (conPercepcion: boolean) => {
-    const embed = new Discord.EmbedBuilder()
+    const embed = new EmbedBuilder()
       .setTitle("Genshin Impact")
       .setURL("https://genshin.mihoyo.com/es/home")
       .setDescription(
@@ -96,13 +105,13 @@ const GenshinImpact = async (client: any, interaction: any) => {
     components: [row],
   });
 
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter: (i) =>
       ["conpercepcion_genshin", "sinpercepcion_genshin"].includes(i.customId),
     time: 15000,
   });
 
-  collector.on("collect", async (i) => {
+  collector?.on("collect", async (i) => {
     await i.deferUpdate();
     const conPercepcion = i.customId === "conpercepcion_genshin";
     await i.editReply({

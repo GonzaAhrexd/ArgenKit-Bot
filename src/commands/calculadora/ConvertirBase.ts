@@ -1,14 +1,18 @@
-import Discord from "discord.js";
-
-const ConvertirBase = async (client: any, interaction: any) => {
-  let numero: number = interaction.options.getNumber("numero");
-  let basedelnumero: number = interaction.options.getNumber("basedelnumero");
-  let baseaconvertir: number = interaction.options.getNumber("baseaconvertir");
-  let resultado: String = parseInt(numero.toString(), basedelnumero).toString(
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
+const ConvertirBase = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
+  const numero: number = interaction?.options?.getNumber("numero") ?? 0;
+  const basedelnumero: number =
+    interaction?.options?.getNumber("basedelnumero") ?? 0;
+  const baseaconvertir: number =
+    interaction?.options?.getNumber("baseaconvertir") ?? 0;
+  const resultado: String = parseInt(numero.toString(), basedelnumero).toString(
     baseaconvertir,
   );
 
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Convertir base")
     .setColor("#02E885")
     .setThumbnail(

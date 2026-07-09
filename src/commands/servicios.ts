@@ -1,5 +1,8 @@
-import Discord from "discord.js";
-
+import {
+  ChatInputCommandInteraction,
+  Client,
+  SlashCommandBuilder,
+} from "discord.js";
 import { embedError } from "../functions/embedError";
 import youtube from "./servicios/YouTube";
 import netflix from "./servicios/Netflix";
@@ -18,7 +21,7 @@ import discordnitro from "./servicios/DiscordNitro";
 import twitch from "./servicios/Twitch";
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("servicio")
     .setDescription("Mostrar el precio de un servicio de Streaming")
     .addSubcommand((subcommand) =>
@@ -96,7 +99,7 @@ module.exports = {
         .setName("twitch")
         .setDescription("Muestra el precio de Twitch + impuestos"),
     ),
-  async run(client, interaction, options) {
+  async run(client: Client, interaction: ChatInputCommandInteraction) {
     const estructuraBasica = async (funcion: any) => {
       await interaction.deferReply();
       try {

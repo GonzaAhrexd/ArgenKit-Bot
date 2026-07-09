@@ -2,15 +2,12 @@
 import fs from "fs";
 import path from "path";
 import "dotenv/config"; // Variables de entorno
-
-// Librerías de discord.js v14
 import {
-  Client,
-  GatewayIntentBits,
-  Collection,
   ActivityType,
+  Client,
+  Collection,
+  GatewayIntentBits,
 } from "discord.js";
-
 import { TOKEN } from "./config/envs";
 // Inicialización del cliente con los Intents requeridos
 const client = new Client({

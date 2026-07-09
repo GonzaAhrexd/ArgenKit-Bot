@@ -1,7 +1,10 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
 
-const Gabinete = async (client: any, interaction: any) => {
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+const Gabinete = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Gabinete de Ministros")
     .setColor("#B18BC8")
     .setThumbnail(

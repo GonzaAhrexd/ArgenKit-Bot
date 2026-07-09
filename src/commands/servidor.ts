@@ -1,12 +1,16 @@
-import Discord from "discord.js";
-
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("servidor")
     .setDescription("¡Unete al servidor oficial del bot!"),
 
-  async run(client, interaction) {
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setTitle("¡Unete al servidor oficial de Argenkit Bot!")
       .setURL("https://discord.gg/68jsHeTRYa")
       .setColor("#0a9ee1")

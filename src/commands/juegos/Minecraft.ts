@@ -1,14 +1,23 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 const { total21, total30 } = require("../../functions/impuestos");
 import { formatoPrecio } from "../../functions/formato";
 const wait = require("node:timers/promises").setTimeout;
 import { getDolar } from "../../api/Divisas";
 
-const Minecraft = async (client: any, interaction: any) => {
+const Minecraft = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
-  const llenarEmbed = (embed, juego) => {
+  const llenarEmbed = (embed: EmbedBuilder, juego: string) => {
     embed.setTitle(juego);
     embed.setURL("https://www.minecraft.net/es-es/");
     embed.setDescription(
@@ -19,7 +28,7 @@ const Minecraft = async (client: any, interaction: any) => {
       "https://cdn.discordapp.com/attachments/802944543510495292/1180944033753866350/juego.png?ex=657f42d6&is=656ccdd6&hm=6f2387887ec9d78b7d53397cad2cd39cd8d3b029384d96afebd3bf946c83aa67&",
     );
   };
-  const embedJava: Discord.EmbedBuilder = new Discord.EmbedBuilder();
+  const embedJava: EmbedBuilder = new EmbedBuilder();
   llenarEmbed(embedJava, "Minecraft Java Edition");
   embedJava.addFields(
     {
@@ -34,7 +43,7 @@ const Minecraft = async (client: any, interaction: any) => {
     },
   );
 
-  const embedBedrock: Discord.EmbedBuilder = new Discord.EmbedBuilder();
+  const embedBedrock: EmbedBuilder = new EmbedBuilder();
   llenarEmbed(embedBedrock, "Minecraft Bedrock Edition");
   embedBedrock.addFields(
     {
@@ -94,7 +103,7 @@ const Minecraft = async (client: any, interaction: any) => {
     },
   );
 
-  const embedDungeons: Discord.EmbedBuilder = new Discord.EmbedBuilder();
+  const embedDungeons: EmbedBuilder = new EmbedBuilder();
   llenarEmbed(embedDungeons, "Minecraft Dungeons");
   embedDungeons.addFields(
     {
@@ -119,7 +128,7 @@ const Minecraft = async (client: any, interaction: any) => {
     },
   );
 
-  const embedLegends: Discord.EmbedBuilder = new Discord.EmbedBuilder();
+  const embedLegends: EmbedBuilder = new EmbedBuilder();
   llenarEmbed(embedLegends, "Minecraft Legends");
   embedLegends.addFields(
     {
@@ -144,49 +153,41 @@ const Minecraft = async (client: any, interaction: any) => {
     },
   );
 
-  const row = new ActionRowBuilder()
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("java")
-        .setLabel("Minecraft Java ")
-        .setStyle(ButtonStyle.Success),
-    )
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("bedrock")
-        .setLabel("Minecraft Bedrock")
-        .setStyle(ButtonStyle.Success),
-    )
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("dungeons")
-        .setLabel("Minecraft Dungeons")
-        .setStyle(ButtonStyle.Danger),
-    )
-    .addComponents(
-      new ButtonBuilder()
-        .setCustomId("legends")
-        .setLabel("Minecraft Legends")
-        .setStyle(ButtonStyle.Secondary),
-    );
+  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
+    new ButtonBuilder()
+      .setCustomId("java")
+      .setLabel("Minecraft Java ")
+      .setStyle(ButtonStyle.Success),
+    new ButtonBuilder()
+      .setCustomId("bedrock")
+      .setLabel("Minecraft Bedrock")
+      .setStyle(ButtonStyle.Success),
+    new ButtonBuilder()
+      .setCustomId("dungeons")
+      .setLabel("Minecraft Dungeons")
+      .setStyle(ButtonStyle.Danger),
+    new ButtonBuilder()
+      .setCustomId("legends")
+      .setLabel("Minecraft Legends")
+      .setStyle(ButtonStyle.Secondary),
+  );
 
   await wait(3000);
   await interaction.editReply({ embeds: [embedJava], components: [row] });
 
-  client.on("interactionCreate", (interaction) => {
-    if (!interaction.isButton()) return;
-  });
+  void _client;
 
-  const filter = (i) => i.user.id === interaction.user.id;
+  const filter = (i: { user: { id: string } }) =>
+    i.user.id === interaction.user.id;
 
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter,
     time: 20000,
   });
 
   var actual = embedJava;
 
-  collector.on("collect", async (i) => {
+  collector?.on("collect", async (i) => {
     if (i.customId === "java") {
       await i.deferUpdate();
       await i.editReply({ embeds: [embedJava], components: [row] });
@@ -209,7 +210,7 @@ const Minecraft = async (client: any, interaction: any) => {
     }
   });
 
-  collector.on("end", (collected, reason) => {
+  collector?.on("end", (_collected, reason) => {
     if (reason === "time") {
       interaction.editReply({ embeds: [actual], components: [] });
     }

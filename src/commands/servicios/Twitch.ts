@@ -1,5 +1,11 @@
-import Discord from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  Client,
+  ChatInputCommandInteraction,
+} from "discord.js";
 import { getDolar } from "../../api/Divisas";
 const { total51, total21 } = require("../../functions/impuestos"); //Impuestos
 const { formatoPrecio } = require("../../functions/formato");
@@ -28,7 +34,7 @@ const crearEmbedSuscripciones = (
       "Los precios de las suscripciones a Twitch con impuestos **y percepciones** en Argentina son los siguientes:";
   }
 
-  return new Discord.EmbedBuilder()
+  return new EmbedBuilder()
     .setTitle("Suscripciones de Twitch")
     .setURL("https://www.twitch.tv/")
     .setDescription(descripcion)
@@ -73,7 +79,7 @@ const crearEmbedBits = (tipoImpuesto: TipoImpuesto, valorDolar: number) => {
       "Los precios de los bits de Twitch con impuestos **y percepciones** en Argentina son los siguientes:";
   }
 
-  return new Discord.EmbedBuilder()
+  return new EmbedBuilder()
     .setTitle("Bits de Twitch")
     .setDescription(descripcion)
     .setColor("#9246ff")
@@ -120,7 +126,10 @@ const crearEmbedBits = (tipoImpuesto: TipoImpuesto, valorDolar: number) => {
     );
 };
 
-const twitch = async (client: any, interaction: any) => {
+const twitch = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const valorDolar = (await getDolar()).oficial.value_sell;
 
   let tipoImpuesto: TipoImpuesto = "sinPercepciones";
@@ -166,12 +175,12 @@ const twitch = async (client: any, interaction: any) => {
   });
 
   const filter = (i: any) => i.user.id === interaction.user.id;
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = interaction.channel?.createMessageComponentCollector({
     filter,
     time: 15000,
   });
 
-  collector.on("collect", async (i: any) => {
+  collector?.on("collect", async (i: any) => {
     await i.deferUpdate();
 
     if (i.customId === "suscripciones") {

@@ -1,12 +1,11 @@
-import Discord from "discord.js";
-
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("votar")
     .setDescription("Vota al bot en top.gg"),
 
-  async run(client, interaction) {
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setTitle("¡Apoya al bot votando en top.gg!")
       .setURL("https://top.gg/bot/796173877981216799")
       .setColor("#7289d9")

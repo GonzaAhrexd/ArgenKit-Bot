@@ -1,12 +1,16 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
+
 import { formatoPrecio } from "../../functions/formato";
 import { getBaseMonetariaData } from "../../api/bcraApi";
 const wait = require("node:timers/promises").setTimeout;
 
-const baseMonetaria = async (client: any, interaction: any) => {
+const baseMonetaria = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const baseMonetariaData = await getBaseMonetariaData();
 
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Base Monetaria")
     .setDescription(
       "La Base Monetaria está constituida por el dinero legal en circulación (billetes y monedas), más las reservas de bancos en el banco central. La base monetaria es controlada por el banco central y constituye su principal vía para controlar la oferta monetaria. Otra vía para definir la base monetaria es que constituyen los pasivos monetarios del banco central.",

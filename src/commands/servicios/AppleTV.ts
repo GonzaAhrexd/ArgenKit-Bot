@@ -1,7 +1,10 @@
-import Discord, {
+import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  Client,
+  CommandInteraction,
+  EmbedBuilder,
 } from "discord.js";
 import { getDolar } from "../../api/Divisas";
 const { total21, total51 } = require("../../functions/impuestos"); // Impuestos
@@ -13,7 +16,7 @@ const crearEmbed = (conPercepciones: boolean, precioARS: number) => {
     ? "Los precios de Apple TV+ en Argentina con impuestos **y percepciones** son los siguientes:"
     : "Los precios de Apple TV+ en Argentina con impuestos **sin percepciones** son los siguientes:";
 
-  return new Discord.EmbedBuilder()
+  return new EmbedBuilder()
     .setTitle("Apple TV+")
     .setURL("https://www.apple.com/la/tv/")
     .setDescription(descripcion)
@@ -28,10 +31,7 @@ const crearEmbed = (conPercepciones: boolean, precioARS: number) => {
     });
 };
 
-const appletv = async (
-  client: any,
-  interaction: Discord.CommandInteraction,
-) => {
+const appletv = async (_client: Client, interaction: CommandInteraction) => {
   // Traer cotización oficial
   const valorDolar = (await getDolar()).oficial.value_sell;
 

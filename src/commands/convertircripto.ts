@@ -1,6 +1,10 @@
 // DiscordJS
-import Discord from "discord.js";
-// Node
+import {
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js"; // Node
 const wait = require("node:timers/promises").setTimeout;
 // Funciones
 import { formatoPrecio } from "../functions/formato";
@@ -10,7 +14,7 @@ import Criptomonedas from "../variables/criptomonedas-valores";
 import { getAllCriptoData } from "../api/cripto";
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("convertircripto")
     .setDescription("Convierte de Criptomonedas a Pesos Argentinos")
     .addSubcommand((subcommand) =>
@@ -211,12 +215,11 @@ module.exports = {
             .setRequired(true),
         ),
     ),
-  async run(client, interaction, options) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     Criptomonedas.forEach(async (cripto) => {
       if (interaction.options.getSubcommand() === cripto.id) {
-        let convertir: number = interaction.options.getNumber(
-          cripto.iso.toLowerCase(),
-        );
+        const convertir: number =
+          interaction.options.getNumber(cripto.iso.toLowerCase()) ?? 0;
         await interaction.deferReply();
         try {
           const dataCoinGecko = (
@@ -226,8 +229,8 @@ module.exports = {
             await getAllCriptoData(cripto.apicoingecko, cripto.apiCriptoYa)
           ).dataCriptoYa;
 
-          let criptodolar: number = dataCoinGecko.prices;
-          const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+          const criptodolar: number = dataCoinGecko.prices;
+          const embed: EmbedBuilder = new EmbedBuilder()
             .setTitle(
               `${cripto.nombre} <:rightarrow:921907270747570247> Peso Argentino`,
             )

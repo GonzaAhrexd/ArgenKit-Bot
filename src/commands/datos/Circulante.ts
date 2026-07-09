@@ -1,17 +1,15 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
 import { formatoPrecio } from "../../functions/formato";
 import { getCirculanteData } from "../../api/bcraApi";
 const wait = require("node:timers/promises").setTimeout;
 
-type CirculanteData = {
-  valor: number;
-  fecha: string;
-};
-
-const Circulante = async (client: any, interaction: any) => {
+const Circulante = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
   const circulanteData = await getCirculanteData();
 
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Pesos Argentinos en circulación")
     .setDescription("La cantidad de pesos en circulación en la economía.")
     .setColor("#FAD56F")

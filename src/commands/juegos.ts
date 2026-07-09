@@ -1,9 +1,9 @@
-//Plantilla basica de un comando de discord.js para transacciones de videojuegos
-
-import Discord from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  Client,
+  SlashCommandBuilder,
+} from "discord.js";
 import { embedError } from "../functions/embedError";
-
-const wait = require("node:timers/promises").setTimeout;
 
 // Juegos
 import Minecraft from "./juegos/Minecraft";
@@ -19,7 +19,7 @@ import FreeFire from "./juegos/FreeFire";
 import Valorant from "./juegos/Valorant";
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("juegos")
     .setDescription("Muestra el precio de  microtransacciones de videojuegos")
     .addSubcommand((subcommand) =>
@@ -89,11 +89,11 @@ module.exports = {
           "Muestra el precio de microtransacciones de Counter Strike 2",
         ),
     ),
-  async run(client, interaction) {
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
     const estructuraBasica = async (embed: any) => {
       await interaction.deferReply();
       try {
-        embed(client, interaction);
+        embed(_client, interaction);
       } catch (error) {
         embedError(interaction, error);
       }

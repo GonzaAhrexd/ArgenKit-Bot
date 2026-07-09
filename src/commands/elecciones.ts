@@ -1,15 +1,15 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { diasHasta } from "../functions/diasHasta";
 
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("elecciones")
     .setDescription(
       "Muestra cuántos días faltan para las siguientes elecciones en Argentina",
     ),
 
-  async run(client, interaction) {
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  async run(_client: Client, interaction: ChatInputCommandInteraction) {
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setTitle("Tiempo hasta las siguientes elecciones y cambios de gobierno")
       .setColor("#B18BC8")
       .setDescription(

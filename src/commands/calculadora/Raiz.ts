@@ -1,11 +1,14 @@
-import Discord from "discord.js";
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from "discord.js";
 
-const Raiz = async (client: any, interaction: any) => {
-  let indice: number = interaction.options.getNumber("indice");
-  let radicando: number = interaction.options.getNumber("radicando");
-  let resultado: number = Math.pow(radicando, 1 / indice);
+const Raiz = async (
+  _client: Client,
+  interaction: ChatInputCommandInteraction,
+) => {
+  const indice: number = interaction.options.getNumber("indice") ?? 0;
+  const radicando: number = interaction.options.getNumber("radicando") ?? 0;
+  const resultado: number = Math.pow(radicando, 1 / indice);
 
-  const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+  const embed: EmbedBuilder = new EmbedBuilder()
     .setTitle("Calcular raíz")
     .setColor("#F77E65")
     .setThumbnail(

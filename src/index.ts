@@ -1,101 +1,124 @@
-//Librerías de node
-import Discord = require("discord.js");
-import fs = require('fs') //fs 
-require('dotenv').config() //Variables de entorno
+// Librerías nativas de Node
+import fs from "fs";
+import path from "path";
+import "dotenv/config"; // Variables de entorno
 
-//Intents requeridos
-const { Client, Intents, EmbedBuilder, reactions, Collection } = require('discord.js');
+// Librerías de discord.js v14
+import {
+  Client,
+  GatewayIntentBits,
+  Collection,
+  ActivityType,
+} from "discord.js";
+
+// Inicialización del cliente con los Intents requeridos
 const client = new Client({
-  intents: [
-    Discord.GatewayIntentBits.Guilds,
-    Discord.GatewayIntentBits.GuildMessages,
-      ],
-});
-//Estado del bot
-// client.setMaxListeners(50);
-
-//Command Handler
-client.slashcommands = new Discord.Collection();
-let slashcommandsFile = fs.readdirSync('src/commands').filter(file => 
-  (file.endsWith(".ts") || file.endsWith(".js")) && !file.endsWith(".d.ts")
-);
-
-// Convierte los .ts a .js si está en modo producción 
-if (process.env.mode === "production") slashcommandsFile = slashcommandsFile.map(file => {
-  if (file.endsWith(".ts")) {
-    return file.replace(".ts", ".js");
-  }
-  return file;
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 });
 
-let cantidadComandos:number = 0
+// Extensión temporal para almacenar comandos (Idealmente, crea un archivo d.ts para esto)
+(client as any).slashcommands = new Collection();
+
+// ---------------------------------------------------
+// COMMAND HANDLER
+// ---------------------------------------------------
+// __dirname apunta dinámicamente a 'dist' o 'src' dependiendo de dónde se ejecute
+const commandsPath = path.join(__dirname, "commands");
+
+// Filtramos leyendo dinámicamente los archivos (.ts o .js)
+const slashcommandsFile = fs
+  .readdirSync(commandsPath)
+  .filter(
+    (file) =>
+      (file.endsWith(".ts") || file.endsWith(".js")) && !file.endsWith(".d.ts"),
+  );
+
+let cantidadComandos: number = 0;
+
 for (const file of slashcommandsFile) {
-  const slash = require(`./commands/${file}`)
-  // console.log(`Slash  commands - ${file} cargado`)
-  cantidadComandos++
-  client.slashcommands.set(slash.data.name, slash)
+  const filePath = path.join(commandsPath, file);
+  const slash = require(filePath);
+
+  // Soporte por si tu comando usa "export default" o "module.exports"
+  const commandData = slash.default || slash;
+
+  if (commandData?.data?.name) {
+    (client as any).slashcommands.set(commandData.data.name, commandData);
+    cantidadComandos++;
+  } else {
+    console.warn(
+      `⚠️ [Advertencia] El archivo ${file} no exporta 'data.name'. Se omitirá.`,
+    );
+  }
 }
 
+// ---------------------------------------------------
+// EVENTO: INTERACCIONES (SLASH COMMANDS)
+// ---------------------------------------------------
 client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isCommand()) return;
-  const slashcmds = client.slashcommands.get(interaction.commandName)
-  if (!slashcmds) return;
+  // En v14, el estándar para Slash Commands es isChatInputCommand()
+  if (!interaction.isChatInputCommand()) return;
+
+  const slashcmd = (client as any).slashcommands.get(interaction.commandName);
+  if (!slashcmd) return;
 
   try {
-    await slashcmds.run(client, interaction)
+    await slashcmd.run(client, interaction);
   } catch (e) {
-    console.error(e)
+    console.error(`Error ejecutando el comando ${interaction.commandName}:`, e);
+
+    // Evita que la interacción se quede "cargando" si ocurre un error
+    const replyContent = {
+      content: "Hubo un error al ejecutar este comando.",
+      ephemeral: true,
+    };
+    if (interaction.replied || interaction.deferred) {
+      await interaction.followUp(replyContent);
+    } else {
+      await interaction.reply(replyContent);
+    }
   }
-})
+});
 
-process.on("unhandledRejection", (reason, p)=>{
-    console.log("Error encontrado")
-    console.log(reason, p)
-})
+// ---------------------------------------------------
+// MANEJADORES DE ERRORES GLOBALES
+// ---------------------------------------------------
+process.on("unhandledRejection", (reason, p) => {
+  console.log("Error encontrado (unhandledRejection)");
+  console.log(reason, p);
+});
 
-process.on("uncaughtException", (err, origin)=>{
-    console.log("Error encontrado")
-    console.log(err, origin)
-})
+process.on("uncaughtException", (err, origin) => {
+  console.log("Error encontrado (uncaughtException)");
+  console.log(err, origin);
+});
 
-process.on("uncaughtExceptionMonitor", (err, origin)=>{
-    console.log("Error encontrado")
-    console.log(err, origin)
-})
+process.on("uncaughtExceptionMonitor", (err, origin) => {
+  console.log("Error encontrado (uncaughtExceptionMonitor)");
+  console.log(err, origin);
+});
 
-
-process.on("multipleResolves", () =>{
-    
-})
-
-//Ready
+// ---------------------------------------------------
+// EVENTO: READY
+// ---------------------------------------------------
 client.on("ready", async () => {
-  console.log("---------------------------------------------")
+  console.log("---------------------------------------------");
   console.log("✅ Bot funcionando y conectado a Discord ");
-  console.log("✅ Cargados "  +  cantidadComandos +  " comandos")
-  console.log("---------------------------------------------")
-  client.user.setPresence({
+  console.log("✅ Cargados " + cantidadComandos + " comandos");
+  console.log("---------------------------------------------");
+
+  client.user?.setPresence({
     status: "online",
-    activities: [{
-      name: 'El bot con funciones útiles para Argentina | Utiliza /help para ver los comandos disponibles o /update para ver las novedades.',
-      type: Discord.ActivityType.Custom
-    }]
-  })
+    activities: [
+      {
+        name: "El bot con funciones útiles para Argentina | Utiliza /help para ver los comandos disponibles o /update para ver las novedades.",
+        type: ActivityType.Custom,
+      },
+    ],
+  });
+});
 
-  const guild = client.guilds.cache.get()
-  let commands
-  // const guildId = '740761148160213082' //guild server de pruebas
-  // client.application.commands.set([]); //Resetear comandos  
-  /*Mostrar comandos
-  const list = await client.application.commands.fetch()  
-     console.log(list) */
-
-  if (guild) {
-    commands = guild.commands
-  } else {
-    commands = client.application?.commands
-  }
-
-
-})
+// ---------------------------------------------------
+// INICIO DE SESIÓN
+// ---------------------------------------------------
 client.login(process.env.token);

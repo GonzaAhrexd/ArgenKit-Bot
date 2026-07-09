@@ -1,19 +1,20 @@
-import { ColorResolvable } from "discord.js"
+import { ColorResolvable } from "discord.js";
 
 type Metal = {
-    id: String,
-    nombre: String,
-    emoji: string,
-    desc: string,
-    iso: string,
-    numeroysimboloatomico: string,
-    dureza: string,
-    masaatomica: string,
-    imagen: string
-    color: ColorResolvable
-}
+  id: String;
+  nombre: String;
+  emoji: string;
+  desc: string;
+  iso: string;
+  numeroysimboloatomico: string;
+  dureza: string;
+  masaatomica: string;
+  imagen: string;
+  color: ColorResolvable;
+};
 
-const MetalesOpciones: Metal[] = [{
+const MetalesOpciones: Metal[] = [
+  {
     id: "oro",
     nombre: "Oro",
     emoji: "<:goldingots:964717629484965938>",
@@ -22,10 +23,11 @@ const MetalesOpciones: Metal[] = [{
     numeroysimboloatomico: "79 - Au",
     dureza: "3,0",
     masaatomica: "196,966569(4) u",
-    imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964716664023285870/gold-ingots_1.png",
-    color: "#fddc4d"
-},
-{
+    imagen:
+      "https://cdn.discordapp.com/attachments/802944543510495292/964716664023285870/gold-ingots_1.png",
+    color: "#fddc4d",
+  },
+  {
     id: "plata",
     nombre: "Plata",
     emoji: "<:silver:964717593816600606>",
@@ -34,10 +36,11 @@ const MetalesOpciones: Metal[] = [{
     numeroysimboloatomico: "47 - Ag",
     dureza: "2,5",
     masaatomica: "107,8682(2) u",
-    imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964713789540958238/silver.png",
-    color: "#cccccc"
-},
-{
+    imagen:
+      "https://cdn.discordapp.com/attachments/802944543510495292/964713789540958238/silver.png",
+    color: "#cccccc",
+  },
+  {
     id: "paladio",
     nombre: "Paladio",
     emoji: "<:paladio:964717594223456336>",
@@ -46,10 +49,11 @@ const MetalesOpciones: Metal[] = [{
     numeroysimboloatomico: "46 - Pd",
     dureza: "4",
     masaatomica: "106,42(1) u",
-    imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964713789259911218/paladio.png",
-    color: "#808080"
-},
-{
+    imagen:
+      "https://cdn.discordapp.com/attachments/802944543510495292/964713789259911218/paladio.png",
+    color: "#808080",
+  },
+  {
     id: "platino",
     nombre: "Platino",
     emoji: "<:platinum:964717592923222017>",
@@ -58,9 +62,10 @@ const MetalesOpciones: Metal[] = [{
     numeroysimboloatomico: "78 - Pt",
     dureza: "4",
     masaatomica: "195,084(5) u",
-    imagen: "https://cdn.discordapp.com/attachments/802944543510495292/964713788978913320/platinum.png",
-    color: "#a9f8f7"
-},
-]
+    imagen:
+      "https://cdn.discordapp.com/attachments/802944543510495292/964713788978913320/platinum.png",
+    color: "#a9f8f7",
+  },
+];
 
-export default MetalesOpciones
+export default MetalesOpciones;

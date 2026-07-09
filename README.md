@@ -9,10 +9,10 @@
     <p> Puedes unirte al servidor de Discord del bot <a href="https://discord.gg/68jsHeTRYa">aquí</a>. </p>
     <h2>Donaciones</h2>
     <p> Se agradece cualquier donación realizada a través del comando <code>/donaciones</code>. </p>
-    
+
 <h2>Slash commands</h2>
     <p> Todos los comandos del bot se utilizan por medio  de slash commands </p>
-        
+
  <h2>APIs Utilizadas</h2>
     <ul>
         <li> <a href="https://github.com/guidospadavecchia/DolarBot-Api">DolarBot Api</a> </li>
@@ -25,7 +25,7 @@
         <li> <a href="https://openweathermap.org/">Openweathermap </a></li>
         <li> <a href="https://datahelpdesk.worldbank.org/knowledgebase/topics/125589-developer-information">The World Bank </a></li>
     </ul>
-    
+
 <h2>Divisas disponibles</h2>
     <ul>
         <li>Dólar</li>
@@ -226,4 +226,3 @@
         </li>
       <li> <code>/frase</code> : Da una frase aleatoria dicha por algún  famoso argentino.
         </li>
-    

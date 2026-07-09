@@ -1,11 +1,11 @@
 // DiscordJS
-import Discord from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder, EmbedField } from "discord.js";
 // Funciones
-import { diasHasta } from '../functions/diasHasta';
+import { diasHasta } from "../functions/diasHasta";
 // Variables
 import proximosPartidos from "../variables/partidos-valores";
 module.exports = {
-  data: new Discord.SlashCommandBuilder()
+  data: new SlashCommandBuilder()
     .setName("futbol")
     .setDescription(
       "Muestra cuántos días faltan para  los siguientes partidos de la selección",
@@ -30,7 +30,7 @@ module.exports = {
     );
 
     // Crear fields agrupados por categoría
-    const fields: Discord.EmbedField[] = [];
+    const fields: EmbedField[] = [];
 
     for (const [categoria, partidos] of Object.entries(partidosPorCategoria)) {
       // Agregar separador de categoría
@@ -50,7 +50,7 @@ module.exports = {
       });
     }
 
-    const embed: Discord.EmbedBuilder = new Discord.EmbedBuilder()
+    const embed: EmbedBuilder = new EmbedBuilder()
       .setTitle(
         "Tiempo hasta los siguientes partidos de la selección Argentina",
       )

@@ -2,14 +2,11 @@
 import fs from "fs";
 import path from "path";
 import "dotenv/config"; // Variables de entorno
-
+import { TOKEN, CLIENT_ID } from "./config/envs";
 // Librerías de discord.js v14
 import { REST, Routes } from "discord.js";
 
-const clientId = process.env.CLIENT_ID;
-const token = process.env.token;
-
-if (!token) {
+if (!TOKEN) {
   throw new Error("❌ Falta el token del bot en el archivo .env");
 }
 
@@ -41,14 +38,14 @@ for (const file of slashcommandFiles) {
   }
 }
 
-const rest = new REST({ version: "10" }).setToken(token);
+const rest = new REST({ version: "10" }).setToken(TOKEN);
 
 (async () => {
   try {
     console.log(`⏳ Empezando a registrar ${commands.length} comandos (/).`);
 
     const data = (await rest.put(
-      Routes.applicationCommands(clientId as string),
+      Routes.applicationCommands(CLIENT_ID as string),
       {
         body: commands,
       },

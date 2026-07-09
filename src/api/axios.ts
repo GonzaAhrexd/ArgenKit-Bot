@@ -1,11 +1,6 @@
 import axios from "axios";
-import dotenv from "dotenv";
 import https from "https";
-
-dotenv.config();
-
-const API_TOKEN_FINNHUB = process.env.apiKeyFinnhub || "";
-const API_KEY_OPENWEATHER = process.env.apiKeyOpenWeather || "";
+import { FINNHUB_API_KEY, WEATHER_API_KEY } from "../config/envs";
 
 export const bluelyticsClient = axios.create({
   baseURL: "https://api.bluelytics.com.ar/v2",
@@ -31,14 +26,14 @@ export const dolarApiClient = axios.create({
 export const finnhubClient = axios.create({
   baseURL: "https://finnhub.io/api/v1",
   params: {
-    token: API_TOKEN_FINNHUB,
+    token: FINNHUB_API_KEY,
   },
 });
 
 export const openweathermapClient = axios.create({
   baseURL: "https://api.openweathermap.org/data/2.5/",
   params: {
-    appid: API_KEY_OPENWEATHER,
+    appid: WEATHER_API_KEY,
   },
 });
 

@@ -11,6 +11,7 @@ import {
   ActivityType,
 } from "discord.js";
 
+import { TOKEN } from "./config/envs";
 // Inicialización del cliente con los Intents requeridos
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
@@ -121,4 +122,4 @@ client.on("ready", async () => {
 // ---------------------------------------------------
 // INICIO DE SESIÓN
 // ---------------------------------------------------
-client.login(process.env.token);
+client.login(TOKEN);

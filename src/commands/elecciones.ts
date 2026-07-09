@@ -1,7 +1,6 @@
 import Discord from "discord.js";
-const { diasHasta } = require("../functions/diasHasta");
-import { ActionRowBuilder, ButtonBuilder } from "discord.js";
-import { ButtonStyle } from "discord.js";
+import { diasHasta } from "../functions/diasHasta";
+
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName("elecciones")

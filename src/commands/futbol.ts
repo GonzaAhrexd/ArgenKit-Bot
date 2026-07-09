@@ -1,7 +1,7 @@
 // DiscordJS
 import Discord from "discord.js";
 // Funciones
-const { diasHasta } = require("../functions/diasHasta");
+import { diasHasta } from '../functions/diasHasta';
 // Variables
 import proximosPartidos from "../variables/partidos-valores";
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
       "Muestra cuántos días faltan para  los siguientes partidos de la selección",
     ),
 
-  async run(client, interaction) {
+  async run(_client, interaction) {
     const partidosFuturos = proximosPartidos.filter(
       (partido) => new Date(partido.fecha) > new Date(),
     );

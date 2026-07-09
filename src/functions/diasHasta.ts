@@ -1,9 +1,4 @@
-function diasHasta(fecha: Date): number {
-  let hoy = new Date();
-  //@ts-ignore
-  return Math.ceil((fecha - hoy) / (1000 * 60 * 60 * 24));
-}
-
-module.exports = {
-  diasHasta: diasHasta,
+export const diasHasta = (date: Date): number => {
+  const today = new Date();
+  return Math.ceil((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 };

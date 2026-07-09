@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 import { getProximoFeriadoData } from "../api/argentinaDatos";
-const { diasHasta } = require("../functions/diasHasta");
+import { diasHasta } from "../functions/diasHasta";
 const wait = require("node:timers/promises").setTimeout;
 
 module.exports = {

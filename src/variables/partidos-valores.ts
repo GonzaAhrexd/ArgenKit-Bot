@@ -6,9 +6,9 @@ interface Partido {
 
 const proximosPartidos: Partido[] = [
   {
-    fecha: "2026-07-15",
-    rival: ":england:",
-    categoria: "Copa del Mundo 2026",
+    fecha: "2026-07-19",
+    rival: ":flag_es:",
+    categoria: "Final de la Copa del Mundo 2026",
   },
 ];
 

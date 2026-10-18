@@ -6,7 +6,7 @@
 <p> Además, el bot ofrece funciones divertidas como tirar dados, hacer preguntas a la bola mágica y calcular tus posibilidades de escapar de Latinoamérica. </p>
 <p> Argenkit bot fue creado por Gonzalo Ebel (GonzaAhre) el 6 de enero de 2021 y lanzado al público en marzo del mismo año. A lo largo del tiempo, ha recibido varias actualizaciones que han añadido nuevas funciones y mejorado su diseño. </p>
 <h2>Servidor de Discord</h2>
-    <p> Puedes unirte al servidor de Discord del bot <a href="https://discord.gg/68jsHeTRYa">aquí</a>. </p>
+    <p> Podés unirte al servidor de Discord del bot <a href="https://discord.gg/68jsHeTRYa">aquí</a>. </p>
     <h2>Donaciones</h2>
     <p> Se agradece cualquier donación realizada a través del comando <code>/donaciones</code>. </p>
 
